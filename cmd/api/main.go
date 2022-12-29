@@ -16,4 +16,6 @@ func main() {
 		log.Fatal("cannot load config: ", configErr)
 	}
 	db.ConnectDB(config)
+	gorm, _ := db.ConnectGormDB(config)
+	fmt.Printf("\ngorm : %v\n\n", gorm)
 }
