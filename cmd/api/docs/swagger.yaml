@@ -1,4 +1,89 @@
+basePath: /
+definitions:
+  domain.Login:
+    properties:
+      id_login:
+        type: integer
+      password:
+        type: string
+      status:
+        type: string
+      username:
+        type: string
+      usertype:
+        type: string
+      verification:
+        type: string
+    type: object
+  response.Response:
+    properties:
+      data: {}
+      errors: {}
+      message:
+        type: string
+      status:
+        type: boolean
+    type: object
+host: localhost:3000
 info:
-  contact: {}
-paths: {}
+  contact:
+    email: support@swagger.io
+    name: API Support
+    url: http://www.swagger.io/support
+  description: This is a sample server Job Portal server. You can visit the GitHub
+    repository at https://github.com/fazil
+  license:
+    name: MIT
+    url: https://opensource.org/licenses/MIT
+  title: Go + Gin Workey API
+  version: "1.0"
+paths:
+  /login:
+    post:
+      operationId: login authentication
+      parameters:
+      - description: 'User Name : '
+        in: path
+        name: username
+        required: true
+        type: string
+      - description: 'Password : '
+        in: path
+        name: password
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            allOf:
+            - $ref: '#/definitions/response.Response'
+            - properties:
+                Data:
+                  $ref: '#/definitions/domain.Login'
+                Errors:
+                  type: string
+                Message:
+                  type: string
+                Status:
+                  type: boolean
+              type: object
+        "422":
+          description: Unprocessable Entity
+          schema:
+            allOf:
+            - $ref: '#/definitions/response.Response'
+            - properties:
+                Data:
+                  type: string
+                Errors:
+                  type: string
+                Message:
+                  type: string
+                Status:
+                  type: boolean
+              type: object
+      summary: Login for users
 swagger: "2.0"
