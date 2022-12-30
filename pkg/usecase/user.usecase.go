@@ -10,19 +10,19 @@ import (
 	services "github.com/fazilnbr/project-workey/pkg/usecase/interface"
 )
 
-type userService struct {
+type userUseCase struct {
 	userRepo interfaces.UserRepository
 }
 
 func NewUserService(
-	userRepo interfaces.UserRepository) services.UserService {
-	return &userService{
+	userRepo interfaces.UserRepository) services.UserUseCase {
+	return &userUseCase{
 		userRepo: userRepo,
 	}
 }
 
 // CreateUser implements interfaces.UserService
-func (c *userService) CreateUser(newUser domain.Login) error {
+func (c *userUseCase) CreateUser(newUser domain.Login) error {
 	_, err := c.userRepo.FindUser(newUser.UserName)
 
 	if err == nil {
@@ -38,15 +38,8 @@ func (c *userService) CreateUser(newUser domain.Login) error {
 	return err
 }
 
-func HashPassword(password string) string {
-	data := []byte(password)
-	password = fmt.Sprintf("%x", md5.Sum(data))
-	return password
-
-}
-
 // FindUser implements interfaces.UserService
-func (c *userService) FindUser(email string) (*domain.UserResponse, error) {
+func (c *userUseCase) FindUser(email string) (*domain.UserResponse, error) {
 	user, err := c.userRepo.FindUser(email)
 
 	if err != nil {
@@ -54,4 +47,33 @@ func (c *userService) FindUser(email string) (*domain.UserResponse, error) {
 	}
 
 	return &user, nil
+}
+
+// VerifyUser implements interfaces.UserService
+func (c *userUseCase) VerifyUser(email string, password string) error {
+	user, err := c.userRepo.FindUser(email)
+
+	if err != nil {
+		return errors.New("failed to login. check your email")
+	}
+
+	isValidPassword := VerifyPassword(password, user.Password)
+	if !isValidPassword {
+		return errors.New("failed to login. check your credential")
+	}
+
+	return nil
+}
+
+func HashPassword(password string) string {
+	data := []byte(password)
+	password = fmt.Sprintf("%x", md5.Sum(data))
+	return password
+
+}
+
+func VerifyPassword(requestPassword, dbPassword string) bool {
+
+	requestPassword = fmt.Sprintf("%x", md5.Sum([]byte(requestPassword)))
+	return requestPassword == dbPassword
 }

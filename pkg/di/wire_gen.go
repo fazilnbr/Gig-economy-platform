@@ -20,8 +20,9 @@ import (
 func InitializeAPI(cfg config.Config) (*api.ServerHTTP, error) {
 	sqlDB := db.ConnectDB(cfg)
 	userRepository := repository.NewUserRepo(sqlDB)
-	userService := usecase.NewUserService(userRepository)
-	userHandler := middleware.NewUserHandler(userService)
+	userUseCase := usecase.NewUserService(userRepository)
+	jwtUseCase := usecase.NewJWTUserService()
+	userHandler := middleware.NewUserHandler(userUseCase, jwtUseCase)
 	serverHTTP := api.NewServerHTTP(userHandler)
 	return serverHTTP, nil
 }

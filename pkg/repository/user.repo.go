@@ -12,10 +12,19 @@ type userRepo struct {
 	db *sql.DB
 }
 
-func NewUserRepo(db *sql.DB) interfaces.UserRepository {
-	return &userRepo{
-		db: db,
-	}
+// AddProfile implements interfaces.UserRepository
+func (*userRepo) AddProfile(login domain.User, id int) (int, error) {
+	panic("unimplemented")
+}
+
+// StoreVerificationDetails implements interfaces.UserRepository
+func (*userRepo) StoreVerificationDetails(email string, code int) error {
+	panic("unimplemented")
+}
+
+// VerifyAccount implements interfaces.UserRepository
+func (*userRepo) VerifyAccount(email string, code int) error {
+	panic("unimplemented")
 }
 
 // FindUser implements interfaces.UserRepository
@@ -54,4 +63,10 @@ func (c *userRepo) InsertUser(login domain.Login) (int, error) {
 	)
 
 	return id, err
+}
+
+func NewUserRepo(db *sql.DB) interfaces.UserRepository {
+	return &userRepo{
+		db: db,
+	}
 }

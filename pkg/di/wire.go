@@ -16,7 +16,7 @@ import (
 
 func InitializeAPI(cfg config.Config) (*http.ServerHTTP, error) {
 	// fmt.Printf("\n\n\nv\n\n\n")
-	wire.Build(db.ConnectDB, repository.NewUserRepo, usecase.NewUserService, handler.NewUserHandler, http.NewServerHTTP)
+	wire.Build(db.ConnectDB, repository.NewUserRepo, usecase.NewUserService, usecase.NewJWTUserService, handler.NewUserHandler, http.NewServerHTTP)
 
 	// fmt.Printf("\n\n\nbuild : %v\n\n\n", s)
 	return &http.ServerHTTP{}, nil
