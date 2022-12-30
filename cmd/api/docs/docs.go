@@ -24,13 +24,94 @@ const docTemplate = `{
     "host": "{{.Host}}",
     "basePath": "{{.BasePath}}",
     "paths": {
-        "/login": {
+        "/user/login": {
             "post": {
                 "produces": [
                     "application/json"
                 ],
                 "summary": "Login for users",
                 "operationId": "login authentication",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "User Name : ",
+                        "name": "username",
+                        "in": "path",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": "Password : ",
+                        "name": "password",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "allOf": [
+                                {
+                                    "$ref": "#/definitions/response.Response"
+                                },
+                                {
+                                    "type": "object",
+                                    "properties": {
+                                        "Data": {
+                                            "$ref": "#/definitions/domain.Login"
+                                        },
+                                        "Errors": {
+                                            "type": "string"
+                                        },
+                                        "Message": {
+                                            "type": "string"
+                                        },
+                                        "Status": {
+                                            "type": "boolean"
+                                        }
+                                    }
+                                }
+                            ]
+                        }
+                    },
+                    "422": {
+                        "description": "Unprocessable Entity",
+                        "schema": {
+                            "allOf": [
+                                {
+                                    "$ref": "#/definitions/response.Response"
+                                },
+                                {
+                                    "type": "object",
+                                    "properties": {
+                                        "Data": {
+                                            "type": "string"
+                                        },
+                                        "Errors": {
+                                            "type": "string"
+                                        },
+                                        "Message": {
+                                            "type": "string"
+                                        },
+                                        "Status": {
+                                            "type": "boolean"
+                                        }
+                                    }
+                                }
+                            ]
+                        }
+                    }
+                }
+            }
+        },
+        "/user/signup": {
+            "post": {
+                "produces": [
+                    "application/json"
+                ],
+                "summary": "SignUp for users",
+                "operationId": "SignUp authentication",
                 "parameters": [
                     {
                         "type": "string",
@@ -153,7 +234,7 @@ var SwaggerInfo = &swag.Spec{
 	BasePath:         "/",
 	Schemes:          []string{},
 	Title:            "Go + Gin Workey API",
-	Description:      "This is a sample server Job Portal server. You can visit the GitHub repository at https://github.com/fazil",
+	Description:      "This is a sample server Job Portal server. You can visit the GitHub repository at https://github.com/fazil/Job_Portal_Project",
 	InfoInstanceName: "swagger",
 	SwaggerTemplate:  docTemplate,
 }

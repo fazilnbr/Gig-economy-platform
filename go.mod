@@ -14,6 +14,8 @@ require (
 	gorm.io/gorm v1.24.2
 )
 
+require github.com/golang-jwt/jwt/v4 v4.4.3
+
 require (
 	github.com/KyleBanks/depth v1.2.1 // indirect
 	github.com/fsnotify/fsnotify v1.6.0 // indirect

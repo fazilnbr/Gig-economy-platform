@@ -24,7 +24,11 @@ func NewServerHTTP(userHandler *middleware.UserHandler) *ServerHTTP {
 	engine.GET("/swagger/*any", ginSwagger.WrapHandler(swaggerfiles.Handler))
 
 	// Request JWT
-	engine.POST("/login", userHandler.FindAll)
+	user := engine.Group("user")
+	{
+		user.POST("/signup", userHandler.UserSignUp)
+		user.POST("/login", userHandler.UserLogin)
+	}
 
 	// Auth middleware
 	// api := engine.Group("/api", middleware.AuthorizationMiddleware)
@@ -39,7 +43,7 @@ func NewServerHTTP(userHandler *middleware.UserHandler) *ServerHTTP {
 
 func (sh *ServerHTTP) Start() {
 	fmt.Print("\n\nddddddddd\n\n")
-	err := sh.engine.Run(":3000")
+	err := sh.engine.Run(":8080")
 	if err != nil {
 		log.Fatalln(err)
 	}
