@@ -21,6 +21,14 @@ func NewUserHandler(usecase services.UserService) *UserHandler {
 	}
 }
 
+// @Summary Login for users
+// @ID login authentication
+// @Produce json
+// @Param        username   path      string  true  "User Name : "
+// @Param        password   path      string  true  "Password : "
+// @Success 200 {object} response.Response{Status=bool,Message=string,Errors=string,Data=domain.Login}
+// @Failure 422 {object} response.Response{Status=bool,Message=string,Errors=string,Data=string}
+// @Router /login [post]
 func (cr *UserHandler) FindAll(c *gin.Context) {
 	var newUser domain.Login
 
