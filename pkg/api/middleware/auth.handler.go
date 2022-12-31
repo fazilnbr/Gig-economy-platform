@@ -3,6 +3,7 @@ package middleware
 import (
 	"fmt"
 	"net/http"
+	"strconv"
 
 	"github.com/fazilnbr/project-workey/pkg/common/response"
 	"github.com/fazilnbr/project-workey/pkg/domain"
@@ -134,6 +135,35 @@ func (cr *AuthHandler) SendVerificationMail(c *gin.Context) {
 	user.Password = ""
 	user.Token = token
 	response := response.SuccessResponse(true, "SUCCESS", user)
+	c.Writer.Header().Set("Content-Type", "application/json")
+	c.Writer.WriteHeader(http.StatusOK)
+	utils.ResponseJSON(*c, response)
+}
+
+// @Summary Varify OTP of users
+// @ID Varify OTP authentication
+// @Produce json
+// @Param        username   path      string  true  "User Name : "
+// @Param        password   path      string  true  "Password : "
+// @Success 200 {object} response.Response{Status=bool,Message=string,Errors=string,Data=domain.Login}
+// @Failure 422 {object} response.Response{Status=bool,Message=string,Errors=string,Data=string}
+// @Router /user/verify/account [post]
+func (cr *AuthHandler) VerifyAccount(c *gin.Context) {
+	email := c.Query("email")
+	code, _ := strconv.Atoi(c.Query("code"))
+
+	err := cr.authUseCase.VerifyAccount(email, code)
+
+	if err != nil {
+		response := response.ErrorResponse("Error while sending verification mail", err.Error(), nil)
+		c.Writer.Header().Set("Content-Type", "application/json")
+		c.Writer.WriteHeader(http.StatusUnprocessableEntity)
+
+		utils.ResponseJSON(*c, response)
+		return
+	}
+
+	response := response.SuccessResponse(true, "SUCCESS", email)
 	c.Writer.Header().Set("Content-Type", "application/json")
 	c.Writer.WriteHeader(http.StatusOK)
 	utils.ResponseJSON(*c, response)

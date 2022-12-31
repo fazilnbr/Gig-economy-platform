@@ -16,6 +16,13 @@ type authUseCase struct {
 	config     config.Config
 }
 
+// VerifyAccount implements interfaces.AuthUseCase
+func (c *authUseCase) VerifyAccount(email string, code int) error {
+	err := c.userRepo.VerifyAccount(email, code)
+
+	return err
+}
+
 // SendVerificationEmail implements interfaces.AuthUseCase
 func (c *authUseCase) SendVerificationEmail(email string) error {
 
