@@ -18,8 +18,14 @@ func (*userRepo) AddProfile(login domain.User, id int) (int, error) {
 }
 
 // StoreVerificationDetails implements interfaces.UserRepository
-func (*userRepo) StoreVerificationDetails(email string, code int) error {
-	panic("unimplemented")
+func (c *userRepo) StoreVerificationDetails(email string, code int) error {
+	query := `INSERT INTO 
+		verifications(email, code)
+		VALUES( $1, $2);`
+
+	err := c.db.QueryRow(query, email, code).Err()
+
+	return err
 }
 
 // VerifyAccount implements interfaces.UserRepository
