@@ -24,6 +24,7 @@ func InitializeAPI(cfg config.Config) (*http.ServerHTTP, error) {
 		usecase.NewUserService,
 		usecase.NewAuthService,
 		handler.NewUserHandler,
+		handler.NewUserMiddileware,
 		http.NewServerHTTP)
 
 	// fmt.Printf("\n\n\nbuild : %v\n\n\n", s)

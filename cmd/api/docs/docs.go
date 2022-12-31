@@ -24,6 +24,80 @@ const docTemplate = `{
     "host": "{{.Host}}",
     "basePath": "{{.BasePath}}",
     "paths": {
+        "/user/account/verifyJWT": {
+            "get": {
+                "produces": [
+                    "application/json"
+                ],
+                "summary": "Varify JWT of users",
+                "operationId": "Varify JWT authentication",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "Email : ",
+                        "name": "email",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "allOf": [
+                                {
+                                    "$ref": "#/definitions/response.Response"
+                                },
+                                {
+                                    "type": "object",
+                                    "properties": {
+                                        "Data": {
+                                            "type": "string"
+                                        },
+                                        "Errors": {
+                                            "type": "string"
+                                        },
+                                        "Message": {
+                                            "type": "string"
+                                        },
+                                        "Status": {
+                                            "type": "boolean"
+                                        }
+                                    }
+                                }
+                            ]
+                        }
+                    },
+                    "422": {
+                        "description": "Unprocessable Entity",
+                        "schema": {
+                            "allOf": [
+                                {
+                                    "$ref": "#/definitions/response.Response"
+                                },
+                                {
+                                    "type": "object",
+                                    "properties": {
+                                        "Data": {
+                                            "type": "string"
+                                        },
+                                        "Errors": {
+                                            "type": "string"
+                                        },
+                                        "Message": {
+                                            "type": "string"
+                                        },
+                                        "Status": {
+                                            "type": "boolean"
+                                        }
+                                    }
+                                }
+                            ]
+                        }
+                    }
+                }
+            }
+        },
         "/user/login": {
             "post": {
                 "produces": [
@@ -59,7 +133,81 @@ const docTemplate = `{
                                     "type": "object",
                                     "properties": {
                                         "Data": {
-                                            "$ref": "#/definitions/domain.Login"
+                                            "$ref": "#/definitions/domain.UserResponse"
+                                        },
+                                        "Errors": {
+                                            "type": "string"
+                                        },
+                                        "Message": {
+                                            "type": "string"
+                                        },
+                                        "Status": {
+                                            "type": "boolean"
+                                        }
+                                    }
+                                }
+                            ]
+                        }
+                    },
+                    "422": {
+                        "description": "Unprocessable Entity",
+                        "schema": {
+                            "allOf": [
+                                {
+                                    "$ref": "#/definitions/response.Response"
+                                },
+                                {
+                                    "type": "object",
+                                    "properties": {
+                                        "Data": {
+                                            "type": "string"
+                                        },
+                                        "Errors": {
+                                            "type": "string"
+                                        },
+                                        "Message": {
+                                            "type": "string"
+                                        },
+                                        "Status": {
+                                            "type": "boolean"
+                                        }
+                                    }
+                                }
+                            ]
+                        }
+                    }
+                }
+            }
+        },
+        "/user/send/verification": {
+            "post": {
+                "produces": [
+                    "application/json"
+                ],
+                "summary": "Send OTP varification mail to users",
+                "operationId": "SendVerificationMail authentication",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "Email : ",
+                        "name": "email",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "allOf": [
+                                {
+                                    "$ref": "#/definitions/response.Response"
+                                },
+                                {
+                                    "type": "object",
+                                    "properties": {
+                                        "Data": {
+                                            "$ref": "#/definitions/domain.UserResponse"
                                         },
                                         "Errors": {
                                             "type": "string"
@@ -185,6 +333,87 @@ const docTemplate = `{
                     }
                 }
             }
+        },
+        "/user/verify/account": {
+            "post": {
+                "produces": [
+                    "application/json"
+                ],
+                "summary": "Varify OTP of users",
+                "operationId": "Varify OTP authentication",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "Email : ",
+                        "name": "email",
+                        "in": "path",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": "OTP : ",
+                        "name": "code",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "allOf": [
+                                {
+                                    "$ref": "#/definitions/response.Response"
+                                },
+                                {
+                                    "type": "object",
+                                    "properties": {
+                                        "Data": {
+                                            "type": "string"
+                                        },
+                                        "Errors": {
+                                            "type": "string"
+                                        },
+                                        "Message": {
+                                            "type": "string"
+                                        },
+                                        "Status": {
+                                            "type": "boolean"
+                                        }
+                                    }
+                                }
+                            ]
+                        }
+                    },
+                    "422": {
+                        "description": "Unprocessable Entity",
+                        "schema": {
+                            "allOf": [
+                                {
+                                    "$ref": "#/definitions/response.Response"
+                                },
+                                {
+                                    "type": "object",
+                                    "properties": {
+                                        "Data": {
+                                            "type": "string"
+                                        },
+                                        "Errors": {
+                                            "type": "string"
+                                        },
+                                        "Message": {
+                                            "type": "string"
+                                        },
+                                        "Status": {
+                                            "type": "boolean"
+                                        }
+                                    }
+                                }
+                            ]
+                        }
+                    }
+                }
+            }
         }
     },
     "definitions": {
@@ -211,6 +440,23 @@ const docTemplate = `{
                 }
             }
         },
+        "domain.UserResponse": {
+            "type": "object",
+            "properties": {
+                "first_name": {
+                    "type": "string"
+                },
+                "id": {
+                    "type": "integer"
+                },
+                "password": {
+                    "type": "string"
+                },
+                "token": {
+                    "type": "string"
+                }
+            }
+        },
         "response.Response": {
             "type": "object",
             "properties": {
@@ -230,7 +476,7 @@ const docTemplate = `{
 // SwaggerInfo holds exported Swagger Info so clients can modify it
 var SwaggerInfo = &swag.Spec{
 	Version:          "1.0",
-	Host:             "localhost:3000",
+	Host:             "localhost:8080",
 	BasePath:         "/",
 	Schemes:          []string{},
 	Title:            "Go + Gin Workey API",
