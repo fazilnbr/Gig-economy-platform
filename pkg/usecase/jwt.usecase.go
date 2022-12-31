@@ -1,6 +1,7 @@
 package usecase
 
 import (
+	"fmt"
 	"log"
 	"os"
 	"time"
@@ -36,14 +37,29 @@ func (j *JWTUseCase) GenerateToken(user_id int, username string, role string) st
 	return signedToken
 }
 
-// GetTokenFromString implements interfaces.JWTUseCase
-func (*JWTUseCase) GetTokenFromString(signedToken string, claims *services.SignedDetails) (*jwt.Token, error) {
-	panic("unimplemented")
+// // GetTokenFromString implements interfaces.JWTUseCase
+func (j *JWTUseCase) GetTokenFromString(signedToken string, claims *model.SignedDetails) (*jwt.Token, error) {
+	return jwt.ParseWithClaims(signedToken, claims, func(token *jwt.Token) (interface{}, error) {
+		if _, ok := token.Method.(*jwt.SigningMethodHMAC); !ok {
+			return nil, fmt.Errorf("unexpected signing method: %v", token.Header["alg"])
+		}
+
+		return []byte(j.SecretKey), nil
+	})
+
 }
 
 // VerifyToken implements interfaces.JWTUseCase
-func (*JWTUseCase) VerifyToken(signedToken string) (bool, *services.SignedDetails) {
-	panic("unimplemented")
+func (j *JWTUseCase) VerifyToken(signedToken string) (bool, *model.SignedDetails) {
+	claims := &model.SignedDetails{}
+	token, _ := j.GetTokenFromString(signedToken, claims)
+
+	if token.Valid {
+		if e := claims.Valid(); e == nil {
+			return true, claims
+		}
+	}
+	return false, claims
 }
 
 func NewJWTUserService() services.JWTUseCase {

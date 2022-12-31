@@ -70,7 +70,7 @@ func (cr *AuthHandler) UserSignUp(c *gin.Context) {
 // @Produce json
 // @Param        username   path      string  true  "User Name : "
 // @Param        password   path      string  true  "Password : "
-// @Success 200 {object} response.Response{Status=bool,Message=string,Errors=string,Data=domain.Login}
+// @Success 200 {object} response.Response{Status=bool,Message=string,Errors=string,Data=domain.UserResponse}
 // @Failure 422 {object} response.Response{Status=bool,Message=string,Errors=string,Data=string}
 // @Router /user/login [post]
 func (cr *AuthHandler) UserLogin(c *gin.Context) {
@@ -105,9 +105,8 @@ func (cr *AuthHandler) UserLogin(c *gin.Context) {
 // @Summary Send OTP varification mail to users
 // @ID SendVerificationMail authentication
 // @Produce json
-// @Param        username   path      string  true  "User Name : "
-// @Param        password   path      string  true  "Password : "
-// @Success 200 {object} response.Response{Status=bool,Message=string,Errors=string,Data=domain.Login}
+// @Param        email   path      string  true  "Email : "
+// @Success 200 {object} response.Response{Status=bool,Message=string,Errors=string,Data=domain.UserResponse}
 // @Failure 422 {object} response.Response{Status=bool,Message=string,Errors=string,Data=string}
 // @Router /user/send/verification [post]
 func (cr *AuthHandler) SendVerificationMail(c *gin.Context) {
@@ -143,9 +142,9 @@ func (cr *AuthHandler) SendVerificationMail(c *gin.Context) {
 // @Summary Varify OTP of users
 // @ID Varify OTP authentication
 // @Produce json
-// @Param        username   path      string  true  "User Name : "
-// @Param        password   path      string  true  "Password : "
-// @Success 200 {object} response.Response{Status=bool,Message=string,Errors=string,Data=domain.Login}
+// @Param        email   path      string  true  "Email : "
+// @Param        code   path      string  true  "OTP : "
+// @Success 200 {object} response.Response{Status=bool,Message=string,Errors=string,Data=string}
 // @Failure 422 {object} response.Response{Status=bool,Message=string,Errors=string,Data=string}
 // @Router /user/verify/account [post]
 func (cr *AuthHandler) VerifyAccount(c *gin.Context) {
@@ -164,6 +163,22 @@ func (cr *AuthHandler) VerifyAccount(c *gin.Context) {
 	}
 
 	response := response.SuccessResponse(true, "SUCCESS", email)
+	c.Writer.Header().Set("Content-Type", "application/json")
+	c.Writer.WriteHeader(http.StatusOK)
+	utils.ResponseJSON(*c, response)
+}
+
+// @Summary Varify JWT of users
+// @ID Varify JWT authentication
+// @Produce json
+// @Param        email   path      string  true  "Email : "
+// @Success 200 {object} response.Response{Status=bool,Message=string,Errors=string,Data=string}
+// @Failure 422 {object} response.Response{Status=bool,Message=string,Errors=string,Data=string}
+// @Router /user/account/verifyJWT [get]
+func (cr *AuthHandler) UserHome(c *gin.Context) {
+	email := c.Query("email")
+
+	response := response.SuccessResponse(true, "welcome home", email)
 	c.Writer.Header().Set("Content-Type", "application/json")
 	c.Writer.WriteHeader(http.StatusOK)
 	utils.ResponseJSON(*c, response)

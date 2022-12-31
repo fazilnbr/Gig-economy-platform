@@ -15,6 +15,17 @@ definitions:
       verification:
         type: string
     type: object
+  domain.UserResponse:
+    properties:
+      first_name:
+        type: string
+      id:
+        type: integer
+      password:
+        type: string
+      token:
+        type: string
+    type: object
   response.Response:
     properties:
       data: {}
@@ -24,7 +35,7 @@ definitions:
       status:
         type: boolean
     type: object
-host: localhost:3000
+host: localhost:8080
 info:
   contact:
     email: support@swagger.io
@@ -38,6 +49,49 @@ info:
   title: Go + Gin Workey API
   version: "1.0"
 paths:
+  /user/account/verifyJWT:
+    get:
+      operationId: Varify JWT authentication
+      parameters:
+      - description: 'Email : '
+        in: path
+        name: email
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            allOf:
+            - $ref: '#/definitions/response.Response'
+            - properties:
+                Data:
+                  type: string
+                Errors:
+                  type: string
+                Message:
+                  type: string
+                Status:
+                  type: boolean
+              type: object
+        "422":
+          description: Unprocessable Entity
+          schema:
+            allOf:
+            - $ref: '#/definitions/response.Response'
+            - properties:
+                Data:
+                  type: string
+                Errors:
+                  type: string
+                Message:
+                  type: string
+                Status:
+                  type: boolean
+              type: object
+      summary: Varify JWT of users
   /user/login:
     post:
       operationId: login authentication
@@ -62,7 +116,7 @@ paths:
             - $ref: '#/definitions/response.Response'
             - properties:
                 Data:
-                  $ref: '#/definitions/domain.Login'
+                  $ref: '#/definitions/domain.UserResponse'
                 Errors:
                   type: string
                 Message:
@@ -86,6 +140,49 @@ paths:
                   type: boolean
               type: object
       summary: Login for users
+  /user/send/verification:
+    post:
+      operationId: SendVerificationMail authentication
+      parameters:
+      - description: 'Email : '
+        in: path
+        name: email
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            allOf:
+            - $ref: '#/definitions/response.Response'
+            - properties:
+                Data:
+                  $ref: '#/definitions/domain.UserResponse'
+                Errors:
+                  type: string
+                Message:
+                  type: string
+                Status:
+                  type: boolean
+              type: object
+        "422":
+          description: Unprocessable Entity
+          schema:
+            allOf:
+            - $ref: '#/definitions/response.Response'
+            - properties:
+                Data:
+                  type: string
+                Errors:
+                  type: string
+                Message:
+                  type: string
+                Status:
+                  type: boolean
+              type: object
+      summary: Send OTP varification mail to users
   /user/signup:
     post:
       operationId: SignUp authentication
@@ -134,4 +231,52 @@ paths:
                   type: boolean
               type: object
       summary: SignUp for users
+  /user/verify/account:
+    post:
+      operationId: Varify OTP authentication
+      parameters:
+      - description: 'Email : '
+        in: path
+        name: email
+        required: true
+        type: string
+      - description: 'OTP : '
+        in: path
+        name: code
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            allOf:
+            - $ref: '#/definitions/response.Response'
+            - properties:
+                Data:
+                  type: string
+                Errors:
+                  type: string
+                Message:
+                  type: string
+                Status:
+                  type: boolean
+              type: object
+        "422":
+          description: Unprocessable Entity
+          schema:
+            allOf:
+            - $ref: '#/definitions/response.Response'
+            - properties:
+                Data:
+                  type: string
+                Errors:
+                  type: string
+                Message:
+                  type: string
+                Status:
+                  type: boolean
+              type: object
+      summary: Varify OTP of users
 swagger: "2.0"

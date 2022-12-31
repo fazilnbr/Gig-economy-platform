@@ -25,7 +25,7 @@ import (
 // @license.name MIT
 // @license.url https://opensource.org/licenses/MIT
 
-// @host localhost:3000
+// @host localhost:8080
 // @BasePath /
 // @query.collection.format multi
 func main() {
@@ -35,7 +35,7 @@ func main() {
 	if configErr != nil {
 		log.Fatal("cannot load config: ", configErr)
 	}
-	db.ConnectDB(config)
+	// db.ConnectDB(config)
 	gorm, _ := db.ConnectGormDB(config)
 	fmt.Printf("\ngorm : %v\n\n", gorm)
 
