@@ -29,6 +29,7 @@ func NewServerHTTP(authHandler *middleware.AuthHandler) *ServerHTTP {
 		user.POST("/signup", authHandler.UserSignUp)
 		user.POST("/login", authHandler.UserLogin)
 		user.POST("/send/verification", authHandler.SendVerificationMail)
+		user.POST("/verify/account", authHandler.VerifyAccount)
 	}
 
 	// Auth middleware
