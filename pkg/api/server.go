@@ -14,7 +14,7 @@ type ServerHTTP struct {
 	engine *gin.Engine
 }
 
-func NewServerHTTP(userHandler *middleware.UserHandler) *ServerHTTP {
+func NewServerHTTP(authHandler *middleware.AuthHandler) *ServerHTTP {
 	engine := gin.New()
 
 	// Use logger from Gin
@@ -26,8 +26,9 @@ func NewServerHTTP(userHandler *middleware.UserHandler) *ServerHTTP {
 	// Request JWT
 	user := engine.Group("user")
 	{
-		user.POST("/signup", userHandler.UserSignUp)
-		user.POST("/login", userHandler.UserLogin)
+		user.POST("/signup", authHandler.UserSignUp)
+		user.POST("/login", authHandler.UserLogin)
+		user.POST("/send/verification", authHandler.SendVerificationMail)
 	}
 
 	// Auth middleware

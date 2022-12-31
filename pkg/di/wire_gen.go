@@ -22,7 +22,9 @@ func InitializeAPI(cfg config.Config) (*api.ServerHTTP, error) {
 	userRepository := repository.NewUserRepo(sqlDB)
 	userUseCase := usecase.NewUserService(userRepository)
 	jwtUseCase := usecase.NewJWTUserService()
-	userHandler := middleware.NewUserHandler(userUseCase, jwtUseCase)
-	serverHTTP := api.NewServerHTTP(userHandler)
+	mailConfig := config.NewMailConfig()
+	authUseCase := usecase.NewAuthService(userRepository, mailConfig, cfg)
+	authHandler := middleware.NewUserHandler(userUseCase, jwtUseCase, authUseCase)
+	serverHTTP := api.NewServerHTTP(authHandler)
 	return serverHTTP, nil
 }

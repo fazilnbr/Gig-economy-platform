@@ -4,7 +4,6 @@ import (
 	"database/sql"
 	"fmt"
 	"log"
-	"os"
 
 	config "github.com/fazilnbr/project-workey/pkg/config"
 
@@ -13,7 +12,7 @@ import (
 
 func ConnectDB(cfg config.Config) *sql.DB {
 
-	databaseName := os.Getenv("DB_NAME")
+	databaseName := cfg.DBName
 
 	dbURI := cfg.DBSOURCE
 
