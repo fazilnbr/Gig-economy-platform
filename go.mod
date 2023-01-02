@@ -10,11 +10,13 @@ require (
 	github.com/spf13/viper v1.14.0
 	github.com/swaggo/files v1.0.0
 	github.com/swaggo/gin-swagger v1.5.3
-	gorm.io/driver/postgres v1.4.5
-	gorm.io/gorm v1.24.2
+	gorm.io/driver/postgres v1.4.6
+	gorm.io/gorm v1.24.3
 )
 
 require github.com/golang-jwt/jwt/v4 v4.4.3
+
+require github.com/jackc/pgx/v5 v5.2.0 // indirect
 
 require (
 	github.com/KyleBanks/depth v1.2.1 // indirect
@@ -28,14 +30,8 @@ require (
 	github.com/go-playground/universal-translator v0.18.0 // indirect
 	github.com/goccy/go-json v0.10.0 // indirect
 	github.com/hashicorp/hcl v1.0.0 // indirect
-	github.com/jackc/chunkreader/v2 v2.0.1 // indirect
-	github.com/jackc/pgconn v1.13.0 // indirect
-	github.com/jackc/pgio v1.0.0 // indirect
 	github.com/jackc/pgpassfile v1.0.0 // indirect
-	github.com/jackc/pgproto3/v2 v2.3.1 // indirect
 	github.com/jackc/pgservicefile v0.0.0-20221227161230-091c0ba34f0a // indirect
-	github.com/jackc/pgtype v1.13.0 // indirect
-	github.com/jackc/pgx/v4 v4.17.2 // indirect
 	github.com/jinzhu/inflection v1.0.0 // indirect
 	github.com/jinzhu/now v1.1.5 // indirect
 	github.com/josharian/intern v1.0.0 // indirect

@@ -44,7 +44,7 @@ func NewUserHandler(
 // @Param        password   path      string  true  "Password : "
 // @Success 200 {object} response.Response{Status=bool,Message=string,Errors=string,Data=domain.UserResponse}
 // @Failure 422 {object} response.Response{Status=bool,Message=string,Errors=string,Data=string}
-// @Router /user/login [post]
+// @Router /admin/login [post]
 func (cr *AuthHandler) AdminLogin(c *gin.Context) {
 	var loginAdmin domain.Login
 
@@ -154,7 +154,7 @@ func (cr *AuthHandler) UserLogin(c *gin.Context) {
 // @Param        password   path      string  true  "Password : "
 // @Success 200 {object} response.Response{Status=bool,Message=string,Errors=string,Data=domain.Login}
 // @Failure 422 {object} response.Response{Status=bool,Message=string,Errors=string,Data=string}
-// @Router /user/signup [post]
+// @Router /woker/signup [post]
 func (cr *AuthHandler) WorkerSignUp(c *gin.Context) {
 	var newUser domain.Login
 
@@ -189,7 +189,7 @@ func (cr *AuthHandler) WorkerSignUp(c *gin.Context) {
 // @Param        password   path      string  true  "Password : "
 // @Success 200 {object} response.Response{Status=bool,Message=string,Errors=string,Data=domain.UserResponse}
 // @Failure 422 {object} response.Response{Status=bool,Message=string,Errors=string,Data=string}
-// @Router /user/login [post]
+// @Router /worker/login [post]
 func (cr *AuthHandler) WorkerLogin(c *gin.Context) {
 	var loginWorker domain.Login
 
@@ -292,7 +292,7 @@ func (cr *AuthHandler) UserVerifyAccount(c *gin.Context) {
 // @Param        email   path      string  true  "Email : "
 // @Success 200 {object} response.Response{Status=bool,Message=string,Errors=string,Data=domain.UserResponse}
 // @Failure 422 {object} response.Response{Status=bool,Message=string,Errors=string,Data=string}
-// @Router /user/send/verification [post]
+// @Router /worker/send/verification [post]
 func (cr *AuthHandler) SendVerificationMailWorker(c *gin.Context) {
 	email := c.Query("email")
 
@@ -325,13 +325,13 @@ func (cr *AuthHandler) SendVerificationMailWorker(c *gin.Context) {
 }
 
 // @Summary Varify OTP of users
-// @ID Varify OTP authentication
+// @ID Varify worker OTP authentication
 // @Produce json
 // @Param        email   path      string  true  "Email : "
 // @Param        code   path      string  true  "OTP : "
 // @Success 200 {object} response.Response{Status=bool,Message=string,Errors=string,Data=string}
 // @Failure 422 {object} response.Response{Status=bool,Message=string,Errors=string,Data=string}
-// @Router /user/verify/account [post]
+// @Router /worker/verify/account [post]
 func (cr *AuthHandler) WorkerVerifyAccount(c *gin.Context) {
 	email := c.Query("email")
 	code, _ := strconv.Atoi(c.Query("code"))
@@ -370,12 +370,12 @@ func (cr *AuthHandler) UserHome(c *gin.Context) {
 }
 
 // @Summary Varify JWT of users
-// @ID Varify JWT authentication
+// @ID Varify worker JWT authentication
 // @Produce json
 // @Param        email   path      string  true  "Email : "
 // @Success 200 {object} response.Response{Status=bool,Message=string,Errors=string,Data=string}
 // @Failure 422 {object} response.Response{Status=bool,Message=string,Errors=string,Data=string}
-// @Router /user/account/verifyJWT [get]
+// @Router /worker/account/verifyJWT [get]
 func (cr *AuthHandler) WorkerHome(c *gin.Context) {
 	email := c.Query("email")
 
