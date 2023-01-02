@@ -20,14 +20,16 @@ import (
 
 func InitializeAPI(cfg config.Config) (*api.ServerHTTP, error) {
 	sqlDB := db.ConnectDB(cfg)
+	adminRepository := repository.NewAdminRepo(sqlDB)
+	mailConfig := config.NewMailConfig()
+	adminUseCase := usecase.NewAdminService(adminRepository, mailConfig)
 	workerRepository := repository.NewWorkerRepo(sqlDB)
 	workerUseCase := usecase.NewWorkerService(workerRepository)
 	userRepository := repository.NewUserRepo(sqlDB)
 	userUseCase := usecase.NewUserService(userRepository)
 	jwtUseCase := usecase.NewJWTUserService()
-	mailConfig := config.NewMailConfig()
-	authUseCase := usecase.NewAuthService(workerRepository, userRepository, mailConfig, cfg)
-	authHandler := handler.NewUserHandler(workerUseCase, userUseCase, jwtUseCase, authUseCase)
+	authUseCase := usecase.NewAuthService(adminRepository, workerRepository, userRepository, mailConfig, cfg)
+	authHandler := handler.NewUserHandler(adminUseCase, workerUseCase, userUseCase, jwtUseCase, authUseCase)
 	middlewareMiddleware := middleware.NewUserMiddileware(jwtUseCase)
 	serverHTTP := api.NewServerHTTP(authHandler, middlewareMiddleware)
 	return serverHTTP, nil

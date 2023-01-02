@@ -22,8 +22,18 @@ func (*adminRepo) BlockUser(id int) (domain.UserResponse, error) {
 }
 
 // FindAdmin implements interfaces.AdminRepository
-func (*adminRepo) FindAdmin(email string) (domain.AdminResponse, error) {
-	panic("unimplemented")
+func (c *adminRepo) FindAdmin(email string) (domain.AdminResponse, error) {
+	var admin domain.AdminResponse
+
+	query := `SELECT id_login,user_name,password  FROM logins WHERE user_name=$1 AND user_type='admin';`
+
+	err := c.db.QueryRow(query, email).Scan(
+		&admin.ID,
+		&admin.Username,
+		&admin.Password,
+	)
+
+	return admin, err
 }
 
 // ListBlockedUsers implements interfaces.AdminRepository
