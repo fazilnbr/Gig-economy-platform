@@ -5,7 +5,8 @@ package di
 
 import (
 	http "github.com/fazilnbr/project-workey/pkg/api"
-	handler "github.com/fazilnbr/project-workey/pkg/api/middleware"
+	"github.com/fazilnbr/project-workey/pkg/api/handler"
+	"github.com/fazilnbr/project-workey/pkg/api/middleware"
 	config "github.com/fazilnbr/project-workey/pkg/config"
 	"github.com/fazilnbr/project-workey/pkg/db"
 	repository "github.com/fazilnbr/project-workey/pkg/repository"
@@ -19,12 +20,14 @@ func InitializeAPI(cfg config.Config) (*http.ServerHTTP, error) {
 	wire.Build(
 		db.ConnectDB,
 		repository.NewUserRepo,
+		repository.NewWorkerRepo,
 		config.NewMailConfig,
 		usecase.NewJWTUserService,
+		usecase.NewWorkerService,
 		usecase.NewUserService,
 		usecase.NewAuthService,
 		handler.NewUserHandler,
-		handler.NewUserMiddileware,
+		middleware.NewUserMiddileware,
 		http.NewServerHTTP)
 
 	// fmt.Printf("\n\n\nbuild : %v\n\n\n", s)
