@@ -19,9 +19,11 @@ func InitializeAPI(cfg config.Config) (*http.ServerHTTP, error) {
 	// fmt.Printf("\n\n\nv\n\n\n")
 	wire.Build(
 		db.ConnectDB,
+		repository.NewAdminRepo,
 		repository.NewUserRepo,
 		repository.NewWorkerRepo,
 		config.NewMailConfig,
+		usecase.NewAdminService,
 		usecase.NewJWTUserService,
 		usecase.NewWorkerService,
 		usecase.NewUserService,

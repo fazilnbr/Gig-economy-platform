@@ -29,8 +29,8 @@ func NewServerHTTP(authHandler *handler.AuthHandler, middleware middleware.Middl
 	{
 		user.POST("/signup", authHandler.UserSignUp)
 		user.POST("/login", authHandler.UserLogin)
-		user.POST("/send/verification", authHandler.SendVerificationMail)
-		user.POST("/verify/account", authHandler.VerifyAccount)
+		user.POST("/send/verification", authHandler.SendVerificationMailUser)
+		user.POST("/verify/account", authHandler.UserVerifyAccount)
 		// authuser := user.Group("/")
 		user.Use(middleware.AthoriseJWT)
 		{
@@ -42,12 +42,24 @@ func NewServerHTTP(authHandler *handler.AuthHandler, middleware middleware.Middl
 	{
 		worker.POST("/signup", authHandler.WorkerSignUp)
 		worker.POST("/login", authHandler.WorkerLogin)
-		worker.POST("/send/verification", authHandler.SendVerificationMail)
-		worker.POST("/verify/account", authHandler.VerifyAccount)
+		worker.POST("/send/verification", authHandler.SendVerificationMailWorker)
+		worker.POST("/verify/account", authHandler.WorkerVerifyAccount)
 		// authuser := user.Group("/")
 		worker.Use(middleware.AthoriseJWT)
 		{
-			worker.GET("/account/verifyJWT", authHandler.UserHome)
+			worker.GET("/account/verifyJWT", authHandler.WorkerHome)
+		}
+	}
+
+	admin := engine.Group("admin")
+	{
+		admin.POST("/login", authHandler.AdminLogin)
+		admin.POST("/send/verification", authHandler.SendVerificationMailWorker)
+		admin.POST("/verify/account", authHandler.WorkerVerifyAccount)
+		// authuser := user.Group("/")
+		admin.Use(middleware.AthoriseJWT)
+		{
+			admin.GET("/account/verifyJWT", authHandler.WorkerHome)
 		}
 	}
 

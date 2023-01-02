@@ -12,14 +12,21 @@ import (
 )
 
 type authUseCase struct {
+	adminRepo  interfaces.AdminRepository
 	workerRepo interfaces.WorkerRepository
 	userRepo   interfaces.UserRepository
 	mailConfig config.MailConfig
 	config     config.Config
 }
 
+// WorkerVerifyAccount implements interfaces.AuthUseCase
+func (c *authUseCase) WorkerVerifyAccount(email string, code int) error {
+	err := c.workerRepo.VerifyAccount(email, code)
+	return err
+}
+
 // VerifyAccount implements interfaces.AuthUseCase
-func (c *authUseCase) VerifyAccount(email string, code int) error {
+func (c *authUseCase) UserVerifyAccount(email string, code int) error {
 	err := c.userRepo.VerifyAccount(email, code)
 
 	return err
@@ -52,8 +59,20 @@ func (c *authUseCase) SendVerificationEmail(email string) error {
 }
 
 // VerifyAdmin implements interfaces.AuthUseCase
-func (*authUseCase) VerifyAdmin(email string, password string) error {
-	panic("unimplemented")
+func (c *authUseCase) VerifyAdmin(email string, password string) error {
+	admin, err := c.adminRepo.FindAdmin(email)
+
+	if err != nil {
+		return errors.New("failed to login. check your email")
+	}
+
+	// isValidPassword := VerifyPassword(password, user.Password)
+
+	if admin.Password != password {
+		return errors.New("failed to login. check your credential")
+	}
+
+	return nil
 }
 
 // VerifyUser implements interfaces.AuthUseCase
@@ -79,12 +98,14 @@ func (c *authUseCase) VerifyWorker(email string, password string) error {
 }
 
 func NewAuthService(
+	adminRepo interfaces.AdminRepository,
 	workerRepo interfaces.WorkerRepository,
 	userRepo interfaces.UserRepository,
 	mailConfig config.MailConfig,
 	config config.Config,
 ) services.AuthUseCase {
 	return &authUseCase{
+		adminRepo:  adminRepo,
 		workerRepo: workerRepo,
 		userRepo:   userRepo,
 		mailConfig: mailConfig,
