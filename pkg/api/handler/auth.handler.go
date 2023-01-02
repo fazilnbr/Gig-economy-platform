@@ -1,4 +1,4 @@
-package middleware
+package handler
 
 import (
 	"fmt"
@@ -13,21 +13,24 @@ import (
 )
 
 type AuthHandler struct {
-	userUseCase services.UserUseCase
-	jwtUseCase  services.JWTUseCase
-	authUseCase services.AuthUseCase
+	workerUseCase services.WorkerUseCase
+	userUseCase   services.UserUseCase
+	jwtUseCase    services.JWTUseCase
+	authUseCase   services.AuthUseCase
 }
 
 func NewUserHandler(
-	usecase services.UserUseCase,
+	workerUseCase services.WorkerUseCase,
+	userusecase services.UserUseCase,
 	jwtUseCase services.JWTUseCase,
 	authUseCase services.AuthUseCase,
 
 ) *AuthHandler {
 	return &AuthHandler{
-		userUseCase: usecase,
-		jwtUseCase:  jwtUseCase,
-		authUseCase: authUseCase,
+		workerUseCase: workerUseCase,
+		userUseCase:   userusecase,
+		jwtUseCase:    jwtUseCase,
+		authUseCase:   authUseCase,
 	}
 }
 
@@ -43,7 +46,7 @@ func (cr *AuthHandler) UserSignUp(c *gin.Context) {
 	var newUser domain.Login
 
 	c.Bind(&newUser)
-	fmt.Printf("\n\n user : %v\n\n", newUser)
+
 	err := cr.userUseCase.CreateUser(newUser)
 
 	if err != nil {
@@ -57,6 +60,7 @@ func (cr *AuthHandler) UserSignUp(c *gin.Context) {
 
 	user, err := cr.userUseCase.FindUser(newUser.UserName)
 	fmt.Printf("\n\n\n%v\n%v\n\n", user, err)
+	fmt.Printf("\n\n user : %v\n\n", user)
 
 	user.Password = ""
 	response := response.SuccessResponse(true, "SUCCESS", user)
@@ -91,6 +95,78 @@ func (cr *AuthHandler) UserLogin(c *gin.Context) {
 	}
 
 	user, err := cr.userUseCase.FindUser(loginUser.UserName)
+	// fmt.Printf("\n\n\n%v\n%v\n\n", user, err)
+
+	token := cr.jwtUseCase.GenerateToken(user.ID, user.UserName, "user")
+	user.Password = ""
+	user.Token = token
+	response := response.SuccessResponse(true, "SUCCESS", user)
+	c.Writer.Header().Set("Content-Type", "application/json")
+	c.Writer.WriteHeader(http.StatusOK)
+	utils.ResponseJSON(*c, response)
+}
+
+// @Summary SignUp for Workers
+// @ID Worker SignUp authentication
+// @Produce json
+// @Param        username   path      string  true  "User Name : "
+// @Param        password   path      string  true  "Password : "
+// @Success 200 {object} response.Response{Status=bool,Message=string,Errors=string,Data=domain.Login}
+// @Failure 422 {object} response.Response{Status=bool,Message=string,Errors=string,Data=string}
+// @Router /user/signup [post]
+func (cr *AuthHandler) WorkerSignUp(c *gin.Context) {
+	var newUser domain.Login
+
+	c.Bind(&newUser)
+
+	err := cr.workerUseCase.CreateUser(newUser)
+
+	if err != nil {
+		response := response.ErrorResponse("Failed to create user", err.Error(), nil)
+		c.Writer.Header().Set("Content-Type", "application/json")
+		c.Writer.WriteHeader(http.StatusUnprocessableEntity)
+
+		utils.ResponseJSON(*c, response)
+		return
+	}
+
+	user, err := cr.workerUseCase.FindWorker(newUser.UserName)
+	fmt.Printf("\n\n\n%v\n%v\n\n", user, err)
+	fmt.Printf("\n\n user : %v\n\n", user)
+
+	user.Password = ""
+	response := response.SuccessResponse(true, "SUCCESS", user)
+	c.Writer.Header().Set("Content-Type", "application/json")
+	c.Writer.WriteHeader(http.StatusOK)
+	utils.ResponseJSON(*c, response)
+}
+
+// @Summary Login for worker
+// @ID worker login authentication
+// @Produce json
+// @Param        username   path      string  true  "User Name : "
+// @Param        password   path      string  true  "Password : "
+// @Success 200 {object} response.Response{Status=bool,Message=string,Errors=string,Data=domain.UserResponse}
+// @Failure 422 {object} response.Response{Status=bool,Message=string,Errors=string,Data=string}
+// @Router /user/login [post]
+func (cr *AuthHandler) WorkerLogin(c *gin.Context) {
+	var loginWorker domain.Login
+
+	c.Bind(&loginWorker)
+
+	//verify User details
+	err := cr.authUseCase.VerifyWorker(loginWorker.UserName, loginWorker.Password)
+
+	if err != nil {
+		response := response.ErrorResponse("Failed to create user", err.Error(), nil)
+		c.Writer.Header().Set("Content-Type", "application/json")
+		c.Writer.WriteHeader(http.StatusUnprocessableEntity)
+
+		utils.ResponseJSON(*c, response)
+		return
+	}
+
+	user, err := cr.workerUseCase.FindWorker(loginWorker.UserName)
 	// fmt.Printf("\n\n\n%v\n%v\n\n", user, err)
 
 	token := cr.jwtUseCase.GenerateToken(user.ID, user.UserName, "user")

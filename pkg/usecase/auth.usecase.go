@@ -1,6 +1,7 @@
 package usecase
 
 import (
+	"errors"
 	"fmt"
 	"math/rand"
 	"time"
@@ -11,6 +12,7 @@ import (
 )
 
 type authUseCase struct {
+	workerRepo interfaces.WorkerRepository
 	userRepo   interfaces.UserRepository
 	mailConfig config.MailConfig
 	config     config.Config
@@ -60,16 +62,30 @@ func (*authUseCase) VerifyUser(email string, password string) error {
 }
 
 // VerifyWorker implements interfaces.AuthUseCase
-func (*authUseCase) VerifyWorker(email string, password string) error {
-	panic("unimplemented")
+func (c *authUseCase) VerifyWorker(email string, password string) error {
+	user, err := c.workerRepo.FindWorker(email)
+	fmt.Print("\n\n", user, err)
+
+	if err != nil {
+		return errors.New("failed to login. check your email")
+	}
+
+	isValidPassword := VerifyPassword(password, user.Password)
+	if !isValidPassword {
+		return errors.New("failed to login. check your credential")
+	}
+
+	return nil
 }
 
 func NewAuthService(
+	workerRepo interfaces.WorkerRepository,
 	userRepo interfaces.UserRepository,
 	mailConfig config.MailConfig,
 	config config.Config,
 ) services.AuthUseCase {
 	return &authUseCase{
+		workerRepo: workerRepo,
 		userRepo:   userRepo,
 		mailConfig: mailConfig,
 		config:     config,

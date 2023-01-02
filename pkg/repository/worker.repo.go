@@ -2,6 +2,7 @@ package repository
 
 import (
 	"database/sql"
+	"fmt"
 
 	"github.com/fazilnbr/project-workey/pkg/domain"
 	interfaces "github.com/fazilnbr/project-workey/pkg/repository/interface"
@@ -17,13 +18,37 @@ func (*workerRepository) AddProfile(workerProfile domain.Worker, id int) (int, e
 }
 
 // FindWorker implements interfaces.WorkerRepository
-func (*workerRepository) FindWorker(email string) (domain.WorkerResponse, error) {
-	panic("unimplemented")
+func (c *workerRepository) FindWorker(email string) (domain.WorkerResponse, error) {
+	var worker domain.WorkerResponse
+
+	query := `SELECT id_login,user_name,password  FROM logins WHERE user_name=$1 AND user_type='worker';`
+
+	err := c.db.QueryRow(query,
+		email).Scan(
+		&worker.ID,
+		&worker.UserName,
+		&worker.Password,
+	)
+	fmt.Print("\n", email, worker, err)
+
+	return worker, err
 }
 
 // InsertWorker implements interfaces.WorkerRepository
-func (*workerRepository) InsertWorker(newWorker domain.Login) (int, error) {
-	panic("unimplemented")
+func (c *workerRepository) InsertWorker(newWorker domain.Login) (int, error) {
+	var id int
+
+	query := `INSERT INTO logins (user_name,password,user_type) VALUES ($1,$2,$3) RETURNING id_login;`
+
+	err := c.db.QueryRow(query,
+		newWorker.UserName,
+		newWorker.Password,
+		"worker",
+	).Scan(
+		&id,
+	)
+
+	return id, err
 }
 
 // StoreVerificationDetails implements interfaces.WorkerRepository
