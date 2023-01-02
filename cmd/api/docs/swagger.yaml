@@ -49,6 +49,54 @@ info:
   title: Go + Gin Workey API
   version: "1.0"
 paths:
+  /admin/login:
+    post:
+      operationId: admin login authentication
+      parameters:
+      - description: 'User Name : '
+        in: path
+        name: username
+        required: true
+        type: string
+      - description: 'Password : '
+        in: path
+        name: password
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            allOf:
+            - $ref: '#/definitions/response.Response'
+            - properties:
+                Data:
+                  $ref: '#/definitions/domain.UserResponse'
+                Errors:
+                  type: string
+                Message:
+                  type: string
+                Status:
+                  type: boolean
+              type: object
+        "422":
+          description: Unprocessable Entity
+          schema:
+            allOf:
+            - $ref: '#/definitions/response.Response'
+            - properties:
+                Data:
+                  type: string
+                Errors:
+                  type: string
+                Message:
+                  type: string
+                Status:
+                  type: boolean
+              type: object
+      summary: Login for admin
   /user/account/verifyJWT:
     get:
       operationId: Varify JWT authentication
@@ -234,6 +282,236 @@ paths:
   /user/verify/account:
     post:
       operationId: Varify OTP authentication
+      parameters:
+      - description: 'Email : '
+        in: path
+        name: email
+        required: true
+        type: string
+      - description: 'OTP : '
+        in: path
+        name: code
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            allOf:
+            - $ref: '#/definitions/response.Response'
+            - properties:
+                Data:
+                  type: string
+                Errors:
+                  type: string
+                Message:
+                  type: string
+                Status:
+                  type: boolean
+              type: object
+        "422":
+          description: Unprocessable Entity
+          schema:
+            allOf:
+            - $ref: '#/definitions/response.Response'
+            - properties:
+                Data:
+                  type: string
+                Errors:
+                  type: string
+                Message:
+                  type: string
+                Status:
+                  type: boolean
+              type: object
+      summary: Varify OTP of users
+  /woker/signup:
+    post:
+      operationId: Worker SignUp authentication
+      parameters:
+      - description: 'User Name : '
+        in: path
+        name: username
+        required: true
+        type: string
+      - description: 'Password : '
+        in: path
+        name: password
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            allOf:
+            - $ref: '#/definitions/response.Response'
+            - properties:
+                Data:
+                  $ref: '#/definitions/domain.Login'
+                Errors:
+                  type: string
+                Message:
+                  type: string
+                Status:
+                  type: boolean
+              type: object
+        "422":
+          description: Unprocessable Entity
+          schema:
+            allOf:
+            - $ref: '#/definitions/response.Response'
+            - properties:
+                Data:
+                  type: string
+                Errors:
+                  type: string
+                Message:
+                  type: string
+                Status:
+                  type: boolean
+              type: object
+      summary: SignUp for Workers
+  /worker/account/verifyJWT:
+    get:
+      operationId: Varify worker JWT authentication
+      parameters:
+      - description: 'Email : '
+        in: path
+        name: email
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            allOf:
+            - $ref: '#/definitions/response.Response'
+            - properties:
+                Data:
+                  type: string
+                Errors:
+                  type: string
+                Message:
+                  type: string
+                Status:
+                  type: boolean
+              type: object
+        "422":
+          description: Unprocessable Entity
+          schema:
+            allOf:
+            - $ref: '#/definitions/response.Response'
+            - properties:
+                Data:
+                  type: string
+                Errors:
+                  type: string
+                Message:
+                  type: string
+                Status:
+                  type: boolean
+              type: object
+      summary: Varify JWT of users
+  /worker/login:
+    post:
+      operationId: worker login authentication
+      parameters:
+      - description: 'User Name : '
+        in: path
+        name: username
+        required: true
+        type: string
+      - description: 'Password : '
+        in: path
+        name: password
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            allOf:
+            - $ref: '#/definitions/response.Response'
+            - properties:
+                Data:
+                  $ref: '#/definitions/domain.UserResponse'
+                Errors:
+                  type: string
+                Message:
+                  type: string
+                Status:
+                  type: boolean
+              type: object
+        "422":
+          description: Unprocessable Entity
+          schema:
+            allOf:
+            - $ref: '#/definitions/response.Response'
+            - properties:
+                Data:
+                  type: string
+                Errors:
+                  type: string
+                Message:
+                  type: string
+                Status:
+                  type: boolean
+              type: object
+      summary: Login for worker
+  /worker/send/verification:
+    post:
+      operationId: Worker SendVerificationMail authentication
+      parameters:
+      - description: 'Email : '
+        in: path
+        name: email
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            allOf:
+            - $ref: '#/definitions/response.Response'
+            - properties:
+                Data:
+                  $ref: '#/definitions/domain.UserResponse'
+                Errors:
+                  type: string
+                Message:
+                  type: string
+                Status:
+                  type: boolean
+              type: object
+        "422":
+          description: Unprocessable Entity
+          schema:
+            allOf:
+            - $ref: '#/definitions/response.Response'
+            - properties:
+                Data:
+                  type: string
+                Errors:
+                  type: string
+                Message:
+                  type: string
+                Status:
+                  type: boolean
+              type: object
+      summary: Send OTP varification mail to worker
+  /worker/verify/account:
+    post:
+      operationId: Varify worker OTP authentication
       parameters:
       - description: 'Email : '
         in: path
