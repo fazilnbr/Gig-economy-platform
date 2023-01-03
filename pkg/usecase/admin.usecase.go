@@ -12,14 +12,24 @@ type adminUseCase struct {
 	mailConfig config.MailConfig
 }
 
+// AddJobCategory implements interfaces.AdminUseCase
+func (c *adminUseCase) AddJobCategory(category string) error {
+	err := c.adminRepo.AddJobCategory(category)
+	return err
+}
+
 // ActivateUser implements interfaces.AdminUseCase
-func (*adminUseCase) ActivateUser(id int) (*domain.UserResponse, error) {
-	panic("unimplemented")
+func (c *adminUseCase) ActivateUser(id int) (*domain.UserResponse, error) {
+	user, err := c.adminRepo.ActivateUser(id)
+
+	return &user, err
 }
 
 // BlockUser implements interfaces.AdminUseCase
-func (*adminUseCase) BlockUser(id int) (*domain.UserResponse, error) {
-	panic("unimplemented")
+func (c *adminUseCase) BlockUser(id int) (*domain.UserResponse, error) {
+	user, err := c.adminRepo.BlockUser(id)
+
+	return &user, err
 }
 
 // FindAdmin implements interfaces.AdminUseCase
@@ -30,18 +40,24 @@ func (c *adminUseCase) FindAdmin(email string) (*domain.AdminResponse, error) {
 }
 
 // ListBlockedUsers implements interfaces.AdminUseCase
-func (*adminUseCase) ListBlockedUsers() (*[]domain.UserResponse, error) {
-	panic("unimplemented")
+func (c *adminUseCase) ListBlockedUsers() (*[]domain.UserResponse, error) {
+	users, err := c.adminRepo.ListBlockedUsers()
+
+	return &users, err
 }
 
 // ListNewUsers implements interfaces.AdminUseCase
-func (*adminUseCase) ListNewUsers() (*[]domain.UserResponse, error) {
-	panic("unimplemented")
+func (c *adminUseCase) ListNewUsers() (*[]domain.UserResponse, error) {
+	users, err := c.adminRepo.ListNewUsers()
+
+	return &users, err
 }
 
 // ListUsers implements interfaces.AdminUseCase
-func (*adminUseCase) ListUsers() (*[]domain.UserResponse, error) {
-	panic("unimplemented")
+func (c *adminUseCase) ListUsers() (*[]domain.UserResponse, error) {
+	users, err := c.adminRepo.ListUsers()
+
+	return &users, err
 }
 
 // SendVerificationEmail implements interfaces.AdminUseCase

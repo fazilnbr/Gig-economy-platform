@@ -49,6 +49,214 @@ info:
   title: Go + Gin Workey API
   version: "1.0"
 paths:
+  /admin/account/verifyJWT:
+    get:
+      operationId: Varify admin JWT authentication
+      parameters:
+      - description: 'Email : '
+        in: path
+        name: email
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            allOf:
+            - $ref: '#/definitions/response.Response'
+            - properties:
+                Data:
+                  type: string
+                Errors:
+                  type: string
+                Message:
+                  type: string
+                Status:
+                  type: boolean
+              type: object
+        "422":
+          description: Unprocessable Entity
+          schema:
+            allOf:
+            - $ref: '#/definitions/response.Response'
+            - properties:
+                Data:
+                  type: string
+                Errors:
+                  type: string
+                Message:
+                  type: string
+                Status:
+                  type: boolean
+              type: object
+      summary: Varify JWT of users
+  /admin/activateusers:
+    post:
+      operationId: activate users
+      parameters:
+      - description: 'Id of User : '
+        in: path
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            allOf:
+            - $ref: '#/definitions/response.Response'
+            - properties:
+                Data:
+                  $ref: '#/definitions/domain.Login'
+                Errors:
+                  type: string
+                Message:
+                  type: string
+                Status:
+                  type: boolean
+              type: object
+        "422":
+          description: Unprocessable Entity
+          schema:
+            allOf:
+            - $ref: '#/definitions/response.Response'
+            - properties:
+                Data:
+                  type: string
+                Errors:
+                  type: string
+                Message:
+                  type: string
+                Status:
+                  type: boolean
+              type: object
+      summary: activate users for admin
+  /admin/listallusers:
+    get:
+      operationId: list all active users
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            allOf:
+            - $ref: '#/definitions/response.Response'
+            - properties:
+                Data:
+                  $ref: '#/definitions/domain.Login'
+                Errors:
+                  type: string
+                Message:
+                  type: string
+                Status:
+                  type: boolean
+              type: object
+        "422":
+          description: Unprocessable Entity
+          schema:
+            allOf:
+            - $ref: '#/definitions/response.Response'
+            - properties:
+                Data:
+                  type: string
+                Errors:
+                  type: string
+                Message:
+                  type: string
+                Status:
+                  type: boolean
+              type: object
+      summary: list all active users for admin
+  /admin/listblockedusers:
+    get:
+      operationId: list all blocked users
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            allOf:
+            - $ref: '#/definitions/response.Response'
+            - properties:
+                Data:
+                  $ref: '#/definitions/domain.Login'
+                Errors:
+                  type: string
+                Message:
+                  type: string
+                Status:
+                  type: boolean
+              type: object
+        "422":
+          description: Unprocessable Entity
+          schema:
+            allOf:
+            - $ref: '#/definitions/response.Response'
+            - properties:
+                Data:
+                  type: string
+                Errors:
+                  type: string
+                Message:
+                  type: string
+                Status:
+                  type: boolean
+              type: object
+      summary: list all blocked users for admin
+  /admin/listnewusers:
+    get:
+      operationId: list all new users
+      parameters:
+      - description: 'User Name : '
+        in: path
+        name: username
+        required: true
+        type: string
+      - description: 'Password : '
+        in: path
+        name: password
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            allOf:
+            - $ref: '#/definitions/response.Response'
+            - properties:
+                Data:
+                  $ref: '#/definitions/domain.Login'
+                Errors:
+                  type: string
+                Message:
+                  type: string
+                Status:
+                  type: boolean
+              type: object
+        "422":
+          description: Unprocessable Entity
+          schema:
+            allOf:
+            - $ref: '#/definitions/response.Response'
+            - properties:
+                Data:
+                  type: string
+                Errors:
+                  type: string
+                Message:
+                  type: string
+                Status:
+                  type: boolean
+              type: object
+      summary: list all new users for admin
   /admin/login:
     post:
       operationId: admin login authentication

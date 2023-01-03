@@ -22,6 +22,7 @@ func ConnectGormDB(cfg config.Config) (*gorm.DB, error) {
 	db.AutoMigrate(&domain.User{})
 	db.AutoMigrate(&domain.Worker{})
 	db.AutoMigrate(&domain.Verification{})
+	db.AutoMigrate(&domain.Category{})
 
 	return db, dbErr
 }

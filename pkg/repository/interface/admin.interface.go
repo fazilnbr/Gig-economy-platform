@@ -12,4 +12,5 @@ type AdminRepository interface {
 	ListUsers() ([]domain.UserResponse, error)
 	ActivateUser(id int) (domain.UserResponse, error)
 	BlockUser(id int) (domain.UserResponse, error)
+	AddJobCategory(category string) error
 }

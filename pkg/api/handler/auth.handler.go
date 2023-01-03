@@ -384,3 +384,19 @@ func (cr *AuthHandler) WorkerHome(c *gin.Context) {
 	c.Writer.WriteHeader(http.StatusOK)
 	utils.ResponseJSON(*c, response)
 }
+
+// @Summary Varify JWT of users
+// @ID Varify admin JWT authentication
+// @Produce json
+// @Param        email   path      string  true  "Email : "
+// @Success 200 {object} response.Response{Status=bool,Message=string,Errors=string,Data=string}
+// @Failure 422 {object} response.Response{Status=bool,Message=string,Errors=string,Data=string}
+// @Router /admin/account/verifyJWT [get]
+func (cr *AuthHandler) AdminHome(c *gin.Context) {
+	email := c.Query("email")
+
+	response := response.SuccessResponse(true, "welcome home", email)
+	c.Writer.Header().Set("Content-Type", "application/json")
+	c.Writer.WriteHeader(http.StatusOK)
+	utils.ResponseJSON(*c, response)
+}
