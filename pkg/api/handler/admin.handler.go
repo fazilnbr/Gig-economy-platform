@@ -151,6 +151,136 @@ func (cr *AdminHandler) BlockUsers(c *gin.Context) {
 	utils.ResponseJSON(*c, response)
 }
 
+// @Summary list all active workers for admin
+// @ID list all active workers
+// @Produce json
+// @Success 200 {object} response.Response{Status=bool,Message=string,Errors=string,Data=domain.Login}
+// @Failure 422 {object} response.Response{Status=bool,Message=string,Errors=string,Data=string}
+// @Router /admin/listallworkers [get]
+func (cr *AdminHandler) ListAllWorkers(c *gin.Context) {
+
+	users, err := cr.adminService.ListWorkers()
+
+	if err != nil {
+		response := response.ErrorResponse("Failed to create user", err.Error(), nil)
+		c.Writer.Header().Set("Content-Type", "application/json")
+		c.Writer.WriteHeader(http.StatusUnprocessableEntity)
+
+		utils.ResponseJSON(*c, response)
+		return
+	}
+	response := response.SuccessResponse(true, "SUCCESS", users)
+	c.Writer.Header().Set("Content-Type", "application/json")
+	c.Writer.WriteHeader(http.StatusOK)
+	utils.ResponseJSON(*c, response)
+}
+
+// @Summary list all new workers for admin
+// @ID list all new workers
+// @Produce json
+// @Param        username   path      string  true  "User Name : "
+// @Param        password   path      string  true  "Password : "
+// @Success 200 {object} response.Response{Status=bool,Message=string,Errors=string,Data=domain.Login}
+// @Failure 422 {object} response.Response{Status=bool,Message=string,Errors=string,Data=string}
+// @Router /admin/listnewworkers [get]
+func (cr *AdminHandler) ListNewWorkers(c *gin.Context) {
+
+	users, err := cr.adminService.ListNewWorkers()
+
+	if err != nil {
+		response := response.ErrorResponse("Failed to create user", err.Error(), nil)
+		c.Writer.Header().Set("Content-Type", "application/json")
+		c.Writer.WriteHeader(http.StatusUnprocessableEntity)
+
+		utils.ResponseJSON(*c, response)
+		return
+	}
+	response := response.SuccessResponse(true, "SUCCESS", users)
+	c.Writer.Header().Set("Content-Type", "application/json")
+	c.Writer.WriteHeader(http.StatusOK)
+	utils.ResponseJSON(*c, response)
+}
+
+// @Summary list all blocked workers for admin
+// @ID list all blocked workers
+// @Produce json
+// @Success 200 {object} response.Response{Status=bool,Message=string,Errors=string,Data=domain.Login}
+// @Failure 422 {object} response.Response{Status=bool,Message=string,Errors=string,Data=string}
+// @Router /admin/listblockedworkers [get]
+func (cr *AdminHandler) ListBlockWorkers(c *gin.Context) {
+
+	users, err := cr.adminService.ListBlockedWorkers()
+
+	if err != nil {
+		response := response.ErrorResponse("Failed to create user", err.Error(), nil)
+
+		c.Writer.WriteHeader(http.StatusUnprocessableEntity)
+
+		utils.ResponseJSON(*c, response)
+		return
+	}
+	response := response.SuccessResponse(true, "SUCCESS", users)
+
+	c.Writer.WriteHeader(http.StatusOK)
+	utils.ResponseJSON(*c, response)
+}
+
+// @Summary activate workers for admin
+// @ID activate workers
+// @Produce json
+// @Param        id   path      string  true  "Id of User : "
+// @Success 200 {object} response.Response{Status=bool,Message=string,Errors=string,Data=domain.Login}
+// @Failure 422 {object} response.Response{Status=bool,Message=string,Errors=string,Data=string}
+// @Router /admin/activateworkers [post]
+func (cr *AdminHandler) ActivateWorkers(c *gin.Context) {
+
+	id := c.Query("id")
+	Id, _ := strconv.Atoi(id)
+
+	users, err := cr.adminService.ActivateWorker(Id)
+
+	if err != nil {
+		response := response.ErrorResponse("Failed to create user", err.Error(), nil)
+
+		c.Writer.WriteHeader(http.StatusUnprocessableEntity)
+
+		utils.ResponseJSON(*c, response)
+		return
+	}
+	response := response.SuccessResponse(true, "SUCCESS", users)
+
+	c.Writer.WriteHeader(http.StatusOK)
+	utils.ResponseJSON(*c, response)
+}
+
+// @Summary block workers for admin
+// @ID block workers
+// @Produce json
+// @Param        id   path      string  true  "Id of User : "
+// @Success 200 {object} response.Response{Status=bool,Message=string,Errors=string,Data=domain.Login}
+// @Failure 422 {object} response.Response{Status=bool,Message=string,Errors=string,Data=string}
+// @Router /admin/activateworkers [post]
+func (cr *AdminHandler) BlockWorkers(c *gin.Context) {
+
+	id := c.Query("id")
+	Id, _ := strconv.Atoi(id)
+
+	users, err := cr.adminService.BlockWorker(Id)
+
+	if err != nil {
+		response := response.ErrorResponse("Failed to create user", err.Error(), nil)
+
+		c.Writer.WriteHeader(http.StatusUnprocessableEntity)
+
+		utils.ResponseJSON(*c, response)
+		return
+	}
+	response := response.SuccessResponse(true, "SUCCESS", users)
+
+	c.Writer.WriteHeader(http.StatusOK)
+	utils.ResponseJSON(*c, response)
+}
+
 // @Summary add job category for admin
 // @ID add category
 // @Produce json

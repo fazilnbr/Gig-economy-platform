@@ -71,6 +71,12 @@ func NewServerHTTP(authHandler *handler.AuthHandler, adminHandler handler.AdminH
 
 			// Worker management
 
+			admin.GET("/listallworkers", adminHandler.ListAllWorkers)
+			admin.GET("/listnewworkers", adminHandler.ListNewWorkers)
+			admin.GET("/listblockedworkers", adminHandler.ListBlockWorkers)
+			admin.PUT("/activateworkers", adminHandler.ActivateWorkers)
+			admin.PUT("/blockworkers", adminHandler.BlockWorkers)
+
 			// Job management
 			admin.POST("/addcategory", adminHandler.AddJobCategory)
 		}
