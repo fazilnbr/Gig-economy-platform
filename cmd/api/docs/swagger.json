@@ -96,8 +96,8 @@
                 "produces": [
                     "application/json"
                 ],
-                "summary": "activate users for admin",
-                "operationId": "activate users",
+                "summary": "block users for admin",
+                "operationId": "block users",
                 "parameters": [
                     {
                         "type": "string",
@@ -165,6 +165,154 @@
                 }
             }
         },
+        "/admin/activateworkers": {
+            "post": {
+                "produces": [
+                    "application/json"
+                ],
+                "summary": "block workers for admin",
+                "operationId": "block workers",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "Id of User : ",
+                        "name": "id",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "allOf": [
+                                {
+                                    "$ref": "#/definitions/response.Response"
+                                },
+                                {
+                                    "type": "object",
+                                    "properties": {
+                                        "Data": {
+                                            "$ref": "#/definitions/domain.Login"
+                                        },
+                                        "Errors": {
+                                            "type": "string"
+                                        },
+                                        "Message": {
+                                            "type": "string"
+                                        },
+                                        "Status": {
+                                            "type": "boolean"
+                                        }
+                                    }
+                                }
+                            ]
+                        }
+                    },
+                    "422": {
+                        "description": "Unprocessable Entity",
+                        "schema": {
+                            "allOf": [
+                                {
+                                    "$ref": "#/definitions/response.Response"
+                                },
+                                {
+                                    "type": "object",
+                                    "properties": {
+                                        "Data": {
+                                            "type": "string"
+                                        },
+                                        "Errors": {
+                                            "type": "string"
+                                        },
+                                        "Message": {
+                                            "type": "string"
+                                        },
+                                        "Status": {
+                                            "type": "boolean"
+                                        }
+                                    }
+                                }
+                            ]
+                        }
+                    }
+                }
+            }
+        },
+        "/admin/block": {
+            "post": {
+                "produces": [
+                    "application/json"
+                ],
+                "summary": "add job category for admin",
+                "operationId": "add category",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "category : ",
+                        "name": "category",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "allOf": [
+                                {
+                                    "$ref": "#/definitions/response.Response"
+                                },
+                                {
+                                    "type": "object",
+                                    "properties": {
+                                        "Data": {
+                                            "$ref": "#/definitions/domain.Category"
+                                        },
+                                        "Errors": {
+                                            "type": "string"
+                                        },
+                                        "Message": {
+                                            "type": "string"
+                                        },
+                                        "Status": {
+                                            "type": "boolean"
+                                        }
+                                    }
+                                }
+                            ]
+                        }
+                    },
+                    "422": {
+                        "description": "Unprocessable Entity",
+                        "schema": {
+                            "allOf": [
+                                {
+                                    "$ref": "#/definitions/response.Response"
+                                },
+                                {
+                                    "type": "object",
+                                    "properties": {
+                                        "Data": {
+                                            "type": "string"
+                                        },
+                                        "Errors": {
+                                            "type": "string"
+                                        },
+                                        "Message": {
+                                            "type": "string"
+                                        },
+                                        "Status": {
+                                            "type": "boolean"
+                                        }
+                                    }
+                                }
+                            ]
+                        }
+                    }
+                }
+            }
+        },
         "/admin/listallusers": {
             "get": {
                 "produces": [
@@ -172,6 +320,71 @@
                 ],
                 "summary": "list all active users for admin",
                 "operationId": "list all active users",
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "allOf": [
+                                {
+                                    "$ref": "#/definitions/response.Response"
+                                },
+                                {
+                                    "type": "object",
+                                    "properties": {
+                                        "Data": {
+                                            "$ref": "#/definitions/domain.Login"
+                                        },
+                                        "Errors": {
+                                            "type": "string"
+                                        },
+                                        "Message": {
+                                            "type": "string"
+                                        },
+                                        "Status": {
+                                            "type": "boolean"
+                                        }
+                                    }
+                                }
+                            ]
+                        }
+                    },
+                    "422": {
+                        "description": "Unprocessable Entity",
+                        "schema": {
+                            "allOf": [
+                                {
+                                    "$ref": "#/definitions/response.Response"
+                                },
+                                {
+                                    "type": "object",
+                                    "properties": {
+                                        "Data": {
+                                            "type": "string"
+                                        },
+                                        "Errors": {
+                                            "type": "string"
+                                        },
+                                        "Message": {
+                                            "type": "string"
+                                        },
+                                        "Status": {
+                                            "type": "boolean"
+                                        }
+                                    }
+                                }
+                            ]
+                        }
+                    }
+                }
+            }
+        },
+        "/admin/listallworkers": {
+            "get": {
+                "produces": [
+                    "application/json"
+                ],
+                "summary": "list all active workers for admin",
+                "operationId": "list all active workers",
                 "responses": {
                     "200": {
                         "description": "OK",
@@ -295,6 +508,71 @@
                 }
             }
         },
+        "/admin/listblockedworkers": {
+            "get": {
+                "produces": [
+                    "application/json"
+                ],
+                "summary": "list all blocked workers for admin",
+                "operationId": "list all blocked workers",
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "allOf": [
+                                {
+                                    "$ref": "#/definitions/response.Response"
+                                },
+                                {
+                                    "type": "object",
+                                    "properties": {
+                                        "Data": {
+                                            "$ref": "#/definitions/domain.Login"
+                                        },
+                                        "Errors": {
+                                            "type": "string"
+                                        },
+                                        "Message": {
+                                            "type": "string"
+                                        },
+                                        "Status": {
+                                            "type": "boolean"
+                                        }
+                                    }
+                                }
+                            ]
+                        }
+                    },
+                    "422": {
+                        "description": "Unprocessable Entity",
+                        "schema": {
+                            "allOf": [
+                                {
+                                    "$ref": "#/definitions/response.Response"
+                                },
+                                {
+                                    "type": "object",
+                                    "properties": {
+                                        "Data": {
+                                            "type": "string"
+                                        },
+                                        "Errors": {
+                                            "type": "string"
+                                        },
+                                        "Message": {
+                                            "type": "string"
+                                        },
+                                        "Status": {
+                                            "type": "boolean"
+                                        }
+                                    }
+                                }
+                            ]
+                        }
+                    }
+                }
+            }
+        },
         "/admin/listnewusers": {
             "get": {
                 "produces": [
@@ -302,6 +580,87 @@
                 ],
                 "summary": "list all new users for admin",
                 "operationId": "list all new users",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "User Name : ",
+                        "name": "username",
+                        "in": "path",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": "Password : ",
+                        "name": "password",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "allOf": [
+                                {
+                                    "$ref": "#/definitions/response.Response"
+                                },
+                                {
+                                    "type": "object",
+                                    "properties": {
+                                        "Data": {
+                                            "$ref": "#/definitions/domain.Login"
+                                        },
+                                        "Errors": {
+                                            "type": "string"
+                                        },
+                                        "Message": {
+                                            "type": "string"
+                                        },
+                                        "Status": {
+                                            "type": "boolean"
+                                        }
+                                    }
+                                }
+                            ]
+                        }
+                    },
+                    "422": {
+                        "description": "Unprocessable Entity",
+                        "schema": {
+                            "allOf": [
+                                {
+                                    "$ref": "#/definitions/response.Response"
+                                },
+                                {
+                                    "type": "object",
+                                    "properties": {
+                                        "Data": {
+                                            "type": "string"
+                                        },
+                                        "Errors": {
+                                            "type": "string"
+                                        },
+                                        "Message": {
+                                            "type": "string"
+                                        },
+                                        "Status": {
+                                            "type": "boolean"
+                                        }
+                                    }
+                                }
+                            ]
+                        }
+                    }
+                }
+            }
+        },
+        "/admin/listnewworkers": {
+            "get": {
+                "produces": [
+                    "application/json"
+                ],
+                "summary": "list all new workers for admin",
+                "operationId": "list all new workers",
                 "parameters": [
                     {
                         "type": "string",
@@ -1241,6 +1600,17 @@
         }
     },
     "definitions": {
+        "domain.Category": {
+            "type": "object",
+            "properties": {
+                "contactnumber": {
+                    "type": "string"
+                },
+                "id_category": {
+                    "type": "integer"
+                }
+            }
+        },
         "domain.Login": {
             "type": "object",
             "properties": {

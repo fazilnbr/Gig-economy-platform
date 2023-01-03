@@ -76,8 +76,20 @@ func (c *authUseCase) VerifyAdmin(email string, password string) error {
 }
 
 // VerifyUser implements interfaces.AuthUseCase
-func (*authUseCase) VerifyUser(email string, password string) error {
-	panic("unimplemented")
+func (c *authUseCase) VerifyUser(email string, password string) error {
+	user, err := c.userRepo.FindUser(email)
+	fmt.Print("\n\n", user, err)
+
+	if err != nil {
+		return errors.New("failed to login. check your email")
+	}
+
+	isValidPassword := VerifyPassword(password, user.Password)
+	if !isValidPassword {
+		return errors.New("failed to login. check your credential")
+	}
+
+	return nil
 }
 
 // VerifyWorker implements interfaces.AuthUseCase

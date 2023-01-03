@@ -9,5 +9,5 @@ type WorkerUseCase interface {
 	FindWorker(email string) (*domain.WorkerResponse, error)
 	SendVerificationEmail(email string) error
 	VerifyAccount(email string, code int) error
-	AddProfile(workerProfile domain.Worker, id int) error
+	AddProfile(workerProfile domain.Profile, id int) error
 }

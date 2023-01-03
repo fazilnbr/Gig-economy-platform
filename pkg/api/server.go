@@ -15,7 +15,7 @@ type ServerHTTP struct {
 	engine *gin.Engine
 }
 
-func NewServerHTTP(authHandler *handler.AuthHandler, adminHandler handler.AdminHandler, middleware middleware.Middleware) *ServerHTTP {
+func NewServerHTTP(authHandler handler.AuthHandler, adminHandler handler.AdminHandler, UserHandler handler.UserHandler, middleware middleware.Middleware) *ServerHTTP {
 	engine := gin.New()
 
 	// Use logger from Gin
@@ -23,33 +23,6 @@ func NewServerHTTP(authHandler *handler.AuthHandler, adminHandler handler.AdminH
 
 	// Swagger docs
 	engine.GET("/swagger/*any", ginSwagger.WrapHandler(swaggerfiles.Handler))
-
-	// Request JWT
-	user := engine.Group("user")
-	{
-		user.POST("/signup", authHandler.UserSignUp)
-		user.POST("/login", authHandler.UserLogin)
-		user.POST("/send/verification", authHandler.SendVerificationMailUser)
-		user.POST("/verify/account", authHandler.UserVerifyAccount)
-		// authuser := user.Group("/")
-		user.Use(middleware.AthoriseJWT)
-		{
-			user.GET("/account/verifyJWT", authHandler.UserHome)
-		}
-	}
-
-	worker := engine.Group("worker")
-	{
-		worker.POST("/signup", authHandler.WorkerSignUp)
-		worker.POST("/login", authHandler.WorkerLogin)
-		worker.POST("/send/verification", authHandler.SendVerificationMailWorker)
-		worker.POST("/verify/account", authHandler.WorkerVerifyAccount)
-		// authuser := user.Group("/")
-		worker.Use(middleware.AthoriseJWT)
-		{
-			worker.GET("/account/verifyJWT", authHandler.WorkerHome)
-		}
-	}
 
 	admin := engine.Group("admin")
 	{
@@ -80,6 +53,35 @@ func NewServerHTTP(authHandler *handler.AuthHandler, adminHandler handler.AdminH
 			// Job management
 			admin.POST("/addcategory", adminHandler.AddJobCategory)
 		}
+
+		// Request JWT
+		user := engine.Group("user")
+		{
+			user.POST("/signup", authHandler.UserSignUp)
+			user.POST("/login", authHandler.UserLogin)
+			user.POST("/send/verification", authHandler.SendVerificationMailUser)
+			user.POST("/verify/account", authHandler.UserVerifyAccount)
+			// authuser := user.Group("/")
+			user.Use(middleware.AthoriseJWT)
+			{
+				user.GET("/account/verifyJWT", authHandler.UserHome)
+				user.POST("/addprofile", UserHandler.AddProfile)
+			}
+		}
+
+		worker := engine.Group("worker")
+		{
+			worker.POST("/signup", authHandler.WorkerSignUp)
+			worker.POST("/login", authHandler.WorkerLogin)
+			worker.POST("/send/verification", authHandler.SendVerificationMailWorker)
+			worker.POST("/verify/account", authHandler.WorkerVerifyAccount)
+			// authuser := user.Group("/")
+			worker.Use(middleware.AthoriseJWT)
+			{
+				worker.GET("/account/verifyJWT", authHandler.WorkerHome)
+			}
+		}
+
 	}
 
 	return &ServerHTTP{engine: engine}

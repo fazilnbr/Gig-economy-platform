@@ -14,8 +14,10 @@ type workerService struct {
 }
 
 // AddProfile implements interfaces.WorkerUseCase
-func (*workerService) AddProfile(workerProfile domain.Worker, id int) error {
-	panic("unimplemented")
+func (c *workerService) AddProfile(workerProfile domain.Profile, id int) error {
+	_, err := c.workerRepo.AddProfile(workerProfile, id)
+
+	return err
 }
 
 // CreateUser implements interfaces.WorkerUseCase
