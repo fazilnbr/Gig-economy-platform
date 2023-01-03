@@ -19,6 +19,41 @@ func (c *adminUseCase) AddJobCategory(category string) error {
 }
 
 // ActivateUser implements interfaces.AdminUseCase
+func (c *adminUseCase) ActivateWorker(id int) (*domain.UserResponse, error) {
+	user, err := c.adminRepo.ActivateWorker(id)
+
+	return &user, err
+}
+
+// BlockUser implements interfaces.AdminUseCase
+func (c *adminUseCase) BlockWorker(id int) (*domain.UserResponse, error) {
+	user, err := c.adminRepo.BlockWorker(id)
+
+	return &user, err
+}
+
+// ListBlockedUsers implements interfaces.AdminUseCase
+func (c *adminUseCase) ListBlockedWorkers() (*[]domain.UserResponse, error) {
+	users, err := c.adminRepo.ListBlockedWorkers()
+
+	return &users, err
+}
+
+// ListNewUsers implements interfaces.AdminUseCase
+func (c *adminUseCase) ListNewWorkers() (*[]domain.UserResponse, error) {
+	users, err := c.adminRepo.ListNewWorkers()
+
+	return &users, err
+}
+
+// ListUsers implements interfaces.AdminUseCase
+func (c *adminUseCase) ListWorkers() (*[]domain.UserResponse, error) {
+	users, err := c.adminRepo.ListWorkers()
+
+	return &users, err
+}
+
+// ActivateUser implements interfaces.AdminUseCase
 func (c *adminUseCase) ActivateUser(id int) (*domain.UserResponse, error) {
 	user, err := c.adminRepo.ActivateUser(id)
 
