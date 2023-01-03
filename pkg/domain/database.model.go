@@ -49,3 +49,8 @@ type Verification struct {
 	Email string `json:"email"`
 	Code  int    `json:"code"`
 }
+
+type Category struct {
+	ID_category int    `gorm:"primaryKey;autoIncrement:true;unique"`
+	Category    string `gorm:"unique" json:"contactnumber"`
+}

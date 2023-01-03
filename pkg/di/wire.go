@@ -28,6 +28,7 @@ func InitializeAPI(cfg config.Config) (*http.ServerHTTP, error) {
 		usecase.NewWorkerService,
 		usecase.NewUserService,
 		usecase.NewAuthService,
+		handler.NewAdminHandler,
 		handler.NewUserHandler,
 		middleware.NewUserMiddileware,
 		http.NewServerHTTP)
