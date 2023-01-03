@@ -61,6 +61,18 @@ func NewServerHTTP(authHandler *handler.AuthHandler, adminHandler handler.AdminH
 		{
 			admin.GET("/account/verifyJWT", authHandler.AdminHome)
 
+			// User management
+
+			admin.GET("/listallusers", adminHandler.ListAllUsers)
+			admin.GET("/listnewusers", adminHandler.ListNewUsers)
+			admin.GET("/listblockedusers", adminHandler.ListBlockUsers)
+			admin.PUT("/activateuser", adminHandler.ActivateUsers)
+			admin.PUT("/blockusers", adminHandler.BlockUsers)
+
+			// Worker management
+
+			// Job management
+			admin.POST("/addcategory", adminHandler.AddJobCategory)
 		}
 	}
 
