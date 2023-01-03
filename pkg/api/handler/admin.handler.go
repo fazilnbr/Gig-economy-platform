@@ -123,6 +123,34 @@ func (cr *AdminHandler) ActivateUsers(c *gin.Context) {
 	utils.ResponseJSON(*c, response)
 }
 
+// @Summary block users for admin
+// @ID block users
+// @Produce json
+// @Param        id   path      string  true  "Id of User : "
+// @Success 200 {object} response.Response{Status=bool,Message=string,Errors=string,Data=domain.Login}
+// @Failure 422 {object} response.Response{Status=bool,Message=string,Errors=string,Data=string}
+// @Router /admin/activateusers [post]
+func (cr *AdminHandler) BlockUsers(c *gin.Context) {
+
+	id := c.Query("id")
+	Id, _ := strconv.Atoi(id)
+
+	users, err := cr.adminService.BlockUser(Id)
+
+	if err != nil {
+		response := response.ErrorResponse("Failed to create user", err.Error(), nil)
+
+		c.Writer.WriteHeader(http.StatusUnprocessableEntity)
+
+		utils.ResponseJSON(*c, response)
+		return
+	}
+	response := response.SuccessResponse(true, "SUCCESS", users)
+
+	c.Writer.WriteHeader(http.StatusOK)
+	utils.ResponseJSON(*c, response)
+}
+
 // @Summary add job category for admin
 // @ID add category
 // @Produce json
