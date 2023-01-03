@@ -15,8 +15,30 @@ type userRepo struct {
 }
 
 // AddProfile implements interfaces.UserRepository
-func (*userRepo) AddProfile(login domain.User, id int) (int, error) {
-	panic("unimplemented")
+func (c *userRepo) AddProfile(userProfile domain.Profile, id int) (int, error) {
+	var Id int
+	query := ` INSERT INTO Profiles 
+	(id_login,name,gender,date_of_birth,house_name,place,post,pin,contact_number,email_id,photo) 
+	VALUES 
+	($1,$2,$3,$4,$5,$6,$7,$8,$9,$10,$11) RETURNING id_login;`
+
+	err := c.db.QueryRow(query,
+		id,
+		userProfile.Name,
+		userProfile.Gender,
+		userProfile.DateOfBirth,
+		userProfile.HouseName,
+		userProfile.Place,
+		userProfile.Post,
+		userProfile.Pin,
+		userProfile.ContactNumber,
+		userProfile.EmailID,
+		userProfile.Photo,
+	).Scan(
+		&Id,
+	)
+
+	return Id, err
 }
 
 // StoreVerificationDetails implements interfaces.UserRepository

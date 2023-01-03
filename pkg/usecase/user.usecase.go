@@ -21,6 +21,14 @@ func NewUserService(
 	}
 }
 
+// AddProfile implements interfaces.UserUseCase
+func (c *userUseCase) AddProfile(userProfile domain.Profile, id int) error {
+	_, err := c.userRepo.AddProfile(userProfile, id)
+
+	return err
+
+}
+
 // CreateUser implements interfaces.UserService
 func (c *userUseCase) CreateUser(newUser domain.Login) error {
 	_, err := c.userRepo.FindUser(newUser.UserName)

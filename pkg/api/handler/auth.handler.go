@@ -20,15 +20,15 @@ type AuthHandler struct {
 	authUseCase   services.AuthUseCase
 }
 
-func NewUserHandler(
+func NewAuthHandler(
 	adminUseCase services.AdminUseCase,
 	workerUseCase services.WorkerUseCase,
 	userusecase services.UserUseCase,
 	jwtUseCase services.JWTUseCase,
 	authUseCase services.AuthUseCase,
 
-) *AuthHandler {
-	return &AuthHandler{
+) AuthHandler {
+	return AuthHandler{
 		adminUseCase:  adminUseCase,
 		workerUseCase: workerUseCase,
 		userUseCase:   userusecase,

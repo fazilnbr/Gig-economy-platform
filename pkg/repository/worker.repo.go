@@ -15,8 +15,30 @@ type workerRepository struct {
 }
 
 // AddProfile implements interfaces.WorkerRepository
-func (*workerRepository) AddProfile(workerProfile domain.Worker, id int) (int, error) {
-	panic("unimplemented")
+func (c *workerRepository) AddProfile(workerProfile domain.Profile, id int) (int, error) {
+	var Id int
+	query := ` INSERT INTO Profiles 
+	(id_login,name,gender,date_of_birth,house_name,place,post,pin,contact_number,email_id,photo) 
+	VALUES 
+	($1,$2,$3,$4,$5,$6,$7,$8,$9,$10,$11) RETURNING id_login;`
+
+	err := c.db.QueryRow(query,
+		id,
+		workerProfile.Gender,
+		workerProfile.Name,
+		workerProfile.DateOfBirth,
+		workerProfile.HouseName,
+		workerProfile.Place,
+		workerProfile.Post,
+		workerProfile.Pin,
+		workerProfile.ContactNumber,
+		workerProfile.EmailID,
+		workerProfile.Photo,
+	).Scan(
+		&Id,
+	)
+
+	return Id, err
 }
 
 // FindWorker implements interfaces.WorkerRepository

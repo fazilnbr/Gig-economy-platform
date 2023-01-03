@@ -1,5 +1,12 @@
 basePath: /
 definitions:
+  domain.Category:
+    properties:
+      contactnumber:
+        type: string
+      id_category:
+        type: integer
+    type: object
   domain.Login:
     properties:
       id_login:
@@ -94,7 +101,7 @@ paths:
       summary: Varify JWT of users
   /admin/activateusers:
     post:
-      operationId: activate users
+      operationId: block users
       parameters:
       - description: 'Id of User : '
         in: path
@@ -134,7 +141,93 @@ paths:
                 Status:
                   type: boolean
               type: object
-      summary: activate users for admin
+      summary: block users for admin
+  /admin/activateworkers:
+    post:
+      operationId: block workers
+      parameters:
+      - description: 'Id of User : '
+        in: path
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            allOf:
+            - $ref: '#/definitions/response.Response'
+            - properties:
+                Data:
+                  $ref: '#/definitions/domain.Login'
+                Errors:
+                  type: string
+                Message:
+                  type: string
+                Status:
+                  type: boolean
+              type: object
+        "422":
+          description: Unprocessable Entity
+          schema:
+            allOf:
+            - $ref: '#/definitions/response.Response'
+            - properties:
+                Data:
+                  type: string
+                Errors:
+                  type: string
+                Message:
+                  type: string
+                Status:
+                  type: boolean
+              type: object
+      summary: block workers for admin
+  /admin/block:
+    post:
+      operationId: add category
+      parameters:
+      - description: 'category : '
+        in: path
+        name: category
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            allOf:
+            - $ref: '#/definitions/response.Response'
+            - properties:
+                Data:
+                  $ref: '#/definitions/domain.Category'
+                Errors:
+                  type: string
+                Message:
+                  type: string
+                Status:
+                  type: boolean
+              type: object
+        "422":
+          description: Unprocessable Entity
+          schema:
+            allOf:
+            - $ref: '#/definitions/response.Response'
+            - properties:
+                Data:
+                  type: string
+                Errors:
+                  type: string
+                Message:
+                  type: string
+                Status:
+                  type: boolean
+              type: object
+      summary: add job category for admin
   /admin/listallusers:
     get:
       operationId: list all active users
@@ -172,6 +265,43 @@ paths:
                   type: boolean
               type: object
       summary: list all active users for admin
+  /admin/listallworkers:
+    get:
+      operationId: list all active workers
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            allOf:
+            - $ref: '#/definitions/response.Response'
+            - properties:
+                Data:
+                  $ref: '#/definitions/domain.Login'
+                Errors:
+                  type: string
+                Message:
+                  type: string
+                Status:
+                  type: boolean
+              type: object
+        "422":
+          description: Unprocessable Entity
+          schema:
+            allOf:
+            - $ref: '#/definitions/response.Response'
+            - properties:
+                Data:
+                  type: string
+                Errors:
+                  type: string
+                Message:
+                  type: string
+                Status:
+                  type: boolean
+              type: object
+      summary: list all active workers for admin
   /admin/listblockedusers:
     get:
       operationId: list all blocked users
@@ -209,6 +339,43 @@ paths:
                   type: boolean
               type: object
       summary: list all blocked users for admin
+  /admin/listblockedworkers:
+    get:
+      operationId: list all blocked workers
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            allOf:
+            - $ref: '#/definitions/response.Response'
+            - properties:
+                Data:
+                  $ref: '#/definitions/domain.Login'
+                Errors:
+                  type: string
+                Message:
+                  type: string
+                Status:
+                  type: boolean
+              type: object
+        "422":
+          description: Unprocessable Entity
+          schema:
+            allOf:
+            - $ref: '#/definitions/response.Response'
+            - properties:
+                Data:
+                  type: string
+                Errors:
+                  type: string
+                Message:
+                  type: string
+                Status:
+                  type: boolean
+              type: object
+      summary: list all blocked workers for admin
   /admin/listnewusers:
     get:
       operationId: list all new users
@@ -257,6 +424,54 @@ paths:
                   type: boolean
               type: object
       summary: list all new users for admin
+  /admin/listnewworkers:
+    get:
+      operationId: list all new workers
+      parameters:
+      - description: 'User Name : '
+        in: path
+        name: username
+        required: true
+        type: string
+      - description: 'Password : '
+        in: path
+        name: password
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            allOf:
+            - $ref: '#/definitions/response.Response'
+            - properties:
+                Data:
+                  $ref: '#/definitions/domain.Login'
+                Errors:
+                  type: string
+                Message:
+                  type: string
+                Status:
+                  type: boolean
+              type: object
+        "422":
+          description: Unprocessable Entity
+          schema:
+            allOf:
+            - $ref: '#/definitions/response.Response'
+            - properties:
+                Data:
+                  type: string
+                Errors:
+                  type: string
+                Message:
+                  type: string
+                Status:
+                  type: boolean
+              type: object
+      summary: list all new workers for admin
   /admin/login:
     post:
       operationId: admin login authentication

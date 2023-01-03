@@ -13,7 +13,7 @@ type Login struct {
 	Verification string `json:"verification" gorm:"default:false"`
 	Status       string `json:"status" gorm:"default:newuser"`
 }
-type User struct {
+type Profile struct {
 	ID_User       int    `gorm:"primaryKey;autoIncrement:true;unique"`
 	ID_Login      int    `gorm:"unique"`
 	Name          string `json:"name"`
@@ -27,20 +27,21 @@ type User struct {
 	EmailID       string `gorm:"unique" json:"emailid"`
 	Photo         string `json:"photo"`
 }
-type Worker struct {
-	ID_User       int    `gorm:"primaryKey;autoIncrement:true;unique"`
-	ID_Login      int    `gorm:"unique"`
-	Name          string `json:"name"`
-	Gender        string `json:"gender"`
-	DateOfBirth   string `json:"dateofbirth"`
-	HouseName     string `json:"housename"`
-	Place         string `json:"place"`
-	Post          string `json:"post"`
-	Pin           string `json:"pin"`
-	ContactNumber string `gorm:"unique" json:"contactnumber"`
-	EmailID       string `gorm:"unique" json:"emailid"`
-	Photo         string `json:"photo"`
-}
+
+// type Worker struct {
+// 	ID_User       int    `gorm:"primaryKey;autoIncrement:true;unique"`
+// 	ID_Login      int    `gorm:"unique"`
+// 	Name          string `json:"name"`
+// 	Gender        string `json:"gender"`
+// 	DateOfBirth   string `json:"dateofbirth"`
+// 	HouseName     string `json:"housename"`
+// 	Place         string `json:"place"`
+// 	Post          string `json:"post"`
+// 	Pin           string `json:"pin"`
+// 	ContactNumber string `gorm:"unique" json:"contactnumber"`
+// 	EmailID       string `gorm:"unique" json:"emailid"`
+// 	Photo         string `json:"photo"`
+// }
 
 //to store mail verification details
 
