@@ -60,6 +60,7 @@ func (cr *middlewar) AthoriseJWT(c *gin.Context) {
 
 	user_email := fmt.Sprint(claims.Username)
 	id := fmt.Sprint(claims.User_Id)
+	fmt.Printf("\n\nid : %v\n\n", id)
 	// r.Header.Set("email", user_email)
 	c.Writer.Header().Set("email", user_email)
 	// r.Header.Set("id", id)

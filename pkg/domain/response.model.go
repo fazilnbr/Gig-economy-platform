@@ -30,3 +30,9 @@ type SignedDetails struct {
 	Role     string
 	jwt.StandardClaims
 }
+
+type ChangePassword struct {
+	Email       string `json:"email" binding:"required"`
+	OldPassword string `json:"oldpassword" binding:"required"`
+	NewPassword string `json:"newpassword" binding:"required"`
+}

@@ -67,6 +67,7 @@ func NewServerHTTP(authHandler handler.AuthHandler, adminHandler handler.AdminHa
 				user.GET("/account/verifyJWT", authHandler.UserHome)
 				user.POST("/addprofile", UserHandler.AddProfile)
 				user.POST("/editprofile", UserHandler.EditProfile)
+				user.POST("/changepassword", UserHandler.ChangePassword)
 			}
 		}
 

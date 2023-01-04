@@ -14,6 +14,31 @@ type userRepo struct {
 	db *sql.DB
 }
 
+// // verifyPassword implements interfaces.UserRepository
+// func (*userRepo) verifyPassword(changepassword string, id int) (int, error) {
+// 	panic("unimplemented")
+// }
+
+// ChangePassword implements interfaces.UserRepository
+func (c *userRepo) ChangePassword(changepassword string, id int) (int, error) {
+	var Id int
+	fmt.Println("id", id)
+	query := ` UPDATE logins
+	SET password = $1
+	WHERE id_login = $2
+	RETURNING id_login;
+	`
+
+	err := c.db.QueryRow(query,
+		changepassword,
+		id,
+	).Scan(
+		&Id,
+	)
+
+	return Id, err
+}
+
 // EditProfile implements interfaces.UserRepository
 func (c *userRepo) EditProfile(userProfile domain.Profile, id int) (int, error) {
 	var Id int
