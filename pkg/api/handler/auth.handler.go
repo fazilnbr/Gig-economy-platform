@@ -136,7 +136,7 @@ func (cr *AuthHandler) UserLogin(c *gin.Context) {
 	}
 
 	user, err := cr.userUseCase.FindUser(loginUser.UserName)
-	// fmt.Printf("\n\n\n%v\n%v\n\n", user, err)
+	fmt.Printf("\n\n\n%v\n%v\n\n", user.ID, err)
 
 	token := cr.jwtUseCase.GenerateToken(user.ID, user.UserName, "user")
 	user.Password = ""
@@ -210,7 +210,7 @@ func (cr *AuthHandler) WorkerLogin(c *gin.Context) {
 	user, err := cr.workerUseCase.FindWorker(loginWorker.UserName)
 	// fmt.Printf("\n\n\n%v\n%v\n\n", user, err)
 
-	token := cr.jwtUseCase.GenerateToken(user.ID, user.UserName, "user")
+	token := cr.jwtUseCase.GenerateToken(user.ID, user.UserName, "worker")
 	user.Password = ""
 	user.Token = token
 	response := response.SuccessResponse(true, "SUCCESS", user)

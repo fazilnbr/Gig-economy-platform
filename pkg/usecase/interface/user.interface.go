@@ -8,4 +8,6 @@ type UserUseCase interface {
 	VerifyUser(email string, password string) error
 	AddProfile(userProfile domain.Profile, id int) error
 	EditProfile(userProfile domain.Profile, id int) error
+	VerifyPassword(changepassword domain.ChangePassword, id int) error
+	ChangePassword(changepassword string, id int) error
 }
