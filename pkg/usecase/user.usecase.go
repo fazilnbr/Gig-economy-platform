@@ -21,6 +21,14 @@ func NewUserService(
 	}
 }
 
+// EditProfile implements interfaces.UserUseCase
+func (c *userUseCase) EditProfile(userProfile domain.Profile, id int) error {
+	_, err := c.userRepo.EditProfile(userProfile, id)
+
+	return err
+
+}
+
 // AddProfile implements interfaces.UserUseCase
 func (c *userUseCase) AddProfile(userProfile domain.Profile, id int) error {
 	_, err := c.userRepo.AddProfile(userProfile, id)

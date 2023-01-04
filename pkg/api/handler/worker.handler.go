@@ -27,7 +27,7 @@ func (cr *WorkerHandler) AddProfile(c *gin.Context) {
 
 	c.Bind(&userprofile)
 
-	err := cr.userService.AddProfile(userprofile, id)
+	err := cr.workerService.AddProfile(userprofile, id)
 
 	if err != nil {
 		response := response.ErrorResponse("Error while adding profile", err.Error(), nil)
