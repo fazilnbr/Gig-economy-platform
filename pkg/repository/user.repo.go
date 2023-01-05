@@ -20,7 +20,7 @@ type userRepo struct {
 // }
 
 // ChangePassword implements interfaces.UserRepository
-func (c *userRepo) ChangePassword(changepassword string, id int) (int, error) {
+func (c *userRepo) UserChangePassword(changepassword string, id int) (int, error) {
 	var Id int
 	fmt.Println("id", id)
 	query := ` UPDATE logins
@@ -40,7 +40,7 @@ func (c *userRepo) ChangePassword(changepassword string, id int) (int, error) {
 }
 
 // EditProfile implements interfaces.UserRepository
-func (c *userRepo) EditProfile(userProfile domain.Profile, id int) (int, error) {
+func (c *userRepo) UserEditProfile(userProfile domain.Profile, id int) (int, error) {
 	var Id int
 	query := ` UPDATE profiles
 	SET name = $1,
@@ -77,7 +77,7 @@ func (c *userRepo) EditProfile(userProfile domain.Profile, id int) (int, error) 
 }
 
 // AddProfile implements interfaces.UserRepository
-func (c *userRepo) AddProfile(userProfile domain.Profile, id int) (int, error) {
+func (c *userRepo) UserAddProfile(userProfile domain.Profile, id int) (int, error) {
 	var Id int
 	query := ` INSERT INTO Profiles 
 	(id_login,name,gender,date_of_birth,house_name,place,post,pin,contact_number,email_id,photo) 

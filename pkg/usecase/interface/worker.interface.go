@@ -10,4 +10,7 @@ type WorkerUseCase interface {
 	SendVerificationEmail(email string) error
 	VerifyAccount(email string, code int) error
 	AddProfile(workerProfile domain.Profile, id int) error
+	WorkerEditProfile(userProfile domain.Profile, id int) error
+	WorkerVerifyPassword(changepassword domain.ChangePassword, id int) error
+	WorkerChangePassword(changepassword string, id int) error
 }

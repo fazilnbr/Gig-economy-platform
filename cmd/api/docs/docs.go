@@ -747,20 +747,76 @@ const docTemplate = `{
                 "produces": [
                     "application/json"
                 ],
-                "summary": "Login for admin",
-                "operationId": "admin login authentication",
+                "summary": "Edit profile for User",
+                "operationId": "user edit profile",
                 "parameters": [
                     {
                         "type": "string",
                         "description": "User Name : ",
-                        "name": "username",
+                        "name": "name",
                         "in": "path",
                         "required": true
                     },
                     {
                         "type": "string",
-                        "description": "Password : ",
-                        "name": "password",
+                        "description": "Gender : ",
+                        "name": "gender",
+                        "in": "path",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": "Date Of Birth : ",
+                        "name": "dateofbirth",
+                        "in": "path",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": "House Name : ",
+                        "name": "housename",
+                        "in": "path",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": "Place : ",
+                        "name": "place",
+                        "in": "path",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": "Post : ",
+                        "name": "post",
+                        "in": "path",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": "Pin : ",
+                        "name": "pin",
+                        "in": "path",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": "Contact Number : ",
+                        "name": "contactnumber",
+                        "in": "path",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": "Email Id : ",
+                        "name": "emailid",
+                        "in": "path",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": "Photo : ",
+                        "name": "photo",
                         "in": "path",
                         "required": true
                     }
@@ -777,7 +833,7 @@ const docTemplate = `{
                                     "type": "object",
                                     "properties": {
                                         "Data": {
-                                            "$ref": "#/definitions/domain.UserResponse"
+                                            "$ref": "#/definitions/domain.Profile"
                                         },
                                         "Errors": {
                                             "type": "string"
@@ -1613,7 +1669,7 @@ const docTemplate = `{
                 "contactnumber": {
                     "type": "string"
                 },
-                "id_category": {
+                "idCategory": {
                     "type": "integer"
                 }
             }
@@ -1637,6 +1693,47 @@ const docTemplate = `{
                     "type": "string"
                 },
                 "verification": {
+                    "type": "string"
+                }
+            }
+        },
+        "domain.Profile": {
+            "type": "object",
+            "properties": {
+                "contactnumber": {
+                    "type": "string"
+                },
+                "dateofbirth": {
+                    "type": "string"
+                },
+                "emailid": {
+                    "type": "string"
+                },
+                "gender": {
+                    "type": "string"
+                },
+                "housename": {
+                    "type": "string"
+                },
+                "idLogin": {
+                    "type": "integer"
+                },
+                "idUser": {
+                    "type": "integer"
+                },
+                "name": {
+                    "type": "string"
+                },
+                "photo": {
+                    "type": "string"
+                },
+                "pin": {
+                    "type": "string"
+                },
+                "place": {
+                    "type": "string"
+                },
+                "post": {
                     "type": "string"
                 }
             }

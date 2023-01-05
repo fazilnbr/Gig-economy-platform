@@ -26,6 +26,7 @@ var envs = []string{
 
 func LoadConfig() (Config, error) {
 	var config Config
+	fmt.Printf("\n\n\ncfg : %v\n\n\n", config)
 
 	viper.AddConfigPath("./")
 	viper.SetConfigFile(".env")

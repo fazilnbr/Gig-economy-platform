@@ -38,7 +38,7 @@ func NewUserHandler(userService services.UserUseCase) UserHandler {
 // @Success 200 {object} response.Response{Status=bool,Message=string,Errors=string,Data=domain.Profile}
 // @Failure 422 {object} response.Response{Status=bool,Message=string,Errors=string,Data=string}
 // @Router /admin/login [post]
-func (cr *UserHandler) AddProfile(c *gin.Context) {
+func (cr *UserHandler) UserAddProfile(c *gin.Context) {
 	id, _ := strconv.Atoi(c.Writer.Header().Get("id"))
 
 	fmt.Printf("\n\nidea : %v\n\n", id)
@@ -79,15 +79,15 @@ func (cr *UserHandler) AddProfile(c *gin.Context) {
 // @Success 200 {object} response.Response{Status=bool,Message=string,Errors=string,Data=domain.Profile}
 // @Failure 422 {object} response.Response{Status=bool,Message=string,Errors=string,Data=string}
 // @Router /admin/login [post]
-func (cr *UserHandler) EditProfile(c *gin.Context) {
-	id, _ := strconv.Atoi(c.Query("id"))
+func (cr *UserHandler) UserEditProfile(c *gin.Context) {
+	id, _ := strconv.Atoi(c.Writer.Header().Get("id"))
 	var userprofile domain.Profile
 
 	c.Bind(&userprofile)
 
 	fmt.Printf("\n\nuser Profile : \n%v\n\n%v\n\n", userprofile, id)
 
-	err := cr.userService.EditProfile(userprofile, id)
+	err := cr.userService.UserEditProfile(userprofile, id)
 
 	if err != nil {
 		response := response.ErrorResponse("Error while adding profile", err.Error(), nil)
@@ -120,7 +120,7 @@ func (cr *UserHandler) EditProfile(c *gin.Context) {
 // @Success 200 {object} response.Response{Status=bool,Message=string,Errors=string,Data=domain.Profile}
 // @Failure 422 {object} response.Response{Status=bool,Message=string,Errors=string,Data=string}
 // @Router /admin/login [post]
-func (cr *UserHandler) ChangePassword(c *gin.Context) {
+func (cr *UserHandler) UserChangePassword(c *gin.Context) {
 
 	id, _ := strconv.Atoi(c.Writer.Header().Get("id"))
 
@@ -132,7 +132,7 @@ func (cr *UserHandler) ChangePassword(c *gin.Context) {
 		fmt.Println("pooooo : ", err)
 	}
 
-	err = cr.userService.VerifyPassword(changepassword, id)
+	err = cr.userService.UserVerifyPassword(changepassword, id)
 
 	if err != nil {
 		response := response.ErrorResponse("Wrong Email id or Password", err.Error(), nil)
@@ -142,7 +142,7 @@ func (cr *UserHandler) ChangePassword(c *gin.Context) {
 		utils.ResponseJSON(*c, response)
 		return
 	}
-	err = cr.userService.ChangePassword(changepassword.NewPassword, id)
+	err = cr.userService.UserChangePassword(changepassword.NewPassword, id)
 
 	if err != nil {
 		response := response.ErrorResponse("Error while changing Password", err.Error(), nil)
