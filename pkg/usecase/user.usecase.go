@@ -22,7 +22,7 @@ func NewUserService(
 }
 
 // VerifyPassword implements interfaces.UserUseCase
-func (c *userUseCase) VerifyPassword(changepassword domain.ChangePassword, id int) error {
+func (c *userUseCase) UserVerifyPassword(changepassword domain.ChangePassword, id int) error {
 	user, err := c.userRepo.FindUser(changepassword.Email)
 	if err != nil {
 		return errors.New("Invalid User")
@@ -38,18 +38,18 @@ func (c *userUseCase) VerifyPassword(changepassword domain.ChangePassword, id in
 }
 
 // ChangePassword implements interfaces.UserUseCase
-func (c *userUseCase) ChangePassword(changepassword string, id int) error {
+func (c *userUseCase) UserChangePassword(changepassword string, id int) error {
 	//hashing password
 	changepassword = HashPassword(changepassword)
-	_, err := c.userRepo.ChangePassword(changepassword, id)
+	_, err := c.userRepo.UserChangePassword(changepassword, id)
 
 	return err
 
 }
 
 // EditProfile implements interfaces.UserUseCase
-func (c *userUseCase) EditProfile(userProfile domain.Profile, id int) error {
-	_, err := c.userRepo.EditProfile(userProfile, id)
+func (c *userUseCase) UserEditProfile(userProfile domain.Profile, id int) error {
+	_, err := c.userRepo.UserEditProfile(userProfile, id)
 
 	return err
 
@@ -57,7 +57,7 @@ func (c *userUseCase) EditProfile(userProfile domain.Profile, id int) error {
 
 // AddProfile implements interfaces.UserUseCase
 func (c *userUseCase) AddProfile(userProfile domain.Profile, id int) error {
-	_, err := c.userRepo.AddProfile(userProfile, id)
+	_, err := c.userRepo.UserAddProfile(userProfile, id)
 
 	return err
 

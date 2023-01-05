@@ -4,7 +4,7 @@ definitions:
     properties:
       contactnumber:
         type: string
-      id_category:
+      idCategory:
         type: integer
     type: object
   domain.Login:
@@ -20,6 +20,33 @@ definitions:
       usertype:
         type: string
       verification:
+        type: string
+    type: object
+  domain.Profile:
+    properties:
+      contactnumber:
+        type: string
+      dateofbirth:
+        type: string
+      emailid:
+        type: string
+      gender:
+        type: string
+      housename:
+        type: string
+      idLogin:
+        type: integer
+      idUser:
+        type: integer
+      name:
+        type: string
+      photo:
+        type: string
+      pin:
+        type: string
+      place:
+        type: string
+      post:
         type: string
     type: object
   domain.UserResponse:
@@ -474,16 +501,56 @@ paths:
       summary: list all new workers for admin
   /admin/login:
     post:
-      operationId: admin login authentication
+      operationId: user edit profile
       parameters:
       - description: 'User Name : '
         in: path
-        name: username
+        name: name
         required: true
         type: string
-      - description: 'Password : '
+      - description: 'Gender : '
         in: path
-        name: password
+        name: gender
+        required: true
+        type: string
+      - description: 'Date Of Birth : '
+        in: path
+        name: dateofbirth
+        required: true
+        type: string
+      - description: 'House Name : '
+        in: path
+        name: housename
+        required: true
+        type: string
+      - description: 'Place : '
+        in: path
+        name: place
+        required: true
+        type: string
+      - description: 'Post : '
+        in: path
+        name: post
+        required: true
+        type: string
+      - description: 'Pin : '
+        in: path
+        name: pin
+        required: true
+        type: string
+      - description: 'Contact Number : '
+        in: path
+        name: contactnumber
+        required: true
+        type: string
+      - description: 'Email Id : '
+        in: path
+        name: emailid
+        required: true
+        type: string
+      - description: 'Photo : '
+        in: path
+        name: photo
         required: true
         type: string
       produces:
@@ -496,7 +563,7 @@ paths:
             - $ref: '#/definitions/response.Response'
             - properties:
                 Data:
-                  $ref: '#/definitions/domain.UserResponse'
+                  $ref: '#/definitions/domain.Profile'
                 Errors:
                   type: string
                 Message:
@@ -519,7 +586,7 @@ paths:
                 Status:
                   type: boolean
               type: object
-      summary: Login for admin
+      summary: Edit profile for User
   /user/account/verifyJWT:
     get:
       operationId: Varify JWT authentication

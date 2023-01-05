@@ -31,6 +31,7 @@ func InitializeAPI(cfg config.Config) (*http.ServerHTTP, error) {
 		handler.NewAdminHandler,
 		handler.NewAuthHandler,
 		handler.NewUserHandler,
+		handler.NewWorkerHandler,
 		middleware.NewUserMiddileware,
 		http.NewServerHTTP)
 
