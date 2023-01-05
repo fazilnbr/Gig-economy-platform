@@ -21,9 +21,43 @@ func NewUserService(
 	}
 }
 
+// VerifyPassword implements interfaces.UserUseCase
+func (c *userUseCase) UserVerifyPassword(changepassword domain.ChangePassword, id int) error {
+	user, err := c.userRepo.FindUser(changepassword.Email)
+	if err != nil {
+		return errors.New("Invalid User")
+	}
+
+	fmt.Printf("\n\nuser Profile : \n%v\n\n%v\n\n", user, changepassword.OldPassword)
+
+	isValidPassword := VerifyPassword(changepassword.OldPassword, user.Password)
+	if !isValidPassword {
+		return errors.New("Invalid Password")
+	}
+	return nil
+}
+
+// ChangePassword implements interfaces.UserUseCase
+func (c *userUseCase) UserChangePassword(changepassword string, id int) error {
+	//hashing password
+	changepassword = HashPassword(changepassword)
+	_, err := c.userRepo.UserChangePassword(changepassword, id)
+
+	return err
+
+}
+
+// EditProfile implements interfaces.UserUseCase
+func (c *userUseCase) UserEditProfile(userProfile domain.Profile, id int) error {
+	_, err := c.userRepo.UserEditProfile(userProfile, id)
+
+	return err
+
+}
+
 // AddProfile implements interfaces.UserUseCase
 func (c *userUseCase) AddProfile(userProfile domain.Profile, id int) error {
-	_, err := c.userRepo.AddProfile(userProfile, id)
+	_, err := c.userRepo.UserAddProfile(userProfile, id)
 
 	return err
 

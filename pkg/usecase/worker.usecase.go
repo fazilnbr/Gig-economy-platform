@@ -3,6 +3,7 @@ package usecase
 import (
 	"database/sql"
 	"errors"
+	"fmt"
 
 	"github.com/fazilnbr/project-workey/pkg/domain"
 	interfaces "github.com/fazilnbr/project-workey/pkg/repository/interface"
@@ -13,9 +14,43 @@ type workerService struct {
 	workerRepo interfaces.WorkerRepository
 }
 
+// VerifyPassword implements interfaces.UserUseCase
+func (c *workerService) WorkerVerifyPassword(changepassword domain.ChangePassword, id int) error {
+	user, err := c.workerRepo.FindWorker(changepassword.Email)
+	if err != nil {
+		return errors.New("Invalid User")
+	}
+
+	fmt.Printf("\n\nuser Profile : \n%v\n\n%v\n\n", user, changepassword.OldPassword)
+
+	isValidPassword := VerifyPassword(changepassword.OldPassword, user.Password)
+	if !isValidPassword {
+		return errors.New("Invalid Password")
+	}
+	return nil
+}
+
+// ChangePassword implements interfaces.UserUseCase
+func (c *workerService) WorkerChangePassword(changepassword string, id int) error {
+	//hashing password
+	changepassword = HashPassword(changepassword)
+	_, err := c.workerRepo.WorkerChangePassword(changepassword, id)
+
+	return err
+
+}
+
+// EditProfile implements interfaces.UserUseCase
+func (c *workerService) WorkerEditProfile(userProfile domain.Profile, id int) error {
+	_, err := c.workerRepo.WorkerEditProfile(userProfile, id)
+
+	return err
+
+}
+
 // AddProfile implements interfaces.WorkerUseCase
 func (c *workerService) AddProfile(workerProfile domain.Profile, id int) error {
-	_, err := c.workerRepo.AddProfile(workerProfile, id)
+	_, err := c.workerRepo.WorkerAddProfile(workerProfile, id)
 
 	return err
 }

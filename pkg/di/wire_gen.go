@@ -32,7 +32,8 @@ func InitializeAPI(cfg config.Config) (*api.ServerHTTP, error) {
 	authHandler := handler.NewAuthHandler(adminUseCase, workerUseCase, userUseCase, jwtUseCase, authUseCase)
 	adminHandler := handler.NewAdminHandler(adminUseCase)
 	userHandler := handler.NewUserHandler(userUseCase)
+	workerHandler := handler.NewWorkerHandler(workerUseCase)
 	middlewareMiddleware := middleware.NewUserMiddileware(jwtUseCase)
-	serverHTTP := api.NewServerHTTP(authHandler, adminHandler, userHandler, middlewareMiddleware)
+	serverHTTP := api.NewServerHTTP(authHandler, adminHandler, userHandler, workerHandler, middlewareMiddleware)
 	return serverHTTP, nil
 }

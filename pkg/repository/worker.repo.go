@@ -14,8 +14,68 @@ type workerRepository struct {
 	db *sql.DB
 }
 
+// ChangePassword implements interfaces.UserRepository
+func (c *workerRepository) WorkerChangePassword(changepassword string, id int) (int, error) {
+	var Id int
+	fmt.Println("id", id)
+	query := ` UPDATE logins
+	SET password = $1
+	WHERE id_login = $2
+	RETURNING id_login;
+	`
+
+	err := c.db.QueryRow(query,
+		changepassword,
+		id,
+	).Scan(
+		&Id,
+	)
+
+	return Id, err
+}
+
+// EditProfile implements interfaces.UserRepository
+func (c *workerRepository) WorkerEditProfile(userProfile domain.Profile, id int) (int, error) {
+	var Id int
+
+	query := ` UPDATE profiles
+	SET name = $1,
+		gender = $2,
+		date_of_birth = $3, 
+		house_name = $4,
+		place = $5, 
+		post = $6, 
+		pin = $7,
+		contact_number = $8, 
+		email_id = $9, 
+		photo = $10
+	WHERE id_login = $11
+	RETURNING id_user;
+	`
+
+	err := c.db.QueryRow(query,
+		userProfile.Name,
+		userProfile.Gender,
+		userProfile.DateOfBirth,
+		userProfile.HouseName,
+		userProfile.Place,
+		userProfile.Post,
+		userProfile.Pin,
+		userProfile.ContactNumber,
+		userProfile.EmailID,
+		userProfile.Photo,
+		id,
+	).Scan(
+		&Id,
+	)
+
+	fmt.Printf("\n\nerr : %v\n%v\n\n", userProfile, err)
+
+	return Id, err
+}
+
 // AddProfile implements interfaces.WorkerRepository
-func (c *workerRepository) AddProfile(workerProfile domain.Profile, id int) (int, error) {
+func (c *workerRepository) WorkerAddProfile(workerProfile domain.Profile, id int) (int, error) {
 	var Id int
 	query := ` INSERT INTO Profiles 
 	(id_login,name,gender,date_of_birth,house_name,place,post,pin,contact_number,email_id,photo) 
@@ -24,8 +84,8 @@ func (c *workerRepository) AddProfile(workerProfile domain.Profile, id int) (int
 
 	err := c.db.QueryRow(query,
 		id,
-		workerProfile.Gender,
 		workerProfile.Name,
+		workerProfile.Gender,
 		workerProfile.DateOfBirth,
 		workerProfile.HouseName,
 		workerProfile.Place,
