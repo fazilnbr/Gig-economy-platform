@@ -23,16 +23,17 @@ func NewAdminHandler(adminService services.AdminUseCase) AdminHandler {
 
 // @Summary list all active users for admin
 // @ID list all active users
+// @Tags Admin
 // @Produce json
-// @Success 200 {object} response.Response{Status=bool,Message=string,Errors=string,Data=domain.Login}
-// @Failure 422 {object} response.Response{Status=bool,Message=string,Errors=string,Data=string}
+// @Success 200 {object} response.Response{}
+// @Failure 422 {object} response.Response{}
 // @Router /admin/listallusers [get]
 func (cr *AdminHandler) ListAllUsers(c *gin.Context) {
 
 	users, err := cr.adminService.ListUsers()
 
 	if err != nil {
-		response := response.ErrorResponse("Failed to create user", err.Error(), nil)
+		response := response.ErrorResponse("Failed to list user", err.Error(), nil)
 		c.Writer.Header().Set("Content-Type", "application/json")
 		c.Writer.WriteHeader(http.StatusUnprocessableEntity)
 
@@ -47,18 +48,17 @@ func (cr *AdminHandler) ListAllUsers(c *gin.Context) {
 
 // @Summary list all new users for admin
 // @ID list all new users
+// @Tags Admin
 // @Produce json
-// @Param        username   path      string  true  "User Name : "
-// @Param        password   path      string  true  "Password : "
-// @Success 200 {object} response.Response{Status=bool,Message=string,Errors=string,Data=domain.Login}
-// @Failure 422 {object} response.Response{Status=bool,Message=string,Errors=string,Data=string}
+// @Success 200 {object} response.Response{}
+// @Failure 422 {object} response.Response{}
 // @Router /admin/listnewusers [get]
 func (cr *AdminHandler) ListNewUsers(c *gin.Context) {
 
 	users, err := cr.adminService.ListNewUsers()
 
 	if err != nil {
-		response := response.ErrorResponse("Failed to create user", err.Error(), nil)
+		response := response.ErrorResponse("Failed to list user", err.Error(), nil)
 		c.Writer.Header().Set("Content-Type", "application/json")
 		c.Writer.WriteHeader(http.StatusUnprocessableEntity)
 
@@ -73,16 +73,17 @@ func (cr *AdminHandler) ListNewUsers(c *gin.Context) {
 
 // @Summary list all blocked users for admin
 // @ID list all blocked users
+// @Tags Admin
 // @Produce json
-// @Success 200 {object} response.Response{Status=bool,Message=string,Errors=string,Data=domain.Login}
-// @Failure 422 {object} response.Response{Status=bool,Message=string,Errors=string,Data=string}
+// @Success 200 {object} response.Response{}
+// @Failure 422 {object} response.Response{}
 // @Router /admin/listblockedusers [get]
 func (cr *AdminHandler) ListBlockUsers(c *gin.Context) {
 
 	users, err := cr.adminService.ListBlockedUsers()
 
 	if err != nil {
-		response := response.ErrorResponse("Failed to create user", err.Error(), nil)
+		response := response.ErrorResponse("Failed to list user", err.Error(), nil)
 
 		c.Writer.WriteHeader(http.StatusUnprocessableEntity)
 
@@ -97,10 +98,11 @@ func (cr *AdminHandler) ListBlockUsers(c *gin.Context) {
 
 // @Summary activate users for admin
 // @ID activate users
+// @Tags Admin
 // @Produce json
 // @Param        id   path      string  true  "Id of User : "
-// @Success 200 {object} response.Response{Status=bool,Message=string,Errors=string,Data=domain.Login}
-// @Failure 422 {object} response.Response{Status=bool,Message=string,Errors=string,Data=string}
+// @Success 200 {object} response.Response{}
+// @Failure 422 {object} response.Response{}
 // @Router /admin/activateusers [post]
 func (cr *AdminHandler) ActivateUsers(c *gin.Context) {
 
@@ -110,7 +112,7 @@ func (cr *AdminHandler) ActivateUsers(c *gin.Context) {
 	users, err := cr.adminService.ActivateUser(Id)
 
 	if err != nil {
-		response := response.ErrorResponse("Failed to create user", err.Error(), nil)
+		response := response.ErrorResponse("Failed to list user", err.Error(), nil)
 
 		c.Writer.WriteHeader(http.StatusUnprocessableEntity)
 
@@ -125,11 +127,12 @@ func (cr *AdminHandler) ActivateUsers(c *gin.Context) {
 
 // @Summary block users for admin
 // @ID block users
+// @Tags Admin
 // @Produce json
 // @Param        id   path      string  true  "Id of User : "
-// @Success 200 {object} response.Response{Status=bool,Message=string,Errors=string,Data=domain.Login}
-// @Failure 422 {object} response.Response{Status=bool,Message=string,Errors=string,Data=string}
-// @Router /admin/activateusers [post]
+// @Success 200 {object} response.Response{}
+// @Failure 422 {object} response.Response{}
+// @Router /admin/blockusers [post]
 func (cr *AdminHandler) BlockUsers(c *gin.Context) {
 
 	id := c.Query("id")
@@ -138,7 +141,7 @@ func (cr *AdminHandler) BlockUsers(c *gin.Context) {
 	users, err := cr.adminService.BlockUser(Id)
 
 	if err != nil {
-		response := response.ErrorResponse("Failed to create user", err.Error(), nil)
+		response := response.ErrorResponse("Failed to block user", err.Error(), nil)
 
 		c.Writer.WriteHeader(http.StatusUnprocessableEntity)
 
@@ -153,16 +156,17 @@ func (cr *AdminHandler) BlockUsers(c *gin.Context) {
 
 // @Summary list all active workers for admin
 // @ID list all active workers
+// @Tags Admin
 // @Produce json
-// @Success 200 {object} response.Response{Status=bool,Message=string,Errors=string,Data=domain.Login}
-// @Failure 422 {object} response.Response{Status=bool,Message=string,Errors=string,Data=string}
+// @Success 200 {object} response.Response{}
+// @Failure 422 {object} response.Response{}
 // @Router /admin/listallworkers [get]
 func (cr *AdminHandler) ListAllWorkers(c *gin.Context) {
 
 	users, err := cr.adminService.ListWorkers()
 
 	if err != nil {
-		response := response.ErrorResponse("Failed to create user", err.Error(), nil)
+		response := response.ErrorResponse("Failed to list worker", err.Error(), nil)
 		c.Writer.Header().Set("Content-Type", "application/json")
 		c.Writer.WriteHeader(http.StatusUnprocessableEntity)
 
@@ -177,18 +181,19 @@ func (cr *AdminHandler) ListAllWorkers(c *gin.Context) {
 
 // @Summary list all new workers for admin
 // @ID list all new workers
+// @Tags Admin
 // @Produce json
 // @Param        username   path      string  true  "User Name : "
 // @Param        password   path      string  true  "Password : "
-// @Success 200 {object} response.Response{Status=bool,Message=string,Errors=string,Data=domain.Login}
-// @Failure 422 {object} response.Response{Status=bool,Message=string,Errors=string,Data=string}
+// @Success 200 {object} response.Response{}
+// @Failure 422 {object} response.Response{}
 // @Router /admin/listnewworkers [get]
 func (cr *AdminHandler) ListNewWorkers(c *gin.Context) {
 
 	users, err := cr.adminService.ListNewWorkers()
 
 	if err != nil {
-		response := response.ErrorResponse("Failed to create user", err.Error(), nil)
+		response := response.ErrorResponse("Failed to list worker", err.Error(), nil)
 		c.Writer.Header().Set("Content-Type", "application/json")
 		c.Writer.WriteHeader(http.StatusUnprocessableEntity)
 
@@ -203,16 +208,17 @@ func (cr *AdminHandler) ListNewWorkers(c *gin.Context) {
 
 // @Summary list all blocked workers for admin
 // @ID list all blocked workers
+// @Tags Admin
 // @Produce json
-// @Success 200 {object} response.Response{Status=bool,Message=string,Errors=string,Data=domain.Login}
-// @Failure 422 {object} response.Response{Status=bool,Message=string,Errors=string,Data=string}
+// @Success 200 {object} response.Response{}
+// @Failure 422 {object} response.Response{}
 // @Router /admin/listblockedworkers [get]
 func (cr *AdminHandler) ListBlockWorkers(c *gin.Context) {
 
 	users, err := cr.adminService.ListBlockedWorkers()
 
 	if err != nil {
-		response := response.ErrorResponse("Failed to create user", err.Error(), nil)
+		response := response.ErrorResponse("Failed to list worker", err.Error(), nil)
 
 		c.Writer.WriteHeader(http.StatusUnprocessableEntity)
 
@@ -227,10 +233,11 @@ func (cr *AdminHandler) ListBlockWorkers(c *gin.Context) {
 
 // @Summary activate workers for admin
 // @ID activate workers
+// @Tags Admin
 // @Produce json
 // @Param        id   path      string  true  "Id of User : "
-// @Success 200 {object} response.Response{Status=bool,Message=string,Errors=string,Data=domain.Login}
-// @Failure 422 {object} response.Response{Status=bool,Message=string,Errors=string,Data=string}
+// @Success 200 {object} response.Response{}
+// @Failure 422 {object} response.Response{}
 // @Router /admin/activateworkers [post]
 func (cr *AdminHandler) ActivateWorkers(c *gin.Context) {
 
@@ -240,7 +247,7 @@ func (cr *AdminHandler) ActivateWorkers(c *gin.Context) {
 	users, err := cr.adminService.ActivateWorker(Id)
 
 	if err != nil {
-		response := response.ErrorResponse("Failed to create user", err.Error(), nil)
+		response := response.ErrorResponse("Failed to activate worker", err.Error(), nil)
 
 		c.Writer.WriteHeader(http.StatusUnprocessableEntity)
 
@@ -255,11 +262,12 @@ func (cr *AdminHandler) ActivateWorkers(c *gin.Context) {
 
 // @Summary block workers for admin
 // @ID block workers
+// @Tags Admin
 // @Produce json
 // @Param        id   path      string  true  "Id of User : "
-// @Success 200 {object} response.Response{Status=bool,Message=string,Errors=string,Data=domain.Login}
-// @Failure 422 {object} response.Response{Status=bool,Message=string,Errors=string,Data=string}
-// @Router /admin/activateworkers [post]
+// @Success 200 {object} response.Response{}
+// @Failure 422 {object} response.Response{}
+// @Router /admin/blockworkers [post]
 func (cr *AdminHandler) BlockWorkers(c *gin.Context) {
 
 	id := c.Query("id")
@@ -268,7 +276,7 @@ func (cr *AdminHandler) BlockWorkers(c *gin.Context) {
 	users, err := cr.adminService.BlockWorker(Id)
 
 	if err != nil {
-		response := response.ErrorResponse("Failed to create user", err.Error(), nil)
+		response := response.ErrorResponse("Failed to block worker", err.Error(), nil)
 
 		c.Writer.WriteHeader(http.StatusUnprocessableEntity)
 
@@ -283,11 +291,12 @@ func (cr *AdminHandler) BlockWorkers(c *gin.Context) {
 
 // @Summary add job category for admin
 // @ID add category
+// @Tags Admin
 // @Produce json
 // @Param       category   path      string  true  "category : "
-// @Success 200 {object} response.Response{Status=bool,Message=string,Errors=string,Data=domain.Category}
-// @Failure 422 {object} response.Response{Status=bool,Message=string,Errors=string,Data=string}
-// @Router /admin/block [post]
+// @Success 200 {object} response.Response{}
+// @Failure 422 {object} response.Response{}
+// @Router /admin/jobcategory [post]
 func (cr *AdminHandler) AddJobCategory(c *gin.Context) {
 
 	category := c.Query("category")

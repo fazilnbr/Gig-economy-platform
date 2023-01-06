@@ -22,8 +22,9 @@ func NewWorkerHandler(workerService services.WorkerUseCase) WorkerHandler {
 	}
 }
 
-// @Summary Add profile for User
-// @ID user add profile
+// @Summary Add profile for Worker
+// @ID worker add profile
+// @Tags Worker
 // @Produce json
 // @Param        name   path      string  true  "User Name : "
 // @Param        gender   path      string  true  "Gender : "
@@ -35,9 +36,9 @@ func NewWorkerHandler(workerService services.WorkerUseCase) WorkerHandler {
 // @Param        contactnumber   path      string  true  "Contact Number : "
 // @Param        emailid   path      string  true  "Email Id : "
 // @Param        photo   path      string  true  "Photo : "
-// @Success 200 {object} response.Response{Status=bool,Message=string,Errors=string,Data=domain.Profile}
-// @Failure 422 {object} response.Response{Status=bool,Message=string,Errors=string,Data=string}
-// @Router /admin/login [post]
+// @Success 200 {object} response.Response{}
+// @Failure 422 {object} response.Response{}
+// @Router /worker/addprofile [post]
 func (cr *WorkerHandler) WorkerAddProfile(c *gin.Context) {
 	id, _ := strconv.Atoi(c.Writer.Header().Get("id"))
 
@@ -63,8 +64,9 @@ func (cr *WorkerHandler) WorkerAddProfile(c *gin.Context) {
 	utils.ResponseJSON(*c, response)
 }
 
-// @Summary Edit profile for User
-// @ID user edit profile
+// @Summary Edit profile for Worker
+// @ID worker edit profile
+// @Tags Worker
 // @Produce json
 // @Param        name   path      string  true  "User Name : "
 // @Param        gender   path      string  true  "Gender : "
@@ -76,9 +78,9 @@ func (cr *WorkerHandler) WorkerAddProfile(c *gin.Context) {
 // @Param        contactnumber   path      string  true  "Contact Number : "
 // @Param        emailid   path      string  true  "Email Id : "
 // @Param        photo   path      string  true  "Photo : "
-// @Success 200 {object} response.Response{Status=bool,Message=string,Errors=string,Data=domain.Profile}
-// @Failure 422 {object} response.Response{Status=bool,Message=string,Errors=string,Data=string}
-// @Router /admin/login [post]
+// @Success 200 {object} response.Response{}
+// @Failure 422 {object} response.Response{}
+// @Router /worker/editprofile [post]
 func (cr *WorkerHandler) WorkerEditProfile(c *gin.Context) {
 	id, _ := strconv.Atoi(c.Writer.Header().Get("id"))
 	fmt.Printf("\n\n%v\n\n", id)
@@ -91,7 +93,7 @@ func (cr *WorkerHandler) WorkerEditProfile(c *gin.Context) {
 	err := cr.workerService.WorkerEditProfile(userprofile, id)
 
 	if err != nil {
-		response := response.ErrorResponse("Error while adding profile", err.Error(), nil)
+		response := response.ErrorResponse("Error while editing profile", err.Error(), nil)
 		c.Writer.Header().Set("Content-Type", "application/json")
 		c.Writer.WriteHeader(http.StatusUnprocessableEntity)
 
@@ -105,8 +107,9 @@ func (cr *WorkerHandler) WorkerEditProfile(c *gin.Context) {
 	utils.ResponseJSON(*c, response)
 }
 
-// @Summary Edit profile for User
-// @ID user edit profile
+// @Summary Change Password for worker
+// @ID worker change password
+// @Tags Worker
 // @Produce json
 // @Param        name   path      string  true  "User Name : "
 // @Param        gender   path      string  true  "Gender : "
@@ -118,9 +121,9 @@ func (cr *WorkerHandler) WorkerEditProfile(c *gin.Context) {
 // @Param        contactnumber   path      string  true  "Contact Number : "
 // @Param        emailid   path      string  true  "Email Id : "
 // @Param        photo   path      string  true  "Photo : "
-// @Success 200 {object} response.Response{Status=bool,Message=string,Errors=string,Data=domain.Profile}
-// @Failure 422 {object} response.Response{Status=bool,Message=string,Errors=string,Data=string}
-// @Router /admin/login [post]
+// @Success 200 {object} response.Response{}
+// @Failure 422 {object} response.Response{}
+// @Router /worker/changepassword [post]
 func (cr *WorkerHandler) WorkerChangePassword(c *gin.Context) {
 
 	id, _ := strconv.Atoi(c.Writer.Header().Get("id"))

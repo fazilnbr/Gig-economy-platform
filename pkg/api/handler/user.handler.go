@@ -24,6 +24,7 @@ func NewUserHandler(userService services.UserUseCase) UserHandler {
 
 // @Summary Add profile for User
 // @ID user add profile
+// @Tags User
 // @Produce json
 // @Param        name   path      string  true  "User Name : "
 // @Param        gender   path      string  true  "Gender : "
@@ -35,9 +36,9 @@ func NewUserHandler(userService services.UserUseCase) UserHandler {
 // @Param        contactnumber   path      string  true  "Contact Number : "
 // @Param        emailid   path      string  true  "Email Id : "
 // @Param        photo   path      string  true  "Photo : "
-// @Success 200 {object} response.Response{Status=bool,Message=string,Errors=string,Data=domain.Profile}
-// @Failure 422 {object} response.Response{Status=bool,Message=string,Errors=string,Data=string}
-// @Router /admin/login [post]
+// @Success 200 {object} response.Response{}
+// @Failure 422 {object} response.Response{}
+// @Router /user/addprofile [post]
 func (cr *UserHandler) UserAddProfile(c *gin.Context) {
 	id, _ := strconv.Atoi(c.Writer.Header().Get("id"))
 
@@ -65,6 +66,7 @@ func (cr *UserHandler) UserAddProfile(c *gin.Context) {
 
 // @Summary Edit profile for User
 // @ID user edit profile
+// @Tags User
 // @Produce json
 // @Param        name   path      string  true  "User Name : "
 // @Param        gender   path      string  true  "Gender : "
@@ -76,9 +78,9 @@ func (cr *UserHandler) UserAddProfile(c *gin.Context) {
 // @Param        contactnumber   path      string  true  "Contact Number : "
 // @Param        emailid   path      string  true  "Email Id : "
 // @Param        photo   path      string  true  "Photo : "
-// @Success 200 {object} response.Response{Status=bool,Message=string,Errors=string,Data=domain.Profile}
-// @Failure 422 {object} response.Response{Status=bool,Message=string,Errors=string,Data=string}
-// @Router /admin/login [post]
+// @Success 200 {object} response.Response{}
+// @Failure 422 {object} response.Response{}
+// @Router /user/editprofile [post]
 func (cr *UserHandler) UserEditProfile(c *gin.Context) {
 	id, _ := strconv.Atoi(c.Writer.Header().Get("id"))
 	var userprofile domain.Profile
@@ -90,7 +92,7 @@ func (cr *UserHandler) UserEditProfile(c *gin.Context) {
 	err := cr.userService.UserEditProfile(userprofile, id)
 
 	if err != nil {
-		response := response.ErrorResponse("Error while adding profile", err.Error(), nil)
+		response := response.ErrorResponse("Error while editing profile", err.Error(), nil)
 		c.Writer.Header().Set("Content-Type", "application/json")
 		c.Writer.WriteHeader(http.StatusUnprocessableEntity)
 
@@ -104,8 +106,9 @@ func (cr *UserHandler) UserEditProfile(c *gin.Context) {
 	utils.ResponseJSON(*c, response)
 }
 
-// @Summary Edit profile for User
-// @ID user edit profile
+// @Summary Change Password for User
+// @ID user change password
+// @Tags User
 // @Produce json
 // @Param        name   path      string  true  "User Name : "
 // @Param        gender   path      string  true  "Gender : "
@@ -117,9 +120,9 @@ func (cr *UserHandler) UserEditProfile(c *gin.Context) {
 // @Param        contactnumber   path      string  true  "Contact Number : "
 // @Param        emailid   path      string  true  "Email Id : "
 // @Param        photo   path      string  true  "Photo : "
-// @Success 200 {object} response.Response{Status=bool,Message=string,Errors=string,Data=domain.Profile}
-// @Failure 422 {object} response.Response{Status=bool,Message=string,Errors=string,Data=string}
-// @Router /admin/login [post]
+// @Success 200 {object} response.Response{}
+// @Failure 422 {object} response.Response{}
+// @Router /user/changepassword [post]
 func (cr *UserHandler) UserChangePassword(c *gin.Context) {
 
 	id, _ := strconv.Atoi(c.Writer.Header().Get("id"))

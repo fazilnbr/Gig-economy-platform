@@ -1,65 +1,5 @@
 basePath: /
 definitions:
-  domain.Category:
-    properties:
-      contactnumber:
-        type: string
-      idCategory:
-        type: integer
-    type: object
-  domain.Login:
-    properties:
-      id_login:
-        type: integer
-      password:
-        type: string
-      status:
-        type: string
-      username:
-        type: string
-      usertype:
-        type: string
-      verification:
-        type: string
-    type: object
-  domain.Profile:
-    properties:
-      contactnumber:
-        type: string
-      dateofbirth:
-        type: string
-      emailid:
-        type: string
-      gender:
-        type: string
-      housename:
-        type: string
-      idLogin:
-        type: integer
-      idUser:
-        type: integer
-      name:
-        type: string
-      photo:
-        type: string
-      pin:
-        type: string
-      place:
-        type: string
-      post:
-        type: string
-    type: object
-  domain.UserResponse:
-    properties:
-      first_name:
-        type: string
-      id:
-        type: integer
-      password:
-        type: string
-      token:
-        type: string
-    type: object
   response.Response:
     properties:
       data: {}
@@ -98,35 +38,61 @@ paths:
         "200":
           description: OK
           schema:
-            allOf:
-            - $ref: '#/definitions/response.Response'
-            - properties:
-                Data:
-                  type: string
-                Errors:
-                  type: string
-                Message:
-                  type: string
-                Status:
-                  type: boolean
-              type: object
+            $ref: '#/definitions/response.Response'
         "422":
           description: Unprocessable Entity
           schema:
-            allOf:
-            - $ref: '#/definitions/response.Response'
-            - properties:
-                Data:
-                  type: string
-                Errors:
-                  type: string
-                Message:
-                  type: string
-                Status:
-                  type: boolean
-              type: object
-      summary: Varify JWT of users
+            $ref: '#/definitions/response.Response'
+      summary: Varify JWT of Admin
+      tags:
+      - Admin
   /admin/activateusers:
+    post:
+      operationId: activate users
+      parameters:
+      - description: 'Id of User : '
+        in: path
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/response.Response'
+        "422":
+          description: Unprocessable Entity
+          schema:
+            $ref: '#/definitions/response.Response'
+      summary: activate users for admin
+      tags:
+      - Admin
+  /admin/activateworkers:
+    post:
+      operationId: activate workers
+      parameters:
+      - description: 'Id of User : '
+        in: path
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/response.Response'
+        "422":
+          description: Unprocessable Entity
+          schema:
+            $ref: '#/definitions/response.Response'
+      summary: activate workers for admin
+      tags:
+      - Admin
+  /admin/blockusers:
     post:
       operationId: block users
       parameters:
@@ -141,35 +107,15 @@ paths:
         "200":
           description: OK
           schema:
-            allOf:
-            - $ref: '#/definitions/response.Response'
-            - properties:
-                Data:
-                  $ref: '#/definitions/domain.Login'
-                Errors:
-                  type: string
-                Message:
-                  type: string
-                Status:
-                  type: boolean
-              type: object
+            $ref: '#/definitions/response.Response'
         "422":
           description: Unprocessable Entity
           schema:
-            allOf:
-            - $ref: '#/definitions/response.Response'
-            - properties:
-                Data:
-                  type: string
-                Errors:
-                  type: string
-                Message:
-                  type: string
-                Status:
-                  type: boolean
-              type: object
+            $ref: '#/definitions/response.Response'
       summary: block users for admin
-  /admin/activateworkers:
+      tags:
+      - Admin
+  /admin/blockworkers:
     post:
       operationId: block workers
       parameters:
@@ -184,35 +130,15 @@ paths:
         "200":
           description: OK
           schema:
-            allOf:
-            - $ref: '#/definitions/response.Response'
-            - properties:
-                Data:
-                  $ref: '#/definitions/domain.Login'
-                Errors:
-                  type: string
-                Message:
-                  type: string
-                Status:
-                  type: boolean
-              type: object
+            $ref: '#/definitions/response.Response'
         "422":
           description: Unprocessable Entity
           schema:
-            allOf:
-            - $ref: '#/definitions/response.Response'
-            - properties:
-                Data:
-                  type: string
-                Errors:
-                  type: string
-                Message:
-                  type: string
-                Status:
-                  type: boolean
-              type: object
+            $ref: '#/definitions/response.Response'
       summary: block workers for admin
-  /admin/block:
+      tags:
+      - Admin
+  /admin/jobcategory:
     post:
       operationId: add category
       parameters:
@@ -227,34 +153,14 @@ paths:
         "200":
           description: OK
           schema:
-            allOf:
-            - $ref: '#/definitions/response.Response'
-            - properties:
-                Data:
-                  $ref: '#/definitions/domain.Category'
-                Errors:
-                  type: string
-                Message:
-                  type: string
-                Status:
-                  type: boolean
-              type: object
+            $ref: '#/definitions/response.Response'
         "422":
           description: Unprocessable Entity
           schema:
-            allOf:
-            - $ref: '#/definitions/response.Response'
-            - properties:
-                Data:
-                  type: string
-                Errors:
-                  type: string
-                Message:
-                  type: string
-                Status:
-                  type: boolean
-              type: object
+            $ref: '#/definitions/response.Response'
       summary: add job category for admin
+      tags:
+      - Admin
   /admin/listallusers:
     get:
       operationId: list all active users
@@ -264,34 +170,14 @@ paths:
         "200":
           description: OK
           schema:
-            allOf:
-            - $ref: '#/definitions/response.Response'
-            - properties:
-                Data:
-                  $ref: '#/definitions/domain.Login'
-                Errors:
-                  type: string
-                Message:
-                  type: string
-                Status:
-                  type: boolean
-              type: object
+            $ref: '#/definitions/response.Response'
         "422":
           description: Unprocessable Entity
           schema:
-            allOf:
-            - $ref: '#/definitions/response.Response'
-            - properties:
-                Data:
-                  type: string
-                Errors:
-                  type: string
-                Message:
-                  type: string
-                Status:
-                  type: boolean
-              type: object
+            $ref: '#/definitions/response.Response'
       summary: list all active users for admin
+      tags:
+      - Admin
   /admin/listallworkers:
     get:
       operationId: list all active workers
@@ -301,34 +187,14 @@ paths:
         "200":
           description: OK
           schema:
-            allOf:
-            - $ref: '#/definitions/response.Response'
-            - properties:
-                Data:
-                  $ref: '#/definitions/domain.Login'
-                Errors:
-                  type: string
-                Message:
-                  type: string
-                Status:
-                  type: boolean
-              type: object
+            $ref: '#/definitions/response.Response'
         "422":
           description: Unprocessable Entity
           schema:
-            allOf:
-            - $ref: '#/definitions/response.Response'
-            - properties:
-                Data:
-                  type: string
-                Errors:
-                  type: string
-                Message:
-                  type: string
-                Status:
-                  type: boolean
-              type: object
+            $ref: '#/definitions/response.Response'
       summary: list all active workers for admin
+      tags:
+      - Admin
   /admin/listblockedusers:
     get:
       operationId: list all blocked users
@@ -338,34 +204,14 @@ paths:
         "200":
           description: OK
           schema:
-            allOf:
-            - $ref: '#/definitions/response.Response'
-            - properties:
-                Data:
-                  $ref: '#/definitions/domain.Login'
-                Errors:
-                  type: string
-                Message:
-                  type: string
-                Status:
-                  type: boolean
-              type: object
+            $ref: '#/definitions/response.Response'
         "422":
           description: Unprocessable Entity
           schema:
-            allOf:
-            - $ref: '#/definitions/response.Response'
-            - properties:
-                Data:
-                  type: string
-                Errors:
-                  type: string
-                Message:
-                  type: string
-                Status:
-                  type: boolean
-              type: object
+            $ref: '#/definitions/response.Response'
       summary: list all blocked users for admin
+      tags:
+      - Admin
   /admin/listblockedworkers:
     get:
       operationId: list all blocked workers
@@ -375,82 +221,31 @@ paths:
         "200":
           description: OK
           schema:
-            allOf:
-            - $ref: '#/definitions/response.Response'
-            - properties:
-                Data:
-                  $ref: '#/definitions/domain.Login'
-                Errors:
-                  type: string
-                Message:
-                  type: string
-                Status:
-                  type: boolean
-              type: object
+            $ref: '#/definitions/response.Response'
         "422":
           description: Unprocessable Entity
           schema:
-            allOf:
-            - $ref: '#/definitions/response.Response'
-            - properties:
-                Data:
-                  type: string
-                Errors:
-                  type: string
-                Message:
-                  type: string
-                Status:
-                  type: boolean
-              type: object
+            $ref: '#/definitions/response.Response'
       summary: list all blocked workers for admin
+      tags:
+      - Admin
   /admin/listnewusers:
     get:
       operationId: list all new users
-      parameters:
-      - description: 'User Name : '
-        in: path
-        name: username
-        required: true
-        type: string
-      - description: 'Password : '
-        in: path
-        name: password
-        required: true
-        type: string
       produces:
       - application/json
       responses:
         "200":
           description: OK
           schema:
-            allOf:
-            - $ref: '#/definitions/response.Response'
-            - properties:
-                Data:
-                  $ref: '#/definitions/domain.Login'
-                Errors:
-                  type: string
-                Message:
-                  type: string
-                Status:
-                  type: boolean
-              type: object
+            $ref: '#/definitions/response.Response'
         "422":
           description: Unprocessable Entity
           schema:
-            allOf:
-            - $ref: '#/definitions/response.Response'
-            - properties:
-                Data:
-                  type: string
-                Errors:
-                  type: string
-                Message:
-                  type: string
-                Status:
-                  type: boolean
-              type: object
+            $ref: '#/definitions/response.Response'
       summary: list all new users for admin
+      tags:
+      - Admin
   /admin/listnewworkers:
     get:
       operationId: list all new workers
@@ -471,35 +266,202 @@ paths:
         "200":
           description: OK
           schema:
-            allOf:
-            - $ref: '#/definitions/response.Response'
-            - properties:
-                Data:
-                  $ref: '#/definitions/domain.Login'
-                Errors:
-                  type: string
-                Message:
-                  type: string
-                Status:
-                  type: boolean
-              type: object
+            $ref: '#/definitions/response.Response'
         "422":
           description: Unprocessable Entity
           schema:
-            allOf:
-            - $ref: '#/definitions/response.Response'
-            - properties:
-                Data:
-                  type: string
-                Errors:
-                  type: string
-                Message:
-                  type: string
-                Status:
-                  type: boolean
-              type: object
+            $ref: '#/definitions/response.Response'
       summary: list all new workers for admin
+      tags:
+      - Admin
   /admin/login:
+    post:
+      operationId: admin login authentication
+      parameters:
+      - description: 'User Name : '
+        in: path
+        name: username
+        required: true
+        type: string
+      - description: 'Password : '
+        in: path
+        name: password
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/response.Response'
+        "422":
+          description: Unprocessable Entity
+          schema:
+            $ref: '#/definitions/response.Response'
+      summary: Login for admin
+      tags:
+      - Admin
+  /user/account/verifyJWT:
+    get:
+      operationId: Varify JWT authentication
+      parameters:
+      - description: 'Email : '
+        in: path
+        name: email
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/response.Response'
+        "422":
+          description: Unprocessable Entity
+          schema:
+            $ref: '#/definitions/response.Response'
+      summary: Varify JWT of users
+      tags:
+      - User
+  /user/addprofile:
+    post:
+      operationId: user add profile
+      parameters:
+      - description: 'User Name : '
+        in: path
+        name: name
+        required: true
+        type: string
+      - description: 'Gender : '
+        in: path
+        name: gender
+        required: true
+        type: string
+      - description: 'Date Of Birth : '
+        in: path
+        name: dateofbirth
+        required: true
+        type: string
+      - description: 'House Name : '
+        in: path
+        name: housename
+        required: true
+        type: string
+      - description: 'Place : '
+        in: path
+        name: place
+        required: true
+        type: string
+      - description: 'Post : '
+        in: path
+        name: post
+        required: true
+        type: string
+      - description: 'Pin : '
+        in: path
+        name: pin
+        required: true
+        type: string
+      - description: 'Contact Number : '
+        in: path
+        name: contactnumber
+        required: true
+        type: string
+      - description: 'Email Id : '
+        in: path
+        name: emailid
+        required: true
+        type: string
+      - description: 'Photo : '
+        in: path
+        name: photo
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/response.Response'
+        "422":
+          description: Unprocessable Entity
+          schema:
+            $ref: '#/definitions/response.Response'
+      summary: Add profile for User
+      tags:
+      - User
+  /user/changepassword:
+    post:
+      operationId: user change password
+      parameters:
+      - description: 'User Name : '
+        in: path
+        name: name
+        required: true
+        type: string
+      - description: 'Gender : '
+        in: path
+        name: gender
+        required: true
+        type: string
+      - description: 'Date Of Birth : '
+        in: path
+        name: dateofbirth
+        required: true
+        type: string
+      - description: 'House Name : '
+        in: path
+        name: housename
+        required: true
+        type: string
+      - description: 'Place : '
+        in: path
+        name: place
+        required: true
+        type: string
+      - description: 'Post : '
+        in: path
+        name: post
+        required: true
+        type: string
+      - description: 'Pin : '
+        in: path
+        name: pin
+        required: true
+        type: string
+      - description: 'Contact Number : '
+        in: path
+        name: contactnumber
+        required: true
+        type: string
+      - description: 'Email Id : '
+        in: path
+        name: emailid
+        required: true
+        type: string
+      - description: 'Photo : '
+        in: path
+        name: photo
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/response.Response'
+        "422":
+          description: Unprocessable Entity
+          schema:
+            $ref: '#/definitions/response.Response'
+      summary: Change Password for User
+      tags:
+      - User
+  /user/editprofile:
     post:
       operationId: user edit profile
       parameters:
@@ -559,77 +521,14 @@ paths:
         "200":
           description: OK
           schema:
-            allOf:
-            - $ref: '#/definitions/response.Response'
-            - properties:
-                Data:
-                  $ref: '#/definitions/domain.Profile'
-                Errors:
-                  type: string
-                Message:
-                  type: string
-                Status:
-                  type: boolean
-              type: object
+            $ref: '#/definitions/response.Response'
         "422":
           description: Unprocessable Entity
           schema:
-            allOf:
-            - $ref: '#/definitions/response.Response'
-            - properties:
-                Data:
-                  type: string
-                Errors:
-                  type: string
-                Message:
-                  type: string
-                Status:
-                  type: boolean
-              type: object
+            $ref: '#/definitions/response.Response'
       summary: Edit profile for User
-  /user/account/verifyJWT:
-    get:
-      operationId: Varify JWT authentication
-      parameters:
-      - description: 'Email : '
-        in: path
-        name: email
-        required: true
-        type: string
-      produces:
-      - application/json
-      responses:
-        "200":
-          description: OK
-          schema:
-            allOf:
-            - $ref: '#/definitions/response.Response'
-            - properties:
-                Data:
-                  type: string
-                Errors:
-                  type: string
-                Message:
-                  type: string
-                Status:
-                  type: boolean
-              type: object
-        "422":
-          description: Unprocessable Entity
-          schema:
-            allOf:
-            - $ref: '#/definitions/response.Response'
-            - properties:
-                Data:
-                  type: string
-                Errors:
-                  type: string
-                Message:
-                  type: string
-                Status:
-                  type: boolean
-              type: object
-      summary: Varify JWT of users
+      tags:
+      - User
   /user/login:
     post:
       operationId: login authentication
@@ -650,34 +549,14 @@ paths:
         "200":
           description: OK
           schema:
-            allOf:
-            - $ref: '#/definitions/response.Response'
-            - properties:
-                Data:
-                  $ref: '#/definitions/domain.UserResponse'
-                Errors:
-                  type: string
-                Message:
-                  type: string
-                Status:
-                  type: boolean
-              type: object
+            $ref: '#/definitions/response.Response'
         "422":
           description: Unprocessable Entity
           schema:
-            allOf:
-            - $ref: '#/definitions/response.Response'
-            - properties:
-                Data:
-                  type: string
-                Errors:
-                  type: string
-                Message:
-                  type: string
-                Status:
-                  type: boolean
-              type: object
+            $ref: '#/definitions/response.Response'
       summary: Login for users
+      tags:
+      - User
   /user/send/verification:
     post:
       operationId: SendVerificationMail authentication
@@ -693,34 +572,14 @@ paths:
         "200":
           description: OK
           schema:
-            allOf:
-            - $ref: '#/definitions/response.Response'
-            - properties:
-                Data:
-                  $ref: '#/definitions/domain.UserResponse'
-                Errors:
-                  type: string
-                Message:
-                  type: string
-                Status:
-                  type: boolean
-              type: object
+            $ref: '#/definitions/response.Response'
         "422":
           description: Unprocessable Entity
           schema:
-            allOf:
-            - $ref: '#/definitions/response.Response'
-            - properties:
-                Data:
-                  type: string
-                Errors:
-                  type: string
-                Message:
-                  type: string
-                Status:
-                  type: boolean
-              type: object
+            $ref: '#/definitions/response.Response'
       summary: Send OTP varification mail to users
+      tags:
+      - User
   /user/signup:
     post:
       operationId: SignUp authentication
@@ -741,34 +600,15 @@ paths:
         "200":
           description: OK
           schema:
-            allOf:
-            - $ref: '#/definitions/response.Response'
-            - properties:
-                Data:
-                  $ref: '#/definitions/domain.Login'
-                Errors:
-                  type: string
-                Message:
-                  type: string
-                Status:
-                  type: boolean
-              type: object
+            $ref: '#/definitions/response.Response'
         "422":
           description: Unprocessable Entity
           schema:
-            allOf:
-            - $ref: '#/definitions/response.Response'
-            - properties:
-                Data:
-                  type: string
-                Errors:
-                  type: string
-                Message:
-                  type: string
-                Status:
-                  type: boolean
-              type: object
+            $ref: '#/definitions/response.Response'
       summary: SignUp for users
+      tags:
+      - User
+      - User
   /user/verify/account:
     post:
       operationId: Varify OTP authentication
@@ -789,34 +629,14 @@ paths:
         "200":
           description: OK
           schema:
-            allOf:
-            - $ref: '#/definitions/response.Response'
-            - properties:
-                Data:
-                  type: string
-                Errors:
-                  type: string
-                Message:
-                  type: string
-                Status:
-                  type: boolean
-              type: object
+            $ref: '#/definitions/response.Response'
         "422":
           description: Unprocessable Entity
           schema:
-            allOf:
-            - $ref: '#/definitions/response.Response'
-            - properties:
-                Data:
-                  type: string
-                Errors:
-                  type: string
-                Message:
-                  type: string
-                Status:
-                  type: boolean
-              type: object
+            $ref: '#/definitions/response.Response'
       summary: Varify OTP of users
+      tags:
+      - User
   /woker/signup:
     post:
       operationId: Worker SignUp authentication
@@ -837,34 +657,14 @@ paths:
         "200":
           description: OK
           schema:
-            allOf:
-            - $ref: '#/definitions/response.Response'
-            - properties:
-                Data:
-                  $ref: '#/definitions/domain.Login'
-                Errors:
-                  type: string
-                Message:
-                  type: string
-                Status:
-                  type: boolean
-              type: object
+            $ref: '#/definitions/response.Response'
         "422":
           description: Unprocessable Entity
           schema:
-            allOf:
-            - $ref: '#/definitions/response.Response'
-            - properties:
-                Data:
-                  type: string
-                Errors:
-                  type: string
-                Message:
-                  type: string
-                Status:
-                  type: boolean
-              type: object
+            $ref: '#/definitions/response.Response'
       summary: SignUp for Workers
+      tags:
+      - Worker
   /worker/account/verifyJWT:
     get:
       operationId: Varify worker JWT authentication
@@ -880,34 +680,218 @@ paths:
         "200":
           description: OK
           schema:
-            allOf:
-            - $ref: '#/definitions/response.Response'
-            - properties:
-                Data:
-                  type: string
-                Errors:
-                  type: string
-                Message:
-                  type: string
-                Status:
-                  type: boolean
-              type: object
+            $ref: '#/definitions/response.Response'
         "422":
           description: Unprocessable Entity
           schema:
-            allOf:
-            - $ref: '#/definitions/response.Response'
-            - properties:
-                Data:
-                  type: string
-                Errors:
-                  type: string
-                Message:
-                  type: string
-                Status:
-                  type: boolean
-              type: object
+            $ref: '#/definitions/response.Response'
       summary: Varify JWT of users
+      tags:
+      - Worker
+  /worker/addprofile:
+    post:
+      operationId: worker add profile
+      parameters:
+      - description: 'User Name : '
+        in: path
+        name: name
+        required: true
+        type: string
+      - description: 'Gender : '
+        in: path
+        name: gender
+        required: true
+        type: string
+      - description: 'Date Of Birth : '
+        in: path
+        name: dateofbirth
+        required: true
+        type: string
+      - description: 'House Name : '
+        in: path
+        name: housename
+        required: true
+        type: string
+      - description: 'Place : '
+        in: path
+        name: place
+        required: true
+        type: string
+      - description: 'Post : '
+        in: path
+        name: post
+        required: true
+        type: string
+      - description: 'Pin : '
+        in: path
+        name: pin
+        required: true
+        type: string
+      - description: 'Contact Number : '
+        in: path
+        name: contactnumber
+        required: true
+        type: string
+      - description: 'Email Id : '
+        in: path
+        name: emailid
+        required: true
+        type: string
+      - description: 'Photo : '
+        in: path
+        name: photo
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/response.Response'
+        "422":
+          description: Unprocessable Entity
+          schema:
+            $ref: '#/definitions/response.Response'
+      summary: Add profile for Worker
+      tags:
+      - Worker
+  /worker/changepassword:
+    post:
+      operationId: worker change password
+      parameters:
+      - description: 'User Name : '
+        in: path
+        name: name
+        required: true
+        type: string
+      - description: 'Gender : '
+        in: path
+        name: gender
+        required: true
+        type: string
+      - description: 'Date Of Birth : '
+        in: path
+        name: dateofbirth
+        required: true
+        type: string
+      - description: 'House Name : '
+        in: path
+        name: housename
+        required: true
+        type: string
+      - description: 'Place : '
+        in: path
+        name: place
+        required: true
+        type: string
+      - description: 'Post : '
+        in: path
+        name: post
+        required: true
+        type: string
+      - description: 'Pin : '
+        in: path
+        name: pin
+        required: true
+        type: string
+      - description: 'Contact Number : '
+        in: path
+        name: contactnumber
+        required: true
+        type: string
+      - description: 'Email Id : '
+        in: path
+        name: emailid
+        required: true
+        type: string
+      - description: 'Photo : '
+        in: path
+        name: photo
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/response.Response'
+        "422":
+          description: Unprocessable Entity
+          schema:
+            $ref: '#/definitions/response.Response'
+      summary: Change Password for worker
+      tags:
+      - Worker
+  /worker/editprofile:
+    post:
+      operationId: worker edit profile
+      parameters:
+      - description: 'User Name : '
+        in: path
+        name: name
+        required: true
+        type: string
+      - description: 'Gender : '
+        in: path
+        name: gender
+        required: true
+        type: string
+      - description: 'Date Of Birth : '
+        in: path
+        name: dateofbirth
+        required: true
+        type: string
+      - description: 'House Name : '
+        in: path
+        name: housename
+        required: true
+        type: string
+      - description: 'Place : '
+        in: path
+        name: place
+        required: true
+        type: string
+      - description: 'Post : '
+        in: path
+        name: post
+        required: true
+        type: string
+      - description: 'Pin : '
+        in: path
+        name: pin
+        required: true
+        type: string
+      - description: 'Contact Number : '
+        in: path
+        name: contactnumber
+        required: true
+        type: string
+      - description: 'Email Id : '
+        in: path
+        name: emailid
+        required: true
+        type: string
+      - description: 'Photo : '
+        in: path
+        name: photo
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/response.Response'
+        "422":
+          description: Unprocessable Entity
+          schema:
+            $ref: '#/definitions/response.Response'
+      summary: Edit profile for Worker
+      tags:
+      - Worker
   /worker/login:
     post:
       operationId: worker login authentication
@@ -928,34 +912,14 @@ paths:
         "200":
           description: OK
           schema:
-            allOf:
-            - $ref: '#/definitions/response.Response'
-            - properties:
-                Data:
-                  $ref: '#/definitions/domain.UserResponse'
-                Errors:
-                  type: string
-                Message:
-                  type: string
-                Status:
-                  type: boolean
-              type: object
+            $ref: '#/definitions/response.Response'
         "422":
           description: Unprocessable Entity
           schema:
-            allOf:
-            - $ref: '#/definitions/response.Response'
-            - properties:
-                Data:
-                  type: string
-                Errors:
-                  type: string
-                Message:
-                  type: string
-                Status:
-                  type: boolean
-              type: object
+            $ref: '#/definitions/response.Response'
       summary: Login for worker
+      tags:
+      - Worker
   /worker/send/verification:
     post:
       operationId: Worker SendVerificationMail authentication
@@ -971,34 +935,14 @@ paths:
         "200":
           description: OK
           schema:
-            allOf:
-            - $ref: '#/definitions/response.Response'
-            - properties:
-                Data:
-                  $ref: '#/definitions/domain.UserResponse'
-                Errors:
-                  type: string
-                Message:
-                  type: string
-                Status:
-                  type: boolean
-              type: object
+            $ref: '#/definitions/response.Response'
         "422":
           description: Unprocessable Entity
           schema:
-            allOf:
-            - $ref: '#/definitions/response.Response'
-            - properties:
-                Data:
-                  type: string
-                Errors:
-                  type: string
-                Message:
-                  type: string
-                Status:
-                  type: boolean
-              type: object
+            $ref: '#/definitions/response.Response'
       summary: Send OTP varification mail to worker
+      tags:
+      - Worker
   /worker/verify/account:
     post:
       operationId: Varify worker OTP authentication
@@ -1019,32 +963,12 @@ paths:
         "200":
           description: OK
           schema:
-            allOf:
-            - $ref: '#/definitions/response.Response'
-            - properties:
-                Data:
-                  type: string
-                Errors:
-                  type: string
-                Message:
-                  type: string
-                Status:
-                  type: boolean
-              type: object
+            $ref: '#/definitions/response.Response'
         "422":
           description: Unprocessable Entity
           schema:
-            allOf:
-            - $ref: '#/definitions/response.Response'
-            - properties:
-                Data:
-                  type: string
-                Errors:
-                  type: string
-                Message:
-                  type: string
-                Status:
-                  type: boolean
-              type: object
+            $ref: '#/definitions/response.Response'
       summary: Varify OTP of users
+      tags:
+      - Worker
 swagger: "2.0"

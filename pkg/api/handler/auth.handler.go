@@ -39,11 +39,12 @@ func NewAuthHandler(
 
 // @Summary Login for admin
 // @ID admin login authentication
+// @Tags Admin
 // @Produce json
 // @Param        username   path      string  true  "User Name : "
 // @Param        password   path      string  true  "Password : "
-// @Success 200 {object} response.Response{Status=bool,Message=string,Errors=string,Data=domain.UserResponse}
-// @Failure 422 {object} response.Response{Status=bool,Message=string,Errors=string,Data=string}
+// @Success 200 {object} response.Response{}
+// @Failure 422 {object} response.Response{}
 // @Router /admin/login [post]
 func (cr *AuthHandler) AdminLogin(c *gin.Context) {
 	var loginAdmin domain.Login
@@ -55,7 +56,7 @@ func (cr *AuthHandler) AdminLogin(c *gin.Context) {
 	err := cr.authUseCase.VerifyAdmin(loginAdmin.UserName, loginAdmin.Password)
 
 	if err != nil {
-		response := response.ErrorResponse("Failed to create user", err.Error(), nil)
+		response := response.ErrorResponse("Failed to login", err.Error(), nil)
 		c.Writer.Header().Set("Content-Type", "application/json")
 		c.Writer.WriteHeader(http.StatusUnprocessableEntity)
 
@@ -77,16 +78,19 @@ func (cr *AuthHandler) AdminLogin(c *gin.Context) {
 
 // @Summary SignUp for users
 // @ID SignUp authentication
+// @Tags User
 // @Produce json
+// @Tags User
 // @Param        username   path      string  true  "User Name : "
 // @Param        password   path      string  true  "Password : "
-// @Success 200 {object} response.Response{Status=bool,Message=string,Errors=string,Data=domain.Login}
-// @Failure 422 {object} response.Response{Status=bool,Message=string,Errors=string,Data=string}
+// @Success 200 {object} response.Response{}
+// @Failure 422 {object} response.Response{}
 // @Router /user/signup [post]
 func (cr *AuthHandler) UserSignUp(c *gin.Context) {
 	var newUser domain.Login
 
 	c.Bind(&newUser)
+	fmt.Printf("\n\nname ; %v\n\n", newUser)
 
 	err := cr.userUseCase.CreateUser(newUser)
 
@@ -112,11 +116,12 @@ func (cr *AuthHandler) UserSignUp(c *gin.Context) {
 
 // @Summary Login for users
 // @ID login authentication
+// @Tags User
 // @Produce json
 // @Param        username   path      string  true  "User Name : "
 // @Param        password   path      string  true  "Password : "
-// @Success 200 {object} response.Response{Status=bool,Message=string,Errors=string,Data=domain.UserResponse}
-// @Failure 422 {object} response.Response{Status=bool,Message=string,Errors=string,Data=string}
+// @Success 200 {object} response.Response{}
+// @Failure 422 {object} response.Response{}
 // @Router /user/login [post]
 func (cr *AuthHandler) UserLogin(c *gin.Context) {
 	var loginUser domain.Login
@@ -127,7 +132,7 @@ func (cr *AuthHandler) UserLogin(c *gin.Context) {
 	err := cr.authUseCase.VerifyUser(loginUser.UserName, loginUser.Password)
 
 	if err != nil {
-		response := response.ErrorResponse("Failed to create user", err.Error(), nil)
+		response := response.ErrorResponse("Failed to login", err.Error(), nil)
 		c.Writer.Header().Set("Content-Type", "application/json")
 		c.Writer.WriteHeader(http.StatusUnprocessableEntity)
 
@@ -149,11 +154,12 @@ func (cr *AuthHandler) UserLogin(c *gin.Context) {
 
 // @Summary SignUp for Workers
 // @ID Worker SignUp authentication
+// @Tags Worker
 // @Produce json
 // @Param        username   path      string  true  "User Name : "
 // @Param        password   path      string  true  "Password : "
-// @Success 200 {object} response.Response{Status=bool,Message=string,Errors=string,Data=domain.Login}
-// @Failure 422 {object} response.Response{Status=bool,Message=string,Errors=string,Data=string}
+// @Success 200 {object} response.Response{}
+// @Failure 422 {object} response.Response{}
 // @Router /woker/signup [post]
 func (cr *AuthHandler) WorkerSignUp(c *gin.Context) {
 	var newUser domain.Login
@@ -163,7 +169,7 @@ func (cr *AuthHandler) WorkerSignUp(c *gin.Context) {
 	err := cr.workerUseCase.CreateUser(newUser)
 
 	if err != nil {
-		response := response.ErrorResponse("Failed to create user", err.Error(), nil)
+		response := response.ErrorResponse("Failed to create worker", err.Error(), nil)
 		c.Writer.Header().Set("Content-Type", "application/json")
 		c.Writer.WriteHeader(http.StatusUnprocessableEntity)
 
@@ -184,11 +190,12 @@ func (cr *AuthHandler) WorkerSignUp(c *gin.Context) {
 
 // @Summary Login for worker
 // @ID worker login authentication
+// @Tags Worker
 // @Produce json
 // @Param        username   path      string  true  "User Name : "
 // @Param        password   path      string  true  "Password : "
-// @Success 200 {object} response.Response{Status=bool,Message=string,Errors=string,Data=domain.UserResponse}
-// @Failure 422 {object} response.Response{Status=bool,Message=string,Errors=string,Data=string}
+// @Success 200 {object} response.Response{}
+// @Failure 422 {object} response.Response{}
 // @Router /worker/login [post]
 func (cr *AuthHandler) WorkerLogin(c *gin.Context) {
 	var loginWorker domain.Login
@@ -199,7 +206,7 @@ func (cr *AuthHandler) WorkerLogin(c *gin.Context) {
 	err := cr.authUseCase.VerifyWorker(loginWorker.UserName, loginWorker.Password)
 
 	if err != nil {
-		response := response.ErrorResponse("Failed to create user", err.Error(), nil)
+		response := response.ErrorResponse("Failed to login", err.Error(), nil)
 		c.Writer.Header().Set("Content-Type", "application/json")
 		c.Writer.WriteHeader(http.StatusUnprocessableEntity)
 
@@ -221,10 +228,11 @@ func (cr *AuthHandler) WorkerLogin(c *gin.Context) {
 
 // @Summary Send OTP varification mail to users
 // @ID SendVerificationMail authentication
+// @Tags User
 // @Produce json
 // @Param        email   path      string  true  "Email : "
-// @Success 200 {object} response.Response{Status=bool,Message=string,Errors=string,Data=domain.UserResponse}
-// @Failure 422 {object} response.Response{Status=bool,Message=string,Errors=string,Data=string}
+// @Success 200 {object} response.Response{}
+// @Failure 422 {object} response.Response{}
 // @Router /user/send/verification [post]
 func (cr *AuthHandler) SendVerificationMailUser(c *gin.Context) {
 	email := c.Query("email")
@@ -259,11 +267,12 @@ func (cr *AuthHandler) SendVerificationMailUser(c *gin.Context) {
 
 // @Summary Varify OTP of users
 // @ID Varify OTP authentication
+// @Tags User
 // @Produce json
 // @Param        email   path      string  true  "Email : "
 // @Param        code   path      string  true  "OTP : "
-// @Success 200 {object} response.Response{Status=bool,Message=string,Errors=string,Data=string}
-// @Failure 422 {object} response.Response{Status=bool,Message=string,Errors=string,Data=string}
+// @Success 200 {object} response.Response{}
+// @Failure 422 {object} response.Response{}
 // @Router /user/verify/account [post]
 func (cr *AuthHandler) UserVerifyAccount(c *gin.Context) {
 	email := c.Query("email")
@@ -288,10 +297,11 @@ func (cr *AuthHandler) UserVerifyAccount(c *gin.Context) {
 
 // @Summary Send OTP varification mail to worker
 // @ID Worker SendVerificationMail authentication
+// @Tags Worker
 // @Produce json
 // @Param        email   path      string  true  "Email : "
-// @Success 200 {object} response.Response{Status=bool,Message=string,Errors=string,Data=domain.UserResponse}
-// @Failure 422 {object} response.Response{Status=bool,Message=string,Errors=string,Data=string}
+// @Success 200 {object} response.Response{}
+// @Failure 422 {object} response.Response{}
 // @Router /worker/send/verification [post]
 func (cr *AuthHandler) SendVerificationMailWorker(c *gin.Context) {
 	email := c.Query("email")
@@ -326,11 +336,12 @@ func (cr *AuthHandler) SendVerificationMailWorker(c *gin.Context) {
 
 // @Summary Varify OTP of users
 // @ID Varify worker OTP authentication
+// @Tags Worker
 // @Produce json
 // @Param        email   path      string  true  "Email : "
 // @Param        code   path      string  true  "OTP : "
-// @Success 200 {object} response.Response{Status=bool,Message=string,Errors=string,Data=string}
-// @Failure 422 {object} response.Response{Status=bool,Message=string,Errors=string,Data=string}
+// @Success 200 {object} response.Response{}
+// @Failure 422 {object} response.Response{}
 // @Router /worker/verify/account [post]
 func (cr *AuthHandler) WorkerVerifyAccount(c *gin.Context) {
 	email := c.Query("email")
@@ -355,10 +366,11 @@ func (cr *AuthHandler) WorkerVerifyAccount(c *gin.Context) {
 
 // @Summary Varify JWT of users
 // @ID Varify JWT authentication
+// @Tags User
 // @Produce json
 // @Param        email   path      string  true  "Email : "
-// @Success 200 {object} response.Response{Status=bool,Message=string,Errors=string,Data=string}
-// @Failure 422 {object} response.Response{Status=bool,Message=string,Errors=string,Data=string}
+// @Success 200 {object} response.Response{}
+// @Failure 422 {object} response.Response{}
 // @Router /user/account/verifyJWT [get]
 func (cr *AuthHandler) UserHome(c *gin.Context) {
 	email := c.Query("email")
@@ -371,10 +383,11 @@ func (cr *AuthHandler) UserHome(c *gin.Context) {
 
 // @Summary Varify JWT of users
 // @ID Varify worker JWT authentication
+// @Tags Worker
 // @Produce json
 // @Param        email   path      string  true  "Email : "
-// @Success 200 {object} response.Response{Status=bool,Message=string,Errors=string,Data=string}
-// @Failure 422 {object} response.Response{Status=bool,Message=string,Errors=string,Data=string}
+// @Success 200 {object} response.Response{}
+// @Failure 422 {object} response.Response{}
 // @Router /worker/account/verifyJWT [get]
 func (cr *AuthHandler) WorkerHome(c *gin.Context) {
 	email := c.Query("email")
@@ -385,12 +398,13 @@ func (cr *AuthHandler) WorkerHome(c *gin.Context) {
 	utils.ResponseJSON(*c, response)
 }
 
-// @Summary Varify JWT of users
+// @Summary Varify JWT of Admin
 // @ID Varify admin JWT authentication
+// @Tags Admin
 // @Produce json
 // @Param        email   path      string  true  "Email : "
-// @Success 200 {object} response.Response{Status=bool,Message=string,Errors=string,Data=string}
-// @Failure 422 {object} response.Response{Status=bool,Message=string,Errors=string,Data=string}
+// @Success 200 {object} response.Response{}
+// @Failure 422 {object} response.Response{}
 // @Router /admin/account/verifyJWT [get]
 func (cr *AuthHandler) AdminHome(c *gin.Context) {
 	email := c.Query("email")
