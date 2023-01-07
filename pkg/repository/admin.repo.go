@@ -139,7 +139,7 @@ func (c *adminRepo) ListWorkers(pagenation utils.Filter) ([]domain.UserResponse,
 			  FROM logins 
 			  WHERE user_type='worker' 
 			  AND verification='true' 
-			  AND status='blocked'
+			  AND status='unblocked'
 			  LIMIT $1 OFFSET $2;`
 
 	rows, err := c.db.Query(query, pagenation.Limit(), pagenation.Offset())
