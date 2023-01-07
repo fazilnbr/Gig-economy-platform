@@ -15,7 +15,7 @@ type AdminRepository interface {
 	BlockUser(id int) (domain.UserResponse, error)
 	ListNewWorkers() ([]domain.UserResponse, error)
 	ListBlockedWorkers() ([]domain.UserResponse, error)
-	ListWorkers() ([]domain.UserResponse, error)
+	ListWorkers(pagenation utils.Filter) ([]domain.UserResponse, utils.Metadata, error)
 	ActivateWorker(id int) (domain.UserResponse, error)
 	BlockWorker(id int) (domain.UserResponse, error)
 	AddJobCategory(category string) error
