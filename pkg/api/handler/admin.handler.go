@@ -34,6 +34,7 @@ func (cr *AdminHandler) ListAllUsers(c *gin.Context) {
 	page, _ := strconv.Atoi(c.Query("page"))
 
 	pageSize, _ := strconv.Atoi(c.Query("pagesize"))
+	fmt.Printf("\n\nuser : %v\n\nmetea : %v\n\n", page, pageSize)
 	log.Println(page, "   ", pageSize)
 
 	pagenation := utils.Filter{
@@ -218,7 +219,17 @@ func (cr *AdminHandler) BlockUsers(c *gin.Context) {
 // @Router /admin/listallworkers [get]
 func (cr *AdminHandler) ListAllWorkers(c *gin.Context) {
 
-	users, err := cr.adminService.ListWorkers()
+	page, _ := strconv.Atoi(c.Query("page"))
+
+	pageSize, _ := strconv.Atoi(c.Query("pagesize"))
+	log.Println(page, "   ", pageSize)
+
+	pagenation := utils.Filter{
+		Page:     page,
+		PageSize: pageSize,
+	}
+
+	users, metadata, err := cr.adminService.ListWorkers(pagenation)
 
 	if err != nil {
 		response := response.ErrorResponse("Failed to list worker", err.Error(), nil)
@@ -228,7 +239,16 @@ func (cr *AdminHandler) ListAllWorkers(c *gin.Context) {
 		utils.ResponseJSON(*c, response)
 		return
 	}
-	response := response.SuccessResponse(true, "SUCCESS", users)
+
+	result := struct {
+		Users *[]domain.UserResponse
+		Meta  *utils.Metadata
+	}{
+		Users: users,
+		Meta:  metadata,
+	}
+
+	response := response.SuccessResponse(true, "SUCCESS", result)
 	c.Writer.Header().Set("Content-Type", "application/json")
 	c.Writer.WriteHeader(http.StatusOK)
 	utils.ResponseJSON(*c, response)

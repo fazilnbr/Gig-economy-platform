@@ -48,10 +48,10 @@ func (c *adminUseCase) ListNewWorkers() (*[]domain.UserResponse, error) {
 }
 
 // ListUsers implements interfaces.AdminUseCase
-func (c *adminUseCase) ListWorkers() (*[]domain.UserResponse, error) {
-	users, err := c.adminRepo.ListWorkers()
+func (c *adminUseCase) ListWorkers(pagenation utils.Filter) (*[]domain.UserResponse, *utils.Metadata, error) {
+	users, metadata, err := c.adminRepo.ListWorkers(pagenation)
 
-	return &users, err
+	return &users, &metadata, err
 }
 
 // ActivateUser implements interfaces.AdminUseCase

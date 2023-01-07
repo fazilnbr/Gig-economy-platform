@@ -129,37 +129,52 @@ func (c *adminRepo) ListNewWorkers() ([]domain.UserResponse, error) {
 }
 
 // ListUsers implements interfaces.AdminRepository
-func (c *adminRepo) ListWorkers() ([]domain.UserResponse, error) {
-	var users []domain.UserResponse
+func (c *adminRepo) ListWorkers(pagenation utils.Filter) ([]domain.UserResponse, utils.Metadata, error) {
+	var workers []domain.UserResponse
 
-	query := `SELECT id_login,user_name,password FROM logins WHERE user_type='worker' and verification='true' and status='unblocked';`
+	query := `SELECT COUNT(*) OVER(),
+			  id_login,
+			  user_name,
+			  password 		
+			  FROM logins 
+			  WHERE user_type='worker' 
+			  AND verification='true' 
+			  AND status='blocked'
+			  LIMIT $1 OFFSET $2;`
 
-	rows, err := c.db.Query(query)
+	rows, err := c.db.Query(query, pagenation.Limit(), pagenation.Offset())
 
 	if err != nil {
-		return nil, err
+		return nil, utils.Metadata{}, err
 	}
+
+	var totalRecords int
 
 	defer rows.Close()
 
 	for rows.Next() {
-		var user domain.UserResponse
+		var worker domain.UserResponse
 
 		err = rows.Scan(
-			&user.ID,
-			&user.UserName,
-			&user.Password,
+			&totalRecords,
+			&worker.ID,
+			&worker.UserName,
+			&worker.Password,
 		)
 
 		if err != nil {
-			return users, err
+			return workers, utils.ComputeMetaData(totalRecords, pagenation.Page, pagenation.PageSize), err
 		}
 
-		users = append(users, user)
+		workers = append(workers, worker)
 	}
+	if err := rows.Err(); err != nil {
+		return workers, utils.ComputeMetaData(totalRecords, pagenation.Page, pagenation.PageSize), err
+	}
+	log.Println(workers)
+	log.Println(utils.ComputeMetaData(totalRecords, pagenation.Page, pagenation.PageSize))
+	return workers, utils.ComputeMetaData(totalRecords, pagenation.Page, pagenation.PageSize), nil
 
-	// fmt.Printf("\n\nlist : %v\n\n", users)
-	return users, nil
 }
 
 // ActivateUser implements interfaces.AdminRepository
