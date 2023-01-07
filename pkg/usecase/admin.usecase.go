@@ -41,10 +41,11 @@ func (c *adminUseCase) ListBlockedWorkers() (*[]domain.UserResponse, error) {
 }
 
 // ListNewUsers implements interfaces.AdminUseCase
-func (c *adminUseCase) ListNewWorkers() (*[]domain.UserResponse, error) {
-	users, err := c.adminRepo.ListNewWorkers()
+func (c *adminUseCase) ListNewWorkers(pagenation utils.Filter) (*[]domain.UserResponse, *utils.Metadata, error) {
 
-	return &users, err
+	users, metadata, err := c.adminRepo.ListNewWorkers(pagenation)
+
+	return &users, &metadata, err
 }
 
 // ListUsers implements interfaces.AdminUseCase

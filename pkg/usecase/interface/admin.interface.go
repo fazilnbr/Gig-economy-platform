@@ -14,7 +14,7 @@ type AdminUseCase interface {
 	ListUsers(pagenation utils.Filter) (*[]domain.UserResponse, *utils.Metadata, error)
 	ActivateUser(id int) (*domain.UserResponse, error)
 	BlockUser(id int) (*domain.UserResponse, error)
-	ListNewWorkers() (*[]domain.UserResponse, error)
+	ListNewWorkers(pagenation utils.Filter) (*[]domain.UserResponse, *utils.Metadata, error)
 	ListBlockedWorkers() (*[]domain.UserResponse, error)
 	ListWorkers(pagenation utils.Filter) (*[]domain.UserResponse, *utils.Metadata, error)
 	ActivateWorker(id int) (*domain.UserResponse, error)

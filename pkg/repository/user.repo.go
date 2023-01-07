@@ -173,7 +173,6 @@ func (c *userRepo) FindUser(email string) (domain.UserResponse, error) {
 // InsertUser implements interfaces.UserRepository
 func (c *userRepo) InsertUser(login domain.Login) (int, error) {
 	var id int
-	fmt.Printf("\n\n\ninsert : %v\n\n\n", login)
 
 	query := `INSERT INTO logins (user_name,password,user_type) VALUES ($1,$2,$3) RETURNING id_login;`
 
