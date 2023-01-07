@@ -10,8 +10,8 @@ type AdminUseCase interface {
 	SendVerificationEmail(email string) error
 	VerifyAccount(email string, code int) error
 	ListNewUsers(pagenation utils.Filter) (*[]domain.UserResponse, *utils.Metadata, error)
-	ListBlockedUsers() (*[]domain.UserResponse, error)
-	ListUsers() (*[]domain.UserResponse, error)
+	ListBlockedUsers(pagenation utils.Filter) (*[]domain.UserResponse, *utils.Metadata, error)
+	ListUsers(pagenation utils.Filter) (*[]domain.UserResponse, *utils.Metadata, error)
 	ActivateUser(id int) (*domain.UserResponse, error)
 	BlockUser(id int) (*domain.UserResponse, error)
 	ListNewWorkers() (*[]domain.UserResponse, error)
