@@ -2,10 +2,12 @@ package handler
 
 import (
 	"fmt"
+	"log"
 	"net/http"
 	"strconv"
 
 	"github.com/fazilnbr/project-workey/pkg/common/response"
+	"github.com/fazilnbr/project-workey/pkg/domain"
 	services "github.com/fazilnbr/project-workey/pkg/usecase/interface"
 	"github.com/fazilnbr/project-workey/pkg/utils"
 	"github.com/gin-gonic/gin"
@@ -54,8 +56,25 @@ func (cr *AdminHandler) ListAllUsers(c *gin.Context) {
 // @Failure 422 {object} response.Response{}
 // @Router /admin/listnewusers [get]
 func (cr *AdminHandler) ListNewUsers(c *gin.Context) {
+	page, _ := strconv.Atoi(c.Writer.Header().Get("page"))
 
-	users, err := cr.adminService.ListNewUsers()
+	pageSize, _ := strconv.Atoi(c.Writer.Header().Get("pagesize"))
+	log.Println(page, "   ", pageSize)
+
+	pagenation := utils.Filter{
+		Page:     page,
+		PageSize: pageSize,
+	}
+
+	users, metadata, err := cr.adminService.ListNewUsers(pagenation)
+
+	result := struct {
+		Users *[]domain.UserResponse
+		Meta  *utils.Metadata
+	}{
+		Users: users,
+		Meta:  metadata,
+	}
 
 	if err != nil {
 		response := response.ErrorResponse("Failed to list user", err.Error(), nil)
@@ -65,7 +84,7 @@ func (cr *AdminHandler) ListNewUsers(c *gin.Context) {
 		utils.ResponseJSON(*c, response)
 		return
 	}
-	response := response.SuccessResponse(true, "SUCCESS", users)
+	response := response.SuccessResponse(true, "SUCCESS", result)
 	c.Writer.Header().Set("Content-Type", "application/json")
 	c.Writer.WriteHeader(http.StatusOK)
 	utils.ResponseJSON(*c, response)

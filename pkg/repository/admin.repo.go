@@ -3,9 +3,11 @@ package repository
 import (
 	"database/sql"
 	"fmt"
+	"log"
 
 	"github.com/fazilnbr/project-workey/pkg/domain"
 	interfaces "github.com/fazilnbr/project-workey/pkg/repository/interface"
+	"github.com/fazilnbr/project-workey/pkg/utils"
 )
 
 type adminRepo struct {
@@ -240,16 +242,26 @@ func (c *adminRepo) ListBlockedUsers() ([]domain.UserResponse, error) {
 }
 
 // ListNewUsers implements interfaces.AdminRepository
-func (c *adminRepo) ListNewUsers() ([]domain.UserResponse, error) {
+func (c *adminRepo) ListNewUsers(pagenation utils.Filter) ([]domain.UserResponse, utils.Metadata, error) {
 	var users []domain.UserResponse
 
-	query := `SELECT id_login,user_name,password FROM logins WHERE user_type='user' and verification='true' and status='newuser';`
+	query := `SELECT COUNT(*) OVER(),
+			  id_login,
+			  user_name,
+			  password 		
+			  FROM logins 
+			  WHERE user_type='user' 
+			  AND verification='true' 
+			  AND status='newuser'
+			  LIMIT $1 OFFSET $2;`
 
-	rows, err := c.db.Query(query)
+	rows, err := c.db.Query(query, pagenation.Limit(), pagenation.Offset())
 
 	if err != nil {
-		return nil, err
+		return nil, utils.Metadata{}, err
 	}
+
+	var totalRecords int
 
 	defer rows.Close()
 
@@ -257,20 +269,25 @@ func (c *adminRepo) ListNewUsers() ([]domain.UserResponse, error) {
 		var user domain.UserResponse
 
 		err = rows.Scan(
+			&totalRecords,
 			&user.ID,
 			&user.UserName,
 			&user.Password,
 		)
 
 		if err != nil {
-			return users, err
+			return users, utils.ComputeMetaData(totalRecords, pagenation.Page, pagenation.PageSize), err
 		}
 
 		users = append(users, user)
 	}
 
-	// fmt.Printf("\n\nlist : %v\n\n", users)
-	return users, nil
+	if err := rows.Err(); err != nil {
+		return users, utils.ComputeMetaData(totalRecords, pagenation.Page, pagenation.PageSize), err
+	}
+	log.Println(users)
+	log.Println(utils.ComputeMetaData(totalRecords, pagenation.Page, pagenation.PageSize))
+	return users, utils.ComputeMetaData(totalRecords, pagenation.Page, pagenation.PageSize), nil
 }
 
 // ListUsers implements interfaces.AdminRepository

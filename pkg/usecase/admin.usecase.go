@@ -5,6 +5,7 @@ import (
 	"github.com/fazilnbr/project-workey/pkg/domain"
 	interfaces "github.com/fazilnbr/project-workey/pkg/repository/interface"
 	services "github.com/fazilnbr/project-workey/pkg/usecase/interface"
+	"github.com/fazilnbr/project-workey/pkg/utils"
 )
 
 type adminUseCase struct {
@@ -82,10 +83,10 @@ func (c *adminUseCase) ListBlockedUsers() (*[]domain.UserResponse, error) {
 }
 
 // ListNewUsers implements interfaces.AdminUseCase
-func (c *adminUseCase) ListNewUsers() (*[]domain.UserResponse, error) {
-	users, err := c.adminRepo.ListNewUsers()
+func (c *adminUseCase) ListNewUsers(pagenation utils.Filter) (*[]domain.UserResponse, *utils.Metadata, error) {
+	users, metadata, err := c.adminRepo.ListNewUsers(pagenation)
 
-	return &users, err
+	return &users, &metadata, err
 }
 
 // ListUsers implements interfaces.AdminUseCase

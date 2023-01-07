@@ -49,7 +49,7 @@ func (cr *middlewar) AthoriseJWT(c *gin.Context) {
 
 	if !ok {
 		err := errors.New("your token is not valid")
-		response := response.ErrorResponse("Failed to create user", err.Error(), nil)
+		response := response.ErrorResponse("Please Login Again", err.Error(), nil)
 		c.Writer.Header().Set("Content-Type", "application/json")
 		c.Writer.WriteHeader(http.StatusUnauthorized)
 
