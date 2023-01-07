@@ -208,16 +208,26 @@ func (c *adminRepo) FindAdmin(email string) (domain.AdminResponse, error) {
 }
 
 // ListBlockedUsers implements interfaces.AdminRepository
-func (c *adminRepo) ListBlockedUsers() ([]domain.UserResponse, error) {
+func (c *adminRepo) ListBlockedUsers(pagenation utils.Filter) ([]domain.UserResponse, utils.Metadata, error) {
 	var users []domain.UserResponse
 
-	query := `SELECT id_login,user_name,password FROM logins WHERE user_type='user' and verification='true' and status='blocked';`
+	query := `SELECT COUNT(*) OVER(),
+			  id_login,
+			  user_name,
+			  password 		
+			  FROM logins 
+			  WHERE user_type='user' 
+			  AND verification='true' 
+			  AND status='blocked'
+			  LIMIT $1 OFFSET $2;`
 
-	rows, err := c.db.Query(query)
+	rows, err := c.db.Query(query, pagenation.Limit(), pagenation.Offset())
 
 	if err != nil {
-		return nil, err
+		return nil, utils.Metadata{}, err
 	}
+
+	var totalRecords int
 
 	defer rows.Close()
 
@@ -225,20 +235,24 @@ func (c *adminRepo) ListBlockedUsers() ([]domain.UserResponse, error) {
 		var user domain.UserResponse
 
 		err = rows.Scan(
+			&totalRecords,
 			&user.ID,
 			&user.UserName,
 			&user.Password,
 		)
 
 		if err != nil {
-			return users, err
+			return users, utils.ComputeMetaData(totalRecords, pagenation.Page, pagenation.PageSize), err
 		}
 
 		users = append(users, user)
 	}
-
-	// fmt.Printf("\n\nlist : %v\n\n", users)
-	return users, nil
+	if err := rows.Err(); err != nil {
+		return users, utils.ComputeMetaData(totalRecords, pagenation.Page, pagenation.PageSize), err
+	}
+	log.Println(users)
+	log.Println(utils.ComputeMetaData(totalRecords, pagenation.Page, pagenation.PageSize))
+	return users, utils.ComputeMetaData(totalRecords, pagenation.Page, pagenation.PageSize), nil
 }
 
 // ListNewUsers implements interfaces.AdminRepository
@@ -291,16 +305,26 @@ func (c *adminRepo) ListNewUsers(pagenation utils.Filter) ([]domain.UserResponse
 }
 
 // ListUsers implements interfaces.AdminRepository
-func (c *adminRepo) ListUsers() ([]domain.UserResponse, error) {
+func (c *adminRepo) ListUsers(pagenation utils.Filter) ([]domain.UserResponse, utils.Metadata, error) {
 	var users []domain.UserResponse
 
-	query := `SELECT id_login,user_name,password FROM logins WHERE user_type='user' and verification='true' and status='unblocked';`
+	query := `SELECT COUNT(*) OVER(),
+			  id_login,
+			  user_name,
+			  password 		
+			  FROM logins 
+			  WHERE user_type='user' 
+			  AND verification='true' 
+			  AND status='unblocked'
+			  LIMIT $1 OFFSET $2;`
 
-	rows, err := c.db.Query(query)
+	rows, err := c.db.Query(query, pagenation.Limit(), pagenation.Offset())
 
 	if err != nil {
-		return nil, err
+		return nil, utils.Metadata{}, err
 	}
+
+	var totalRecords int
 
 	defer rows.Close()
 
@@ -308,20 +332,26 @@ func (c *adminRepo) ListUsers() ([]domain.UserResponse, error) {
 		var user domain.UserResponse
 
 		err = rows.Scan(
+			&totalRecords,
 			&user.ID,
 			&user.UserName,
 			&user.Password,
 		)
 
 		if err != nil {
-			return users, err
+			return users, utils.ComputeMetaData(totalRecords, pagenation.Page, pagenation.PageSize), err
 		}
 
 		users = append(users, user)
 	}
+	fmt.Printf("\n\nusers : %v\n\n", users)
 
-	// fmt.Printf("\n\nlist : %v\n\n", users)
-	return users, nil
+	if err := rows.Err(); err != nil {
+		return users, utils.ComputeMetaData(totalRecords, pagenation.Page, pagenation.PageSize), err
+	}
+	log.Println(users)
+	log.Println(utils.ComputeMetaData(totalRecords, pagenation.Page, pagenation.PageSize))
+	return users, utils.ComputeMetaData(totalRecords, pagenation.Page, pagenation.PageSize), nil
 }
 
 // StoreVerificationDetails implements interfaces.AdminRepository

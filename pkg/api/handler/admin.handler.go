@@ -31,8 +31,17 @@ func NewAdminHandler(adminService services.AdminUseCase) AdminHandler {
 // @Failure 422 {object} response.Response{}
 // @Router /admin/listallusers [get]
 func (cr *AdminHandler) ListAllUsers(c *gin.Context) {
+	page, _ := strconv.Atoi(c.Query("page"))
 
-	users, err := cr.adminService.ListUsers()
+	pageSize, _ := strconv.Atoi(c.Query("pagesize"))
+	log.Println(page, "   ", pageSize)
+
+	pagenation := utils.Filter{
+		Page:     page,
+		PageSize: pageSize,
+	}
+
+	users, metadata, err := cr.adminService.ListUsers(pagenation)
 
 	if err != nil {
 		response := response.ErrorResponse("Failed to list user", err.Error(), nil)
@@ -42,7 +51,16 @@ func (cr *AdminHandler) ListAllUsers(c *gin.Context) {
 		utils.ResponseJSON(*c, response)
 		return
 	}
-	response := response.SuccessResponse(true, "SUCCESS", users)
+
+	result := struct {
+		Users *[]domain.UserResponse
+		Meta  *utils.Metadata
+	}{
+		Users: users,
+		Meta:  metadata,
+	}
+
+	response := response.SuccessResponse(true, "SUCCESS", result)
 	c.Writer.Header().Set("Content-Type", "application/json")
 	c.Writer.WriteHeader(http.StatusOK)
 	utils.ResponseJSON(*c, response)
@@ -56,9 +74,9 @@ func (cr *AdminHandler) ListAllUsers(c *gin.Context) {
 // @Failure 422 {object} response.Response{}
 // @Router /admin/listnewusers [get]
 func (cr *AdminHandler) ListNewUsers(c *gin.Context) {
-	page, _ := strconv.Atoi(c.Writer.Header().Get("page"))
+	page, _ := strconv.Atoi(c.Query("page"))
 
-	pageSize, _ := strconv.Atoi(c.Writer.Header().Get("pagesize"))
+	pageSize, _ := strconv.Atoi(c.Query("pagesize"))
 	log.Println(page, "   ", pageSize)
 
 	pagenation := utils.Filter{
@@ -99,7 +117,16 @@ func (cr *AdminHandler) ListNewUsers(c *gin.Context) {
 // @Router /admin/listblockedusers [get]
 func (cr *AdminHandler) ListBlockUsers(c *gin.Context) {
 
-	users, err := cr.adminService.ListBlockedUsers()
+	page, _ := strconv.Atoi(c.Query("page"))
+
+	pageSize, _ := strconv.Atoi(c.Query("pagesize"))
+	log.Println(page, "   ", pageSize)
+
+	pagenation := utils.Filter{
+		Page:     page,
+		PageSize: pageSize,
+	}
+	users, metadata, err := cr.adminService.ListBlockedUsers(pagenation)
 
 	if err != nil {
 		response := response.ErrorResponse("Failed to list user", err.Error(), nil)
@@ -109,7 +136,16 @@ func (cr *AdminHandler) ListBlockUsers(c *gin.Context) {
 		utils.ResponseJSON(*c, response)
 		return
 	}
-	response := response.SuccessResponse(true, "SUCCESS", users)
+
+	result := struct {
+		Users *[]domain.UserResponse
+		Meta  *utils.Metadata
+	}{
+		Users: users,
+		Meta:  metadata,
+	}
+
+	response := response.SuccessResponse(true, "SUCCESS", result)
 
 	c.Writer.WriteHeader(http.StatusOK)
 	utils.ResponseJSON(*c, response)

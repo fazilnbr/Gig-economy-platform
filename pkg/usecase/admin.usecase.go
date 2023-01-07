@@ -76,10 +76,10 @@ func (c *adminUseCase) FindAdmin(email string) (*domain.AdminResponse, error) {
 }
 
 // ListBlockedUsers implements interfaces.AdminUseCase
-func (c *adminUseCase) ListBlockedUsers() (*[]domain.UserResponse, error) {
-	users, err := c.adminRepo.ListBlockedUsers()
+func (c *adminUseCase) ListBlockedUsers(pagenation utils.Filter) (*[]domain.UserResponse, *utils.Metadata, error) {
+	users, metadata, err := c.adminRepo.ListBlockedUsers(pagenation)
 
-	return &users, err
+	return &users, &metadata, err
 }
 
 // ListNewUsers implements interfaces.AdminUseCase
@@ -90,10 +90,10 @@ func (c *adminUseCase) ListNewUsers(pagenation utils.Filter) (*[]domain.UserResp
 }
 
 // ListUsers implements interfaces.AdminUseCase
-func (c *adminUseCase) ListUsers() (*[]domain.UserResponse, error) {
-	users, err := c.adminRepo.ListUsers()
+func (c *adminUseCase) ListUsers(pagenation utils.Filter) (*[]domain.UserResponse, *utils.Metadata, error) {
+	users, metadata, err := c.adminRepo.ListUsers(pagenation)
 
-	return &users, err
+	return &users, &metadata, err
 }
 
 // SendVerificationEmail implements interfaces.AdminUseCase
