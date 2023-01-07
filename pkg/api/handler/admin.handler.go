@@ -309,7 +309,18 @@ func (cr *AdminHandler) ListNewWorkers(c *gin.Context) {
 // @Router /admin/listblockedworkers [get]
 func (cr *AdminHandler) ListBlockWorkers(c *gin.Context) {
 
-	users, err := cr.adminService.ListBlockedWorkers()
+	page, err := strconv.Atoi(c.Query("page"))
+
+	pageSize, _ := strconv.Atoi(c.Query("pagesize"))
+	fmt.Printf("\n\nuser : %v\n\nmetea : %v\n\n", page, c.Query("page"))
+	log.Println(page, "   ", pageSize)
+
+	pagenation := utils.Filter{
+		Page:     page,
+		PageSize: pageSize,
+	}
+
+	users, metadata, err := cr.adminService.ListBlockedWorkers(pagenation)
 
 	if err != nil {
 		response := response.ErrorResponse("Failed to list worker", err.Error(), nil)
@@ -319,7 +330,16 @@ func (cr *AdminHandler) ListBlockWorkers(c *gin.Context) {
 		utils.ResponseJSON(*c, response)
 		return
 	}
-	response := response.SuccessResponse(true, "SUCCESS", users)
+
+	result := struct {
+		Users *[]domain.UserResponse
+		Meta  *utils.Metadata
+	}{
+		Users: users,
+		Meta:  metadata,
+	}
+
+	response := response.SuccessResponse(true, "SUCCESS", result)
 
 	c.Writer.WriteHeader(http.StatusOK)
 	utils.ResponseJSON(*c, response)
