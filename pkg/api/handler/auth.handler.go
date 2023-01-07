@@ -160,7 +160,7 @@ func (cr *AuthHandler) UserLogin(c *gin.Context) {
 // @Param        password   path      string  true  "Password : "
 // @Success 200 {object} response.Response{}
 // @Failure 422 {object} response.Response{}
-// @Router /woker/signup [post]
+// @Router /worker/signup [post]
 func (cr *AuthHandler) WorkerSignUp(c *gin.Context) {
 	var newUser domain.Login
 

@@ -142,6 +142,11 @@ func (c *userRepo) VerifyAccount(email string, code int) error {
 		return err
 	}
 
+	query = `DELETE FROM 
+	verifications WHERE 
+	email = $1;`
+	err = c.db.QueryRow(query, email).Scan(&id)
+
 	return nil
 }
 

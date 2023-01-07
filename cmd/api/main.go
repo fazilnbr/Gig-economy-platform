@@ -16,11 +16,11 @@ import (
 
 // @title Go + Gin Workey API
 // @version 1.0
-// @description This is a sample server Job Portal server. You can visit the GitHub repository at https://github.com/fazil/Job_Portal_Project
+// @description This is a sample server Job Portal server. You can visit the GitHub repository at https://github.com/fazilnbr/Job_Portal_Project
 
 // @contact.name API Support
-// @contact.url http://www.swagger.io/support
-// @contact.email support@swagger.io
+// @contact.url https://fazilnbr.github.io/mypeosolal.web.portfolio/
+// @contact.email fazilkp2000@gmail.com
 
 // @license.name MIT
 // @license.url https://opensource.org/licenses/MIT

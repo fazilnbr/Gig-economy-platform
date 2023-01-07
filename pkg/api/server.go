@@ -47,8 +47,8 @@ func NewServerHTTP(authHandler handler.AuthHandler, adminHandler handler.AdminHa
 			admin.GET("/listallworkers", adminHandler.ListAllWorkers)
 			admin.GET("/listnewworkers", adminHandler.ListNewWorkers)
 			admin.GET("/listblockedworkers", adminHandler.ListBlockWorkers)
-			admin.PUT("/activateworkers", adminHandler.ActivateWorkers)
-			admin.PUT("/blockworkers", adminHandler.BlockWorkers)
+			admin.PATCH("/activateworkers", adminHandler.ActivateWorkers)
+			admin.PATCH("/blockworkers", adminHandler.BlockWorkers)
 
 			// Job management
 			admin.POST("/addcategory", adminHandler.AddJobCategory)
@@ -66,8 +66,8 @@ func NewServerHTTP(authHandler handler.AuthHandler, adminHandler handler.AdminHa
 			{
 				user.GET("/account/verifyJWT", authHandler.UserHome)
 				user.POST("/addprofile", UserHandler.UserAddProfile)
-				user.POST("/editprofile", UserHandler.UserEditProfile)
-				user.POST("/changepassword", UserHandler.UserChangePassword)
+				user.PATCH("/editprofile", UserHandler.UserEditProfile)
+				user.PATCH("/changepassword", UserHandler.UserChangePassword)
 			}
 		}
 
@@ -82,8 +82,8 @@ func NewServerHTTP(authHandler handler.AuthHandler, adminHandler handler.AdminHa
 			{
 				worker.GET("/account/verifyJWT", authHandler.WorkerHome)
 				worker.POST("/addprofile", WorkerHandler.WorkerAddProfile)
-				worker.POST("/editprofile", WorkerHandler.WorkerEditProfile)
-				worker.POST("/changepassword", WorkerHandler.WorkerChangePassword)
+				worker.PATCH("/editprofile", WorkerHandler.WorkerEditProfile)
+				worker.PATCH("/changepassword", WorkerHandler.WorkerChangePassword)
 			}
 		}
 

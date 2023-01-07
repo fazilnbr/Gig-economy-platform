@@ -80,7 +80,7 @@ func (cr *WorkerHandler) WorkerAddProfile(c *gin.Context) {
 // @Param        photo   path      string  true  "Photo : "
 // @Success 200 {object} response.Response{}
 // @Failure 422 {object} response.Response{}
-// @Router /worker/editprofile [post]
+// @Router /worker/editprofile [patch]
 func (cr *WorkerHandler) WorkerEditProfile(c *gin.Context) {
 	id, _ := strconv.Atoi(c.Writer.Header().Get("id"))
 	fmt.Printf("\n\n%v\n\n", id)
@@ -123,7 +123,7 @@ func (cr *WorkerHandler) WorkerEditProfile(c *gin.Context) {
 // @Param        photo   path      string  true  "Photo : "
 // @Success 200 {object} response.Response{}
 // @Failure 422 {object} response.Response{}
-// @Router /worker/changepassword [post]
+// @Router /worker/changepassword [patch]
 func (cr *WorkerHandler) WorkerChangePassword(c *gin.Context) {
 
 	id, _ := strconv.Atoi(c.Writer.Header().Get("id"))

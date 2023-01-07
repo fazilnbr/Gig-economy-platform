@@ -80,7 +80,7 @@ func (cr *UserHandler) UserAddProfile(c *gin.Context) {
 // @Param        photo   path      string  true  "Photo : "
 // @Success 200 {object} response.Response{}
 // @Failure 422 {object} response.Response{}
-// @Router /user/editprofile [post]
+// @Router /user/editprofile [patch]
 func (cr *UserHandler) UserEditProfile(c *gin.Context) {
 	id, _ := strconv.Atoi(c.Writer.Header().Get("id"))
 	var userprofile domain.Profile
@@ -122,7 +122,7 @@ func (cr *UserHandler) UserEditProfile(c *gin.Context) {
 // @Param        photo   path      string  true  "Photo : "
 // @Success 200 {object} response.Response{}
 // @Failure 422 {object} response.Response{}
-// @Router /user/changepassword [post]
+// @Router /user/changepassword [patch]
 func (cr *UserHandler) UserChangePassword(c *gin.Context) {
 
 	id, _ := strconv.Atoi(c.Writer.Header().Get("id"))

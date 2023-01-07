@@ -12,8 +12,8 @@ const docTemplate = `{
         "title": "{{.Title}}",
         "contact": {
             "name": "API Support",
-            "url": "http://www.swagger.io/support",
-            "email": "support@swagger.io"
+            "url": "https://fazilnbr.github.io/mypeosolal.web.portfolio/",
+            "email": "fazilkp2000@gmail.com"
         },
         "license": {
             "name": "MIT",
@@ -60,7 +60,7 @@ const docTemplate = `{
             }
         },
         "/admin/activateusers": {
-            "post": {
+            "put": {
                 "produces": [
                     "application/json"
                 ],
@@ -95,7 +95,7 @@ const docTemplate = `{
             }
         },
         "/admin/activateworkers": {
-            "post": {
+            "patch": {
                 "produces": [
                     "application/json"
                 ],
@@ -130,7 +130,7 @@ const docTemplate = `{
             }
         },
         "/admin/blockusers": {
-            "post": {
+            "put": {
                 "produces": [
                     "application/json"
                 ],
@@ -165,7 +165,7 @@ const docTemplate = `{
             }
         },
         "/admin/blockworkers": {
-            "post": {
+            "patch": {
                 "produces": [
                     "application/json"
                 ],
@@ -582,7 +582,7 @@ const docTemplate = `{
             }
         },
         "/user/changepassword": {
-            "post": {
+            "patch": {
                 "produces": [
                     "application/json"
                 ],
@@ -680,7 +680,7 @@ const docTemplate = `{
             }
         },
         "/user/editprofile": {
-            "post": {
+            "patch": {
                 "produces": [
                     "application/json"
                 ],
@@ -939,48 +939,6 @@ const docTemplate = `{
                 }
             }
         },
-        "/woker/signup": {
-            "post": {
-                "produces": [
-                    "application/json"
-                ],
-                "tags": [
-                    "Worker"
-                ],
-                "summary": "SignUp for Workers",
-                "operationId": "Worker SignUp authentication",
-                "parameters": [
-                    {
-                        "type": "string",
-                        "description": "User Name : ",
-                        "name": "username",
-                        "in": "path",
-                        "required": true
-                    },
-                    {
-                        "type": "string",
-                        "description": "Password : ",
-                        "name": "password",
-                        "in": "path",
-                        "required": true
-                    }
-                ],
-                "responses": {
-                    "200": {
-                        "description": "OK",
-                        "schema": {
-                            "$ref": "#/definitions/response.Response"
-                        }
-                    },
-                    "422": {
-                        "description": "Unprocessable Entity",
-                        "schema": {
-                            "$ref": "#/definitions/response.Response"
-                        }
-                    }
-                }
-            }
-        },
         "/worker/account/verifyJWT": {
             "get": {
                 "produces": [
@@ -1115,7 +1073,7 @@ const docTemplate = `{
             }
         },
         "/worker/changepassword": {
-            "post": {
+            "patch": {
                 "produces": [
                     "application/json"
                 ],
@@ -1213,7 +1171,7 @@ const docTemplate = `{
             }
         },
         "/worker/editprofile": {
-            "post": {
+            "patch": {
                 "produces": [
                     "application/json"
                 ],
@@ -1387,6 +1345,48 @@ const docTemplate = `{
                 }
             }
         },
+        "/worker/signup": {
+            "post": {
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Worker"
+                ],
+                "summary": "SignUp for Workers",
+                "operationId": "Worker SignUp authentication",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "User Name : ",
+                        "name": "username",
+                        "in": "path",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": "Password : ",
+                        "name": "password",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/response.Response"
+                        }
+                    },
+                    "422": {
+                        "description": "Unprocessable Entity",
+                        "schema": {
+                            "$ref": "#/definitions/response.Response"
+                        }
+                    }
+                }
+            }
+        },
         "/worker/verify/account": {
             "post": {
                 "produces": [
@@ -1454,7 +1454,7 @@ var SwaggerInfo = &swag.Spec{
 	BasePath:         "/",
 	Schemes:          []string{},
 	Title:            "Go + Gin Workey API",
-	Description:      "This is a sample server Job Portal server. You can visit the GitHub repository at https://github.com/fazil/Job_Portal_Project",
+	Description:      "This is a sample server Job Portal server. You can visit the GitHub repository at https://github.com/fazilnbr/Job_Portal_Project",
 	InfoInstanceName: "swagger",
 	SwaggerTemplate:  docTemplate,
 }

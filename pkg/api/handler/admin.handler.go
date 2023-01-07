@@ -103,7 +103,7 @@ func (cr *AdminHandler) ListBlockUsers(c *gin.Context) {
 // @Param        id   path      string  true  "Id of User : "
 // @Success 200 {object} response.Response{}
 // @Failure 422 {object} response.Response{}
-// @Router /admin/activateusers [post]
+// @Router /admin/activateusers [put]
 func (cr *AdminHandler) ActivateUsers(c *gin.Context) {
 
 	id := c.Query("id")
@@ -132,7 +132,7 @@ func (cr *AdminHandler) ActivateUsers(c *gin.Context) {
 // @Param        id   path      string  true  "Id of User : "
 // @Success 200 {object} response.Response{}
 // @Failure 422 {object} response.Response{}
-// @Router /admin/blockusers [post]
+// @Router /admin/blockusers [put]
 func (cr *AdminHandler) BlockUsers(c *gin.Context) {
 
 	id := c.Query("id")
@@ -238,7 +238,7 @@ func (cr *AdminHandler) ListBlockWorkers(c *gin.Context) {
 // @Param        id   path      string  true  "Id of User : "
 // @Success 200 {object} response.Response{}
 // @Failure 422 {object} response.Response{}
-// @Router /admin/activateworkers [post]
+// @Router /admin/activateworkers [patch]
 func (cr *AdminHandler) ActivateWorkers(c *gin.Context) {
 
 	id := c.Query("id")
@@ -267,7 +267,7 @@ func (cr *AdminHandler) ActivateWorkers(c *gin.Context) {
 // @Param        id   path      string  true  "Id of User : "
 // @Success 200 {object} response.Response{}
 // @Failure 422 {object} response.Response{}
-// @Router /admin/blockworkers [post]
+// @Router /admin/blockworkers [patch]
 func (cr *AdminHandler) BlockWorkers(c *gin.Context) {
 
 	id := c.Query("id")

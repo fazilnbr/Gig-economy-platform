@@ -12,11 +12,11 @@ definitions:
 host: localhost:8080
 info:
   contact:
-    email: support@swagger.io
+    email: fazilkp2000@gmail.com
     name: API Support
-    url: http://www.swagger.io/support
+    url: https://fazilnbr.github.io/mypeosolal.web.portfolio/
   description: This is a sample server Job Portal server. You can visit the GitHub
-    repository at https://github.com/fazil/Job_Portal_Project
+    repository at https://github.com/fazilnbr/Job_Portal_Project
   license:
     name: MIT
     url: https://opensource.org/licenses/MIT
@@ -47,7 +47,7 @@ paths:
       tags:
       - Admin
   /admin/activateusers:
-    post:
+    put:
       operationId: activate users
       parameters:
       - description: 'Id of User : '
@@ -70,7 +70,7 @@ paths:
       tags:
       - Admin
   /admin/activateworkers:
-    post:
+    patch:
       operationId: activate workers
       parameters:
       - description: 'Id of User : '
@@ -93,7 +93,7 @@ paths:
       tags:
       - Admin
   /admin/blockusers:
-    post:
+    put:
       operationId: block users
       parameters:
       - description: 'Id of User : '
@@ -116,7 +116,7 @@ paths:
       tags:
       - Admin
   /admin/blockworkers:
-    post:
+    patch:
       operationId: block workers
       parameters:
       - description: 'Id of User : '
@@ -394,7 +394,7 @@ paths:
       tags:
       - User
   /user/changepassword:
-    post:
+    patch:
       operationId: user change password
       parameters:
       - description: 'User Name : '
@@ -462,7 +462,7 @@ paths:
       tags:
       - User
   /user/editprofile:
-    post:
+    patch:
       operationId: user edit profile
       parameters:
       - description: 'User Name : '
@@ -637,34 +637,6 @@ paths:
       summary: Varify OTP of users
       tags:
       - User
-  /woker/signup:
-    post:
-      operationId: Worker SignUp authentication
-      parameters:
-      - description: 'User Name : '
-        in: path
-        name: username
-        required: true
-        type: string
-      - description: 'Password : '
-        in: path
-        name: password
-        required: true
-        type: string
-      produces:
-      - application/json
-      responses:
-        "200":
-          description: OK
-          schema:
-            $ref: '#/definitions/response.Response'
-        "422":
-          description: Unprocessable Entity
-          schema:
-            $ref: '#/definitions/response.Response'
-      summary: SignUp for Workers
-      tags:
-      - Worker
   /worker/account/verifyJWT:
     get:
       operationId: Varify worker JWT authentication
@@ -757,7 +729,7 @@ paths:
       tags:
       - Worker
   /worker/changepassword:
-    post:
+    patch:
       operationId: worker change password
       parameters:
       - description: 'User Name : '
@@ -825,7 +797,7 @@ paths:
       tags:
       - Worker
   /worker/editprofile:
-    post:
+    patch:
       operationId: worker edit profile
       parameters:
       - description: 'User Name : '
@@ -941,6 +913,34 @@ paths:
           schema:
             $ref: '#/definitions/response.Response'
       summary: Send OTP varification mail to worker
+      tags:
+      - Worker
+  /worker/signup:
+    post:
+      operationId: Worker SignUp authentication
+      parameters:
+      - description: 'User Name : '
+        in: path
+        name: username
+        required: true
+        type: string
+      - description: 'Password : '
+        in: path
+        name: password
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/response.Response'
+        "422":
+          description: Unprocessable Entity
+          schema:
+            $ref: '#/definitions/response.Response'
+      summary: SignUp for Workers
       tags:
       - Worker
   /worker/verify/account:
