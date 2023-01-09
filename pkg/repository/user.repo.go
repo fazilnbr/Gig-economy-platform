@@ -154,13 +154,14 @@ func (c *userRepo) VerifyAccount(email string, code int) error {
 func (c *userRepo) FindUser(email string) (domain.UserResponse, error) {
 	var user domain.UserResponse
 
-	query := `SELECT id_login,user_name,password  FROM logins WHERE user_name=$1 AND user_type='user' ;`
+	query := `SELECT id_login,user_name,password,verification  FROM logins WHERE user_name=$1 AND user_type='user' ;`
 
 	err := c.db.QueryRow(query,
 		email).Scan(
 		&user.ID,
 		&user.UserName,
 		&user.Password,
+		&user.Verification,
 	)
 	fmt.Printf("\n\n\nuser : %v\n\n\n", user)
 	if err != nil && err != sql.ErrNoRows {

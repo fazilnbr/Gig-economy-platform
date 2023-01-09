@@ -25,6 +25,9 @@ import (
 // @license.name MIT
 // @license.url https://opensource.org/licenses/MIT
 
+// @securityDefinitions.apikey BearerAuth
+// @in header
+// @name Authorization
 // @host localhost:8080
 // @BasePath /
 // @query.collection.format multi

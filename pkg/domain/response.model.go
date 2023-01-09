@@ -11,17 +11,19 @@ type AdminResponse struct {
 }
 
 type UserResponse struct {
-	ID       int    `json:"id"`
-	UserName string `json:"first_name"`
-	Password string `json:"password"`
-	Token    string `json:"token"`
+	ID           int    `json:"id"`
+	UserName     string `json:"first_name"`
+	Password     string `json:"password"`
+	Verification bool   `json:"verification"`
+	Token        string `json:"token"`
 }
 
 type WorkerResponse struct {
-	ID       int    `json:"id"`
-	UserName string `json:"first_name"`
-	Password string `json:"password"`
-	Token    string `json:"token"`
+	ID           int    `json:"id"`
+	UserName     string `json:"first_name"`
+	Password     string `json:"password"`
+	Verification bool   `json:"verification"`
+	Token        string `json:"token"`
 }
 
 type SignedDetails struct {

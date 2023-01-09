@@ -61,6 +61,11 @@ const docTemplate = `{
         },
         "/admin/activateusers": {
             "put": {
+                "security": [
+                    {
+                        "BearerAuth": []
+                    }
+                ],
                 "produces": [
                     "application/json"
                 ],
@@ -96,6 +101,11 @@ const docTemplate = `{
         },
         "/admin/activateworkers": {
             "patch": {
+                "security": [
+                    {
+                        "BearerAuth": []
+                    }
+                ],
                 "produces": [
                     "application/json"
                 ],
@@ -131,6 +141,11 @@ const docTemplate = `{
         },
         "/admin/blockusers": {
             "put": {
+                "security": [
+                    {
+                        "BearerAuth": []
+                    }
+                ],
                 "produces": [
                     "application/json"
                 ],
@@ -166,6 +181,11 @@ const docTemplate = `{
         },
         "/admin/blockworkers": {
             "patch": {
+                "security": [
+                    {
+                        "BearerAuth": []
+                    }
+                ],
                 "produces": [
                     "application/json"
                 ],
@@ -201,6 +221,11 @@ const docTemplate = `{
         },
         "/admin/jobcategory": {
             "post": {
+                "security": [
+                    {
+                        "BearerAuth": []
+                    }
+                ],
                 "produces": [
                     "application/json"
                 ],
@@ -236,6 +261,11 @@ const docTemplate = `{
         },
         "/admin/listallusers": {
             "get": {
+                "security": [
+                    {
+                        "BearerAuth": []
+                    }
+                ],
                 "produces": [
                     "application/json"
                 ],
@@ -262,6 +292,11 @@ const docTemplate = `{
         },
         "/admin/listallworkers": {
             "get": {
+                "security": [
+                    {
+                        "BearerAuth": []
+                    }
+                ],
                 "produces": [
                     "application/json"
                 ],
@@ -288,6 +323,11 @@ const docTemplate = `{
         },
         "/admin/listblockedusers": {
             "get": {
+                "security": [
+                    {
+                        "BearerAuth": []
+                    }
+                ],
                 "produces": [
                     "application/json"
                 ],
@@ -314,6 +354,11 @@ const docTemplate = `{
         },
         "/admin/listblockedworkers": {
             "get": {
+                "security": [
+                    {
+                        "BearerAuth": []
+                    }
+                ],
                 "produces": [
                     "application/json"
                 ],
@@ -340,6 +385,11 @@ const docTemplate = `{
         },
         "/admin/listnewusers": {
             "get": {
+                "security": [
+                    {
+                        "BearerAuth": []
+                    }
+                ],
                 "produces": [
                     "application/json"
                 ],
@@ -366,6 +416,11 @@ const docTemplate = `{
         },
         "/admin/listnewworkers": {
             "get": {
+                "security": [
+                    {
+                        "BearerAuth": []
+                    }
+                ],
                 "produces": [
                     "application/json"
                 ],
@@ -421,8 +476,8 @@ const docTemplate = `{
                 "operationId": "admin login authentication",
                 "parameters": [
                     {
-                        "description": "bottle info",
-                        "name": "bottles",
+                        "description": "admin login",
+                        "name": "AdminLogin",
                         "in": "body",
                         "required": true,
                         "schema": {
@@ -463,6 +518,11 @@ const docTemplate = `{
         },
         "/user/account/verifyJWT": {
             "get": {
+                "security": [
+                    {
+                        "ApiKeyAuth": []
+                    }
+                ],
                 "produces": [
                     "application/json"
                 ],
@@ -472,6 +532,13 @@ const docTemplate = `{
                 "summary": "Varify JWT of users",
                 "operationId": "Varify JWT authentication",
                 "parameters": [
+                    {
+                        "type": "string",
+                        "description": "Authorization",
+                        "name": "Authorization",
+                        "in": "header",
+                        "required": true
+                    },
                     {
                         "type": "string",
                         "description": "Email : ",
@@ -1480,14 +1547,21 @@ const docTemplate = `{
                 }
             }
         }
+    },
+    "securityDefinitions": {
+        "BearerAuth": {
+            "type": "apiKey",
+            "name": "Authorization",
+            "in": "header"
+        }
     }
 }`
 
 // SwaggerInfo holds exported Swagger Info so clients can modify it
 var SwaggerInfo = &swag.Spec{
 	Version:          "1.0",
-	Host:             "localhost:8080",
-	BasePath:         "/",
+	Host:             "",
+	BasePath:         "",
 	Schemes:          []string{},
 	Title:            "Go + Gin Workey API",
 	Description:      "This is a sample server Job Portal server. You can visit the GitHub repository at https://github.com/fazilnbr/Job_Portal_Project",

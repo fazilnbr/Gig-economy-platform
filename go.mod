@@ -14,9 +14,16 @@ require (
 	gorm.io/gorm v1.24.3
 )
 
-require github.com/golang-jwt/jwt/v4 v4.4.3
+require (
+	github.com/golang-jwt/jwt/v4 v4.4.3
+	github.com/stretchr/testify v1.8.1
+)
 
-require github.com/jackc/pgx/v5 v5.2.0 // indirect
+require (
+	github.com/davecgh/go-spew v1.1.1 // indirect
+	github.com/jackc/pgx/v5 v5.2.0 // indirect
+	github.com/pmezard/go-difflib v1.0.0 // indirect
+)
 
 require (
 	github.com/KyleBanks/depth v1.2.1 // indirect
