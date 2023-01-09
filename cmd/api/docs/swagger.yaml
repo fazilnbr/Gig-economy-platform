@@ -1,5 +1,20 @@
 basePath: /
 definitions:
+  domain.Login:
+    properties:
+      id_login:
+        type: integer
+      password:
+        type: string
+      status:
+        type: string
+      username:
+        type: string
+      usertype:
+        type: string
+      verification:
+        type: string
+    type: object
   response.Response:
     properties:
       data: {}
@@ -276,18 +291,23 @@ paths:
       - Admin
   /admin/login:
     post:
+      consumes:
+      - application/json
       operationId: admin login authentication
       parameters:
-      - description: 'User Name : '
-        in: path
-        name: username
+      - description: bottle info
+        in: body
+        name: bottles
         required: true
-        type: string
-      - description: 'Password : '
-        in: path
-        name: password
-        required: true
-        type: string
+        schema:
+          allOf:
+          - $ref: '#/definitions/domain.Login'
+          - properties:
+              password:
+                type: string
+              username:
+                type: string
+            type: object
       produces:
       - application/json
       responses:

@@ -408,6 +408,9 @@ const docTemplate = `{
         },
         "/admin/login": {
             "post": {
+                "consumes": [
+                    "application/json"
+                ],
                 "produces": [
                     "application/json"
                 ],
@@ -418,18 +421,28 @@ const docTemplate = `{
                 "operationId": "admin login authentication",
                 "parameters": [
                     {
-                        "type": "string",
-                        "description": "User Name : ",
-                        "name": "username",
-                        "in": "path",
-                        "required": true
-                    },
-                    {
-                        "type": "string",
-                        "description": "Password : ",
-                        "name": "password",
-                        "in": "path",
-                        "required": true
+                        "description": "bottle info",
+                        "name": "bottles",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "allOf": [
+                                {
+                                    "$ref": "#/definitions/domain.Login"
+                                },
+                                {
+                                    "type": "object",
+                                    "properties": {
+                                        "password": {
+                                            "type": "string"
+                                        },
+                                        "username": {
+                                            "type": "string"
+                                        }
+                                    }
+                                }
+                            ]
+                        }
                     }
                 ],
                 "responses": {
@@ -1431,6 +1444,29 @@ const docTemplate = `{
         }
     },
     "definitions": {
+        "domain.Login": {
+            "type": "object",
+            "properties": {
+                "id_login": {
+                    "type": "integer"
+                },
+                "password": {
+                    "type": "string"
+                },
+                "status": {
+                    "type": "string"
+                },
+                "username": {
+                    "type": "string"
+                },
+                "usertype": {
+                    "type": "string"
+                },
+                "verification": {
+                    "type": "string"
+                }
+            }
+        },
         "response.Response": {
             "type": "object",
             "properties": {
