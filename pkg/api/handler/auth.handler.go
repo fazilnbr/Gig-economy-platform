@@ -42,7 +42,7 @@ func NewAuthHandler(
 // @Tags Admin
 // @accept json
 // @Produce json
-// @Param bottles body domain.Login{username=string,password=string} true "bottle info"
+// @Param AdminLogin body domain.Login{username=string,password=string} true "admin login"
 // @Success 200 {object} response.Response{}
 // @Failure 422 {object} response.Response{}
 // @Router /admin/login [post]
@@ -367,6 +367,8 @@ func (cr *AuthHandler) WorkerVerifyAccount(c *gin.Context) {
 // @Summary Varify JWT of users
 // @ID Varify JWT authentication
 // @Tags User
+// @Security ApiKeyAuth
+// @param Authorization header string true "Authorization"
 // @Produce json
 // @Param        email   path      string  true  "Email : "
 // @Success 200 {object} response.Response{}

@@ -14,8 +14,6 @@
         },
         "version": "1.0"
     },
-    "host": "localhost:8080",
-    "basePath": "/",
     "paths": {
         "/admin/account/verifyJWT": {
             "get": {
@@ -54,6 +52,11 @@
         },
         "/admin/activateusers": {
             "put": {
+                "security": [
+                    {
+                        "BearerAuth": []
+                    }
+                ],
                 "produces": [
                     "application/json"
                 ],
@@ -89,6 +92,11 @@
         },
         "/admin/activateworkers": {
             "patch": {
+                "security": [
+                    {
+                        "BearerAuth": []
+                    }
+                ],
                 "produces": [
                     "application/json"
                 ],
@@ -124,6 +132,11 @@
         },
         "/admin/blockusers": {
             "put": {
+                "security": [
+                    {
+                        "BearerAuth": []
+                    }
+                ],
                 "produces": [
                     "application/json"
                 ],
@@ -159,6 +172,11 @@
         },
         "/admin/blockworkers": {
             "patch": {
+                "security": [
+                    {
+                        "BearerAuth": []
+                    }
+                ],
                 "produces": [
                     "application/json"
                 ],
@@ -194,6 +212,11 @@
         },
         "/admin/jobcategory": {
             "post": {
+                "security": [
+                    {
+                        "BearerAuth": []
+                    }
+                ],
                 "produces": [
                     "application/json"
                 ],
@@ -229,6 +252,11 @@
         },
         "/admin/listallusers": {
             "get": {
+                "security": [
+                    {
+                        "BearerAuth": []
+                    }
+                ],
                 "produces": [
                     "application/json"
                 ],
@@ -255,6 +283,11 @@
         },
         "/admin/listallworkers": {
             "get": {
+                "security": [
+                    {
+                        "BearerAuth": []
+                    }
+                ],
                 "produces": [
                     "application/json"
                 ],
@@ -281,6 +314,11 @@
         },
         "/admin/listblockedusers": {
             "get": {
+                "security": [
+                    {
+                        "BearerAuth": []
+                    }
+                ],
                 "produces": [
                     "application/json"
                 ],
@@ -307,6 +345,11 @@
         },
         "/admin/listblockedworkers": {
             "get": {
+                "security": [
+                    {
+                        "BearerAuth": []
+                    }
+                ],
                 "produces": [
                     "application/json"
                 ],
@@ -333,6 +376,11 @@
         },
         "/admin/listnewusers": {
             "get": {
+                "security": [
+                    {
+                        "BearerAuth": []
+                    }
+                ],
                 "produces": [
                     "application/json"
                 ],
@@ -359,6 +407,11 @@
         },
         "/admin/listnewworkers": {
             "get": {
+                "security": [
+                    {
+                        "BearerAuth": []
+                    }
+                ],
                 "produces": [
                     "application/json"
                 ],
@@ -414,8 +467,8 @@
                 "operationId": "admin login authentication",
                 "parameters": [
                     {
-                        "description": "bottle info",
-                        "name": "bottles",
+                        "description": "admin login",
+                        "name": "AdminLogin",
                         "in": "body",
                         "required": true,
                         "schema": {
@@ -456,6 +509,11 @@
         },
         "/user/account/verifyJWT": {
             "get": {
+                "security": [
+                    {
+                        "ApiKeyAuth": []
+                    }
+                ],
                 "produces": [
                     "application/json"
                 ],
@@ -465,6 +523,13 @@
                 "summary": "Varify JWT of users",
                 "operationId": "Varify JWT authentication",
                 "parameters": [
+                    {
+                        "type": "string",
+                        "description": "Authorization",
+                        "name": "Authorization",
+                        "in": "header",
+                        "required": true
+                    },
                     {
                         "type": "string",
                         "description": "Email : ",
@@ -1472,6 +1537,13 @@
                     "type": "boolean"
                 }
             }
+        }
+    },
+    "securityDefinitions": {
+        "BearerAuth": {
+            "type": "apiKey",
+            "name": "Authorization",
+            "in": "header"
         }
     }
 }

@@ -26,6 +26,7 @@ func NewAdminHandler(adminService services.AdminUseCase) AdminHandler {
 // @Summary list all active users for admin
 // @ID list all active users
 // @Tags Admin
+// @Security BearerAuth
 // @Produce json
 // @Success 200 {object} response.Response{}
 // @Failure 422 {object} response.Response{}
@@ -70,6 +71,7 @@ func (cr *AdminHandler) ListAllUsers(c *gin.Context) {
 // @Summary list all new users for admin
 // @ID list all new users
 // @Tags Admin
+// @Security BearerAuth
 // @Produce json
 // @Success 200 {object} response.Response{}
 // @Failure 422 {object} response.Response{}
@@ -112,6 +114,7 @@ func (cr *AdminHandler) ListNewUsers(c *gin.Context) {
 // @Summary list all blocked users for admin
 // @ID list all blocked users
 // @Tags Admin
+// @Security BearerAuth
 // @Produce json
 // @Success 200 {object} response.Response{}
 // @Failure 422 {object} response.Response{}
@@ -155,6 +158,7 @@ func (cr *AdminHandler) ListBlockUsers(c *gin.Context) {
 // @Summary activate users for admin
 // @ID activate users
 // @Tags Admin
+// @Security BearerAuth
 // @Produce json
 // @Param        id   path      string  true  "Id of User : "
 // @Success 200 {object} response.Response{}
@@ -184,6 +188,7 @@ func (cr *AdminHandler) ActivateUsers(c *gin.Context) {
 // @Summary block users for admin
 // @ID block users
 // @Tags Admin
+// @Security BearerAuth
 // @Produce json
 // @Param        id   path      string  true  "Id of User : "
 // @Success 200 {object} response.Response{}
@@ -213,6 +218,7 @@ func (cr *AdminHandler) BlockUsers(c *gin.Context) {
 // @Summary list all active workers for admin
 // @ID list all active workers
 // @Tags Admin
+// @Security BearerAuth
 // @Produce json
 // @Success 200 {object} response.Response{}
 // @Failure 422 {object} response.Response{}
@@ -257,6 +263,7 @@ func (cr *AdminHandler) ListAllWorkers(c *gin.Context) {
 // @Summary list all new workers for admin
 // @ID list all new workers
 // @Tags Admin
+// @Security BearerAuth
 // @Produce json
 // @Param        username   path      string  true  "User Name : "
 // @Param        password   path      string  true  "Password : "
@@ -303,6 +310,7 @@ func (cr *AdminHandler) ListNewWorkers(c *gin.Context) {
 // @Summary list all blocked workers for admin
 // @ID list all blocked workers
 // @Tags Admin
+// @Security BearerAuth
 // @Produce json
 // @Success 200 {object} response.Response{}
 // @Failure 422 {object} response.Response{}
@@ -348,6 +356,7 @@ func (cr *AdminHandler) ListBlockWorkers(c *gin.Context) {
 // @Summary activate workers for admin
 // @ID activate workers
 // @Tags Admin
+// @Security BearerAuth
 // @Produce json
 // @Param        id   path      string  true  "Id of User : "
 // @Success 200 {object} response.Response{}
@@ -377,6 +386,7 @@ func (cr *AdminHandler) ActivateWorkers(c *gin.Context) {
 // @Summary block workers for admin
 // @ID block workers
 // @Tags Admin
+// @Security BearerAuth
 // @Produce json
 // @Param        id   path      string  true  "Id of User : "
 // @Success 200 {object} response.Response{}
@@ -406,6 +416,7 @@ func (cr *AdminHandler) BlockWorkers(c *gin.Context) {
 // @Summary add job category for admin
 // @ID add category
 // @Tags Admin
+// @Security BearerAuth
 // @Produce json
 // @Param       category   path      string  true  "category : "
 // @Success 200 {object} response.Response{}

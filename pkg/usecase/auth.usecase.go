@@ -83,6 +83,9 @@ func (c *authUseCase) VerifyUser(email string, password string) error {
 	if err != nil {
 		return errors.New("failed to login. check your email")
 	}
+	if user.Verification {
+		return errors.New("failed to login. you are not verified")
+	}
 
 	isValidPassword := VerifyPassword(password, user.Password)
 	if !isValidPassword {
