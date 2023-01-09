@@ -40,9 +40,9 @@ func NewAuthHandler(
 // @Summary Login for admin
 // @ID admin login authentication
 // @Tags Admin
+// @accept json
 // @Produce json
-// @Param        username   path      string  true  "User Name : "
-// @Param        password   path      string  true  "Password : "
+// @Param bottles body domain.Login{username=string,password=string} true "bottle info"
 // @Success 200 {object} response.Response{}
 // @Failure 422 {object} response.Response{}
 // @Router /admin/login [post]
@@ -67,7 +67,7 @@ func (cr *AuthHandler) AdminLogin(c *gin.Context) {
 	user, err := cr.adminUseCase.FindAdmin(loginAdmin.UserName)
 	// fmt.Printf("\n\n\n%v\n%v\n\n", user, err)
 
-	token := cr.jwtUseCase.GenerateToken(user.ID, user.Username, "user")
+	token := cr.jwtUseCase.GenerateToken(user.ID, user.Username, "admin")
 	user.Password = ""
 	user.Token = token
 	response := response.SuccessResponse(true, "SUCCESS", user)
