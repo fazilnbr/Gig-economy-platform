@@ -19,7 +19,7 @@ run: ## Start application
 	$(GOCMD) run ./cmd/api
 
 test: ## Run tests
-	$(GOCMD) test ./... -cover
+	$(GOCMD) test ./... -v -cover
 
 test-coverage: ## Run tests and generate coverage file
 	$(GOCMD) test ./... -coverprofile=$(CODE_COVERAGE).out

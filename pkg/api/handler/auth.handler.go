@@ -88,11 +88,14 @@ func (cr *AuthHandler) AdminLogin(c *gin.Context) {
 // @Router /user/signup [post]
 func (cr *AuthHandler) UserSignUp(c *gin.Context) {
 	var newUser domain.Login
+	fmt.Printf("\n\nerrrrrrr : %v\n\n", c.Bind(&newUser))
 
-	c.Bind(&newUser)
-	fmt.Printf("\n\nname ; %v\n\n", newUser)
-
-	err := cr.userUseCase.CreateUser(newUser)
+	err := c.Bind(&newUser)
+	if err != nil {
+		fmt.Printf("\n\nerr : %v\n\n", err)
+	}
+	fmt.Printf("\n\nname ; %v  %v\n\n", newUser, err)
+	err = cr.userUseCase.CreateUser(newUser)
 
 	if err != nil {
 		response := response.ErrorResponse("Failed to create user", err.Error(), nil)
