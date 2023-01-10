@@ -16,16 +16,19 @@ func init() {
 
 // RandomInt generate randome inteager value between min and max
 
-func RandomInt(min, max int64) int64 {
-	return min + rand.Int63n(max-min+1)
-	k := len(alpabet)
-	for i := 0; i < num; i++ {
+func RandomInt(min, max int) int {
+	return min + rand.Intn(max-min+1)
 
-	}
 }
 
-//
+// RandomString generate random string of lenth num
 
 func RandomString(num int) string {
 	var sb strings.Builder
+	k := len(alpabet)
+	for i := 0; i < num; i++ {
+		c := alpabet[rand.Intn(k)]
+		sb.WriteByte(c)
+	}
+	return sb.String()
 }
