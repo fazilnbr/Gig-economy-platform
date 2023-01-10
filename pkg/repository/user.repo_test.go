@@ -1,14 +1,12 @@
 package repository
 
 import (
-	"database/sql"
 	"fmt"
 	"testing"
 
 	"github.com/DATA-DOG/go-sqlmock"
 	"github.com/fazilnbr/project-workey/pkg/domain"
 	"github.com/fazilnbr/project-workey/pkg/utils"
-	"github.com/sirupsen/logrus"
 	"github.com/stretchr/testify/assert"
 )
 
@@ -17,23 +15,10 @@ var Login = domain.Login{
 	Password: fmt.Sprint(utils.RandomInt(10000, 99999)),
 }
 
-func MockGormDB() (*sql.DB, sqlmock.Sqlmock) {
-	_, mock, err := sqlmock.New(sqlmock.QueryMatcherOption(sqlmock.QueryMatcherEqual))
-	if err != nil {
-		logrus.Fatal(err)
-	}
-
-	gormDB, err := sql.Open("postgres", dbURI)
-	if err != nil {
-		logrus.Fatal(err)
-	}
-
-	return gormDB, mock
-}
 func TestInsertUser(t *testing.T) {
 
 	t.Run("test normal case repo register", func(t *testing.T) {
-		gormDB, mock := MockGormDB()
+		gormDB, mock := utils.MockGormDB()
 
 		query := "INSERT INTO logins (user_name,password,user_type) VALUES (?,?,?) RETURNING id_login;"
 		mock.ExpectExec(query).
@@ -52,11 +37,11 @@ func TestInsertUser(t *testing.T) {
 
 }
 
-func TestLogin(t *testing.T) {
+func TestFindUser(t *testing.T) {
 	hashedPassword := "12345"
 
 	t.Run("test normal case repo login", func(t *testing.T) {
-		gormDB, mock := MockGormDB()
+		gormDB, mock := utils.MockGormDB()
 
 		rows := sqlmock.NewRows([]string{"password"}).AddRow(hashedPassword)
 		mock.ExpectQuery("SELECT * FROM `users` WHERE username = ? ORDER BY `users`.`id` LIMIT 1").
@@ -72,7 +57,7 @@ func TestLogin(t *testing.T) {
 		})
 		t.Run("test return the value", func(t *testing.T) {
 			assert.NotEmpty(t, user)
-			assert.Equal(t, "sehu", user.UserName)
+			assert.Equal(t, "sethu", user.UserName)
 		})
 	})
 }
