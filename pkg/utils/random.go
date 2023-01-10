@@ -1,13 +1,18 @@
 package utils
 
 import (
+	"database/sql"
 	"math/rand"
 	"strings"
 	"time"
+
+	"github.com/DATA-DOG/go-sqlmock"
+	"github.com/sirupsen/logrus"
 )
 
 const (
 	alpabet = "abcdefghijklmnopqrstuvwxyz"
+	dbURI   = "postgresql://developer:dev123@localhost:5432/workey?sslmode=disable"
 )
 
 func init() {
@@ -31,4 +36,18 @@ func RandomString(num int) string {
 		sb.WriteByte(c)
 	}
 	return sb.String()
+}
+
+func MockGormDB() (*sql.DB, sqlmock.Sqlmock) {
+	_, mock, err := sqlmock.New(sqlmock.QueryMatcherOption(sqlmock.QueryMatcherEqual))
+	if err != nil {
+		logrus.Fatal(err)
+	}
+
+	gormDB, err := sql.Open("postgres", dbURI)
+	if err != nil {
+		logrus.Fatal(err)
+	}
+
+	return gormDB, mock
 }
