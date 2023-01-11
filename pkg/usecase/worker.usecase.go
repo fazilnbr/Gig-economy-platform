@@ -14,6 +14,20 @@ type workerService struct {
 	workerRepo interfaces.WorkerRepository
 }
 
+// ViewJob implements interfaces.WorkerUseCase
+func (c *workerService) ViewJob(id int) ([]domain.WorkerJob, error) {
+	jobs, err := c.workerRepo.ViewJob(id)
+
+	return jobs, err
+}
+
+// AddJob implements interfaces.WorkerUseCase
+func (c *workerService) AddJob(job domain.Job) (int, error) {
+	id, err := c.workerRepo.AddJob(job)
+
+	return id, err
+}
+
 // ListJobCategoryUser implements interfaces.WorkerUseCase
 func (c *workerService) ListJobCategoryUser() ([]domain.Category, error) {
 	id, err := c.workerRepo.ListJobCategoryUser()
