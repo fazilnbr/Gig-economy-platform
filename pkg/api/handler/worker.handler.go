@@ -25,6 +25,7 @@ func NewWorkerHandler(workerService services.WorkerUseCase) WorkerHandler {
 // @Summary Add profile for Worker
 // @ID worker add profile
 // @Tags Worker
+// @Security BearerAuth
 // @Produce json
 // @Param WorkerAddProfile body domain.Profile{} true "Worker Add Profile"
 // @Success 200 {object} response.Response{}
@@ -58,6 +59,7 @@ func (cr *WorkerHandler) WorkerAddProfile(c *gin.Context) {
 // @Summary Edit profile for Worker
 // @ID worker edit profile
 // @Tags Worker
+// @Security BearerAuth
 // @Produce json
 // @Param WorkerEditProfile body domain.Profile{} true "Worker Edit Profile"
 // @Success 200 {object} response.Response{}
@@ -92,6 +94,7 @@ func (cr *WorkerHandler) WorkerEditProfile(c *gin.Context) {
 // @Summary Change Password for worker
 // @ID worker change password
 // @Tags Worker
+// @Security BearerAuth
 // @Produce json
 // @Param WorekerChangePassword body domain.ChangePassword{} true "Woreker Change Password"
 // @Success 200 {object} response.Response{}

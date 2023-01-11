@@ -621,7 +621,7 @@ const docTemplate = `{
             "get": {
                 "security": [
                     {
-                        "ApiKeyAuth": []
+                        "BearerAuth": []
                     }
                 ],
                 "produces": [
@@ -666,6 +666,11 @@ const docTemplate = `{
         },
         "/user/addprofile": {
             "post": {
+                "security": [
+                    {
+                        "BearerAuth": []
+                    }
+                ],
                 "produces": [
                     "application/json"
                 ],
@@ -703,6 +708,11 @@ const docTemplate = `{
         },
         "/user/changepassword": {
             "patch": {
+                "security": [
+                    {
+                        "BearerAuth": []
+                    }
+                ],
                 "produces": [
                     "application/json"
                 ],
@@ -740,6 +750,11 @@ const docTemplate = `{
         },
         "/user/editprofile": {
             "patch": {
+                "security": [
+                    {
+                        "BearerAuth": []
+                    }
+                ],
                 "produces": [
                     "application/json"
                 ],
@@ -959,6 +974,11 @@ const docTemplate = `{
         },
         "/worker/account/verifyJWT": {
             "get": {
+                "security": [
+                    {
+                        "BearerAuth": []
+                    }
+                ],
                 "produces": [
                     "application/json"
                 ],
@@ -994,6 +1014,11 @@ const docTemplate = `{
         },
         "/worker/addprofile": {
             "post": {
+                "security": [
+                    {
+                        "BearerAuth": []
+                    }
+                ],
                 "produces": [
                     "application/json"
                 ],
@@ -1031,6 +1056,11 @@ const docTemplate = `{
         },
         "/worker/changepassword": {
             "patch": {
+                "security": [
+                    {
+                        "BearerAuth": []
+                    }
+                ],
                 "produces": [
                     "application/json"
                 ],
@@ -1068,6 +1098,11 @@ const docTemplate = `{
         },
         "/worker/editprofile": {
             "patch": {
+                "security": [
+                    {
+                        "BearerAuth": []
+                    }
+                ],
                 "produces": [
                     "application/json"
                 ],

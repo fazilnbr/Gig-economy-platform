@@ -477,7 +477,7 @@ paths:
           schema:
             $ref: '#/definitions/response.Response'
       security:
-      - ApiKeyAuth: []
+      - BearerAuth: []
       summary: Varify JWT of users
       tags:
       - User
@@ -502,6 +502,8 @@ paths:
           description: Unprocessable Entity
           schema:
             $ref: '#/definitions/response.Response'
+      security:
+      - BearerAuth: []
       summary: Add profile for User
       tags:
       - User
@@ -526,6 +528,8 @@ paths:
           description: Unprocessable Entity
           schema:
             $ref: '#/definitions/response.Response'
+      security:
+      - BearerAuth: []
       summary: Change Password for User
       tags:
       - User
@@ -550,6 +554,8 @@ paths:
           description: Unprocessable Entity
           schema:
             $ref: '#/definitions/response.Response'
+      security:
+      - BearerAuth: []
       summary: Edit profile for User
       tags:
       - User
@@ -687,6 +693,8 @@ paths:
           description: Unprocessable Entity
           schema:
             $ref: '#/definitions/response.Response'
+      security:
+      - BearerAuth: []
       summary: Varify JWT of users
       tags:
       - Worker
@@ -711,6 +719,8 @@ paths:
           description: Unprocessable Entity
           schema:
             $ref: '#/definitions/response.Response'
+      security:
+      - BearerAuth: []
       summary: Add profile for Worker
       tags:
       - Worker
@@ -735,6 +745,8 @@ paths:
           description: Unprocessable Entity
           schema:
             $ref: '#/definitions/response.Response'
+      security:
+      - BearerAuth: []
       summary: Change Password for worker
       tags:
       - Worker
@@ -759,6 +771,8 @@ paths:
           description: Unprocessable Entity
           schema:
             $ref: '#/definitions/response.Response'
+      security:
+      - BearerAuth: []
       summary: Edit profile for Worker
       tags:
       - Worker
