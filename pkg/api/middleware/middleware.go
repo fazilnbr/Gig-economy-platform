@@ -5,6 +5,7 @@ import (
 	"fmt"
 	"net/http"
 	"strings"
+	"time"
 
 	"github.com/fazilnbr/project-workey/pkg/common/response"
 	service "github.com/fazilnbr/project-workey/pkg/usecase/interface"
@@ -44,15 +45,23 @@ func (cr *middlewar) AthoriseJWT(c *gin.Context) {
 	authtoken := bearerToken[1]
 	// fmt.Print(authtoken)
 	ok, claims := cr.jwtUseCase.VerifyToken(authtoken)
+	source := fmt.Sprint(claims.Source)
 
-	fmt.Printf("\n\nok : %v\n\n", ok)
+	fmt.Printf("\n\nok : %v\n\n", time.Now().Unix()-claims.ExpiresAt)
 
-	if !ok {
-		err := errors.New("your token is not valid")
-		response := response.ErrorResponse("Please Login Again", err.Error(), nil)
-		c.Writer.Header().Set("Content-Type", "application/json")
+	if !ok && source == "accesstoken" {
+		err := errors.New("your access token is not valid")
+		response := response.ErrorResponse("Error", err.Error(), source)
+		c.Writer.Header().Add("Content-Type", "application/json")
 		c.Writer.WriteHeader(http.StatusUnauthorized)
-
+		utils.ResponseJSON(*c, response)
+		c.Abort()
+		return
+	} else if !ok && source == "refreshtoken" {
+		err := errors.New("your refresh token is not valid please login again")
+		response := response.ErrorResponse("Error", err.Error(), source)
+		c.Writer.Header().Add("Content-Type", "application/json")
+		c.Writer.WriteHeader(http.StatusUnauthorized)
 		utils.ResponseJSON(*c, response)
 		c.Abort()
 		return
