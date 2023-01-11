@@ -6,6 +6,19 @@ definitions:
       idCategory:
         type: integer
     type: object
+  domain.ChangePassword:
+    properties:
+      email:
+        type: string
+      newpassword:
+        type: string
+      oldpassword:
+        type: string
+    required:
+    - email
+    - newpassword
+    - oldpassword
+    type: object
   domain.Login:
     properties:
       id_login:
@@ -19,6 +32,33 @@ definitions:
       usertype:
         type: string
       verification:
+        type: string
+    type: object
+  domain.Profile:
+    properties:
+      contactnumber:
+        type: string
+      dateofbirth:
+        type: string
+      emailid:
+        type: string
+      gender:
+        type: string
+      housename:
+        type: string
+      idLogin:
+        type: integer
+      idUser:
+        type: integer
+      name:
+        type: string
+      photo:
+        type: string
+      pin:
+        type: string
+      place:
+        type: string
+      post:
         type: string
     type: object
   response.Response:
@@ -445,56 +485,12 @@ paths:
     post:
       operationId: user add profile
       parameters:
-      - description: 'User Name : '
-        in: query
-        name: name
+      - description: User Add Profile
+        in: body
+        name: UserAddProfile
         required: true
-        type: string
-      - description: 'Gender : '
-        in: query
-        name: gender
-        required: true
-        type: string
-      - description: 'Date Of Birth : '
-        in: query
-        name: dateofbirth
-        required: true
-        type: string
-      - description: 'House Name : '
-        in: query
-        name: housename
-        required: true
-        type: string
-      - description: 'Place : '
-        in: query
-        name: place
-        required: true
-        type: string
-      - description: 'Post : '
-        in: query
-        name: post
-        required: true
-        type: string
-      - description: 'Pin : '
-        in: query
-        name: pin
-        required: true
-        type: string
-      - description: 'Contact Number : '
-        in: query
-        name: contactnumber
-        required: true
-        type: string
-      - description: 'Email Id : '
-        in: query
-        name: emailid
-        required: true
-        type: string
-      - description: 'Photo : '
-        in: query
-        name: photo
-        required: true
-        type: string
+        schema:
+          $ref: '#/definitions/domain.Profile'
       produces:
       - application/json
       responses:
@@ -513,56 +509,12 @@ paths:
     patch:
       operationId: user change password
       parameters:
-      - description: 'User Name : '
-        in: query
-        name: name
+      - description: User Change Password
+        in: body
+        name: UserChangePassword
         required: true
-        type: string
-      - description: 'Gender : '
-        in: query
-        name: gender
-        required: true
-        type: string
-      - description: 'Date Of Birth : '
-        in: query
-        name: dateofbirth
-        required: true
-        type: string
-      - description: 'House Name : '
-        in: query
-        name: housename
-        required: true
-        type: string
-      - description: 'Place : '
-        in: query
-        name: place
-        required: true
-        type: string
-      - description: 'Post : '
-        in: query
-        name: post
-        required: true
-        type: string
-      - description: 'Pin : '
-        in: query
-        name: pin
-        required: true
-        type: string
-      - description: 'Contact Number : '
-        in: query
-        name: contactnumber
-        required: true
-        type: string
-      - description: 'Email Id : '
-        in: query
-        name: emailid
-        required: true
-        type: string
-      - description: 'Photo : '
-        in: query
-        name: photo
-        required: true
-        type: string
+        schema:
+          $ref: '#/definitions/domain.ChangePassword'
       produces:
       - application/json
       responses:
@@ -581,56 +533,12 @@ paths:
     patch:
       operationId: user edit profile
       parameters:
-      - description: 'User Name : '
-        in: query
-        name: name
+      - description: User Edit Profile
+        in: body
+        name: UserEditProfile
         required: true
-        type: string
-      - description: 'Gender : '
-        in: query
-        name: gender
-        required: true
-        type: string
-      - description: 'Date Of Birth : '
-        in: query
-        name: dateofbirth
-        required: true
-        type: string
-      - description: 'House Name : '
-        in: query
-        name: housename
-        required: true
-        type: string
-      - description: 'Place : '
-        in: query
-        name: place
-        required: true
-        type: string
-      - description: 'Post : '
-        in: query
-        name: post
-        required: true
-        type: string
-      - description: 'Pin : '
-        in: query
-        name: pin
-        required: true
-        type: string
-      - description: 'Contact Number : '
-        in: query
-        name: contactnumber
-        required: true
-        type: string
-      - description: 'Email Id : '
-        in: query
-        name: emailid
-        required: true
-        type: string
-      - description: 'Photo : '
-        in: query
-        name: photo
-        required: true
-        type: string
+        schema:
+          $ref: '#/definitions/domain.Profile'
       produces:
       - application/json
       responses:
@@ -649,16 +557,19 @@ paths:
     post:
       operationId: login authentication
       parameters:
-      - description: 'User Name : '
-        in: query
-        name: username
+      - description: Worker Login
+        in: body
+        name: WorkerLogin
         required: true
-        type: string
-      - description: 'Password : '
-        in: query
-        name: password
-        required: true
-        type: string
+        schema:
+          allOf:
+          - $ref: '#/definitions/domain.Login'
+          - properties:
+              password:
+                type: string
+              username:
+                type: string
+            type: object
       produces:
       - application/json
       responses:
@@ -700,16 +611,19 @@ paths:
     post:
       operationId: SignUp authentication
       parameters:
-      - description: 'User Name : '
-        in: query
-        name: username
+      - description: Worker Login
+        in: body
+        name: WorkerLogin
         required: true
-        type: string
-      - description: 'Password : '
-        in: query
-        name: password
-        required: true
-        type: string
+        schema:
+          allOf:
+          - $ref: '#/definitions/domain.Login'
+          - properties:
+              password:
+                type: string
+              username:
+                type: string
+            type: object
       produces:
       - application/json
       responses:
@@ -780,56 +694,12 @@ paths:
     post:
       operationId: worker add profile
       parameters:
-      - description: 'User Name : '
-        in: query
-        name: name
+      - description: Worker Add Profile
+        in: body
+        name: WorkerAddProfile
         required: true
-        type: string
-      - description: 'Gender : '
-        in: query
-        name: gender
-        required: true
-        type: string
-      - description: 'Date Of Birth : '
-        in: query
-        name: dateofbirth
-        required: true
-        type: string
-      - description: 'House Name : '
-        in: query
-        name: housename
-        required: true
-        type: string
-      - description: 'Place : '
-        in: query
-        name: place
-        required: true
-        type: string
-      - description: 'Post : '
-        in: query
-        name: post
-        required: true
-        type: string
-      - description: 'Pin : '
-        in: query
-        name: pin
-        required: true
-        type: string
-      - description: 'Contact Number : '
-        in: query
-        name: contactnumber
-        required: true
-        type: string
-      - description: 'Email Id : '
-        in: query
-        name: emailid
-        required: true
-        type: string
-      - description: 'Photo : '
-        in: query
-        name: photo
-        required: true
-        type: string
+        schema:
+          $ref: '#/definitions/domain.Profile'
       produces:
       - application/json
       responses:
@@ -848,56 +718,12 @@ paths:
     patch:
       operationId: worker change password
       parameters:
-      - description: 'User Name : '
-        in: query
-        name: name
+      - description: Woreker Change Password
+        in: body
+        name: WorekerChangePassword
         required: true
-        type: string
-      - description: 'Gender : '
-        in: query
-        name: gender
-        required: true
-        type: string
-      - description: 'Date Of Birth : '
-        in: query
-        name: dateofbirth
-        required: true
-        type: string
-      - description: 'House Name : '
-        in: query
-        name: housename
-        required: true
-        type: string
-      - description: 'Place : '
-        in: query
-        name: place
-        required: true
-        type: string
-      - description: 'Post : '
-        in: query
-        name: post
-        required: true
-        type: string
-      - description: 'Pin : '
-        in: query
-        name: pin
-        required: true
-        type: string
-      - description: 'Contact Number : '
-        in: query
-        name: contactnumber
-        required: true
-        type: string
-      - description: 'Email Id : '
-        in: query
-        name: emailid
-        required: true
-        type: string
-      - description: 'Photo : '
-        in: query
-        name: photo
-        required: true
-        type: string
+        schema:
+          $ref: '#/definitions/domain.ChangePassword'
       produces:
       - application/json
       responses:
@@ -916,56 +742,12 @@ paths:
     patch:
       operationId: worker edit profile
       parameters:
-      - description: 'User Name : '
-        in: query
-        name: name
+      - description: Worker Edit Profile
+        in: body
+        name: WorkerEditProfile
         required: true
-        type: string
-      - description: 'Gender : '
-        in: query
-        name: gender
-        required: true
-        type: string
-      - description: 'Date Of Birth : '
-        in: query
-        name: dateofbirth
-        required: true
-        type: string
-      - description: 'House Name : '
-        in: query
-        name: housename
-        required: true
-        type: string
-      - description: 'Place : '
-        in: query
-        name: place
-        required: true
-        type: string
-      - description: 'Post : '
-        in: query
-        name: post
-        required: true
-        type: string
-      - description: 'Pin : '
-        in: query
-        name: pin
-        required: true
-        type: string
-      - description: 'Contact Number : '
-        in: query
-        name: contactnumber
-        required: true
-        type: string
-      - description: 'Email Id : '
-        in: query
-        name: emailid
-        required: true
-        type: string
-      - description: 'Photo : '
-        in: query
-        name: photo
-        required: true
-        type: string
+        schema:
+          $ref: '#/definitions/domain.Profile'
       produces:
       - application/json
       responses:

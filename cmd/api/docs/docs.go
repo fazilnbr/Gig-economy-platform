@@ -676,74 +676,13 @@ const docTemplate = `{
                 "operationId": "user add profile",
                 "parameters": [
                     {
-                        "type": "string",
-                        "description": "User Name : ",
-                        "name": "name",
-                        "in": "query",
-                        "required": true
-                    },
-                    {
-                        "type": "string",
-                        "description": "Gender : ",
-                        "name": "gender",
-                        "in": "query",
-                        "required": true
-                    },
-                    {
-                        "type": "string",
-                        "description": "Date Of Birth : ",
-                        "name": "dateofbirth",
-                        "in": "query",
-                        "required": true
-                    },
-                    {
-                        "type": "string",
-                        "description": "House Name : ",
-                        "name": "housename",
-                        "in": "query",
-                        "required": true
-                    },
-                    {
-                        "type": "string",
-                        "description": "Place : ",
-                        "name": "place",
-                        "in": "query",
-                        "required": true
-                    },
-                    {
-                        "type": "string",
-                        "description": "Post : ",
-                        "name": "post",
-                        "in": "query",
-                        "required": true
-                    },
-                    {
-                        "type": "string",
-                        "description": "Pin : ",
-                        "name": "pin",
-                        "in": "query",
-                        "required": true
-                    },
-                    {
-                        "type": "string",
-                        "description": "Contact Number : ",
-                        "name": "contactnumber",
-                        "in": "query",
-                        "required": true
-                    },
-                    {
-                        "type": "string",
-                        "description": "Email Id : ",
-                        "name": "emailid",
-                        "in": "query",
-                        "required": true
-                    },
-                    {
-                        "type": "string",
-                        "description": "Photo : ",
-                        "name": "photo",
-                        "in": "query",
-                        "required": true
+                        "description": "User Add Profile",
+                        "name": "UserAddProfile",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/domain.Profile"
+                        }
                     }
                 ],
                 "responses": {
@@ -774,74 +713,13 @@ const docTemplate = `{
                 "operationId": "user change password",
                 "parameters": [
                     {
-                        "type": "string",
-                        "description": "User Name : ",
-                        "name": "name",
-                        "in": "query",
-                        "required": true
-                    },
-                    {
-                        "type": "string",
-                        "description": "Gender : ",
-                        "name": "gender",
-                        "in": "query",
-                        "required": true
-                    },
-                    {
-                        "type": "string",
-                        "description": "Date Of Birth : ",
-                        "name": "dateofbirth",
-                        "in": "query",
-                        "required": true
-                    },
-                    {
-                        "type": "string",
-                        "description": "House Name : ",
-                        "name": "housename",
-                        "in": "query",
-                        "required": true
-                    },
-                    {
-                        "type": "string",
-                        "description": "Place : ",
-                        "name": "place",
-                        "in": "query",
-                        "required": true
-                    },
-                    {
-                        "type": "string",
-                        "description": "Post : ",
-                        "name": "post",
-                        "in": "query",
-                        "required": true
-                    },
-                    {
-                        "type": "string",
-                        "description": "Pin : ",
-                        "name": "pin",
-                        "in": "query",
-                        "required": true
-                    },
-                    {
-                        "type": "string",
-                        "description": "Contact Number : ",
-                        "name": "contactnumber",
-                        "in": "query",
-                        "required": true
-                    },
-                    {
-                        "type": "string",
-                        "description": "Email Id : ",
-                        "name": "emailid",
-                        "in": "query",
-                        "required": true
-                    },
-                    {
-                        "type": "string",
-                        "description": "Photo : ",
-                        "name": "photo",
-                        "in": "query",
-                        "required": true
+                        "description": "User Change Password",
+                        "name": "UserChangePassword",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/domain.ChangePassword"
+                        }
                     }
                 ],
                 "responses": {
@@ -872,74 +750,13 @@ const docTemplate = `{
                 "operationId": "user edit profile",
                 "parameters": [
                     {
-                        "type": "string",
-                        "description": "User Name : ",
-                        "name": "name",
-                        "in": "query",
-                        "required": true
-                    },
-                    {
-                        "type": "string",
-                        "description": "Gender : ",
-                        "name": "gender",
-                        "in": "query",
-                        "required": true
-                    },
-                    {
-                        "type": "string",
-                        "description": "Date Of Birth : ",
-                        "name": "dateofbirth",
-                        "in": "query",
-                        "required": true
-                    },
-                    {
-                        "type": "string",
-                        "description": "House Name : ",
-                        "name": "housename",
-                        "in": "query",
-                        "required": true
-                    },
-                    {
-                        "type": "string",
-                        "description": "Place : ",
-                        "name": "place",
-                        "in": "query",
-                        "required": true
-                    },
-                    {
-                        "type": "string",
-                        "description": "Post : ",
-                        "name": "post",
-                        "in": "query",
-                        "required": true
-                    },
-                    {
-                        "type": "string",
-                        "description": "Pin : ",
-                        "name": "pin",
-                        "in": "query",
-                        "required": true
-                    },
-                    {
-                        "type": "string",
-                        "description": "Contact Number : ",
-                        "name": "contactnumber",
-                        "in": "query",
-                        "required": true
-                    },
-                    {
-                        "type": "string",
-                        "description": "Email Id : ",
-                        "name": "emailid",
-                        "in": "query",
-                        "required": true
-                    },
-                    {
-                        "type": "string",
-                        "description": "Photo : ",
-                        "name": "photo",
-                        "in": "query",
-                        "required": true
+                        "description": "User Edit Profile",
+                        "name": "UserEditProfile",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/domain.Profile"
+                        }
                     }
                 ],
                 "responses": {
@@ -970,18 +787,28 @@ const docTemplate = `{
                 "operationId": "login authentication",
                 "parameters": [
                     {
-                        "type": "string",
-                        "description": "User Name : ",
-                        "name": "username",
-                        "in": "query",
-                        "required": true
-                    },
-                    {
-                        "type": "string",
-                        "description": "Password : ",
-                        "name": "password",
-                        "in": "query",
-                        "required": true
+                        "description": "Worker Login",
+                        "name": "WorkerLogin",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "allOf": [
+                                {
+                                    "$ref": "#/definitions/domain.Login"
+                                },
+                                {
+                                    "type": "object",
+                                    "properties": {
+                                        "password": {
+                                            "type": "string"
+                                        },
+                                        "username": {
+                                            "type": "string"
+                                        }
+                                    }
+                                }
+                            ]
+                        }
                     }
                 ],
                 "responses": {
@@ -1048,18 +875,28 @@ const docTemplate = `{
                 "operationId": "SignUp authentication",
                 "parameters": [
                     {
-                        "type": "string",
-                        "description": "User Name : ",
-                        "name": "username",
-                        "in": "query",
-                        "required": true
-                    },
-                    {
-                        "type": "string",
-                        "description": "Password : ",
-                        "name": "password",
-                        "in": "query",
-                        "required": true
+                        "description": "Worker Login",
+                        "name": "WorkerLogin",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "allOf": [
+                                {
+                                    "$ref": "#/definitions/domain.Login"
+                                },
+                                {
+                                    "type": "object",
+                                    "properties": {
+                                        "password": {
+                                            "type": "string"
+                                        },
+                                        "username": {
+                                            "type": "string"
+                                        }
+                                    }
+                                }
+                            ]
+                        }
                     }
                 ],
                 "responses": {
@@ -1167,74 +1004,13 @@ const docTemplate = `{
                 "operationId": "worker add profile",
                 "parameters": [
                     {
-                        "type": "string",
-                        "description": "User Name : ",
-                        "name": "name",
-                        "in": "query",
-                        "required": true
-                    },
-                    {
-                        "type": "string",
-                        "description": "Gender : ",
-                        "name": "gender",
-                        "in": "query",
-                        "required": true
-                    },
-                    {
-                        "type": "string",
-                        "description": "Date Of Birth : ",
-                        "name": "dateofbirth",
-                        "in": "query",
-                        "required": true
-                    },
-                    {
-                        "type": "string",
-                        "description": "House Name : ",
-                        "name": "housename",
-                        "in": "query",
-                        "required": true
-                    },
-                    {
-                        "type": "string",
-                        "description": "Place : ",
-                        "name": "place",
-                        "in": "query",
-                        "required": true
-                    },
-                    {
-                        "type": "string",
-                        "description": "Post : ",
-                        "name": "post",
-                        "in": "query",
-                        "required": true
-                    },
-                    {
-                        "type": "string",
-                        "description": "Pin : ",
-                        "name": "pin",
-                        "in": "query",
-                        "required": true
-                    },
-                    {
-                        "type": "string",
-                        "description": "Contact Number : ",
-                        "name": "contactnumber",
-                        "in": "query",
-                        "required": true
-                    },
-                    {
-                        "type": "string",
-                        "description": "Email Id : ",
-                        "name": "emailid",
-                        "in": "query",
-                        "required": true
-                    },
-                    {
-                        "type": "string",
-                        "description": "Photo : ",
-                        "name": "photo",
-                        "in": "query",
-                        "required": true
+                        "description": "Worker Add Profile",
+                        "name": "WorkerAddProfile",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/domain.Profile"
+                        }
                     }
                 ],
                 "responses": {
@@ -1265,74 +1041,13 @@ const docTemplate = `{
                 "operationId": "worker change password",
                 "parameters": [
                     {
-                        "type": "string",
-                        "description": "User Name : ",
-                        "name": "name",
-                        "in": "query",
-                        "required": true
-                    },
-                    {
-                        "type": "string",
-                        "description": "Gender : ",
-                        "name": "gender",
-                        "in": "query",
-                        "required": true
-                    },
-                    {
-                        "type": "string",
-                        "description": "Date Of Birth : ",
-                        "name": "dateofbirth",
-                        "in": "query",
-                        "required": true
-                    },
-                    {
-                        "type": "string",
-                        "description": "House Name : ",
-                        "name": "housename",
-                        "in": "query",
-                        "required": true
-                    },
-                    {
-                        "type": "string",
-                        "description": "Place : ",
-                        "name": "place",
-                        "in": "query",
-                        "required": true
-                    },
-                    {
-                        "type": "string",
-                        "description": "Post : ",
-                        "name": "post",
-                        "in": "query",
-                        "required": true
-                    },
-                    {
-                        "type": "string",
-                        "description": "Pin : ",
-                        "name": "pin",
-                        "in": "query",
-                        "required": true
-                    },
-                    {
-                        "type": "string",
-                        "description": "Contact Number : ",
-                        "name": "contactnumber",
-                        "in": "query",
-                        "required": true
-                    },
-                    {
-                        "type": "string",
-                        "description": "Email Id : ",
-                        "name": "emailid",
-                        "in": "query",
-                        "required": true
-                    },
-                    {
-                        "type": "string",
-                        "description": "Photo : ",
-                        "name": "photo",
-                        "in": "query",
-                        "required": true
+                        "description": "Woreker Change Password",
+                        "name": "WorekerChangePassword",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/domain.ChangePassword"
+                        }
                     }
                 ],
                 "responses": {
@@ -1363,74 +1078,13 @@ const docTemplate = `{
                 "operationId": "worker edit profile",
                 "parameters": [
                     {
-                        "type": "string",
-                        "description": "User Name : ",
-                        "name": "name",
-                        "in": "query",
-                        "required": true
-                    },
-                    {
-                        "type": "string",
-                        "description": "Gender : ",
-                        "name": "gender",
-                        "in": "query",
-                        "required": true
-                    },
-                    {
-                        "type": "string",
-                        "description": "Date Of Birth : ",
-                        "name": "dateofbirth",
-                        "in": "query",
-                        "required": true
-                    },
-                    {
-                        "type": "string",
-                        "description": "House Name : ",
-                        "name": "housename",
-                        "in": "query",
-                        "required": true
-                    },
-                    {
-                        "type": "string",
-                        "description": "Place : ",
-                        "name": "place",
-                        "in": "query",
-                        "required": true
-                    },
-                    {
-                        "type": "string",
-                        "description": "Post : ",
-                        "name": "post",
-                        "in": "query",
-                        "required": true
-                    },
-                    {
-                        "type": "string",
-                        "description": "Pin : ",
-                        "name": "pin",
-                        "in": "query",
-                        "required": true
-                    },
-                    {
-                        "type": "string",
-                        "description": "Contact Number : ",
-                        "name": "contactnumber",
-                        "in": "query",
-                        "required": true
-                    },
-                    {
-                        "type": "string",
-                        "description": "Email Id : ",
-                        "name": "emailid",
-                        "in": "query",
-                        "required": true
-                    },
-                    {
-                        "type": "string",
-                        "description": "Photo : ",
-                        "name": "photo",
-                        "in": "query",
-                        "required": true
+                        "description": "Worker Edit Profile",
+                        "name": "WorkerEditProfile",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/domain.Profile"
+                        }
                     }
                 ],
                 "responses": {
@@ -1643,6 +1297,25 @@ const docTemplate = `{
                 }
             }
         },
+        "domain.ChangePassword": {
+            "type": "object",
+            "required": [
+                "email",
+                "newpassword",
+                "oldpassword"
+            ],
+            "properties": {
+                "email": {
+                    "type": "string"
+                },
+                "newpassword": {
+                    "type": "string"
+                },
+                "oldpassword": {
+                    "type": "string"
+                }
+            }
+        },
         "domain.Login": {
             "type": "object",
             "properties": {
@@ -1662,6 +1335,47 @@ const docTemplate = `{
                     "type": "string"
                 },
                 "verification": {
+                    "type": "string"
+                }
+            }
+        },
+        "domain.Profile": {
+            "type": "object",
+            "properties": {
+                "contactnumber": {
+                    "type": "string"
+                },
+                "dateofbirth": {
+                    "type": "string"
+                },
+                "emailid": {
+                    "type": "string"
+                },
+                "gender": {
+                    "type": "string"
+                },
+                "housename": {
+                    "type": "string"
+                },
+                "idLogin": {
+                    "type": "integer"
+                },
+                "idUser": {
+                    "type": "integer"
+                },
+                "name": {
+                    "type": "string"
+                },
+                "photo": {
+                    "type": "string"
+                },
+                "pin": {
+                    "type": "string"
+                },
+                "place": {
+                    "type": "string"
+                },
+                "post": {
                     "type": "string"
                 }
             }
