@@ -6,7 +6,8 @@ import (
 )
 
 type JWTUseCase interface {
-	GenerateToken(user_id int, username string, role string) string
+	GenerateRefreshToken(userid int, username string, role string) (string, error)
+	GenerateAccessToken(userid int, username string, role string) (string, error)
 	VerifyToken(signedToken string) (bool, *model.SignedDetails)
 	GetTokenFromString(signedToken string, claims *model.SignedDetails) (*jwt.Token, error)
 }

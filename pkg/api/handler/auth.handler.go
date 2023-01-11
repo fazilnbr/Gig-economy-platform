@@ -67,7 +67,14 @@ func (cr *AuthHandler) AdminLogin(c *gin.Context) {
 	user, err := cr.adminUseCase.FindAdmin(loginAdmin.UserName)
 	// fmt.Printf("\n\n\n%v\n%v\n\n", user, err)
 
-	token := cr.jwtUseCase.GenerateToken(user.ID, user.Username, "admin")
+	token, err := cr.jwtUseCase.GenerateAccessToken(user.ID, user.Username, "admin")
+	if err != nil {
+		response := response.ErrorResponse("Failed to generate access token", err.Error(), nil)
+		c.Writer.Header().Add("Content-Type", "application/json")
+		c.Writer.WriteHeader(http.StatusUnauthorized)
+		utils.ResponseJSON(*c, response)
+		return
+	}
 	user.Password = ""
 	user.Token = token
 	response := response.SuccessResponse(true, "SUCCESS", user)
