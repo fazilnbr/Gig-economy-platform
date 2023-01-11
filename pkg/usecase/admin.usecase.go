@@ -21,8 +21,8 @@ func (c *adminUseCase) UpdateJobCategory(category domain.Category) (int, error) 
 }
 
 // ListJobCategory implements interfaces.AdminUseCase
-func (c *adminUseCase) ListJobCategory(category string) (*[]domain.Category, error) {
-	categories, err := c.adminRepo.ListJobCategory(category)
+func (c *adminUseCase) ListJobCategory() (*[]domain.Category, error) {
+	categories, err := c.adminRepo.ListJobCategory()
 
 	return &categories, err
 }

@@ -13,4 +13,5 @@ type WorkerUseCase interface {
 	WorkerEditProfile(userProfile domain.Profile, id int) error
 	WorkerVerifyPassword(changepassword domain.ChangePassword, id int) error
 	WorkerChangePassword(changepassword string, id int) error
+	ListJobCategoryUser() ([]domain.Category, error)
 }

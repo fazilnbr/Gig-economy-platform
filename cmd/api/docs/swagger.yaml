@@ -269,7 +269,7 @@ paths:
       - Admin
   /admin/listjobcategory:
     get:
-      operationId: list all job category
+      operationId: list all job category for worker
       produces:
       - application/json
       responses:
@@ -283,9 +283,9 @@ paths:
             $ref: '#/definitions/response.Response'
       security:
       - BearerAuth: []
-      summary: list all job categories for admin
+      summary: list all job categories for Worker
       tags:
-      - Admin
+      - Worker
   /admin/listnewusers:
     get:
       operationId: list all new users
@@ -984,16 +984,19 @@ paths:
     post:
       operationId: worker login authentication
       parameters:
-      - description: 'User Name : '
-        in: query
-        name: username
+      - description: Worker Login
+        in: body
+        name: WorkerLogin
         required: true
-        type: string
-      - description: 'Password : '
-        in: query
-        name: password
-        required: true
-        type: string
+        schema:
+          allOf:
+          - $ref: '#/definitions/domain.Login'
+          - properties:
+              password:
+                type: string
+              username:
+                type: string
+            type: object
       produces:
       - application/json
       responses:
@@ -1035,16 +1038,19 @@ paths:
     post:
       operationId: Worker SignUp authentication
       parameters:
-      - description: 'User Name : '
-        in: query
-        name: username
+      - description: Worker Signup
+        in: body
+        name: WorkerSignup
         required: true
-        type: string
-      - description: 'Password : '
-        in: query
-        name: password
-        required: true
-        type: string
+        schema:
+          allOf:
+          - $ref: '#/definitions/domain.Login'
+          - properties:
+              password:
+                type: string
+              username:
+                type: string
+            type: object
       produces:
       - application/json
       responses:

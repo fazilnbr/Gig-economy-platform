@@ -164,3 +164,49 @@ func (cr *WorkerHandler) WorkerChangePassword(c *gin.Context) {
 	c.Writer.WriteHeader(http.StatusOK)
 	utils.ResponseJSON(*c, response)
 }
+
+// @Summary list all job categories for Worker
+// @ID list all job category for worker
+// @Tags Worker
+// @Security BearerAuth
+// @Produce json
+// @Success 200 {object} response.Response{}
+// @Failure 422 {object} response.Response{}
+// @Router /admin/listjobcategory [get]
+func (cr *WorkerHandler) ListJobCategoryUser(c *gin.Context) {
+
+	// page, err := strconv.Atoi(c.Query("page"))
+
+	// pageSize, _ := strconv.Atoi(c.Query("pagesize"))
+	// fmt.Printf("\n\nuser : %v\n\nmetea : %v\n\n", page, c.Query("page"))
+	// log.Println(page, "   ", pageSize)
+
+	// pagenation := utils.Filter{
+	// 	Page:     page,
+	// 	PageSize: pageSize,
+	// }
+
+	categories, err := cr.workerService.ListJobCategoryUser()
+
+	if err != nil {
+		response := response.ErrorResponse("Failed To List Job Category", err.Error(), nil)
+
+		c.Writer.WriteHeader(http.StatusUnprocessableEntity)
+
+		utils.ResponseJSON(*c, response)
+		return
+	}
+
+	// result := struct {
+	// 	Users *[]domain.UserResponse
+	// 	Meta  *utils.Metadata
+	// }{
+	// 	Users: users,
+	// 	Meta:  metadata,
+	// }
+
+	response := response.SuccessResponse(true, "SUCCESS", categories)
+
+	c.Writer.WriteHeader(http.StatusOK)
+	utils.ResponseJSON(*c, response)
+}
