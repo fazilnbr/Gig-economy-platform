@@ -42,7 +42,7 @@ type Category struct {
 }
 
 type Job struct {
-	IdJob      int    `gorm:"primaryKey;autoIncrement:true;unique"`
-	IdCategory string `json:"categoryid"`
-	IdWorker   string `json:"workerid"`
+	IdJob      int `gorm:"primaryKey;autoIncrement:true;unique"`
+	IdCategory int `json:"categoryid"`
+	IdWorker   int `json:"workerid"`
 }

@@ -162,8 +162,6 @@ func (cr *WorkerHandler) ListJobCategoryUser(c *gin.Context) {
 	// 	PageSize: pageSize,
 	// }
 
-	fmt.Println("asdfghjkl;;lkjhgfdsfghjkl;';lkjhgfd")
-
 	categories, err := cr.workerService.ListJobCategoryUser()
 
 	if err != nil {
@@ -185,6 +183,42 @@ func (cr *WorkerHandler) ListJobCategoryUser(c *gin.Context) {
 
 	response := response.SuccessResponse(true, "SUCCESS", categories)
 
+	c.Writer.WriteHeader(http.StatusOK)
+	utils.ResponseJSON(*c, response)
+}
+
+// @Summary Add job for Worker
+// @ID worker add job
+// @Tags Worker
+// @Security BearerAuth
+// @Produce json
+// @Param WorkerAddProfile body domain.Job{} true "Worker Add Profile"
+// @Success 200 {object} response.Response{}
+// @Failure 422 {object} response.Response{}
+// @Router /worker/addjob [post]
+func (cr *WorkerHandler) AddJob(c *gin.Context) {
+	id, _ := strconv.Atoi(c.Writer.Header().Get("id"))
+
+	fmt.Printf("\n\nidea : %v\n\n", id)
+	var workerjob domain.Job
+
+	c.Bind(&workerjob)
+
+	workerjob.IdWorker = id
+
+	_, err := cr.workerService.AddJob(workerjob)
+
+	if err != nil {
+		response := response.ErrorResponse("Error while adding profile", err.Error(), nil)
+		c.Writer.Header().Set("Content-Type", "application/json")
+		c.Writer.WriteHeader(http.StatusUnprocessableEntity)
+
+		utils.ResponseJSON(*c, response)
+		return
+	}
+
+	response := response.SuccessResponse(true, "SUCCESS", workerjob)
+	c.Writer.Header().Set("Content-Type", "application/json")
 	c.Writer.WriteHeader(http.StatusOK)
 	utils.ResponseJSON(*c, response)
 }

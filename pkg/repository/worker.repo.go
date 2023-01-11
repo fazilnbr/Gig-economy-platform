@@ -14,6 +14,26 @@ type workerRepository struct {
 	db *sql.DB
 }
 
+// AddJob implements interfaces.WorkerRepository
+func (c *workerRepository) AddJob(job domain.Job) (int, error) {
+
+	var Id int
+	query := ` INSERT INTO jobs 
+	(id_category,id_worker) 
+	VALUES 
+	($1,$2) RETURNING id_job;`
+
+	err := c.db.QueryRow(query,
+		job.IdCategory,
+		job.IdWorker,
+	).Scan(
+		&Id,
+	)
+
+	return Id, err
+
+}
+
 // ListJobCategoryUser implements interfaces.WorkerRepository
 func (c *workerRepository) ListJobCategoryUser() ([]domain.Category, error) {
 	var categories []domain.Category

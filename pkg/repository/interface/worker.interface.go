@@ -14,4 +14,5 @@ type WorkerRepository interface {
 	WorkerEditProfile(Profile domain.Profile, id int) (int, error)
 	WorkerChangePassword(changepassword string, id int) (int, error)
 	ListJobCategoryUser() ([]domain.Category, error)
+	AddJob(job domain.Job) (int, error)
 }

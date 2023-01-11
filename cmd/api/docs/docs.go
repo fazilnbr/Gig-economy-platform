@@ -1012,6 +1012,48 @@ const docTemplate = `{
                 }
             }
         },
+        "/worker/addjob": {
+            "post": {
+                "security": [
+                    {
+                        "BearerAuth": []
+                    }
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Worker"
+                ],
+                "summary": "Add job for Worker",
+                "operationId": "worker add job",
+                "parameters": [
+                    {
+                        "description": "Worker Add Profile",
+                        "name": "WorkerAddProfile",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/domain.Job"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/response.Response"
+                        }
+                    },
+                    "422": {
+                        "description": "Unprocessable Entity",
+                        "schema": {
+                            "$ref": "#/definitions/response.Response"
+                        }
+                    }
+                }
+            }
+        },
         "/worker/addprofile": {
             "post": {
                 "security": [
@@ -1379,6 +1421,20 @@ const docTemplate = `{
                 },
                 "oldpassword": {
                     "type": "string"
+                }
+            }
+        },
+        "domain.Job": {
+            "type": "object",
+            "properties": {
+                "categoryid": {
+                    "type": "integer"
+                },
+                "idJob": {
+                    "type": "integer"
+                },
+                "workerid": {
+                    "type": "integer"
                 }
             }
         },

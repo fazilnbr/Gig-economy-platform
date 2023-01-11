@@ -93,6 +93,7 @@ func NewServerHTTP(authHandler handler.AuthHandler, adminHandler handler.AdminHa
 
 				// job management
 				worker.GET("/listjobcategory", WorkerHandler.ListJobCategoryUser)
+				worker.POST("/addjob", WorkerHandler.AddJob)
 			}
 		}
 

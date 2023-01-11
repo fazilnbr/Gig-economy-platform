@@ -19,6 +19,15 @@ definitions:
     - newpassword
     - oldpassword
     type: object
+  domain.Job:
+    properties:
+      categoryid:
+        type: integer
+      idJob:
+        type: integer
+      workerid:
+        type: integer
+    type: object
   domain.Login:
     properties:
       id_login:
@@ -696,6 +705,32 @@ paths:
       security:
       - BearerAuth: []
       summary: Varify JWT of users
+      tags:
+      - Worker
+  /worker/addjob:
+    post:
+      operationId: worker add job
+      parameters:
+      - description: Worker Add Profile
+        in: body
+        name: WorkerAddProfile
+        required: true
+        schema:
+          $ref: '#/definitions/domain.Job'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/response.Response'
+        "422":
+          description: Unprocessable Entity
+          schema:
+            $ref: '#/definitions/response.Response'
+      security:
+      - BearerAuth: []
+      summary: Add job for Worker
       tags:
       - Worker
   /worker/addprofile:
