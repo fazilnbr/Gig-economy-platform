@@ -3,11 +3,12 @@ package domain
 import "github.com/golang-jwt/jwt/v4"
 
 type AdminResponse struct {
-	ID       int    `json:"id_login"`
-	Username string `json:"email"`
-	Password string `json:"password,omitempty"`
-	Role     int    `json:"role"`
-	Token    string `json:"token,omitempty"`
+	ID           int    `json:"id_login"`
+	Username     string `json:"email"`
+	Password     string `json:"password,omitempty"`
+	Role         int    `json:"role"`
+	AccessToken  string `json:"accesstoken"`
+	RefreshToken string `json:"refreshtoken"`
 }
 
 type UserResponse struct {
@@ -15,7 +16,8 @@ type UserResponse struct {
 	UserName     string `json:"first_name"`
 	Password     string `json:"password"`
 	Verification bool   `json:"verification"`
-	Token        string `json:"token"`
+	AccessToken  string `json:"accesstoken"`
+	RefreshToken string `json:"refreshtoken"`
 }
 
 type WorkerResponse struct {
@@ -23,7 +25,8 @@ type WorkerResponse struct {
 	UserName     string `json:"first_name"`
 	Password     string `json:"password"`
 	Verification bool   `json:"verification"`
-	Token        string `json:"token"`
+	AccessToken  string `json:"accesstoken"`
+	RefreshToken string `json:"refreshtoken"`
 }
 
 type SignedDetails struct {

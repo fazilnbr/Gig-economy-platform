@@ -23,9 +23,10 @@ func (j *JWTUseCase) GenerateRefreshToken(userid int, username string, role stri
 		Source:   "refreshtoken",
 		Role:     role,
 		StandardClaims: jwt.StandardClaims{
-			ExpiresAt: time.Now().Local().Add(time.Hour * time.Duration(150)).Unix(),
+			ExpiresAt: time.Now().Local().Add(time.Hour * 12 * 7).Unix(),
 		},
 	}
+	// fmt.Printf("\n\nrefresh time : %v\n\n", time.Hour*12*7)
 
 	token := jwt.NewWithClaims(jwt.SigningMethodHS256, claims)
 
@@ -47,7 +48,7 @@ func (j *JWTUseCase) GenerateAccessToken(userid int, username string, role strin
 		Source:   "accesstoken",
 		Role:     role,
 		StandardClaims: jwt.StandardClaims{
-			ExpiresAt: time.Now().Local().Add(time.Hour * time.Duration(24)).Unix(),
+			ExpiresAt: time.Now().Local().Add(time.Minute * time.Duration(15)).Unix(),
 		},
 	}
 

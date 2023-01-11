@@ -75,8 +75,20 @@ func (cr *AuthHandler) AdminLogin(c *gin.Context) {
 		utils.ResponseJSON(*c, response)
 		return
 	}
+	user.AccessToken = token
+
+	token, err = cr.jwtUseCase.GenerateRefreshToken(user.ID, user.Username, "admin")
+
+	if err != nil {
+		response := response.ErrorResponse("Failed to generate refresh token", err.Error(), nil)
+		c.Writer.Header().Add("Content-Type", "application/json")
+		c.Writer.WriteHeader(http.StatusUnauthorized)
+		utils.ResponseJSON(*c, response)
+		return
+	}
+	user.RefreshToken = token
+
 	user.Password = ""
-	user.Token = token
 	response := response.SuccessResponse(true, "SUCCESS", user)
 	c.Writer.Header().Set("Content-Type", "application/json")
 	c.Writer.WriteHeader(http.StatusOK)
@@ -153,9 +165,28 @@ func (cr *AuthHandler) UserLogin(c *gin.Context) {
 	user, err := cr.userUseCase.FindUser(loginUser.UserName)
 	fmt.Printf("\n\n\n%v\n%v\n\n", user.ID, err)
 
-	token := cr.jwtUseCase.GenerateToken(user.ID, user.UserName, "user")
+	token, err := cr.jwtUseCase.GenerateAccessToken(user.ID, user.UserName, "admin")
+	if err != nil {
+		response := response.ErrorResponse("Failed to generate access token", err.Error(), nil)
+		c.Writer.Header().Add("Content-Type", "application/json")
+		c.Writer.WriteHeader(http.StatusUnauthorized)
+		utils.ResponseJSON(*c, response)
+		return
+	}
+	user.AccessToken = token
+
+	token, err = cr.jwtUseCase.GenerateRefreshToken(user.ID, user.UserName, "admin")
+
+	if err != nil {
+		response := response.ErrorResponse("Failed to generate refresh token", err.Error(), nil)
+		c.Writer.Header().Add("Content-Type", "application/json")
+		c.Writer.WriteHeader(http.StatusUnauthorized)
+		utils.ResponseJSON(*c, response)
+		return
+	}
+	user.RefreshToken = token
+
 	user.Password = ""
-	user.Token = token
 	response := response.SuccessResponse(true, "SUCCESS", user)
 	c.Writer.Header().Set("Content-Type", "application/json")
 	c.Writer.WriteHeader(http.StatusOK)
@@ -227,9 +258,28 @@ func (cr *AuthHandler) WorkerLogin(c *gin.Context) {
 	user, err := cr.workerUseCase.FindWorker(loginWorker.UserName)
 	// fmt.Printf("\n\n\n%v\n%v\n\n", user, err)
 
-	token := cr.jwtUseCase.GenerateToken(user.ID, user.UserName, "worker")
+	token, err := cr.jwtUseCase.GenerateAccessToken(user.ID, user.UserName, "admin")
+	if err != nil {
+		response := response.ErrorResponse("Failed to generate access token", err.Error(), nil)
+		c.Writer.Header().Add("Content-Type", "application/json")
+		c.Writer.WriteHeader(http.StatusUnauthorized)
+		utils.ResponseJSON(*c, response)
+		return
+	}
+	user.AccessToken = token
+
+	token, err = cr.jwtUseCase.GenerateRefreshToken(user.ID, user.UserName, "admin")
+
+	if err != nil {
+		response := response.ErrorResponse("Failed to generate refresh token", err.Error(), nil)
+		c.Writer.Header().Add("Content-Type", "application/json")
+		c.Writer.WriteHeader(http.StatusUnauthorized)
+		utils.ResponseJSON(*c, response)
+		return
+	}
+	user.RefreshToken = token
+
 	user.Password = ""
-	user.Token = token
 	response := response.SuccessResponse(true, "SUCCESS", user)
 	c.Writer.Header().Set("Content-Type", "application/json")
 	c.Writer.WriteHeader(http.StatusOK)
@@ -266,9 +316,28 @@ func (cr *AuthHandler) SendVerificationMailUser(c *gin.Context) {
 	user, err = cr.userUseCase.FindUser(user.UserName)
 	// fmt.Printf("\n\n\n%v\n%v\n\n", user, err)
 
-	token := cr.jwtUseCase.GenerateToken(user.ID, user.UserName, "user")
+	token, err := cr.jwtUseCase.GenerateAccessToken(user.ID, user.UserName, "admin")
+	if err != nil {
+		response := response.ErrorResponse("Failed to generate access token", err.Error(), nil)
+		c.Writer.Header().Add("Content-Type", "application/json")
+		c.Writer.WriteHeader(http.StatusUnauthorized)
+		utils.ResponseJSON(*c, response)
+		return
+	}
+	user.AccessToken = token
+
+	token, err = cr.jwtUseCase.GenerateRefreshToken(user.ID, user.UserName, "admin")
+
+	if err != nil {
+		response := response.ErrorResponse("Failed to generate refresh token", err.Error(), nil)
+		c.Writer.Header().Add("Content-Type", "application/json")
+		c.Writer.WriteHeader(http.StatusUnauthorized)
+		utils.ResponseJSON(*c, response)
+		return
+	}
+	user.RefreshToken = token
+
 	user.Password = ""
-	user.Token = token
 	response := response.SuccessResponse(true, "SUCCESS", user)
 	c.Writer.Header().Set("Content-Type", "application/json")
 	c.Writer.WriteHeader(http.StatusOK)
@@ -335,9 +404,28 @@ func (cr *AuthHandler) SendVerificationMailWorker(c *gin.Context) {
 	user, err = cr.workerUseCase.FindWorker(user.UserName)
 	// fmt.Printf("\n\n\n%v\n%v\n\n", user, err)
 
-	token := cr.jwtUseCase.GenerateToken(user.ID, user.UserName, "user")
+	token, err := cr.jwtUseCase.GenerateAccessToken(user.ID, user.UserName, "admin")
+	if err != nil {
+		response := response.ErrorResponse("Failed to generate access token", err.Error(), nil)
+		c.Writer.Header().Add("Content-Type", "application/json")
+		c.Writer.WriteHeader(http.StatusUnauthorized)
+		utils.ResponseJSON(*c, response)
+		return
+	}
+	user.AccessToken = token
+
+	token, err = cr.jwtUseCase.GenerateRefreshToken(user.ID, user.UserName, "admin")
+
+	if err != nil {
+		response := response.ErrorResponse("Failed to generate refresh token", err.Error(), nil)
+		c.Writer.Header().Add("Content-Type", "application/json")
+		c.Writer.WriteHeader(http.StatusUnauthorized)
+		utils.ResponseJSON(*c, response)
+		return
+	}
+	user.RefreshToken = token
+
 	user.Password = ""
-	user.Token = token
 	response := response.SuccessResponse(true, "SUCCESS", user)
 	c.Writer.Header().Set("Content-Type", "application/json")
 	c.Writer.WriteHeader(http.StatusOK)
