@@ -148,7 +148,7 @@ func (cr *WorkerHandler) WorkerChangePassword(c *gin.Context) {
 // @Produce json
 // @Success 200 {object} response.Response{}
 // @Failure 422 {object} response.Response{}
-// @Router /admin/listjobcategory [get]
+// @Router /worker/listjobcategory [get]
 func (cr *WorkerHandler) ListJobCategoryUser(c *gin.Context) {
 
 	// page, err := strconv.Atoi(c.Query("page"))
@@ -161,6 +161,8 @@ func (cr *WorkerHandler) ListJobCategoryUser(c *gin.Context) {
 	// 	Page:     page,
 	// 	PageSize: pageSize,
 	// }
+
+	fmt.Println("asdfghjkl;;lkjhgfdsfghjkl;';lkjhgfd")
 
 	categories, err := cr.workerService.ListJobCategoryUser()
 

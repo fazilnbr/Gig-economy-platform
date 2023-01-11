@@ -394,10 +394,10 @@ const docTemplate = `{
                     "application/json"
                 ],
                 "tags": [
-                    "Worker"
+                    "Admin"
                 ],
-                "summary": "list all job categories for Worker",
-                "operationId": "list all job category for worker",
+                "summary": "list all job categories for admin",
+                "operationId": "list all job category",
                 "responses": {
                     "200": {
                         "description": "OK",
@@ -1122,6 +1122,37 @@ const docTemplate = `{
                         }
                     }
                 ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/response.Response"
+                        }
+                    },
+                    "422": {
+                        "description": "Unprocessable Entity",
+                        "schema": {
+                            "$ref": "#/definitions/response.Response"
+                        }
+                    }
+                }
+            }
+        },
+        "/worker/listjobcategory": {
+            "get": {
+                "security": [
+                    {
+                        "BearerAuth": []
+                    }
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Worker"
+                ],
+                "summary": "list all job categories for Worker",
+                "operationId": "list all job category for worker",
                 "responses": {
                     "200": {
                         "description": "OK",

@@ -85,9 +85,14 @@ func NewServerHTTP(authHandler handler.AuthHandler, adminHandler handler.AdminHa
 			worker.Use(middleware.AthoriseJWT)
 			{
 				worker.GET("/account/verifyJWT", authHandler.WorkerHome)
+
+				// user profile
 				worker.POST("/addprofile", WorkerHandler.WorkerAddProfile)
 				worker.PATCH("/editprofile", WorkerHandler.WorkerEditProfile)
 				worker.PATCH("/changepassword", WorkerHandler.WorkerChangePassword)
+
+				// job management
+				worker.GET("/listjobcategory", WorkerHandler.ListJobCategoryUser)
 			}
 		}
 

@@ -309,7 +309,7 @@ paths:
       - Admin
   /admin/listjobcategory:
     get:
-      operationId: list all job category for worker
+      operationId: list all job category
       produces:
       - application/json
       responses:
@@ -323,9 +323,9 @@ paths:
             $ref: '#/definitions/response.Response'
       security:
       - BearerAuth: []
-      summary: list all job categories for Worker
+      summary: list all job categories for admin
       tags:
-      - Worker
+      - Admin
   /admin/listnewusers:
     get:
       operationId: list all new users
@@ -774,6 +774,25 @@ paths:
       security:
       - BearerAuth: []
       summary: Edit profile for Worker
+      tags:
+      - Worker
+  /worker/listjobcategory:
+    get:
+      operationId: list all job category for worker
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/response.Response'
+        "422":
+          description: Unprocessable Entity
+          schema:
+            $ref: '#/definitions/response.Response'
+      security:
+      - BearerAuth: []
+      summary: list all job categories for Worker
       tags:
       - Worker
   /worker/login:
