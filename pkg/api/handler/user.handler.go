@@ -26,16 +26,7 @@ func NewUserHandler(userService services.UserUseCase) UserHandler {
 // @ID user add profile
 // @Tags User
 // @Produce json
-// @Param        name   query      string  true  "User Name : "
-// @Param        gender   query      string  true  "Gender : "
-// @Param        dateofbirth   query      string  true  "Date Of Birth : "
-// @Param        housename   query      string  true  "House Name : "
-// @Param        place   query      string  true  "Place : "
-// @Param        post   query      string  true  "Post : "
-// @Param        pin   query      string  true  "Pin : "
-// @Param        contactnumber   query      string  true  "Contact Number : "
-// @Param        emailid   query      string  true  "Email Id : "
-// @Param        photo   query      string  true  "Photo : "
+// @Param UserAddProfile body domain.Profile{} true "User Add Profile"
 // @Success 200 {object} response.Response{}
 // @Failure 422 {object} response.Response{}
 // @Router /user/addprofile [post]

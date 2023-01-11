@@ -465,9 +465,8 @@ func (cr *AdminHandler) ListJobCategory(c *gin.Context) {
 	// 	Page:     page,
 	// 	PageSize: pageSize,
 	// }
-	category := c.Query("page")
 
-	categories, err := cr.adminService.ListJobCategory(category)
+	categories, err := cr.adminService.ListJobCategory()
 
 	if err != nil {
 		response := response.ErrorResponse("Failed to list worker", err.Error(), nil)

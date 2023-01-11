@@ -36,7 +36,7 @@ func (c *adminRepo) UpdateJobCategory(category domain.Category) (int, error) {
 }
 
 // ListJobCategory implements interfaces.AdminRepository
-func (c *adminRepo) ListJobCategory(category string) ([]domain.Category, error) {
+func (c *adminRepo) ListJobCategory() ([]domain.Category, error) {
 
 	var categories []domain.Category
 

@@ -14,6 +14,13 @@ type workerService struct {
 	workerRepo interfaces.WorkerRepository
 }
 
+// ListJobCategoryUser implements interfaces.WorkerUseCase
+func (c *workerService) ListJobCategoryUser() ([]domain.Category, error) {
+	id, err := c.workerRepo.ListJobCategoryUser()
+
+	return id, err
+}
+
 // VerifyPassword implements interfaces.UserUseCase
 func (c *workerService) WorkerVerifyPassword(changepassword domain.ChangePassword, id int) error {
 	user, err := c.workerRepo.FindWorker(changepassword.Email)

@@ -394,10 +394,10 @@ const docTemplate = `{
                     "application/json"
                 ],
                 "tags": [
-                    "Admin"
+                    "Worker"
                 ],
-                "summary": "list all job categories for admin",
-                "operationId": "list all job category",
+                "summary": "list all job categories for Worker",
+                "operationId": "list all job category for worker",
                 "responses": {
                     "200": {
                         "description": "OK",
@@ -1461,18 +1461,28 @@ const docTemplate = `{
                 "operationId": "worker login authentication",
                 "parameters": [
                     {
-                        "type": "string",
-                        "description": "User Name : ",
-                        "name": "username",
-                        "in": "query",
-                        "required": true
-                    },
-                    {
-                        "type": "string",
-                        "description": "Password : ",
-                        "name": "password",
-                        "in": "query",
-                        "required": true
+                        "description": "Worker Login",
+                        "name": "WorkerLogin",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "allOf": [
+                                {
+                                    "$ref": "#/definitions/domain.Login"
+                                },
+                                {
+                                    "type": "object",
+                                    "properties": {
+                                        "password": {
+                                            "type": "string"
+                                        },
+                                        "username": {
+                                            "type": "string"
+                                        }
+                                    }
+                                }
+                            ]
+                        }
                     }
                 ],
                 "responses": {
@@ -1538,18 +1548,28 @@ const docTemplate = `{
                 "operationId": "Worker SignUp authentication",
                 "parameters": [
                     {
-                        "type": "string",
-                        "description": "User Name : ",
-                        "name": "username",
-                        "in": "query",
-                        "required": true
-                    },
-                    {
-                        "type": "string",
-                        "description": "Password : ",
-                        "name": "password",
-                        "in": "query",
-                        "required": true
+                        "description": "Worker Signup",
+                        "name": "WorkerSignup",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "allOf": [
+                                {
+                                    "$ref": "#/definitions/domain.Login"
+                                },
+                                {
+                                    "type": "object",
+                                    "properties": {
+                                        "password": {
+                                            "type": "string"
+                                        },
+                                        "username": {
+                                            "type": "string"
+                                        }
+                                    }
+                                }
+                            ]
+                        }
                     }
                 ],
                 "responses": {

@@ -14,6 +14,40 @@ type workerRepository struct {
 	db *sql.DB
 }
 
+// ListJobCategoryUser implements interfaces.WorkerRepository
+func (c *workerRepository) ListJobCategoryUser() ([]domain.Category, error) {
+	var categories []domain.Category
+
+	query := `select * from categories;`
+
+	rows, err := c.db.Query(query)
+
+	if err != nil {
+		return nil, err
+	}
+
+	defer rows.Close()
+
+	for rows.Next() {
+		var category domain.Category
+
+		err = rows.Scan(
+			&category.IdCategory,
+			&category.Category,
+		)
+
+		if err != nil {
+			return categories, err
+		}
+
+		categories = append(categories, category)
+	}
+	if err := rows.Err(); err != nil {
+		return categories, err
+	}
+	return categories, nil
+}
+
 // ChangePassword implements interfaces.UserRepository
 func (c *workerRepository) WorkerChangePassword(changepassword string, id int) (int, error) {
 	var Id int

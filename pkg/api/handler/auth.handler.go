@@ -139,8 +139,7 @@ func (cr *AuthHandler) AdminLogin(c *gin.Context) {
 // @Tags User
 // @Produce json
 // @Tags User
-// @Param        username   query      string  true  "User Name : "
-// @Param        password   query      string  true  "Password : "
+// @Param WorkerLogin body domain.Login{username=string,password=string} true "Worker Login"
 // @Success 200 {object} response.Response{}
 // @Failure 422 {object} response.Response{}
 // @Router /user/signup [post]
@@ -179,8 +178,7 @@ func (cr *AuthHandler) UserSignUp(c *gin.Context) {
 // @ID login authentication
 // @Tags User
 // @Produce json
-// @Param        username   query      string  true  "User Name : "
-// @Param        password   query      string  true  "Password : "
+// @Param WorkerLogin body domain.Login{username=string,password=string} true "Worker Login"
 // @Success 200 {object} response.Response{}
 // @Failure 422 {object} response.Response{}
 // @Router /user/login [post]
@@ -236,8 +234,7 @@ func (cr *AuthHandler) UserLogin(c *gin.Context) {
 // @ID Worker SignUp authentication
 // @Tags Worker
 // @Produce json
-// @Param        username   query      string  true  "User Name : "
-// @Param        password   query      string  true  "Password : "
+// @Param WorkerSignup body domain.Login{username=string,password=string} true "Worker Signup"
 // @Success 200 {object} response.Response{}
 // @Failure 422 {object} response.Response{}
 // @Router /worker/signup [post]
@@ -272,8 +269,7 @@ func (cr *AuthHandler) WorkerSignUp(c *gin.Context) {
 // @ID worker login authentication
 // @Tags Worker
 // @Produce json
-// @Param        username   query      string  true  "User Name : "
-// @Param        password   query      string  true  "Password : "
+// @Param WorkerLogin body domain.Login{username=string,password=string} true "Worker Login"
 // @Success 200 {object} response.Response{}
 // @Failure 422 {object} response.Response{}
 // @Router /worker/login [post]
