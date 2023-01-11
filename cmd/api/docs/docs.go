@@ -39,7 +39,7 @@ const docTemplate = `{
                         "type": "string",
                         "description": "Email : ",
                         "name": "email",
-                        "in": "path",
+                        "in": "query",
                         "required": true
                     }
                 ],
@@ -79,7 +79,7 @@ const docTemplate = `{
                         "type": "string",
                         "description": "Id of User : ",
                         "name": "id",
-                        "in": "path",
+                        "in": "query",
                         "required": true
                     }
                 ],
@@ -119,7 +119,47 @@ const docTemplate = `{
                         "type": "string",
                         "description": "Id of User : ",
                         "name": "id",
-                        "in": "path",
+                        "in": "query",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/response.Response"
+                        }
+                    },
+                    "422": {
+                        "description": "Unprocessable Entity",
+                        "schema": {
+                            "$ref": "#/definitions/response.Response"
+                        }
+                    }
+                }
+            }
+        },
+        "/admin/addjobcategory": {
+            "post": {
+                "security": [
+                    {
+                        "BearerAuth": []
+                    }
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Admin"
+                ],
+                "summary": "add job category for admin",
+                "operationId": "add category",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "category : ",
+                        "name": "category",
+                        "in": "query",
                         "required": true
                     }
                 ],
@@ -159,7 +199,7 @@ const docTemplate = `{
                         "type": "string",
                         "description": "Id of User : ",
                         "name": "id",
-                        "in": "path",
+                        "in": "query",
                         "required": true
                     }
                 ],
@@ -199,47 +239,7 @@ const docTemplate = `{
                         "type": "string",
                         "description": "Id of User : ",
                         "name": "id",
-                        "in": "path",
-                        "required": true
-                    }
-                ],
-                "responses": {
-                    "200": {
-                        "description": "OK",
-                        "schema": {
-                            "$ref": "#/definitions/response.Response"
-                        }
-                    },
-                    "422": {
-                        "description": "Unprocessable Entity",
-                        "schema": {
-                            "$ref": "#/definitions/response.Response"
-                        }
-                    }
-                }
-            }
-        },
-        "/admin/jobcategory": {
-            "post": {
-                "security": [
-                    {
-                        "BearerAuth": []
-                    }
-                ],
-                "produces": [
-                    "application/json"
-                ],
-                "tags": [
-                    "Admin"
-                ],
-                "summary": "add job category for admin",
-                "operationId": "add category",
-                "parameters": [
-                    {
-                        "type": "string",
-                        "description": "category : ",
-                        "name": "category",
-                        "in": "path",
+                        "in": "query",
                         "required": true
                     }
                 ],
@@ -383,6 +383,37 @@ const docTemplate = `{
                 }
             }
         },
+        "/admin/listjobcategory": {
+            "get": {
+                "security": [
+                    {
+                        "BearerAuth": []
+                    }
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Admin"
+                ],
+                "summary": "list all job categories for admin",
+                "operationId": "list all job category",
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/response.Response"
+                        }
+                    },
+                    "422": {
+                        "description": "Unprocessable Entity",
+                        "schema": {
+                            "$ref": "#/definitions/response.Response"
+                        }
+                    }
+                }
+            }
+        },
         "/admin/listnewusers": {
             "get": {
                 "security": [
@@ -434,14 +465,14 @@ const docTemplate = `{
                         "type": "string",
                         "description": "User Name : ",
                         "name": "username",
-                        "in": "path",
+                        "in": "query",
                         "required": true
                     },
                     {
                         "type": "string",
                         "description": "Password : ",
                         "name": "password",
-                        "in": "path",
+                        "in": "query",
                         "required": true
                     }
                 ],
@@ -544,6 +575,48 @@ const docTemplate = `{
                 }
             }
         },
+        "/admin/updatejobcategory": {
+            "patch": {
+                "security": [
+                    {
+                        "BearerAuth": []
+                    }
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Admin"
+                ],
+                "summary": "update job category for admin",
+                "operationId": "update category",
+                "parameters": [
+                    {
+                        "description": "admin login",
+                        "name": "AdminLogin",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/domain.Category"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/response.Response"
+                        }
+                    },
+                    "422": {
+                        "description": "Unprocessable Entity",
+                        "schema": {
+                            "$ref": "#/definitions/response.Response"
+                        }
+                    }
+                }
+            }
+        },
         "/user/account/verifyJWT": {
             "get": {
                 "security": [
@@ -571,7 +644,7 @@ const docTemplate = `{
                         "type": "string",
                         "description": "Email : ",
                         "name": "email",
-                        "in": "path",
+                        "in": "query",
                         "required": true
                     }
                 ],
@@ -606,70 +679,70 @@ const docTemplate = `{
                         "type": "string",
                         "description": "User Name : ",
                         "name": "name",
-                        "in": "path",
+                        "in": "query",
                         "required": true
                     },
                     {
                         "type": "string",
                         "description": "Gender : ",
                         "name": "gender",
-                        "in": "path",
+                        "in": "query",
                         "required": true
                     },
                     {
                         "type": "string",
                         "description": "Date Of Birth : ",
                         "name": "dateofbirth",
-                        "in": "path",
+                        "in": "query",
                         "required": true
                     },
                     {
                         "type": "string",
                         "description": "House Name : ",
                         "name": "housename",
-                        "in": "path",
+                        "in": "query",
                         "required": true
                     },
                     {
                         "type": "string",
                         "description": "Place : ",
                         "name": "place",
-                        "in": "path",
+                        "in": "query",
                         "required": true
                     },
                     {
                         "type": "string",
                         "description": "Post : ",
                         "name": "post",
-                        "in": "path",
+                        "in": "query",
                         "required": true
                     },
                     {
                         "type": "string",
                         "description": "Pin : ",
                         "name": "pin",
-                        "in": "path",
+                        "in": "query",
                         "required": true
                     },
                     {
                         "type": "string",
                         "description": "Contact Number : ",
                         "name": "contactnumber",
-                        "in": "path",
+                        "in": "query",
                         "required": true
                     },
                     {
                         "type": "string",
                         "description": "Email Id : ",
                         "name": "emailid",
-                        "in": "path",
+                        "in": "query",
                         "required": true
                     },
                     {
                         "type": "string",
                         "description": "Photo : ",
                         "name": "photo",
-                        "in": "path",
+                        "in": "query",
                         "required": true
                     }
                 ],
@@ -704,70 +777,70 @@ const docTemplate = `{
                         "type": "string",
                         "description": "User Name : ",
                         "name": "name",
-                        "in": "path",
+                        "in": "query",
                         "required": true
                     },
                     {
                         "type": "string",
                         "description": "Gender : ",
                         "name": "gender",
-                        "in": "path",
+                        "in": "query",
                         "required": true
                     },
                     {
                         "type": "string",
                         "description": "Date Of Birth : ",
                         "name": "dateofbirth",
-                        "in": "path",
+                        "in": "query",
                         "required": true
                     },
                     {
                         "type": "string",
                         "description": "House Name : ",
                         "name": "housename",
-                        "in": "path",
+                        "in": "query",
                         "required": true
                     },
                     {
                         "type": "string",
                         "description": "Place : ",
                         "name": "place",
-                        "in": "path",
+                        "in": "query",
                         "required": true
                     },
                     {
                         "type": "string",
                         "description": "Post : ",
                         "name": "post",
-                        "in": "path",
+                        "in": "query",
                         "required": true
                     },
                     {
                         "type": "string",
                         "description": "Pin : ",
                         "name": "pin",
-                        "in": "path",
+                        "in": "query",
                         "required": true
                     },
                     {
                         "type": "string",
                         "description": "Contact Number : ",
                         "name": "contactnumber",
-                        "in": "path",
+                        "in": "query",
                         "required": true
                     },
                     {
                         "type": "string",
                         "description": "Email Id : ",
                         "name": "emailid",
-                        "in": "path",
+                        "in": "query",
                         "required": true
                     },
                     {
                         "type": "string",
                         "description": "Photo : ",
                         "name": "photo",
-                        "in": "path",
+                        "in": "query",
                         "required": true
                     }
                 ],
@@ -802,70 +875,70 @@ const docTemplate = `{
                         "type": "string",
                         "description": "User Name : ",
                         "name": "name",
-                        "in": "path",
+                        "in": "query",
                         "required": true
                     },
                     {
                         "type": "string",
                         "description": "Gender : ",
                         "name": "gender",
-                        "in": "path",
+                        "in": "query",
                         "required": true
                     },
                     {
                         "type": "string",
                         "description": "Date Of Birth : ",
                         "name": "dateofbirth",
-                        "in": "path",
+                        "in": "query",
                         "required": true
                     },
                     {
                         "type": "string",
                         "description": "House Name : ",
                         "name": "housename",
-                        "in": "path",
+                        "in": "query",
                         "required": true
                     },
                     {
                         "type": "string",
                         "description": "Place : ",
                         "name": "place",
-                        "in": "path",
+                        "in": "query",
                         "required": true
                     },
                     {
                         "type": "string",
                         "description": "Post : ",
                         "name": "post",
-                        "in": "path",
+                        "in": "query",
                         "required": true
                     },
                     {
                         "type": "string",
                         "description": "Pin : ",
                         "name": "pin",
-                        "in": "path",
+                        "in": "query",
                         "required": true
                     },
                     {
                         "type": "string",
                         "description": "Contact Number : ",
                         "name": "contactnumber",
-                        "in": "path",
+                        "in": "query",
                         "required": true
                     },
                     {
                         "type": "string",
                         "description": "Email Id : ",
                         "name": "emailid",
-                        "in": "path",
+                        "in": "query",
                         "required": true
                     },
                     {
                         "type": "string",
                         "description": "Photo : ",
                         "name": "photo",
-                        "in": "path",
+                        "in": "query",
                         "required": true
                     }
                 ],
@@ -900,14 +973,14 @@ const docTemplate = `{
                         "type": "string",
                         "description": "User Name : ",
                         "name": "username",
-                        "in": "path",
+                        "in": "query",
                         "required": true
                     },
                     {
                         "type": "string",
                         "description": "Password : ",
                         "name": "password",
-                        "in": "path",
+                        "in": "query",
                         "required": true
                     }
                 ],
@@ -942,7 +1015,7 @@ const docTemplate = `{
                         "type": "string",
                         "description": "Email : ",
                         "name": "email",
-                        "in": "path",
+                        "in": "query",
                         "required": true
                     }
                 ],
@@ -978,14 +1051,14 @@ const docTemplate = `{
                         "type": "string",
                         "description": "User Name : ",
                         "name": "username",
-                        "in": "path",
+                        "in": "query",
                         "required": true
                     },
                     {
                         "type": "string",
                         "description": "Password : ",
                         "name": "password",
-                        "in": "path",
+                        "in": "query",
                         "required": true
                     }
                 ],
@@ -1020,14 +1093,14 @@ const docTemplate = `{
                         "type": "string",
                         "description": "Email : ",
                         "name": "email",
-                        "in": "path",
+                        "in": "query",
                         "required": true
                     },
                     {
                         "type": "string",
                         "description": "OTP : ",
                         "name": "code",
-                        "in": "path",
+                        "in": "query",
                         "required": true
                     }
                 ],
@@ -1062,7 +1135,7 @@ const docTemplate = `{
                         "type": "string",
                         "description": "Email : ",
                         "name": "email",
-                        "in": "path",
+                        "in": "query",
                         "required": true
                     }
                 ],
@@ -1097,70 +1170,70 @@ const docTemplate = `{
                         "type": "string",
                         "description": "User Name : ",
                         "name": "name",
-                        "in": "path",
+                        "in": "query",
                         "required": true
                     },
                     {
                         "type": "string",
                         "description": "Gender : ",
                         "name": "gender",
-                        "in": "path",
+                        "in": "query",
                         "required": true
                     },
                     {
                         "type": "string",
                         "description": "Date Of Birth : ",
                         "name": "dateofbirth",
-                        "in": "path",
+                        "in": "query",
                         "required": true
                     },
                     {
                         "type": "string",
                         "description": "House Name : ",
                         "name": "housename",
-                        "in": "path",
+                        "in": "query",
                         "required": true
                     },
                     {
                         "type": "string",
                         "description": "Place : ",
                         "name": "place",
-                        "in": "path",
+                        "in": "query",
                         "required": true
                     },
                     {
                         "type": "string",
                         "description": "Post : ",
                         "name": "post",
-                        "in": "path",
+                        "in": "query",
                         "required": true
                     },
                     {
                         "type": "string",
                         "description": "Pin : ",
                         "name": "pin",
-                        "in": "path",
+                        "in": "query",
                         "required": true
                     },
                     {
                         "type": "string",
                         "description": "Contact Number : ",
                         "name": "contactnumber",
-                        "in": "path",
+                        "in": "query",
                         "required": true
                     },
                     {
                         "type": "string",
                         "description": "Email Id : ",
                         "name": "emailid",
-                        "in": "path",
+                        "in": "query",
                         "required": true
                     },
                     {
                         "type": "string",
                         "description": "Photo : ",
                         "name": "photo",
-                        "in": "path",
+                        "in": "query",
                         "required": true
                     }
                 ],
@@ -1195,70 +1268,70 @@ const docTemplate = `{
                         "type": "string",
                         "description": "User Name : ",
                         "name": "name",
-                        "in": "path",
+                        "in": "query",
                         "required": true
                     },
                     {
                         "type": "string",
                         "description": "Gender : ",
                         "name": "gender",
-                        "in": "path",
+                        "in": "query",
                         "required": true
                     },
                     {
                         "type": "string",
                         "description": "Date Of Birth : ",
                         "name": "dateofbirth",
-                        "in": "path",
+                        "in": "query",
                         "required": true
                     },
                     {
                         "type": "string",
                         "description": "House Name : ",
                         "name": "housename",
-                        "in": "path",
+                        "in": "query",
                         "required": true
                     },
                     {
                         "type": "string",
                         "description": "Place : ",
                         "name": "place",
-                        "in": "path",
+                        "in": "query",
                         "required": true
                     },
                     {
                         "type": "string",
                         "description": "Post : ",
                         "name": "post",
-                        "in": "path",
+                        "in": "query",
                         "required": true
                     },
                     {
                         "type": "string",
                         "description": "Pin : ",
                         "name": "pin",
-                        "in": "path",
+                        "in": "query",
                         "required": true
                     },
                     {
                         "type": "string",
                         "description": "Contact Number : ",
                         "name": "contactnumber",
-                        "in": "path",
+                        "in": "query",
                         "required": true
                     },
                     {
                         "type": "string",
                         "description": "Email Id : ",
                         "name": "emailid",
-                        "in": "path",
+                        "in": "query",
                         "required": true
                     },
                     {
                         "type": "string",
                         "description": "Photo : ",
                         "name": "photo",
-                        "in": "path",
+                        "in": "query",
                         "required": true
                     }
                 ],
@@ -1293,70 +1366,70 @@ const docTemplate = `{
                         "type": "string",
                         "description": "User Name : ",
                         "name": "name",
-                        "in": "path",
+                        "in": "query",
                         "required": true
                     },
                     {
                         "type": "string",
                         "description": "Gender : ",
                         "name": "gender",
-                        "in": "path",
+                        "in": "query",
                         "required": true
                     },
                     {
                         "type": "string",
                         "description": "Date Of Birth : ",
                         "name": "dateofbirth",
-                        "in": "path",
+                        "in": "query",
                         "required": true
                     },
                     {
                         "type": "string",
                         "description": "House Name : ",
                         "name": "housename",
-                        "in": "path",
+                        "in": "query",
                         "required": true
                     },
                     {
                         "type": "string",
                         "description": "Place : ",
                         "name": "place",
-                        "in": "path",
+                        "in": "query",
                         "required": true
                     },
                     {
                         "type": "string",
                         "description": "Post : ",
                         "name": "post",
-                        "in": "path",
+                        "in": "query",
                         "required": true
                     },
                     {
                         "type": "string",
                         "description": "Pin : ",
                         "name": "pin",
-                        "in": "path",
+                        "in": "query",
                         "required": true
                     },
                     {
                         "type": "string",
                         "description": "Contact Number : ",
                         "name": "contactnumber",
-                        "in": "path",
+                        "in": "query",
                         "required": true
                     },
                     {
                         "type": "string",
                         "description": "Email Id : ",
                         "name": "emailid",
-                        "in": "path",
+                        "in": "query",
                         "required": true
                     },
                     {
                         "type": "string",
                         "description": "Photo : ",
                         "name": "photo",
-                        "in": "path",
+                        "in": "query",
                         "required": true
                     }
                 ],
@@ -1391,14 +1464,14 @@ const docTemplate = `{
                         "type": "string",
                         "description": "User Name : ",
                         "name": "username",
-                        "in": "path",
+                        "in": "query",
                         "required": true
                     },
                     {
                         "type": "string",
                         "description": "Password : ",
                         "name": "password",
-                        "in": "path",
+                        "in": "query",
                         "required": true
                     }
                 ],
@@ -1433,7 +1506,7 @@ const docTemplate = `{
                         "type": "string",
                         "description": "Email : ",
                         "name": "email",
-                        "in": "path",
+                        "in": "query",
                         "required": true
                     }
                 ],
@@ -1468,14 +1541,14 @@ const docTemplate = `{
                         "type": "string",
                         "description": "User Name : ",
                         "name": "username",
-                        "in": "path",
+                        "in": "query",
                         "required": true
                     },
                     {
                         "type": "string",
                         "description": "Password : ",
                         "name": "password",
-                        "in": "path",
+                        "in": "query",
                         "required": true
                     }
                 ],
@@ -1510,14 +1583,14 @@ const docTemplate = `{
                         "type": "string",
                         "description": "Email : ",
                         "name": "email",
-                        "in": "path",
+                        "in": "query",
                         "required": true
                     },
                     {
                         "type": "string",
                         "description": "OTP : ",
                         "name": "code",
-                        "in": "path",
+                        "in": "query",
                         "required": true
                     }
                 ],
@@ -1539,6 +1612,17 @@ const docTemplate = `{
         }
     },
     "definitions": {
+        "domain.Category": {
+            "type": "object",
+            "properties": {
+                "category": {
+                    "type": "string"
+                },
+                "idCategory": {
+                    "type": "integer"
+                }
+            }
+        },
         "domain.Login": {
             "type": "object",
             "properties": {

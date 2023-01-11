@@ -14,6 +14,63 @@ type adminRepo struct {
 	db *sql.DB
 }
 
+// UpdateJobCategory implements interfaces.AdminRepository
+func (c *adminRepo) UpdateJobCategory(category domain.Category) (int, error) {
+	var Id int
+	fmt.Printf("\n\ncate : %v\n\n", category)
+	query := ` UPDATE categories
+	SET category = $1
+	WHERE id_category = $2
+	RETURNING id_category;
+	`
+
+	err := c.db.QueryRow(query,
+		category.Category,
+		category.IdCategory,
+	).Scan(
+		&Id,
+	)
+
+	return Id, err
+
+}
+
+// ListJobCategory implements interfaces.AdminRepository
+func (c *adminRepo) ListJobCategory(category string) ([]domain.Category, error) {
+
+	var categories []domain.Category
+
+	query := `select * from categories;`
+
+	rows, err := c.db.Query(query)
+
+	if err != nil {
+		return nil, err
+	}
+
+	defer rows.Close()
+
+	for rows.Next() {
+		var category domain.Category
+
+		err = rows.Scan(
+			&category.IdCategory,
+			&category.Category,
+		)
+
+		if err != nil {
+			return categories, err
+		}
+
+		categories = append(categories, category)
+	}
+	if err := rows.Err(); err != nil {
+		return categories, err
+	}
+	return categories, nil
+
+}
+
 // AddJobCategory implements interfaces.AdminRepository
 func (c *adminRepo) AddJobCategory(category string) error {
 	var id int

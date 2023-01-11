@@ -38,5 +38,11 @@ type Verification struct {
 
 type Category struct {
 	IdCategory int    `gorm:"primaryKey;autoIncrement:true;unique"`
-	Category   string `gorm:"unique" json:"contactnumber"`
+	Category   string `gorm:"unique" json:"category"`
+}
+
+type Job struct {
+	IdJob      int    `gorm:"primaryKey;autoIncrement:true;unique"`
+	IdCategory string `json:"categoryid"`
+	IdWorker   string `json:"workerid"`
 }

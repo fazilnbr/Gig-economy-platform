@@ -26,16 +26,16 @@ func NewWorkerHandler(workerService services.WorkerUseCase) WorkerHandler {
 // @ID worker add profile
 // @Tags Worker
 // @Produce json
-// @Param        name   path      string  true  "User Name : "
-// @Param        gender   path      string  true  "Gender : "
-// @Param        dateofbirth   path      string  true  "Date Of Birth : "
-// @Param        housename   path      string  true  "House Name : "
-// @Param        place   path      string  true  "Place : "
-// @Param        post   path      string  true  "Post : "
-// @Param        pin   path      string  true  "Pin : "
-// @Param        contactnumber   path      string  true  "Contact Number : "
-// @Param        emailid   path      string  true  "Email Id : "
-// @Param        photo   path      string  true  "Photo : "
+// @Param        name   query      string  true  "User Name : "
+// @Param        gender   query      string  true  "Gender : "
+// @Param        dateofbirth   query      string  true  "Date Of Birth : "
+// @Param        housename   query      string  true  "House Name : "
+// @Param        place   query      string  true  "Place : "
+// @Param        post   query      string  true  "Post : "
+// @Param        pin   query      string  true  "Pin : "
+// @Param        contactnumber   query      string  true  "Contact Number : "
+// @Param        emailid   query      string  true  "Email Id : "
+// @Param        photo   query      string  true  "Photo : "
 // @Success 200 {object} response.Response{}
 // @Failure 422 {object} response.Response{}
 // @Router /worker/addprofile [post]
@@ -68,16 +68,16 @@ func (cr *WorkerHandler) WorkerAddProfile(c *gin.Context) {
 // @ID worker edit profile
 // @Tags Worker
 // @Produce json
-// @Param        name   path      string  true  "User Name : "
-// @Param        gender   path      string  true  "Gender : "
-// @Param        dateofbirth   path      string  true  "Date Of Birth : "
-// @Param        housename   path      string  true  "House Name : "
-// @Param        place   path      string  true  "Place : "
-// @Param        post   path      string  true  "Post : "
-// @Param        pin   path      string  true  "Pin : "
-// @Param        contactnumber   path      string  true  "Contact Number : "
-// @Param        emailid   path      string  true  "Email Id : "
-// @Param        photo   path      string  true  "Photo : "
+// @Param        name   query      string  true  "User Name : "
+// @Param        gender   query      string  true  "Gender : "
+// @Param        dateofbirth   query      string  true  "Date Of Birth : "
+// @Param        housename   query      string  true  "House Name : "
+// @Param        place   query      string  true  "Place : "
+// @Param        post   query      string  true  "Post : "
+// @Param        pin   query      string  true  "Pin : "
+// @Param        contactnumber   query      string  true  "Contact Number : "
+// @Param        emailid   query      string  true  "Email Id : "
+// @Param        photo   query      string  true  "Photo : "
 // @Success 200 {object} response.Response{}
 // @Failure 422 {object} response.Response{}
 // @Router /worker/editprofile [patch]
@@ -111,16 +111,16 @@ func (cr *WorkerHandler) WorkerEditProfile(c *gin.Context) {
 // @ID worker change password
 // @Tags Worker
 // @Produce json
-// @Param        name   path      string  true  "User Name : "
-// @Param        gender   path      string  true  "Gender : "
-// @Param        dateofbirth   path      string  true  "Date Of Birth : "
-// @Param        housename   path      string  true  "House Name : "
-// @Param        place   path      string  true  "Place : "
-// @Param        post   path      string  true  "Post : "
-// @Param        pin   path      string  true  "Pin : "
-// @Param        contactnumber   path      string  true  "Contact Number : "
-// @Param        emailid   path      string  true  "Email Id : "
-// @Param        photo   path      string  true  "Photo : "
+// @Param        name   query      string  true  "User Name : "
+// @Param        gender   query      string  true  "Gender : "
+// @Param        dateofbirth   query      string  true  "Date Of Birth : "
+// @Param        housename   query      string  true  "House Name : "
+// @Param        place   query      string  true  "Place : "
+// @Param        post   query      string  true  "Post : "
+// @Param        pin   query      string  true  "Pin : "
+// @Param        contactnumber   query      string  true  "Contact Number : "
+// @Param        emailid   query      string  true  "Email Id : "
+// @Param        photo   query      string  true  "Photo : "
 // @Success 200 {object} response.Response{}
 // @Failure 422 {object} response.Response{}
 // @Router /worker/changepassword [patch]

@@ -19,4 +19,6 @@ type AdminRepository interface {
 	ActivateWorker(id int) (domain.UserResponse, error)
 	BlockWorker(id int) (domain.UserResponse, error)
 	AddJobCategory(category string) error
+	ListJobCategory(category string) ([]domain.Category, error)
+	UpdateJobCategory(category domain.Category) (int, error)
 }
