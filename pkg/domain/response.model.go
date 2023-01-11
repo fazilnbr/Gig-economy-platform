@@ -42,3 +42,7 @@ type ChangePassword struct {
 	OldPassword string `json:"oldpassword" binding:"required"`
 	NewPassword string `json:"newpassword" binding:"required"`
 }
+
+type WorkerJob struct {
+	JobTitile string
+}

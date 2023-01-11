@@ -14,6 +14,45 @@ type workerRepository struct {
 	db *sql.DB
 }
 
+// ViewJob implements interfaces.WorkerRepository
+func (c *workerRepository) ViewJob(id int) ([]domain.WorkerJob, error) {
+	var jobs []domain.WorkerJob
+
+	query := `	SELECT
+ 			   	c.category
+				FROM
+    			categories AS C
+				INNER JOIN jobs AS J 
+   				ON C.id_category = J.id_category
+				WHERE J.id_worker=$1;`
+
+	rows, err := c.db.Query(query, id)
+
+	if err != nil {
+		return nil, err
+	}
+
+	defer rows.Close()
+
+	for rows.Next() {
+		var job domain.WorkerJob
+
+		err = rows.Scan(
+			&job.JobTitile,
+		)
+
+		if err != nil {
+			return jobs, err
+		}
+
+		jobs = append(jobs, job)
+	}
+	if err := rows.Err(); err != nil {
+		return jobs, err
+	}
+	return jobs, nil
+}
+
 // AddJob implements interfaces.WorkerRepository
 func (c *workerRepository) AddJob(job domain.Job) (int, error) {
 

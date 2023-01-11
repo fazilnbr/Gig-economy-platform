@@ -943,6 +943,25 @@ paths:
       summary: Varify OTP of users
       tags:
       - Worker
+  /worker/viewjob:
+    get:
+      operationId: list all job jobs for worker
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/response.Response'
+        "422":
+          description: Unprocessable Entity
+          schema:
+            $ref: '#/definitions/response.Response'
+      security:
+      - BearerAuth: []
+      summary: list all jobs for worker
+      tags:
+      - Worker
 securityDefinitions:
   BearerAuth:
     in: header
