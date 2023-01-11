@@ -27,9 +27,10 @@ type WorkerResponse struct {
 }
 
 type SignedDetails struct {
-	User_Id  int
-	Username string
-	Role     string
+	UserId   int    `json:"userid"`
+	UserName string `json:"username"`
+	Role     string `json:"role"`
+	Source   string `json:"source"`
 	jwt.StandardClaims
 }
 
