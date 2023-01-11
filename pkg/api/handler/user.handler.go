@@ -26,16 +26,16 @@ func NewUserHandler(userService services.UserUseCase) UserHandler {
 // @ID user add profile
 // @Tags User
 // @Produce json
-// @Param        name   path      string  true  "User Name : "
-// @Param        gender   path      string  true  "Gender : "
-// @Param        dateofbirth   path      string  true  "Date Of Birth : "
-// @Param        housename   path      string  true  "House Name : "
-// @Param        place   path      string  true  "Place : "
-// @Param        post   path      string  true  "Post : "
-// @Param        pin   path      string  true  "Pin : "
-// @Param        contactnumber   path      string  true  "Contact Number : "
-// @Param        emailid   path      string  true  "Email Id : "
-// @Param        photo   path      string  true  "Photo : "
+// @Param        name   query      string  true  "User Name : "
+// @Param        gender   query      string  true  "Gender : "
+// @Param        dateofbirth   query      string  true  "Date Of Birth : "
+// @Param        housename   query      string  true  "House Name : "
+// @Param        place   query      string  true  "Place : "
+// @Param        post   query      string  true  "Post : "
+// @Param        pin   query      string  true  "Pin : "
+// @Param        contactnumber   query      string  true  "Contact Number : "
+// @Param        emailid   query      string  true  "Email Id : "
+// @Param        photo   query      string  true  "Photo : "
 // @Success 200 {object} response.Response{}
 // @Failure 422 {object} response.Response{}
 // @Router /user/addprofile [post]
@@ -68,16 +68,16 @@ func (cr *UserHandler) UserAddProfile(c *gin.Context) {
 // @ID user edit profile
 // @Tags User
 // @Produce json
-// @Param        name   path      string  true  "User Name : "
-// @Param        gender   path      string  true  "Gender : "
-// @Param        dateofbirth   path      string  true  "Date Of Birth : "
-// @Param        housename   path      string  true  "House Name : "
-// @Param        place   path      string  true  "Place : "
-// @Param        post   path      string  true  "Post : "
-// @Param        pin   path      string  true  "Pin : "
-// @Param        contactnumber   path      string  true  "Contact Number : "
-// @Param        emailid   path      string  true  "Email Id : "
-// @Param        photo   path      string  true  "Photo : "
+// @Param        name   query      string  true  "User Name : "
+// @Param        gender   query      string  true  "Gender : "
+// @Param        dateofbirth   query      string  true  "Date Of Birth : "
+// @Param        housename   query      string  true  "House Name : "
+// @Param        place   query      string  true  "Place : "
+// @Param        post   query      string  true  "Post : "
+// @Param        pin   query      string  true  "Pin : "
+// @Param        contactnumber   query      string  true  "Contact Number : "
+// @Param        emailid   query      string  true  "Email Id : "
+// @Param        photo   query      string  true  "Photo : "
 // @Success 200 {object} response.Response{}
 // @Failure 422 {object} response.Response{}
 // @Router /user/editprofile [patch]
@@ -110,16 +110,16 @@ func (cr *UserHandler) UserEditProfile(c *gin.Context) {
 // @ID user change password
 // @Tags User
 // @Produce json
-// @Param        name   path      string  true  "User Name : "
-// @Param        gender   path      string  true  "Gender : "
-// @Param        dateofbirth   path      string  true  "Date Of Birth : "
-// @Param        housename   path      string  true  "House Name : "
-// @Param        place   path      string  true  "Place : "
-// @Param        post   path      string  true  "Post : "
-// @Param        pin   path      string  true  "Pin : "
-// @Param        contactnumber   path      string  true  "Contact Number : "
-// @Param        emailid   path      string  true  "Email Id : "
-// @Param        photo   path      string  true  "Photo : "
+// @Param        name   query      string  true  "User Name : "
+// @Param        gender   query      string  true  "Gender : "
+// @Param        dateofbirth   query      string  true  "Date Of Birth : "
+// @Param        housename   query      string  true  "House Name : "
+// @Param        place   query      string  true  "Place : "
+// @Param        post   query      string  true  "Post : "
+// @Param        pin   query      string  true  "Pin : "
+// @Param        contactnumber   query      string  true  "Contact Number : "
+// @Param        emailid   query      string  true  "Email Id : "
+// @Param        photo   query      string  true  "Photo : "
 // @Success 200 {object} response.Response{}
 // @Failure 422 {object} response.Response{}
 // @Router /user/changepassword [patch]

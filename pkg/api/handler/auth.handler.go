@@ -139,8 +139,8 @@ func (cr *AuthHandler) AdminLogin(c *gin.Context) {
 // @Tags User
 // @Produce json
 // @Tags User
-// @Param        username   path      string  true  "User Name : "
-// @Param        password   path      string  true  "Password : "
+// @Param        username   query      string  true  "User Name : "
+// @Param        password   query      string  true  "Password : "
 // @Success 200 {object} response.Response{}
 // @Failure 422 {object} response.Response{}
 // @Router /user/signup [post]
@@ -179,8 +179,8 @@ func (cr *AuthHandler) UserSignUp(c *gin.Context) {
 // @ID login authentication
 // @Tags User
 // @Produce json
-// @Param        username   path      string  true  "User Name : "
-// @Param        password   path      string  true  "Password : "
+// @Param        username   query      string  true  "User Name : "
+// @Param        password   query      string  true  "Password : "
 // @Success 200 {object} response.Response{}
 // @Failure 422 {object} response.Response{}
 // @Router /user/login [post]
@@ -236,8 +236,8 @@ func (cr *AuthHandler) UserLogin(c *gin.Context) {
 // @ID Worker SignUp authentication
 // @Tags Worker
 // @Produce json
-// @Param        username   path      string  true  "User Name : "
-// @Param        password   path      string  true  "Password : "
+// @Param        username   query      string  true  "User Name : "
+// @Param        password   query      string  true  "Password : "
 // @Success 200 {object} response.Response{}
 // @Failure 422 {object} response.Response{}
 // @Router /worker/signup [post]
@@ -272,8 +272,8 @@ func (cr *AuthHandler) WorkerSignUp(c *gin.Context) {
 // @ID worker login authentication
 // @Tags Worker
 // @Produce json
-// @Param        username   path      string  true  "User Name : "
-// @Param        password   path      string  true  "Password : "
+// @Param        username   query      string  true  "User Name : "
+// @Param        password   query      string  true  "Password : "
 // @Success 200 {object} response.Response{}
 // @Failure 422 {object} response.Response{}
 // @Router /worker/login [post]
@@ -329,7 +329,7 @@ func (cr *AuthHandler) WorkerLogin(c *gin.Context) {
 // @ID SendVerificationMail authentication
 // @Tags User
 // @Produce json
-// @Param        email   path      string  true  "Email : "
+// @Param        email   query      string  true  "Email : "
 // @Success 200 {object} response.Response{}
 // @Failure 422 {object} response.Response{}
 // @Router /user/send/verification [post]
@@ -387,8 +387,8 @@ func (cr *AuthHandler) SendVerificationMailUser(c *gin.Context) {
 // @ID Varify OTP authentication
 // @Tags User
 // @Produce json
-// @Param        email   path      string  true  "Email : "
-// @Param        code   path      string  true  "OTP : "
+// @Param        email   query      string  true  "Email : "
+// @Param        code   query      string  true  "OTP : "
 // @Success 200 {object} response.Response{}
 // @Failure 422 {object} response.Response{}
 // @Router /user/verify/account [post]
@@ -417,7 +417,7 @@ func (cr *AuthHandler) UserVerifyAccount(c *gin.Context) {
 // @ID Worker SendVerificationMail authentication
 // @Tags Worker
 // @Produce json
-// @Param        email   path      string  true  "Email : "
+// @Param        email   query      string  true  "Email : "
 // @Success 200 {object} response.Response{}
 // @Failure 422 {object} response.Response{}
 // @Router /worker/send/verification [post]
@@ -475,8 +475,8 @@ func (cr *AuthHandler) SendVerificationMailWorker(c *gin.Context) {
 // @ID Varify worker OTP authentication
 // @Tags Worker
 // @Produce json
-// @Param        email   path      string  true  "Email : "
-// @Param        code   path      string  true  "OTP : "
+// @Param        email   query      string  true  "Email : "
+// @Param        code   query      string  true  "OTP : "
 // @Success 200 {object} response.Response{}
 // @Failure 422 {object} response.Response{}
 // @Router /worker/verify/account [post]
@@ -507,7 +507,7 @@ func (cr *AuthHandler) WorkerVerifyAccount(c *gin.Context) {
 // @Security ApiKeyAuth
 // @param Authorization header string true "Authorization"
 // @Produce json
-// @Param        email   path      string  true  "Email : "
+// @Param        email   query      string  true  "Email : "
 // @Success 200 {object} response.Response{}
 // @Failure 422 {object} response.Response{}
 // @Router /user/account/verifyJWT [get]
@@ -524,7 +524,7 @@ func (cr *AuthHandler) UserHome(c *gin.Context) {
 // @ID Varify worker JWT authentication
 // @Tags Worker
 // @Produce json
-// @Param        email   path      string  true  "Email : "
+// @Param        email   query      string  true  "Email : "
 // @Success 200 {object} response.Response{}
 // @Failure 422 {object} response.Response{}
 // @Router /worker/account/verifyJWT [get]
@@ -541,7 +541,7 @@ func (cr *AuthHandler) WorkerHome(c *gin.Context) {
 // @ID Varify admin JWT authentication
 // @Tags Admin
 // @Produce json
-// @Param        email   path      string  true  "Email : "
+// @Param        email   query      string  true  "Email : "
 // @Success 200 {object} response.Response{}
 // @Failure 422 {object} response.Response{}
 // @Router /admin/account/verifyJWT [get]

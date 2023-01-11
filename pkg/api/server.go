@@ -53,7 +53,9 @@ func NewServerHTTP(authHandler handler.AuthHandler, adminHandler handler.AdminHa
 			admin.PATCH("/blockworkers", adminHandler.BlockWorkers)
 
 			// Job management
-			admin.POST("/addcategory", adminHandler.AddJobCategory)
+			admin.POST("/addjobcategory", adminHandler.AddJobCategory)
+			admin.GET("/listjobcategory", adminHandler.ListJobCategory)
+			admin.PATCH("/updatejobcategory", adminHandler.UpdateJobCategory)
 		}
 
 		// Request JWT

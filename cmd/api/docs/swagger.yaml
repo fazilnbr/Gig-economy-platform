@@ -1,4 +1,11 @@
 definitions:
+  domain.Category:
+    properties:
+      category:
+        type: string
+      idCategory:
+        type: integer
+    type: object
   domain.Login:
     properties:
       id_login:
@@ -41,7 +48,7 @@ paths:
       operationId: Varify admin JWT authentication
       parameters:
       - description: 'Email : '
-        in: path
+        in: query
         name: email
         required: true
         type: string
@@ -64,7 +71,7 @@ paths:
       operationId: activate users
       parameters:
       - description: 'Id of User : '
-        in: path
+        in: query
         name: id
         required: true
         type: string
@@ -89,7 +96,7 @@ paths:
       operationId: activate workers
       parameters:
       - description: 'Id of User : '
-        in: path
+        in: query
         name: id
         required: true
         type: string
@@ -109,12 +116,37 @@ paths:
       summary: activate workers for admin
       tags:
       - Admin
+  /admin/addjobcategory:
+    post:
+      operationId: add category
+      parameters:
+      - description: 'category : '
+        in: query
+        name: category
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/response.Response'
+        "422":
+          description: Unprocessable Entity
+          schema:
+            $ref: '#/definitions/response.Response'
+      security:
+      - BearerAuth: []
+      summary: add job category for admin
+      tags:
+      - Admin
   /admin/blockusers:
     put:
       operationId: block users
       parameters:
       - description: 'Id of User : '
-        in: path
+        in: query
         name: id
         required: true
         type: string
@@ -139,7 +171,7 @@ paths:
       operationId: block workers
       parameters:
       - description: 'Id of User : '
-        in: path
+        in: query
         name: id
         required: true
         type: string
@@ -157,31 +189,6 @@ paths:
       security:
       - BearerAuth: []
       summary: block workers for admin
-      tags:
-      - Admin
-  /admin/jobcategory:
-    post:
-      operationId: add category
-      parameters:
-      - description: 'category : '
-        in: path
-        name: category
-        required: true
-        type: string
-      produces:
-      - application/json
-      responses:
-        "200":
-          description: OK
-          schema:
-            $ref: '#/definitions/response.Response'
-        "422":
-          description: Unprocessable Entity
-          schema:
-            $ref: '#/definitions/response.Response'
-      security:
-      - BearerAuth: []
-      summary: add job category for admin
       tags:
       - Admin
   /admin/listallusers:
@@ -260,6 +267,25 @@ paths:
       summary: list all blocked workers for admin
       tags:
       - Admin
+  /admin/listjobcategory:
+    get:
+      operationId: list all job category
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/response.Response'
+        "422":
+          description: Unprocessable Entity
+          schema:
+            $ref: '#/definitions/response.Response'
+      security:
+      - BearerAuth: []
+      summary: list all job categories for admin
+      tags:
+      - Admin
   /admin/listnewusers:
     get:
       operationId: list all new users
@@ -284,12 +310,12 @@ paths:
       operationId: list all new workers
       parameters:
       - description: 'User Name : '
-        in: path
+        in: query
         name: username
         required: true
         type: string
       - description: 'Password : '
-        in: path
+        in: query
         name: password
         required: true
         type: string
@@ -359,6 +385,32 @@ paths:
       security:
       - BearerAuth: []
       summary: Refresh The Access Token
+  /admin/updatejobcategory:
+    patch:
+      operationId: update category
+      parameters:
+      - description: admin login
+        in: body
+        name: AdminLogin
+        required: true
+        schema:
+          $ref: '#/definitions/domain.Category'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/response.Response'
+        "422":
+          description: Unprocessable Entity
+          schema:
+            $ref: '#/definitions/response.Response'
+      security:
+      - BearerAuth: []
+      summary: update job category for admin
+      tags:
+      - Admin
   /user/account/verifyJWT:
     get:
       operationId: Varify JWT authentication
@@ -369,7 +421,7 @@ paths:
         required: true
         type: string
       - description: 'Email : '
-        in: path
+        in: query
         name: email
         required: true
         type: string
@@ -394,52 +446,52 @@ paths:
       operationId: user add profile
       parameters:
       - description: 'User Name : '
-        in: path
+        in: query
         name: name
         required: true
         type: string
       - description: 'Gender : '
-        in: path
+        in: query
         name: gender
         required: true
         type: string
       - description: 'Date Of Birth : '
-        in: path
+        in: query
         name: dateofbirth
         required: true
         type: string
       - description: 'House Name : '
-        in: path
+        in: query
         name: housename
         required: true
         type: string
       - description: 'Place : '
-        in: path
+        in: query
         name: place
         required: true
         type: string
       - description: 'Post : '
-        in: path
+        in: query
         name: post
         required: true
         type: string
       - description: 'Pin : '
-        in: path
+        in: query
         name: pin
         required: true
         type: string
       - description: 'Contact Number : '
-        in: path
+        in: query
         name: contactnumber
         required: true
         type: string
       - description: 'Email Id : '
-        in: path
+        in: query
         name: emailid
         required: true
         type: string
       - description: 'Photo : '
-        in: path
+        in: query
         name: photo
         required: true
         type: string
@@ -462,52 +514,52 @@ paths:
       operationId: user change password
       parameters:
       - description: 'User Name : '
-        in: path
+        in: query
         name: name
         required: true
         type: string
       - description: 'Gender : '
-        in: path
+        in: query
         name: gender
         required: true
         type: string
       - description: 'Date Of Birth : '
-        in: path
+        in: query
         name: dateofbirth
         required: true
         type: string
       - description: 'House Name : '
-        in: path
+        in: query
         name: housename
         required: true
         type: string
       - description: 'Place : '
-        in: path
+        in: query
         name: place
         required: true
         type: string
       - description: 'Post : '
-        in: path
+        in: query
         name: post
         required: true
         type: string
       - description: 'Pin : '
-        in: path
+        in: query
         name: pin
         required: true
         type: string
       - description: 'Contact Number : '
-        in: path
+        in: query
         name: contactnumber
         required: true
         type: string
       - description: 'Email Id : '
-        in: path
+        in: query
         name: emailid
         required: true
         type: string
       - description: 'Photo : '
-        in: path
+        in: query
         name: photo
         required: true
         type: string
@@ -530,52 +582,52 @@ paths:
       operationId: user edit profile
       parameters:
       - description: 'User Name : '
-        in: path
+        in: query
         name: name
         required: true
         type: string
       - description: 'Gender : '
-        in: path
+        in: query
         name: gender
         required: true
         type: string
       - description: 'Date Of Birth : '
-        in: path
+        in: query
         name: dateofbirth
         required: true
         type: string
       - description: 'House Name : '
-        in: path
+        in: query
         name: housename
         required: true
         type: string
       - description: 'Place : '
-        in: path
+        in: query
         name: place
         required: true
         type: string
       - description: 'Post : '
-        in: path
+        in: query
         name: post
         required: true
         type: string
       - description: 'Pin : '
-        in: path
+        in: query
         name: pin
         required: true
         type: string
       - description: 'Contact Number : '
-        in: path
+        in: query
         name: contactnumber
         required: true
         type: string
       - description: 'Email Id : '
-        in: path
+        in: query
         name: emailid
         required: true
         type: string
       - description: 'Photo : '
-        in: path
+        in: query
         name: photo
         required: true
         type: string
@@ -598,12 +650,12 @@ paths:
       operationId: login authentication
       parameters:
       - description: 'User Name : '
-        in: path
+        in: query
         name: username
         required: true
         type: string
       - description: 'Password : '
-        in: path
+        in: query
         name: password
         required: true
         type: string
@@ -626,7 +678,7 @@ paths:
       operationId: SendVerificationMail authentication
       parameters:
       - description: 'Email : '
-        in: path
+        in: query
         name: email
         required: true
         type: string
@@ -649,12 +701,12 @@ paths:
       operationId: SignUp authentication
       parameters:
       - description: 'User Name : '
-        in: path
+        in: query
         name: username
         required: true
         type: string
       - description: 'Password : '
-        in: path
+        in: query
         name: password
         required: true
         type: string
@@ -678,12 +730,12 @@ paths:
       operationId: Varify OTP authentication
       parameters:
       - description: 'Email : '
-        in: path
+        in: query
         name: email
         required: true
         type: string
       - description: 'OTP : '
-        in: path
+        in: query
         name: code
         required: true
         type: string
@@ -706,7 +758,7 @@ paths:
       operationId: Varify worker JWT authentication
       parameters:
       - description: 'Email : '
-        in: path
+        in: query
         name: email
         required: true
         type: string
@@ -729,52 +781,52 @@ paths:
       operationId: worker add profile
       parameters:
       - description: 'User Name : '
-        in: path
+        in: query
         name: name
         required: true
         type: string
       - description: 'Gender : '
-        in: path
+        in: query
         name: gender
         required: true
         type: string
       - description: 'Date Of Birth : '
-        in: path
+        in: query
         name: dateofbirth
         required: true
         type: string
       - description: 'House Name : '
-        in: path
+        in: query
         name: housename
         required: true
         type: string
       - description: 'Place : '
-        in: path
+        in: query
         name: place
         required: true
         type: string
       - description: 'Post : '
-        in: path
+        in: query
         name: post
         required: true
         type: string
       - description: 'Pin : '
-        in: path
+        in: query
         name: pin
         required: true
         type: string
       - description: 'Contact Number : '
-        in: path
+        in: query
         name: contactnumber
         required: true
         type: string
       - description: 'Email Id : '
-        in: path
+        in: query
         name: emailid
         required: true
         type: string
       - description: 'Photo : '
-        in: path
+        in: query
         name: photo
         required: true
         type: string
@@ -797,52 +849,52 @@ paths:
       operationId: worker change password
       parameters:
       - description: 'User Name : '
-        in: path
+        in: query
         name: name
         required: true
         type: string
       - description: 'Gender : '
-        in: path
+        in: query
         name: gender
         required: true
         type: string
       - description: 'Date Of Birth : '
-        in: path
+        in: query
         name: dateofbirth
         required: true
         type: string
       - description: 'House Name : '
-        in: path
+        in: query
         name: housename
         required: true
         type: string
       - description: 'Place : '
-        in: path
+        in: query
         name: place
         required: true
         type: string
       - description: 'Post : '
-        in: path
+        in: query
         name: post
         required: true
         type: string
       - description: 'Pin : '
-        in: path
+        in: query
         name: pin
         required: true
         type: string
       - description: 'Contact Number : '
-        in: path
+        in: query
         name: contactnumber
         required: true
         type: string
       - description: 'Email Id : '
-        in: path
+        in: query
         name: emailid
         required: true
         type: string
       - description: 'Photo : '
-        in: path
+        in: query
         name: photo
         required: true
         type: string
@@ -865,52 +917,52 @@ paths:
       operationId: worker edit profile
       parameters:
       - description: 'User Name : '
-        in: path
+        in: query
         name: name
         required: true
         type: string
       - description: 'Gender : '
-        in: path
+        in: query
         name: gender
         required: true
         type: string
       - description: 'Date Of Birth : '
-        in: path
+        in: query
         name: dateofbirth
         required: true
         type: string
       - description: 'House Name : '
-        in: path
+        in: query
         name: housename
         required: true
         type: string
       - description: 'Place : '
-        in: path
+        in: query
         name: place
         required: true
         type: string
       - description: 'Post : '
-        in: path
+        in: query
         name: post
         required: true
         type: string
       - description: 'Pin : '
-        in: path
+        in: query
         name: pin
         required: true
         type: string
       - description: 'Contact Number : '
-        in: path
+        in: query
         name: contactnumber
         required: true
         type: string
       - description: 'Email Id : '
-        in: path
+        in: query
         name: emailid
         required: true
         type: string
       - description: 'Photo : '
-        in: path
+        in: query
         name: photo
         required: true
         type: string
@@ -933,12 +985,12 @@ paths:
       operationId: worker login authentication
       parameters:
       - description: 'User Name : '
-        in: path
+        in: query
         name: username
         required: true
         type: string
       - description: 'Password : '
-        in: path
+        in: query
         name: password
         required: true
         type: string
@@ -961,7 +1013,7 @@ paths:
       operationId: Worker SendVerificationMail authentication
       parameters:
       - description: 'Email : '
-        in: path
+        in: query
         name: email
         required: true
         type: string
@@ -984,12 +1036,12 @@ paths:
       operationId: Worker SignUp authentication
       parameters:
       - description: 'User Name : '
-        in: path
+        in: query
         name: username
         required: true
         type: string
       - description: 'Password : '
-        in: path
+        in: query
         name: password
         required: true
         type: string
@@ -1012,12 +1064,12 @@ paths:
       operationId: Varify worker OTP authentication
       parameters:
       - description: 'Email : '
-        in: path
+        in: query
         name: email
         required: true
         type: string
       - description: 'OTP : '
-        in: path
+        in: query
         name: code
         required: true
         type: string

@@ -160,7 +160,7 @@ func (cr *AdminHandler) ListBlockUsers(c *gin.Context) {
 // @Tags Admin
 // @Security BearerAuth
 // @Produce json
-// @Param        id   path      string  true  "Id of User : "
+// @Param        id   query      string  true  "Id of User : "
 // @Success 200 {object} response.Response{}
 // @Failure 422 {object} response.Response{}
 // @Router /admin/activateusers [put]
@@ -190,7 +190,7 @@ func (cr *AdminHandler) ActivateUsers(c *gin.Context) {
 // @Tags Admin
 // @Security BearerAuth
 // @Produce json
-// @Param        id   path      string  true  "Id of User : "
+// @Param        id   query      string  true  "Id of User : "
 // @Success 200 {object} response.Response{}
 // @Failure 422 {object} response.Response{}
 // @Router /admin/blockusers [put]
@@ -265,8 +265,8 @@ func (cr *AdminHandler) ListAllWorkers(c *gin.Context) {
 // @Tags Admin
 // @Security BearerAuth
 // @Produce json
-// @Param        username   path      string  true  "User Name : "
-// @Param        password   path      string  true  "Password : "
+// @Param        username   query      string  true  "User Name : "
+// @Param        password   query      string  true  "Password : "
 // @Success 200 {object} response.Response{}
 // @Failure 422 {object} response.Response{}
 // @Router /admin/listnewworkers [get]
@@ -358,7 +358,7 @@ func (cr *AdminHandler) ListBlockWorkers(c *gin.Context) {
 // @Tags Admin
 // @Security BearerAuth
 // @Produce json
-// @Param        id   path      string  true  "Id of User : "
+// @Param        id   query      string  true  "Id of User : "
 // @Success 200 {object} response.Response{}
 // @Failure 422 {object} response.Response{}
 // @Router /admin/activateworkers [patch]
@@ -388,7 +388,7 @@ func (cr *AdminHandler) ActivateWorkers(c *gin.Context) {
 // @Tags Admin
 // @Security BearerAuth
 // @Produce json
-// @Param        id   path      string  true  "Id of User : "
+// @Param        id   query      string  true  "Id of User : "
 // @Success 200 {object} response.Response{}
 // @Failure 422 {object} response.Response{}
 // @Router /admin/blockworkers [patch]
@@ -418,13 +418,14 @@ func (cr *AdminHandler) BlockWorkers(c *gin.Context) {
 // @Tags Admin
 // @Security BearerAuth
 // @Produce json
-// @Param       category   path      string  true  "category : "
+// @Param       category   query      string  true  "category : "
 // @Success 200 {object} response.Response{}
 // @Failure 422 {object} response.Response{}
-// @Router /admin/jobcategory [post]
+// @Router /admin/addjobcategory [post]
 func (cr *AdminHandler) AddJobCategory(c *gin.Context) {
 
 	category := c.Query("category")
+	// category := c.Param("category")
 
 	fmt.Printf("\n\ncat : %v\n\n", category)
 
@@ -438,7 +439,89 @@ func (cr *AdminHandler) AddJobCategory(c *gin.Context) {
 		utils.ResponseJSON(*c, response)
 		return
 	}
-	response := response.SuccessResponse(true, "SUCCESS", nil)
+	response := response.SuccessResponse(true, "SUCCESS", category)
+
+	c.Writer.WriteHeader(http.StatusOK)
+	utils.ResponseJSON(*c, response)
+}
+
+// @Summary list all job categories for admin
+// @ID list all job category
+// @Tags Admin
+// @Security BearerAuth
+// @Produce json
+// @Success 200 {object} response.Response{}
+// @Failure 422 {object} response.Response{}
+// @Router /admin/listjobcategory [get]
+func (cr *AdminHandler) ListJobCategory(c *gin.Context) {
+
+	// page, err := strconv.Atoi(c.Query("page"))
+
+	// pageSize, _ := strconv.Atoi(c.Query("pagesize"))
+	// fmt.Printf("\n\nuser : %v\n\nmetea : %v\n\n", page, c.Query("page"))
+	// log.Println(page, "   ", pageSize)
+
+	// pagenation := utils.Filter{
+	// 	Page:     page,
+	// 	PageSize: pageSize,
+	// }
+	category := c.Query("page")
+
+	categories, err := cr.adminService.ListJobCategory(category)
+
+	if err != nil {
+		response := response.ErrorResponse("Failed to list worker", err.Error(), nil)
+
+		c.Writer.WriteHeader(http.StatusUnprocessableEntity)
+
+		utils.ResponseJSON(*c, response)
+		return
+	}
+
+	// result := struct {
+	// 	Users *[]domain.UserResponse
+	// 	Meta  *utils.Metadata
+	// }{
+	// 	Users: users,
+	// 	Meta:  metadata,
+	// }
+
+	response := response.SuccessResponse(true, "SUCCESS", categories)
+
+	c.Writer.WriteHeader(http.StatusOK)
+	utils.ResponseJSON(*c, response)
+}
+
+// @Summary update job category for admin
+// @ID update category
+// @Tags Admin
+// @Security BearerAuth
+// @Produce json
+// @Param AdminLogin body domain.Category{} true "admin login"
+// @Success 200 {object} response.Response{}
+// @Failure 422 {object} response.Response{}
+// @Router /admin/updatejobcategory [patch]
+func (cr *AdminHandler) UpdateJobCategory(c *gin.Context) {
+
+	// category := c.Query("category")
+	// category := c.Param("category")
+	var category domain.Category
+
+	c.Bind(&category)
+
+	// fmt.Printf("\n\ncat : %v\n\n", category)
+
+	_, err := cr.adminService.UpdateJobCategory(category)
+
+	if err != nil {
+		response := response.ErrorResponse("Failed to add category", err.Error(), nil)
+
+		c.Writer.WriteHeader(http.StatusUnprocessableEntity)
+
+		utils.ResponseJSON(*c, response)
+		return
+	}
+	response := response.SuccessResponse(true, "SUCCESS", category)
 
 	c.Writer.WriteHeader(http.StatusOK)
 	utils.ResponseJSON(*c, response)

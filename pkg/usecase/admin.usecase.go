@@ -13,6 +13,20 @@ type adminUseCase struct {
 	mailConfig config.MailConfig
 }
 
+// UpdateJobCategory implements interfaces.AdminUseCase
+func (c *adminUseCase) UpdateJobCategory(category domain.Category) (int, error) {
+	id, err := c.adminRepo.UpdateJobCategory(category)
+
+	return id, err
+}
+
+// ListJobCategory implements interfaces.AdminUseCase
+func (c *adminUseCase) ListJobCategory(category string) (*[]domain.Category, error) {
+	categories, err := c.adminRepo.ListJobCategory(category)
+
+	return &categories, err
+}
+
 // AddJobCategory implements interfaces.AdminUseCase
 func (c *adminUseCase) AddJobCategory(category string) error {
 	err := c.adminRepo.AddJobCategory(category)
