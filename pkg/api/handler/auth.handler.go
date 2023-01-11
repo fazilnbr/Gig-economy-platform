@@ -2,8 +2,10 @@ package handler
 
 import (
 	"fmt"
+	"log"
 	"net/http"
 	"strconv"
+	"strings"
 
 	"github.com/fazilnbr/project-workey/pkg/common/response"
 	"github.com/fazilnbr/project-workey/pkg/domain"
@@ -35,6 +37,43 @@ func NewAuthHandler(
 		jwtUseCase:    jwtUseCase,
 		authUseCase:   authUseCase,
 	}
+}
+
+// @Summary Refresh The Access Token
+// @ID Refresh access token
+// @Security BearerAuth
+// @Produce json
+// @Success 200 {object} response.Response{}
+// @Failure 422 {object} response.Response{}
+// @Router /admin/refresh-tocken [get]
+func (cr *AuthHandler) RefreshToken(c *gin.Context) {
+
+	autheader := c.Request.Header["Authorization"]
+	auth := strings.Join(autheader, " ")
+	bearerToken := strings.Split(auth, " ")
+	fmt.Printf("\n\ntocen : %v\n\n", autheader)
+	token := bearerToken[1]
+	ok, claims := cr.jwtUseCase.VerifyToken(token)
+	if !ok {
+		log.Fatal("referesh token not valid")
+	}
+
+	fmt.Println("//////////////////////////////////", claims.UserName)
+	accesstoken, err := cr.jwtUseCase.GenerateAccessToken(claims.UserId, claims.UserName, claims.Role)
+
+	if err != nil {
+		response := response.ErrorResponse("error generating refresh token login again", err.Error(), nil)
+		c.Writer.Header().Add("Content-Type", "application/json")
+		c.Writer.WriteHeader(http.StatusUnprocessableEntity)
+		utils.ResponseJSON(*c, response)
+		return
+	}
+
+	response := response.SuccessResponse(true, "SUCCESS", accesstoken)
+	c.Writer.Header().Add("Content-Type", "application/json")
+	c.Writer.WriteHeader(http.StatusOK)
+	utils.ResponseJSON(*c, response)
+
 }
 
 // @Summary Login for admin

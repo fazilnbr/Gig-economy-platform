@@ -34,6 +34,8 @@ func NewServerHTTP(authHandler handler.AuthHandler, adminHandler handler.AdminHa
 		{
 			admin.GET("/account/verifyJWT", authHandler.AdminHome)
 
+			admin.GET("/refresh-tocken", authHandler.RefreshToken)
+
 			// User management
 
 			admin.GET("/listallusers", adminHandler.ListAllUsers)

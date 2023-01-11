@@ -342,6 +342,23 @@ paths:
       summary: Login for admin
       tags:
       - Admin
+  /admin/refresh-tocken:
+    get:
+      operationId: Refresh access token
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/response.Response'
+        "422":
+          description: Unprocessable Entity
+          schema:
+            $ref: '#/definitions/response.Response'
+      security:
+      - BearerAuth: []
+      summary: Refresh The Access Token
   /user/account/verifyJWT:
     get:
       operationId: Varify JWT authentication
