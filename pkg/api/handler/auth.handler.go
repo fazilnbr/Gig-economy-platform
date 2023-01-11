@@ -500,7 +500,7 @@ func (cr *AuthHandler) WorkerVerifyAccount(c *gin.Context) {
 // @Summary Varify JWT of users
 // @ID Varify JWT authentication
 // @Tags User
-// @Security ApiKeyAuth
+// @Security BearerAuth
 // @param Authorization header string true "Authorization"
 // @Produce json
 // @Param        email   query      string  true  "Email : "
@@ -519,6 +519,7 @@ func (cr *AuthHandler) UserHome(c *gin.Context) {
 // @Summary Varify JWT of users
 // @ID Varify worker JWT authentication
 // @Tags Worker
+// @Security BearerAuth
 // @Produce json
 // @Param        email   query      string  true  "Email : "
 // @Success 200 {object} response.Response{}

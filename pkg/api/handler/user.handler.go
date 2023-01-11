@@ -25,6 +25,7 @@ func NewUserHandler(userService services.UserUseCase) UserHandler {
 // @Summary Add profile for User
 // @ID user add profile
 // @Tags User
+// @Security BearerAuth
 // @Produce json
 // @Param UserAddProfile body domain.Profile{} true "User Add Profile"
 // @Success 200 {object} response.Response{}
@@ -58,17 +59,9 @@ func (cr *UserHandler) UserAddProfile(c *gin.Context) {
 // @Summary Edit profile for User
 // @ID user edit profile
 // @Tags User
+// @Security BearerAuth
 // @Produce json
-// @Param        name   query      string  true  "User Name : "
-// @Param        gender   query      string  true  "Gender : "
-// @Param        dateofbirth   query      string  true  "Date Of Birth : "
-// @Param        housename   query      string  true  "House Name : "
-// @Param        place   query      string  true  "Place : "
-// @Param        post   query      string  true  "Post : "
-// @Param        pin   query      string  true  "Pin : "
-// @Param        contactnumber   query      string  true  "Contact Number : "
-// @Param        emailid   query      string  true  "Email Id : "
-// @Param        photo   query      string  true  "Photo : "
+// @Param UserEditProfile body domain.Profile{} true "User Edit Profile"
 // @Success 200 {object} response.Response{}
 // @Failure 422 {object} response.Response{}
 // @Router /user/editprofile [patch]
@@ -100,17 +93,9 @@ func (cr *UserHandler) UserEditProfile(c *gin.Context) {
 // @Summary Change Password for User
 // @ID user change password
 // @Tags User
+// @Security BearerAuth
 // @Produce json
-// @Param        name   query      string  true  "User Name : "
-// @Param        gender   query      string  true  "Gender : "
-// @Param        dateofbirth   query      string  true  "Date Of Birth : "
-// @Param        housename   query      string  true  "House Name : "
-// @Param        place   query      string  true  "Place : "
-// @Param        post   query      string  true  "Post : "
-// @Param        pin   query      string  true  "Pin : "
-// @Param        contactnumber   query      string  true  "Contact Number : "
-// @Param        emailid   query      string  true  "Email Id : "
-// @Param        photo   query      string  true  "Photo : "
+// @Param UserChangePassword body domain.ChangePassword{} true "User Change Password"
 // @Success 200 {object} response.Response{}
 // @Failure 422 {object} response.Response{}
 // @Router /user/changepassword [patch]
