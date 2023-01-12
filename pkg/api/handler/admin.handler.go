@@ -450,23 +450,25 @@ func (cr *AdminHandler) AddJobCategory(c *gin.Context) {
 // @Tags Admin
 // @Security BearerAuth
 // @Produce json
+// @Param        page   query      string  true  "Page : "
+// @Param        pagesize   query      string  true  "Pagesize : "
 // @Success 200 {object} response.Response{}
 // @Failure 422 {object} response.Response{}
 // @Router /admin/listjobcategory [get]
 func (cr *AdminHandler) ListJobCategory(c *gin.Context) {
 
-	// page, err := strconv.Atoi(c.Query("page"))
+	page, err := strconv.Atoi(c.Query("page"))
 
-	// pageSize, _ := strconv.Atoi(c.Query("pagesize"))
-	// fmt.Printf("\n\nuser : %v\n\nmetea : %v\n\n", page, c.Query("page"))
-	// log.Println(page, "   ", pageSize)
+	pageSize, _ := strconv.Atoi(c.Query("pagesize"))
+	fmt.Printf("\n\nuser : %v\n\nmetea : %v\n\n", page, c.Query("page"))
+	log.Println(page, "   ", pageSize)
 
-	// pagenation := utils.Filter{
-	// 	Page:     page,
-	// 	PageSize: pageSize,
-	// }
+	pagenation := utils.Filter{
+		Page:     page,
+		PageSize: pageSize,
+	}
 
-	categories, err := cr.adminService.ListJobCategory()
+	categories, metadata, err := cr.adminService.ListJobCategory(pagenation)
 
 	if err != nil {
 		response := response.ErrorResponse("Failed to list worker", err.Error(), nil)
@@ -477,15 +479,15 @@ func (cr *AdminHandler) ListJobCategory(c *gin.Context) {
 		return
 	}
 
-	// result := struct {
-	// 	Users *[]domain.UserResponse
-	// 	Meta  *utils.Metadata
-	// }{
-	// 	Users: users,
-	// 	Meta:  metadata,
-	// }
+	result := struct {
+		Users *[]domain.Category
+		Meta  *utils.Metadata
+	}{
+		Users: categories,
+		Meta:  &metadata,
+	}
 
-	response := response.SuccessResponse(true, "SUCCESS", categories)
+	response := response.SuccessResponse(true, "SUCCESS", result)
 
 	c.Writer.WriteHeader(http.StatusOK)
 	utils.ResponseJSON(*c, response)

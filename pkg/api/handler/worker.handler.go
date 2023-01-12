@@ -162,29 +162,29 @@ func (cr *WorkerHandler) ListJobCategoryUser(c *gin.Context) {
 	// 	PageSize: pageSize,
 	// }
 
-	categories, err := cr.workerService.ListJobCategoryUser()
+	// categories, err := cr.workerService.ListJobCategoryUser(pagenation)
 
-	if err != nil {
-		response := response.ErrorResponse("Failed To List Job Category", err.Error(), nil)
+	// if err != nil {
+	// 	response := response.ErrorResponse("Failed To List Job Category", err.Error(), nil)
 
-		c.Writer.WriteHeader(http.StatusUnprocessableEntity)
+	// 	c.Writer.WriteHeader(http.StatusUnprocessableEntity)
 
-		utils.ResponseJSON(*c, response)
-		return
-	}
-
-	// result := struct {
-	// 	Users *[]domain.UserResponse
-	// 	Meta  *utils.Metadata
-	// }{
-	// 	Users: users,
-	// 	Meta:  metadata,
+	// 	utils.ResponseJSON(*c, response)
+	// 	return
 	// }
 
-	response := response.SuccessResponse(true, "SUCCESS", categories)
+	// result := struct {
+	// 	jodcategory *[]domain.Category
+	// 	Meta  *utils.Metadata
+	// }{
+	// 	jodcategory: &categories,
+	// 	Meta:        metadata,
+	// }
 
-	c.Writer.WriteHeader(http.StatusOK)
-	utils.ResponseJSON(*c, response)
+	// response := response.SuccessResponse(true, "SUCCESS", categories)
+
+	// c.Writer.WriteHeader(http.StatusOK)
+	// utils.ResponseJSON(*c, response)
 }
 
 // @Summary Add job for Worker

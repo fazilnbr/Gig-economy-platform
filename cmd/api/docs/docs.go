@@ -398,6 +398,22 @@ const docTemplate = `{
                 ],
                 "summary": "list all job categories for admin",
                 "operationId": "list all job category",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "page : ",
+                        "name": "page",
+                        "in": "query",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": "pagesize : ",
+                        "name": "pagesize",
+                        "in": "query",
+                        "required": true
+                    }
+                ],
                 "responses": {
                     "200": {
                         "description": "OK",

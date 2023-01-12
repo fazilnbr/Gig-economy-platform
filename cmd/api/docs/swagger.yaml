@@ -319,6 +319,17 @@ paths:
   /admin/listjobcategory:
     get:
       operationId: list all job category
+      parameters:
+      - description: 'page : '
+        in: query
+        name: page
+        required: true
+        type: string
+      - description: 'pagesize : '
+        in: query
+        name: pagesize
+        required: true
+        type: string
       produces:
       - application/json
       responses:
