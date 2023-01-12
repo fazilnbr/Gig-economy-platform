@@ -905,6 +905,17 @@ paths:
   /worker/listjobcategory:
     get:
       operationId: list all job category for worker
+      parameters:
+      - description: 'Page : '
+        in: query
+        name: page
+        required: true
+        type: string
+      - description: 'Pagesize : '
+        in: query
+        name: pagesize
+        required: true
+        type: string
       produces:
       - application/json
       responses:

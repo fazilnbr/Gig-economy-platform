@@ -1331,6 +1331,22 @@ const docTemplate = `{
                 ],
                 "summary": "list all job categories for Worker",
                 "operationId": "list all job category for worker",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "Page : ",
+                        "name": "page",
+                        "in": "query",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": "Pagesize : ",
+                        "name": "pagesize",
+                        "in": "query",
+                        "required": true
+                    }
+                ],
                 "responses": {
                     "200": {
                         "description": "OK",

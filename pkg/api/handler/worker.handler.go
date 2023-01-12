@@ -2,6 +2,7 @@ package handler
 
 import (
 	"fmt"
+	"log"
 	"net/http"
 	"strconv"
 
@@ -146,45 +147,47 @@ func (cr *WorkerHandler) WorkerChangePassword(c *gin.Context) {
 // @Tags Worker
 // @Security BearerAuth
 // @Produce json
+// @Param        page   query      string  true  "Page : "
+// @Param        pagesize   query      string  true  "Pagesize : "
 // @Success 200 {object} response.Response{}
 // @Failure 422 {object} response.Response{}
 // @Router /worker/listjobcategory [get]
 func (cr *WorkerHandler) ListJobCategoryUser(c *gin.Context) {
 
-	// page, err := strconv.Atoi(c.Query("page"))
+	page, err := strconv.Atoi(c.Query("page"))
 
-	// pageSize, _ := strconv.Atoi(c.Query("pagesize"))
-	// fmt.Printf("\n\nuser : %v\n\nmetea : %v\n\n", page, c.Query("page"))
-	// log.Println(page, "   ", pageSize)
+	pageSize, _ := strconv.Atoi(c.Query("pagesize"))
+	fmt.Printf("\n\nuser : %v\n\nmetea : %v\n\n", page, c.Query("page"))
+	log.Println(page, "   ", pageSize)
 
-	// pagenation := utils.Filter{
-	// 	Page:     page,
-	// 	PageSize: pageSize,
-	// }
+	pagenation := utils.Filter{
+		Page:     page,
+		PageSize: pageSize,
+	}
 
-	// categories, err := cr.workerService.ListJobCategoryUser(pagenation)
+	categories, metadata, err := cr.workerService.ListJobCategoryUser(pagenation)
 
-	// if err != nil {
-	// 	response := response.ErrorResponse("Failed To List Job Category", err.Error(), nil)
+	if err != nil {
+		response := response.ErrorResponse("Failed To List Job Category", err.Error(), nil)
 
-	// 	c.Writer.WriteHeader(http.StatusUnprocessableEntity)
+		c.Writer.WriteHeader(http.StatusUnprocessableEntity)
 
-	// 	utils.ResponseJSON(*c, response)
-	// 	return
-	// }
+		utils.ResponseJSON(*c, response)
+		return
+	}
 
-	// result := struct {
-	// 	jodcategory *[]domain.Category
-	// 	Meta  *utils.Metadata
-	// }{
-	// 	jodcategory: &categories,
-	// 	Meta:        metadata,
-	// }
+	result := struct {
+		jodcategory *[]domain.Category
+		Meta        *utils.Metadata
+	}{
+		jodcategory: categories,
+		Meta:        &metadata,
+	}
 
-	// response := response.SuccessResponse(true, "SUCCESS", categories)
+	response := response.SuccessResponse(true, "SUCCESS", result)
 
-	// c.Writer.WriteHeader(http.StatusOK)
-	// utils.ResponseJSON(*c, response)
+	c.Writer.WriteHeader(http.StatusOK)
+	utils.ResponseJSON(*c, response)
 }
 
 // @Summary Add job for Worker
