@@ -1138,6 +1138,46 @@ const docTemplate = `{
                 }
             }
         },
+        "/worker/delete-job": {
+            "delete": {
+                "security": [
+                    {
+                        "BearerAuth": []
+                    }
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Worker"
+                ],
+                "summary": "Delete for Worker",
+                "operationId": "worker delete job",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "Job Id : ",
+                        "name": "jobid",
+                        "in": "query",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/response.Response"
+                        }
+                    },
+                    "422": {
+                        "description": "Unprocessable Entity",
+                        "schema": {
+                            "$ref": "#/definitions/response.Response"
+                        }
+                    }
+                }
+            }
+        },
         "/worker/editprofile": {
             "patch": {
                 "security": [

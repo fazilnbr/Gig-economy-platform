@@ -14,6 +14,21 @@ type workerRepository struct {
 	db *sql.DB
 }
 
+// DeleteJob implements interfaces.WorkerRepository
+func (c *workerRepository) DeleteJob(id int) error {
+	query := `DELETE FROM jobs WHERE id_job=$1 RETURNING id_job;`
+
+	var row int
+	sql := c.db.QueryRow(query, id)
+
+	sql.Scan(&row)
+	if row == 0 {
+		return errors.New("There is no item to delete")
+	}
+
+	return sql.Err()
+}
+
 // ViewJob implements interfaces.WorkerRepository
 func (c *workerRepository) ViewJob(id int) ([]domain.WorkerJob, error) {
 	var jobs []domain.WorkerJob

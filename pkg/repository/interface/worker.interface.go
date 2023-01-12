@@ -16,4 +16,5 @@ type WorkerRepository interface {
 	ListJobCategoryUser() ([]domain.Category, error)
 	AddJob(job domain.Job) (int, error)
 	ViewJob(id int) ([]domain.WorkerJob, error)
+	DeleteJob(id int) error
 }

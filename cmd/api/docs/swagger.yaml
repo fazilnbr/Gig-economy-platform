@@ -785,6 +785,31 @@ paths:
       summary: Change Password for worker
       tags:
       - Worker
+  /worker/delete-job:
+    delete:
+      operationId: worker delete job
+      parameters:
+      - description: 'Job Id : '
+        in: query
+        name: jobid
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/response.Response'
+        "422":
+          description: Unprocessable Entity
+          schema:
+            $ref: '#/definitions/response.Response'
+      security:
+      - BearerAuth: []
+      summary: Delete for Worker
+      tags:
+      - Worker
   /worker/editprofile:
     patch:
       operationId: worker edit profile
