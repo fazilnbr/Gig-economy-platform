@@ -274,6 +274,22 @@ const docTemplate = `{
                 ],
                 "summary": "list all active users for admin",
                 "operationId": "list all active users",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "Page : ",
+                        "name": "page",
+                        "in": "query",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": "Pagesize : ",
+                        "name": "pagesize",
+                        "in": "query",
+                        "required": true
+                    }
+                ],
                 "responses": {
                     "200": {
                         "description": "OK",
@@ -336,6 +352,22 @@ const docTemplate = `{
                 ],
                 "summary": "list all blocked users for admin",
                 "operationId": "list all blocked users",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "Page : ",
+                        "name": "page",
+                        "in": "query",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": "Pagesize : ",
+                        "name": "pagesize",
+                        "in": "query",
+                        "required": true
+                    }
+                ],
                 "responses": {
                     "200": {
                         "description": "OK",
@@ -401,14 +433,14 @@ const docTemplate = `{
                 "parameters": [
                     {
                         "type": "string",
-                        "description": "page : ",
+                        "description": "Page : ",
                         "name": "page",
                         "in": "query",
                         "required": true
                     },
                     {
                         "type": "string",
-                        "description": "pagesize : ",
+                        "description": "Pagesize : ",
                         "name": "pagesize",
                         "in": "query",
                         "required": true
@@ -445,6 +477,22 @@ const docTemplate = `{
                 ],
                 "summary": "list all new users for admin",
                 "operationId": "list all new users",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "Page : ",
+                        "name": "page",
+                        "in": "query",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": "Pagesize : ",
+                        "name": "pagesize",
+                        "in": "query",
+                        "required": true
+                    }
+                ],
                 "responses": {
                     "200": {
                         "description": "OK",

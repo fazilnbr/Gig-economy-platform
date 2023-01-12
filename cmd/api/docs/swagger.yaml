@@ -243,6 +243,17 @@ paths:
   /admin/listallusers:
     get:
       operationId: list all active users
+      parameters:
+      - description: 'Page : '
+        in: query
+        name: page
+        required: true
+        type: string
+      - description: 'Pagesize : '
+        in: query
+        name: pagesize
+        required: true
+        type: string
       produces:
       - application/json
       responses:
@@ -281,6 +292,17 @@ paths:
   /admin/listblockedusers:
     get:
       operationId: list all blocked users
+      parameters:
+      - description: 'Page : '
+        in: query
+        name: page
+        required: true
+        type: string
+      - description: 'Pagesize : '
+        in: query
+        name: pagesize
+        required: true
+        type: string
       produces:
       - application/json
       responses:
@@ -320,12 +342,12 @@ paths:
     get:
       operationId: list all job category
       parameters:
-      - description: 'page : '
+      - description: 'Page : '
         in: query
         name: page
         required: true
         type: string
-      - description: 'pagesize : '
+      - description: 'Pagesize : '
         in: query
         name: pagesize
         required: true
@@ -349,6 +371,17 @@ paths:
   /admin/listnewusers:
     get:
       operationId: list all new users
+      parameters:
+      - description: 'Page : '
+        in: query
+        name: page
+        required: true
+        type: string
+      - description: 'Pagesize : '
+        in: query
+        name: pagesize
+        required: true
+        type: string
       produces:
       - application/json
       responses:

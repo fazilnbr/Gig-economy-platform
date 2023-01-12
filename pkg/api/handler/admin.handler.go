@@ -28,6 +28,8 @@ func NewAdminHandler(adminService services.AdminUseCase) AdminHandler {
 // @Tags Admin
 // @Security BearerAuth
 // @Produce json
+// @Param        page   query      string  true  "Page : "
+// @Param        pagesize   query      string  true  "Pagesize : "
 // @Success 200 {object} response.Response{}
 // @Failure 422 {object} response.Response{}
 // @Router /admin/listallusers [get]
@@ -73,6 +75,8 @@ func (cr *AdminHandler) ListAllUsers(c *gin.Context) {
 // @Tags Admin
 // @Security BearerAuth
 // @Produce json
+// @Param        page   query      string  true  "Page : "
+// @Param        pagesize   query      string  true  "Pagesize : "
 // @Success 200 {object} response.Response{}
 // @Failure 422 {object} response.Response{}
 // @Router /admin/listnewusers [get]
@@ -116,6 +120,8 @@ func (cr *AdminHandler) ListNewUsers(c *gin.Context) {
 // @Tags Admin
 // @Security BearerAuth
 // @Produce json
+// @Param        page   query      string  true  "Page : "
+// @Param        pagesize   query      string  true  "Pagesize : "
 // @Success 200 {object} response.Response{}
 // @Failure 422 {object} response.Response{}
 // @Router /admin/listblockedusers [get]
