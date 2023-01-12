@@ -32,7 +32,7 @@ func NewAdminHandler(adminService services.AdminUseCase) AdminHandler {
 // @Param        pagesize   query      string  true  "Pagesize : "
 // @Success 200 {object} response.Response{}
 // @Failure 422 {object} response.Response{}
-// @Router /admin/listallusers [get]
+// @Router /admin/list-all-users [get]
 func (cr *AdminHandler) ListAllUsers(c *gin.Context) {
 	page, _ := strconv.Atoi(c.Query("page"))
 
@@ -79,7 +79,7 @@ func (cr *AdminHandler) ListAllUsers(c *gin.Context) {
 // @Param        pagesize   query      string  true  "Pagesize : "
 // @Success 200 {object} response.Response{}
 // @Failure 422 {object} response.Response{}
-// @Router /admin/listnewusers [get]
+// @Router /admin/list-new-users [get]
 func (cr *AdminHandler) ListNewUsers(c *gin.Context) {
 	page, _ := strconv.Atoi(c.Query("page"))
 
@@ -124,7 +124,7 @@ func (cr *AdminHandler) ListNewUsers(c *gin.Context) {
 // @Param        pagesize   query      string  true  "Pagesize : "
 // @Success 200 {object} response.Response{}
 // @Failure 422 {object} response.Response{}
-// @Router /admin/listblockedusers [get]
+// @Router /admin/list-blocked-users [get]
 func (cr *AdminHandler) ListBlockUsers(c *gin.Context) {
 
 	page, _ := strconv.Atoi(c.Query("page"))
@@ -169,7 +169,7 @@ func (cr *AdminHandler) ListBlockUsers(c *gin.Context) {
 // @Param        id   query      string  true  "Id of User : "
 // @Success 200 {object} response.Response{}
 // @Failure 422 {object} response.Response{}
-// @Router /admin/activateusers [patch]
+// @Router /admin/activate-users [patch]
 func (cr *AdminHandler) ActivateUsers(c *gin.Context) {
 
 	id := c.Query("id")
@@ -199,7 +199,7 @@ func (cr *AdminHandler) ActivateUsers(c *gin.Context) {
 // @Param        id   query      string  true  "Id of User : "
 // @Success 200 {object} response.Response{}
 // @Failure 422 {object} response.Response{}
-// @Router /admin/blockusers [patch]
+// @Router /admin/block-users [patch]
 func (cr *AdminHandler) BlockUsers(c *gin.Context) {
 
 	id := c.Query("id")
@@ -230,7 +230,7 @@ func (cr *AdminHandler) BlockUsers(c *gin.Context) {
 // @Param        pagesize   query      string  true  "Pagesize : "
 // @Success 200 {object} response.Response{}
 // @Failure 422 {object} response.Response{}
-// @Router /admin/listallworkers [get]
+// @Router /admin/list-all-workers [get]
 func (cr *AdminHandler) ListAllWorkers(c *gin.Context) {
 
 	page, _ := strconv.Atoi(c.Query("page"))
@@ -277,7 +277,7 @@ func (cr *AdminHandler) ListAllWorkers(c *gin.Context) {
 // @Param        pagesize   query      string  true  "Pagesize : "
 // @Success 200 {object} response.Response{}
 // @Failure 422 {object} response.Response{}
-// @Router /admin/listnewworkers [get]
+// @Router /admin/list-new-workers [get]
 func (cr *AdminHandler) ListNewWorkers(c *gin.Context) {
 	page, err := strconv.Atoi(c.Query("page"))
 
@@ -324,7 +324,7 @@ func (cr *AdminHandler) ListNewWorkers(c *gin.Context) {
 // @Param        pagesize   query      string  true  "Pagesize : "
 // @Success 200 {object} response.Response{}
 // @Failure 422 {object} response.Response{}
-// @Router /admin/listblockedworkers [get]
+// @Router /admin/list-blocked-workers [get]
 func (cr *AdminHandler) ListBlockWorkers(c *gin.Context) {
 
 	page, err := strconv.Atoi(c.Query("page"))
@@ -371,7 +371,7 @@ func (cr *AdminHandler) ListBlockWorkers(c *gin.Context) {
 // @Param        id   query      string  true  "Id of User : "
 // @Success 200 {object} response.Response{}
 // @Failure 422 {object} response.Response{}
-// @Router /admin/activateworkers [patch]
+// @Router /admin/activate-workers [patch]
 func (cr *AdminHandler) ActivateWorkers(c *gin.Context) {
 
 	id := c.Query("id")
@@ -401,7 +401,7 @@ func (cr *AdminHandler) ActivateWorkers(c *gin.Context) {
 // @Param        id   query      string  true  "Id of User : "
 // @Success 200 {object} response.Response{}
 // @Failure 422 {object} response.Response{}
-// @Router /admin/blockworkers [patch]
+// @Router /admin/block-workers [patch]
 func (cr *AdminHandler) BlockWorkers(c *gin.Context) {
 
 	id := c.Query("id")
@@ -431,7 +431,7 @@ func (cr *AdminHandler) BlockWorkers(c *gin.Context) {
 // @Param       category   query      string  true  "category : "
 // @Success 200 {object} response.Response{}
 // @Failure 422 {object} response.Response{}
-// @Router /admin/addjobcategory [post]
+// @Router /admin/add-job-category [post]
 func (cr *AdminHandler) AddJobCategory(c *gin.Context) {
 
 	category := c.Query("category")
@@ -464,7 +464,7 @@ func (cr *AdminHandler) AddJobCategory(c *gin.Context) {
 // @Param        pagesize   query      string  true  "Pagesize : "
 // @Success 200 {object} response.Response{}
 // @Failure 422 {object} response.Response{}
-// @Router /admin/listjobcategory [get]
+// @Router /admin/list-job-category [get]
 func (cr *AdminHandler) ListJobCategory(c *gin.Context) {
 
 	page, err := strconv.Atoi(c.Query("page"))
@@ -511,7 +511,7 @@ func (cr *AdminHandler) ListJobCategory(c *gin.Context) {
 // @Param AdminLogin body domain.Category{} true "admin login"
 // @Success 200 {object} response.Response{}
 // @Failure 422 {object} response.Response{}
-// @Router /admin/updatejobcategory [patch]
+// @Router /admin/update-job-category [patch]
 func (cr *AdminHandler) UpdateJobCategory(c *gin.Context) {
 
 	// category := c.Query("category")

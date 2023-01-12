@@ -115,7 +115,7 @@ paths:
       summary: Varify JWT of Admin
       tags:
       - Admin
-  /admin/activateusers:
+  /admin/activate-users:
     patch:
       operationId: activate users
       parameters:
@@ -140,7 +140,7 @@ paths:
       summary: activate users for admin
       tags:
       - Admin
-  /admin/activateworkers:
+  /admin/activate-workers:
     patch:
       operationId: activate workers
       parameters:
@@ -165,7 +165,7 @@ paths:
       summary: activate workers for admin
       tags:
       - Admin
-  /admin/addjobcategory:
+  /admin/add-job-category:
     post:
       operationId: add category
       parameters:
@@ -190,7 +190,7 @@ paths:
       summary: add job category for admin
       tags:
       - Admin
-  /admin/blockusers:
+  /admin/block-users:
     patch:
       operationId: block users
       parameters:
@@ -215,7 +215,7 @@ paths:
       summary: block users for admin
       tags:
       - Admin
-  /admin/blockworkers:
+  /admin/block-workers:
     patch:
       operationId: block workers
       parameters:
@@ -240,7 +240,7 @@ paths:
       summary: block workers for admin
       tags:
       - Admin
-  /admin/listallusers:
+  /admin/list-all-users:
     get:
       operationId: list all active users
       parameters:
@@ -270,7 +270,7 @@ paths:
       summary: list all active users for admin
       tags:
       - Admin
-  /admin/listallworkers:
+  /admin/list-all-workers:
     get:
       operationId: list all active workers
       parameters:
@@ -300,7 +300,7 @@ paths:
       summary: list all active workers for admin
       tags:
       - Admin
-  /admin/listblockedusers:
+  /admin/list-blocked-users:
     get:
       operationId: list all blocked users
       parameters:
@@ -330,7 +330,7 @@ paths:
       summary: list all blocked users for admin
       tags:
       - Admin
-  /admin/listblockedworkers:
+  /admin/list-blocked-workers:
     get:
       operationId: list all blocked workers
       parameters:
@@ -360,7 +360,7 @@ paths:
       summary: list all blocked workers for admin
       tags:
       - Admin
-  /admin/listjobcategory:
+  /admin/list-job-category:
     get:
       operationId: list all job category
       parameters:
@@ -390,7 +390,7 @@ paths:
       summary: list all job categories for admin
       tags:
       - Admin
-  /admin/listnewusers:
+  /admin/list-new-users:
     get:
       operationId: list all new users
       parameters:
@@ -420,7 +420,7 @@ paths:
       summary: list all new users for admin
       tags:
       - Admin
-  /admin/listnewworkers:
+  /admin/list-new-workers:
     get:
       operationId: list all new workers
       parameters:
@@ -500,7 +500,7 @@ paths:
       security:
       - BearerAuth: []
       summary: Refresh The Access Token
-  /admin/updatejobcategory:
+  /admin/update-job-category:
     patch:
       operationId: update category
       parameters:
@@ -556,7 +556,7 @@ paths:
       summary: Varify JWT of users
       tags:
       - User
-  /user/addprofile:
+  /user/add-profile:
     post:
       operationId: user add profile
       parameters:
@@ -582,7 +582,7 @@ paths:
       summary: Add profile for User
       tags:
       - User
-  /user/changepassword:
+  /user/change-password:
     patch:
       operationId: user change password
       parameters:
@@ -608,7 +608,7 @@ paths:
       summary: Change Password for User
       tags:
       - User
-  /user/editprofile:
+  /user/edit-profile:
     patch:
       operationId: user edit profile
       parameters:
@@ -773,7 +773,7 @@ paths:
       summary: Varify JWT of users
       tags:
       - Worker
-  /worker/addjob:
+  /worker/add-job:
     post:
       operationId: worker add job
       parameters:
@@ -799,7 +799,7 @@ paths:
       summary: Add job for Worker
       tags:
       - Worker
-  /worker/addprofile:
+  /worker/add-profile:
     post:
       operationId: worker add profile
       parameters:
@@ -825,7 +825,7 @@ paths:
       summary: Add profile for Worker
       tags:
       - Worker
-  /worker/changepassword:
+  /worker/change-password:
     patch:
       operationId: worker change password
       parameters:
@@ -876,7 +876,7 @@ paths:
       summary: Delete for Worker
       tags:
       - Worker
-  /worker/editprofile:
+  /worker/edit-profile:
     patch:
       operationId: worker edit profile
       parameters:
@@ -902,7 +902,7 @@ paths:
       summary: Edit profile for Worker
       tags:
       - Worker
-  /worker/listjobcategory:
+  /worker/list-job-category:
     get:
       operationId: list all job category for worker
       parameters:
@@ -1045,7 +1045,7 @@ paths:
       summary: Varify OTP of users
       tags:
       - Worker
-  /worker/viewjob:
+  /worker/view-job:
     get:
       operationId: list all job jobs for worker
       produces:

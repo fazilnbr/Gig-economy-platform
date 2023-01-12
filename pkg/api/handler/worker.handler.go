@@ -31,7 +31,7 @@ func NewWorkerHandler(workerService services.WorkerUseCase) WorkerHandler {
 // @Param WorkerAddProfile body domain.Profile{} true "Worker Add Profile"
 // @Success 200 {object} response.Response{}
 // @Failure 422 {object} response.Response{}
-// @Router /worker/addprofile [post]
+// @Router /worker/add-profile [post]
 func (cr *WorkerHandler) WorkerAddProfile(c *gin.Context) {
 	id, _ := strconv.Atoi(c.Writer.Header().Get("id"))
 
@@ -65,7 +65,7 @@ func (cr *WorkerHandler) WorkerAddProfile(c *gin.Context) {
 // @Param WorkerEditProfile body domain.Profile{} true "Worker Edit Profile"
 // @Success 200 {object} response.Response{}
 // @Failure 422 {object} response.Response{}
-// @Router /worker/editprofile [patch]
+// @Router /worker/edit-profile [patch]
 func (cr *WorkerHandler) WorkerEditProfile(c *gin.Context) {
 	id, _ := strconv.Atoi(c.Writer.Header().Get("id"))
 	fmt.Printf("\n\n%v\n\n", id)
@@ -100,7 +100,7 @@ func (cr *WorkerHandler) WorkerEditProfile(c *gin.Context) {
 // @Param WorekerChangePassword body domain.ChangePassword{} true "Woreker Change Password"
 // @Success 200 {object} response.Response{}
 // @Failure 422 {object} response.Response{}
-// @Router /worker/changepassword [patch]
+// @Router /worker/change-password [patch]
 func (cr *WorkerHandler) WorkerChangePassword(c *gin.Context) {
 
 	id, _ := strconv.Atoi(c.Writer.Header().Get("id"))
@@ -151,7 +151,7 @@ func (cr *WorkerHandler) WorkerChangePassword(c *gin.Context) {
 // @Param        pagesize   query      string  true  "Pagesize : "
 // @Success 200 {object} response.Response{}
 // @Failure 422 {object} response.Response{}
-// @Router /worker/listjobcategory [get]
+// @Router /worker/list-job-category [get]
 func (cr *WorkerHandler) ListJobCategoryUser(c *gin.Context) {
 
 	page, err := strconv.Atoi(c.Query("page"))
@@ -198,7 +198,7 @@ func (cr *WorkerHandler) ListJobCategoryUser(c *gin.Context) {
 // @Param WorkerAddProfile body domain.Job{} true "Worker Add Profile"
 // @Success 200 {object} response.Response{}
 // @Failure 422 {object} response.Response{}
-// @Router /worker/addjob [post]
+// @Router /worker/add-job [post]
 func (cr *WorkerHandler) AddJob(c *gin.Context) {
 	id, _ := strconv.Atoi(c.Writer.Header().Get("id"))
 
@@ -233,7 +233,7 @@ func (cr *WorkerHandler) AddJob(c *gin.Context) {
 // @Produce json
 // @Success 200 {object} response.Response{}
 // @Failure 422 {object} response.Response{}
-// @Router /worker/viewjob [get]
+// @Router /worker/view-job [get]
 func (cr *WorkerHandler) ViewJob(c *gin.Context) {
 
 	id, _ := strconv.Atoi(c.Writer.Header().Get("id"))
