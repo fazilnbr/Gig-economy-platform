@@ -60,7 +60,7 @@ const docTemplate = `{
             }
         },
         "/admin/activateusers": {
-            "put": {
+            "patch": {
                 "security": [
                     {
                         "BearerAuth": []
@@ -180,7 +180,7 @@ const docTemplate = `{
             }
         },
         "/admin/blockusers": {
-            "put": {
+            "patch": {
                 "security": [
                     {
                         "BearerAuth": []

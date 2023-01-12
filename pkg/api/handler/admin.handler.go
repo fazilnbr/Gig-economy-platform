@@ -169,7 +169,7 @@ func (cr *AdminHandler) ListBlockUsers(c *gin.Context) {
 // @Param        id   query      string  true  "Id of User : "
 // @Success 200 {object} response.Response{}
 // @Failure 422 {object} response.Response{}
-// @Router /admin/activateusers [put]
+// @Router /admin/activateusers [patch]
 func (cr *AdminHandler) ActivateUsers(c *gin.Context) {
 
 	id := c.Query("id")
@@ -199,7 +199,7 @@ func (cr *AdminHandler) ActivateUsers(c *gin.Context) {
 // @Param        id   query      string  true  "Id of User : "
 // @Success 200 {object} response.Response{}
 // @Failure 422 {object} response.Response{}
-// @Router /admin/blockusers [put]
+// @Router /admin/blockusers [patch]
 func (cr *AdminHandler) BlockUsers(c *gin.Context) {
 
 	id := c.Query("id")

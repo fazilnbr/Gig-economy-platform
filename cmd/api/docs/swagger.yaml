@@ -116,7 +116,7 @@ paths:
       tags:
       - Admin
   /admin/activateusers:
-    put:
+    patch:
       operationId: activate users
       parameters:
       - description: 'Id of User : '
@@ -191,7 +191,7 @@ paths:
       tags:
       - Admin
   /admin/blockusers:
-    put:
+    patch:
       operationId: block users
       parameters:
       - description: 'Id of User : '

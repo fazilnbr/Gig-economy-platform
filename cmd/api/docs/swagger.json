@@ -51,7 +51,7 @@
             }
         },
         "/admin/activateusers": {
-            "put": {
+            "patch": {
                 "security": [
                     {
                         "BearerAuth": []
@@ -171,7 +171,7 @@
             }
         },
         "/admin/blockusers": {
-            "put": {
+            "patch": {
                 "security": [
                     {
                         "BearerAuth": []
