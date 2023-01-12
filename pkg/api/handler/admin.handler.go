@@ -226,6 +226,8 @@ func (cr *AdminHandler) BlockUsers(c *gin.Context) {
 // @Tags Admin
 // @Security BearerAuth
 // @Produce json
+// @Param        page   query      string  true  "Page : "
+// @Param        pagesize   query      string  true  "Pagesize : "
 // @Success 200 {object} response.Response{}
 // @Failure 422 {object} response.Response{}
 // @Router /admin/listallworkers [get]
@@ -271,8 +273,8 @@ func (cr *AdminHandler) ListAllWorkers(c *gin.Context) {
 // @Tags Admin
 // @Security BearerAuth
 // @Produce json
-// @Param        username   query      string  true  "User Name : "
-// @Param        password   query      string  true  "Password : "
+// @Param        page   query      string  true  "Page : "
+// @Param        pagesize   query      string  true  "Pagesize : "
 // @Success 200 {object} response.Response{}
 // @Failure 422 {object} response.Response{}
 // @Router /admin/listnewworkers [get]
@@ -318,6 +320,8 @@ func (cr *AdminHandler) ListNewWorkers(c *gin.Context) {
 // @Tags Admin
 // @Security BearerAuth
 // @Produce json
+// @Param        page   query      string  true  "Page : "
+// @Param        pagesize   query      string  true  "Pagesize : "
 // @Success 200 {object} response.Response{}
 // @Failure 422 {object} response.Response{}
 // @Router /admin/listblockedworkers [get]

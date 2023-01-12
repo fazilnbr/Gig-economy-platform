@@ -321,6 +321,22 @@ const docTemplate = `{
                 ],
                 "summary": "list all active workers for admin",
                 "operationId": "list all active workers",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "Page : ",
+                        "name": "page",
+                        "in": "query",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": "Pagesize : ",
+                        "name": "pagesize",
+                        "in": "query",
+                        "required": true
+                    }
+                ],
                 "responses": {
                     "200": {
                         "description": "OK",
@@ -399,6 +415,22 @@ const docTemplate = `{
                 ],
                 "summary": "list all blocked workers for admin",
                 "operationId": "list all blocked workers",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "Page : ",
+                        "name": "page",
+                        "in": "query",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": "Pagesize : ",
+                        "name": "pagesize",
+                        "in": "query",
+                        "required": true
+                    }
+                ],
                 "responses": {
                     "200": {
                         "description": "OK",
@@ -527,15 +559,15 @@ const docTemplate = `{
                 "parameters": [
                     {
                         "type": "string",
-                        "description": "User Name : ",
-                        "name": "username",
+                        "description": "Page : ",
+                        "name": "page",
                         "in": "query",
                         "required": true
                     },
                     {
                         "type": "string",
-                        "description": "Password : ",
-                        "name": "password",
+                        "description": "Pagesize : ",
+                        "name": "pagesize",
                         "in": "query",
                         "required": true
                     }

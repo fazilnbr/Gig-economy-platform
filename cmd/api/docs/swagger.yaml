@@ -273,6 +273,17 @@ paths:
   /admin/listallworkers:
     get:
       operationId: list all active workers
+      parameters:
+      - description: 'Page : '
+        in: query
+        name: page
+        required: true
+        type: string
+      - description: 'Pagesize : '
+        in: query
+        name: pagesize
+        required: true
+        type: string
       produces:
       - application/json
       responses:
@@ -322,6 +333,17 @@ paths:
   /admin/listblockedworkers:
     get:
       operationId: list all blocked workers
+      parameters:
+      - description: 'Page : '
+        in: query
+        name: page
+        required: true
+        type: string
+      - description: 'Pagesize : '
+        in: query
+        name: pagesize
+        required: true
+        type: string
       produces:
       - application/json
       responses:
@@ -402,14 +424,14 @@ paths:
     get:
       operationId: list all new workers
       parameters:
-      - description: 'User Name : '
+      - description: 'Page : '
         in: query
-        name: username
+        name: page
         required: true
         type: string
-      - description: 'Password : '
+      - description: 'Pagesize : '
         in: query
-        name: password
+        name: pagesize
         required: true
         type: string
       produces:
