@@ -269,3 +269,37 @@ func (cr *WorkerHandler) ViewJob(c *gin.Context) {
 	c.Writer.WriteHeader(http.StatusOK)
 	utils.ResponseJSON(*c, response)
 }
+
+// @Summary Delete for Worker
+// @ID worker delete job
+// @Tags Worker
+// @Security BearerAuth
+// @Produce json
+// @Param        jobid   query      string  true  "Job Id : "
+// @Success 200 {object} response.Response{}
+// @Failure 422 {object} response.Response{}
+// @Router /worker/delete-job [delete]
+func (cr *WorkerHandler) DeleteJob(c *gin.Context) {
+	// id, _ := strconv.Atoi(c.Writer.Header().Get("id"))
+	id, _ := strconv.Atoi(c.Query("jobid"))
+
+	// c.Bind(&userprofile)
+
+	fmt.Printf("\n\nuser Profile : \n%v\n\n\n\n", id)
+
+	err := cr.workerService.DeleteJob(id)
+
+	if err != nil {
+		response := response.ErrorResponse("Error while editing profile", err.Error(), nil)
+		c.Writer.Header().Set("Content-Type", "application/json")
+		c.Writer.WriteHeader(http.StatusUnprocessableEntity)
+
+		utils.ResponseJSON(*c, response)
+		return
+	}
+
+	response := response.SuccessResponse(true, "SUCCESS", id)
+	c.Writer.Header().Set("Content-Type", "application/json")
+	c.Writer.WriteHeader(http.StatusOK)
+	utils.ResponseJSON(*c, response)
+}

@@ -14,6 +14,13 @@ type workerService struct {
 	workerRepo interfaces.WorkerRepository
 }
 
+// DeleteJob implements interfaces.WorkerUseCase
+func (c *workerService) DeleteJob(id int) error {
+	err := c.workerRepo.DeleteJob(id)
+
+	return err
+}
+
 // ViewJob implements interfaces.WorkerUseCase
 func (c *workerService) ViewJob(id int) ([]domain.WorkerJob, error) {
 	jobs, err := c.workerRepo.ViewJob(id)
