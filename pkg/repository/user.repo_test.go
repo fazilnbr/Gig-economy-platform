@@ -59,5 +59,6 @@ func TestFindUser(t *testing.T) {
 			assert.NotEmpty(t, user)
 			assert.Equal(t, "sethu", user.UserName)
 		})
+
 	})
 }

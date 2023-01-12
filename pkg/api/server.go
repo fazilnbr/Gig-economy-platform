@@ -38,24 +38,24 @@ func NewServerHTTP(authHandler handler.AuthHandler, adminHandler handler.AdminHa
 
 			// User management
 
-			admin.GET("/listallusers", adminHandler.ListAllUsers)
-			admin.GET("/listnewusers", adminHandler.ListNewUsers)
-			admin.GET("/listblockedusers", adminHandler.ListBlockUsers)
-			admin.PUT("/activateuser", adminHandler.ActivateUsers)
-			admin.PUT("/blockusers", adminHandler.BlockUsers)
+			admin.GET("/list-all-users", adminHandler.ListAllUsers)
+			admin.GET("/list-newusers", adminHandler.ListNewUsers)
+			admin.GET("/list-blockedusers", adminHandler.ListBlockUsers)
+			admin.PATCH("/activate-user", adminHandler.ActivateUsers)
+			admin.PATCH("/block-users", adminHandler.BlockUsers)
 
 			// Worker management
 
-			admin.GET("/listallworkers", adminHandler.ListAllWorkers)
-			admin.GET("/listnewworkers", adminHandler.ListNewWorkers)
-			admin.GET("/listblockedworkers", adminHandler.ListBlockWorkers)
-			admin.PATCH("/activateworkers", adminHandler.ActivateWorkers)
-			admin.PATCH("/blockworkers", adminHandler.BlockWorkers)
+			admin.GET("/list-all-workers", adminHandler.ListAllWorkers)
+			admin.GET("/list-new-workers", adminHandler.ListNewWorkers)
+			admin.GET("/list-blocked-workers", adminHandler.ListBlockWorkers)
+			admin.PATCH("/activate-workers", adminHandler.ActivateWorkers)
+			admin.PATCH("/block-workers", adminHandler.BlockWorkers)
 
 			// Job management
-			admin.POST("/addjobcategory", adminHandler.AddJobCategory)
-			admin.GET("/listjobcategory", adminHandler.ListJobCategory)
-			admin.PATCH("/updatejobcategory", adminHandler.UpdateJobCategory)
+			admin.POST("/add-job-category", adminHandler.AddJobCategory)
+			admin.GET("/list-job-category", adminHandler.ListJobCategory)
+			admin.PATCH("/update-job-category", adminHandler.UpdateJobCategory)
 		}
 
 		// Request JWT
@@ -69,9 +69,9 @@ func NewServerHTTP(authHandler handler.AuthHandler, adminHandler handler.AdminHa
 			user.Use(middleware.AthoriseJWT)
 			{
 				user.GET("/account/verifyJWT", authHandler.UserHome)
-				user.POST("/addprofile", UserHandler.UserAddProfile)
-				user.PATCH("/editprofile", UserHandler.UserEditProfile)
-				user.PATCH("/changepassword", UserHandler.UserChangePassword)
+				user.POST("/add-profile", UserHandler.UserAddProfile)
+				user.PATCH("/edit-profile", UserHandler.UserEditProfile)
+				user.PATCH("/change-password", UserHandler.UserChangePassword)
 			}
 		}
 
@@ -87,14 +87,14 @@ func NewServerHTTP(authHandler handler.AuthHandler, adminHandler handler.AdminHa
 				worker.GET("/account/verifyJWT", authHandler.WorkerHome)
 
 				// user profile
-				worker.POST("/addprofile", WorkerHandler.WorkerAddProfile)
-				worker.PATCH("/editprofile", WorkerHandler.WorkerEditProfile)
-				worker.PATCH("/changepassword", WorkerHandler.WorkerChangePassword)
+				worker.POST("/add-profile", WorkerHandler.WorkerAddProfile)
+				worker.PATCH("/edit-profile", WorkerHandler.WorkerEditProfile)
+				worker.PATCH("/change-password", WorkerHandler.WorkerChangePassword)
 
 				// job management
-				worker.GET("/listjobcategory", WorkerHandler.ListJobCategoryUser)
-				worker.POST("/addjob", WorkerHandler.AddJob)
-				worker.GET("/viewjob", WorkerHandler.ViewJob)
+				worker.GET("/list-job-category", WorkerHandler.ListJobCategoryUser)
+				worker.POST("/add-job", WorkerHandler.AddJob)
+				worker.GET("/view-job", WorkerHandler.ViewJob)
 				worker.DELETE("/delete-job", WorkerHandler.DeleteJob)
 			}
 		}

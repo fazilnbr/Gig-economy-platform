@@ -8,6 +8,7 @@ import (
 
 	"github.com/fazilnbr/project-workey/pkg/domain"
 	interfaces "github.com/fazilnbr/project-workey/pkg/repository/interface"
+	"github.com/fazilnbr/project-workey/pkg/utils"
 )
 
 type workerRepository struct {
@@ -89,16 +90,22 @@ func (c *workerRepository) AddJob(job domain.Job) (int, error) {
 }
 
 // ListJobCategoryUser implements interfaces.WorkerRepository
-func (c *workerRepository) ListJobCategoryUser() ([]domain.Category, error) {
+func (c *workerRepository) ListJobCategoryUser(pagenation utils.Filter) ([]domain.Category, utils.Metadata, error) {
 	var categories []domain.Category
 
-	query := `select * from categories;`
+	query := `SELECT COUNT(*) OVER(),
+		  id_category,
+		  category	
+		  FROM categories 
+		  LIMIT $1 OFFSET $2;`
 
-	rows, err := c.db.Query(query)
+	rows, err := c.db.Query(query, pagenation.Limit(), pagenation.Offset())
 
 	if err != nil {
-		return nil, err
+		return nil, utils.Metadata{}, err
 	}
+
+	var totalRecords int
 
 	defer rows.Close()
 
@@ -106,20 +113,23 @@ func (c *workerRepository) ListJobCategoryUser() ([]domain.Category, error) {
 		var category domain.Category
 
 		err = rows.Scan(
+			&totalRecords,
 			&category.IdCategory,
 			&category.Category,
 		)
 
 		if err != nil {
-			return categories, err
+			return categories, utils.ComputeMetaData(totalRecords, pagenation.Page, pagenation.PageSize), err
 		}
 
 		categories = append(categories, category)
 	}
 	if err := rows.Err(); err != nil {
-		return categories, err
+		return categories, utils.ComputeMetaData(totalRecords, pagenation.Page, pagenation.PageSize), err
 	}
-	return categories, nil
+	log.Println(categories)
+	log.Println(utils.ComputeMetaData(totalRecords, pagenation.Page, pagenation.PageSize))
+	return categories, utils.ComputeMetaData(totalRecords, pagenation.Page, pagenation.PageSize), nil
 }
 
 // ChangePassword implements interfaces.UserRepository

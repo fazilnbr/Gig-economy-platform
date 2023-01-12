@@ -50,8 +50,8 @@
                 }
             }
         },
-        "/admin/activateusers": {
-            "put": {
+        "/admin/activate-users": {
+            "patch": {
                 "security": [
                     {
                         "BearerAuth": []
@@ -90,7 +90,7 @@
                 }
             }
         },
-        "/admin/activateworkers": {
+        "/admin/activate-workers": {
             "patch": {
                 "security": [
                     {
@@ -130,7 +130,7 @@
                 }
             }
         },
-        "/admin/addjobcategory": {
+        "/admin/add-job-category": {
             "post": {
                 "security": [
                     {
@@ -170,8 +170,8 @@
                 }
             }
         },
-        "/admin/blockusers": {
-            "put": {
+        "/admin/block-users": {
+            "patch": {
                 "security": [
                     {
                         "BearerAuth": []
@@ -210,7 +210,7 @@
                 }
             }
         },
-        "/admin/blockworkers": {
+        "/admin/block-workers": {
             "patch": {
                 "security": [
                     {
@@ -250,7 +250,7 @@
                 }
             }
         },
-        "/admin/listallusers": {
+        "/admin/list-all-users": {
             "get": {
                 "security": [
                     {
@@ -297,7 +297,7 @@
                 }
             }
         },
-        "/admin/listallworkers": {
+        "/admin/list-all-workers": {
             "get": {
                 "security": [
                     {
@@ -344,7 +344,7 @@
                 }
             }
         },
-        "/admin/listblockedusers": {
+        "/admin/list-blocked-users": {
             "get": {
                 "security": [
                     {
@@ -391,7 +391,7 @@
                 }
             }
         },
-        "/admin/listblockedworkers": {
+        "/admin/list-blocked-workers": {
             "get": {
                 "security": [
                     {
@@ -438,7 +438,7 @@
                 }
             }
         },
-        "/admin/listjobcategory": {
+        "/admin/list-job-category": {
             "get": {
                 "security": [
                     {
@@ -485,7 +485,7 @@
                 }
             }
         },
-        "/admin/listnewusers": {
+        "/admin/list-new-users": {
             "get": {
                 "security": [
                     {
@@ -532,7 +532,7 @@
                 }
             }
         },
-        "/admin/listnewworkers": {
+        "/admin/list-new-workers": {
             "get": {
                 "security": [
                     {
@@ -662,7 +662,7 @@
                 }
             }
         },
-        "/admin/updatejobcategory": {
+        "/admin/update-job-category": {
             "patch": {
                 "security": [
                     {
@@ -751,7 +751,7 @@
                 }
             }
         },
-        "/user/addprofile": {
+        "/user/add-profile": {
             "post": {
                 "security": [
                     {
@@ -793,7 +793,7 @@
                 }
             }
         },
-        "/user/changepassword": {
+        "/user/change-password": {
             "patch": {
                 "security": [
                     {
@@ -835,7 +835,7 @@
                 }
             }
         },
-        "/user/editprofile": {
+        "/user/edit-profile": {
             "patch": {
                 "security": [
                     {
@@ -1099,7 +1099,7 @@
                 }
             }
         },
-        "/worker/addjob": {
+        "/worker/add-job": {
             "post": {
                 "security": [
                     {
@@ -1141,7 +1141,7 @@
                 }
             }
         },
-        "/worker/addprofile": {
+        "/worker/add-profile": {
             "post": {
                 "security": [
                     {
@@ -1183,7 +1183,7 @@
                 }
             }
         },
-        "/worker/changepassword": {
+        "/worker/change-password": {
             "patch": {
                 "security": [
                     {
@@ -1265,7 +1265,7 @@
                 }
             }
         },
-        "/worker/editprofile": {
+        "/worker/edit-profile": {
             "patch": {
                 "security": [
                     {
@@ -1307,7 +1307,7 @@
                 }
             }
         },
-        "/worker/listjobcategory": {
+        "/worker/list-job-category": {
             "get": {
                 "security": [
                     {
@@ -1322,6 +1322,22 @@
                 ],
                 "summary": "list all job categories for Worker",
                 "operationId": "list all job category for worker",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "Page : ",
+                        "name": "page",
+                        "in": "query",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": "Pagesize : ",
+                        "name": "pagesize",
+                        "in": "query",
+                        "required": true
+                    }
+                ],
                 "responses": {
                     "200": {
                         "description": "OK",
@@ -1519,7 +1535,7 @@
                 }
             }
         },
-        "/worker/viewjob": {
+        "/worker/view-job": {
             "get": {
                 "security": [
                     {

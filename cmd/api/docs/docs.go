@@ -59,8 +59,8 @@ const docTemplate = `{
                 }
             }
         },
-        "/admin/activateusers": {
-            "put": {
+        "/admin/activate-users": {
+            "patch": {
                 "security": [
                     {
                         "BearerAuth": []
@@ -99,7 +99,7 @@ const docTemplate = `{
                 }
             }
         },
-        "/admin/activateworkers": {
+        "/admin/activate-workers": {
             "patch": {
                 "security": [
                     {
@@ -139,7 +139,7 @@ const docTemplate = `{
                 }
             }
         },
-        "/admin/addjobcategory": {
+        "/admin/add-job-category": {
             "post": {
                 "security": [
                     {
@@ -179,8 +179,8 @@ const docTemplate = `{
                 }
             }
         },
-        "/admin/blockusers": {
-            "put": {
+        "/admin/block-users": {
+            "patch": {
                 "security": [
                     {
                         "BearerAuth": []
@@ -219,7 +219,7 @@ const docTemplate = `{
                 }
             }
         },
-        "/admin/blockworkers": {
+        "/admin/block-workers": {
             "patch": {
                 "security": [
                     {
@@ -259,7 +259,7 @@ const docTemplate = `{
                 }
             }
         },
-        "/admin/listallusers": {
+        "/admin/list-all-users": {
             "get": {
                 "security": [
                     {
@@ -306,7 +306,7 @@ const docTemplate = `{
                 }
             }
         },
-        "/admin/listallworkers": {
+        "/admin/list-all-workers": {
             "get": {
                 "security": [
                     {
@@ -353,7 +353,7 @@ const docTemplate = `{
                 }
             }
         },
-        "/admin/listblockedusers": {
+        "/admin/list-blocked-users": {
             "get": {
                 "security": [
                     {
@@ -400,7 +400,7 @@ const docTemplate = `{
                 }
             }
         },
-        "/admin/listblockedworkers": {
+        "/admin/list-blocked-workers": {
             "get": {
                 "security": [
                     {
@@ -447,7 +447,7 @@ const docTemplate = `{
                 }
             }
         },
-        "/admin/listjobcategory": {
+        "/admin/list-job-category": {
             "get": {
                 "security": [
                     {
@@ -494,7 +494,7 @@ const docTemplate = `{
                 }
             }
         },
-        "/admin/listnewusers": {
+        "/admin/list-new-users": {
             "get": {
                 "security": [
                     {
@@ -541,7 +541,7 @@ const docTemplate = `{
                 }
             }
         },
-        "/admin/listnewworkers": {
+        "/admin/list-new-workers": {
             "get": {
                 "security": [
                     {
@@ -671,7 +671,7 @@ const docTemplate = `{
                 }
             }
         },
-        "/admin/updatejobcategory": {
+        "/admin/update-job-category": {
             "patch": {
                 "security": [
                     {
@@ -760,7 +760,7 @@ const docTemplate = `{
                 }
             }
         },
-        "/user/addprofile": {
+        "/user/add-profile": {
             "post": {
                 "security": [
                     {
@@ -802,7 +802,7 @@ const docTemplate = `{
                 }
             }
         },
-        "/user/changepassword": {
+        "/user/change-password": {
             "patch": {
                 "security": [
                     {
@@ -844,7 +844,7 @@ const docTemplate = `{
                 }
             }
         },
-        "/user/editprofile": {
+        "/user/edit-profile": {
             "patch": {
                 "security": [
                     {
@@ -1108,7 +1108,7 @@ const docTemplate = `{
                 }
             }
         },
-        "/worker/addjob": {
+        "/worker/add-job": {
             "post": {
                 "security": [
                     {
@@ -1150,7 +1150,7 @@ const docTemplate = `{
                 }
             }
         },
-        "/worker/addprofile": {
+        "/worker/add-profile": {
             "post": {
                 "security": [
                     {
@@ -1192,7 +1192,7 @@ const docTemplate = `{
                 }
             }
         },
-        "/worker/changepassword": {
+        "/worker/change-password": {
             "patch": {
                 "security": [
                     {
@@ -1274,7 +1274,7 @@ const docTemplate = `{
                 }
             }
         },
-        "/worker/editprofile": {
+        "/worker/edit-profile": {
             "patch": {
                 "security": [
                     {
@@ -1316,7 +1316,7 @@ const docTemplate = `{
                 }
             }
         },
-        "/worker/listjobcategory": {
+        "/worker/list-job-category": {
             "get": {
                 "security": [
                     {
@@ -1331,6 +1331,22 @@ const docTemplate = `{
                 ],
                 "summary": "list all job categories for Worker",
                 "operationId": "list all job category for worker",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "Page : ",
+                        "name": "page",
+                        "in": "query",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": "Pagesize : ",
+                        "name": "pagesize",
+                        "in": "query",
+                        "required": true
+                    }
+                ],
                 "responses": {
                     "200": {
                         "description": "OK",
@@ -1528,7 +1544,7 @@ const docTemplate = `{
                 }
             }
         },
-        "/worker/viewjob": {
+        "/worker/view-job": {
             "get": {
                 "security": [
                     {

@@ -8,6 +8,7 @@ import (
 	"github.com/fazilnbr/project-workey/pkg/domain"
 	interfaces "github.com/fazilnbr/project-workey/pkg/repository/interface"
 	services "github.com/fazilnbr/project-workey/pkg/usecase/interface"
+	"github.com/fazilnbr/project-workey/pkg/utils"
 )
 
 type workerService struct {
@@ -36,10 +37,10 @@ func (c *workerService) AddJob(job domain.Job) (int, error) {
 }
 
 // ListJobCategoryUser implements interfaces.WorkerUseCase
-func (c *workerService) ListJobCategoryUser() ([]domain.Category, error) {
-	id, err := c.workerRepo.ListJobCategoryUser()
+func (c *workerService) ListJobCategoryUser(pagenation utils.Filter) (*[]domain.Category, utils.Metadata, error) {
+	categories, Metadata, err := c.workerRepo.ListJobCategoryUser(pagenation)
 
-	return id, err
+	return &categories, Metadata, err
 }
 
 // VerifyPassword implements interfaces.UserUseCase

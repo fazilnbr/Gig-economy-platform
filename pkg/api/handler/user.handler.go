@@ -30,7 +30,7 @@ func NewUserHandler(userService services.UserUseCase) UserHandler {
 // @Param UserAddProfile body domain.Profile{} true "User Add Profile"
 // @Success 200 {object} response.Response{}
 // @Failure 422 {object} response.Response{}
-// @Router /user/addprofile [post]
+// @Router /user/add-profile [post]
 func (cr *UserHandler) UserAddProfile(c *gin.Context) {
 	id, _ := strconv.Atoi(c.Writer.Header().Get("id"))
 
@@ -64,7 +64,7 @@ func (cr *UserHandler) UserAddProfile(c *gin.Context) {
 // @Param UserEditProfile body domain.Profile{} true "User Edit Profile"
 // @Success 200 {object} response.Response{}
 // @Failure 422 {object} response.Response{}
-// @Router /user/editprofile [patch]
+// @Router /user/edit-profile [patch]
 func (cr *UserHandler) UserEditProfile(c *gin.Context) {
 	id, _ := strconv.Atoi(c.Writer.Header().Get("id"))
 	var userprofile domain.Profile
@@ -98,7 +98,7 @@ func (cr *UserHandler) UserEditProfile(c *gin.Context) {
 // @Param UserChangePassword body domain.ChangePassword{} true "User Change Password"
 // @Success 200 {object} response.Response{}
 // @Failure 422 {object} response.Response{}
-// @Router /user/changepassword [patch]
+// @Router /user/change-password [patch]
 func (cr *UserHandler) UserChangePassword(c *gin.Context) {
 
 	id, _ := strconv.Atoi(c.Writer.Header().Get("id"))
