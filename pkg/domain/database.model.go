@@ -37,12 +37,14 @@ type Verification struct {
 }
 
 type Category struct {
-	IdCategory int    `gorm:"primaryKey;autoIncrement:true;unique"`
+	IdCategory int    `json:"categoryid" gorm:"primaryKey;autoIncrement:true;unique"`
 	Category   string `gorm:"unique" json:"category"`
 }
 
 type Job struct {
-	IdJob      int `gorm:"primaryKey;autoIncrement:true;unique"`
-	IdCategory int `json:"categoryid"`
-	IdWorker   int `json:"workerid"`
+	IdJob      int      `gorm:"primaryKey;autoIncrement:true;unique"`
+	CategoryId int      `json:"categoryid"`
+	Category   Category `gorm:"foreignKey:CategoryId;references:IdCategory"`
+	IdWorker   int      `json:"workerid"`
+	Login      Login    `gorm:"foreignKey:IdWorker;references:IdLogin"`
 }

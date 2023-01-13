@@ -72,14 +72,43 @@ func (c *workerRepository) ViewJob(id int) ([]domain.WorkerJob, error) {
 // AddJob implements interfaces.WorkerRepository
 func (c *workerRepository) AddJob(job domain.Job) (int, error) {
 
-	var Id int
-	query := ` INSERT INTO jobs 
-	(id_category,id_worker) 
-	VALUES 
-	($1,$2) RETURNING id_job;`
+	query := ` SELECT COUNT (*) FROM jobs WHERE category_id=$1 AND id_worker=$2;`
 
-	err := c.db.QueryRow(query,
-		job.IdCategory,
+	rows, err := c.db.Query(query,
+		job.CategoryId,
+		job.IdWorker,
+	)
+	fmt.Println("rows : ", rows)
+	if err != nil {
+		return 0, err
+	}
+	var Id int
+
+	defer rows.Close()
+
+	for rows.Next() {
+
+		err = rows.Scan(
+			&Id,
+		)
+
+		if err != nil {
+			return 0, err
+		}
+	}
+
+	fmt.Println("id : ", Id)
+	if Id != 0 {
+		return 0, errors.New("This Job is already added by you")
+	}
+
+	query = ` INSERT INTO jobs 
+	(category_id,id_worker) 
+	VALUES 
+	($1,$2)  RETURNING id_job;`
+
+	err = c.db.QueryRow(query,
+		job.CategoryId,
 		job.IdWorker,
 	).Scan(
 		&Id,
@@ -94,7 +123,7 @@ func (c *workerRepository) ListJobCategoryUser(pagenation utils.Filter) ([]domai
 	var categories []domain.Category
 
 	query := `SELECT COUNT(*) OVER(),
-		  id_category,
+	category_id,
 		  category	
 		  FROM categories 
 		  LIMIT $1 OFFSET $2;`

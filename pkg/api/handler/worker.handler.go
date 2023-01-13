@@ -177,10 +177,10 @@ func (cr *WorkerHandler) ListJobCategoryUser(c *gin.Context) {
 	}
 
 	result := struct {
-		jodcategory *[]domain.Category
+		jobcategory *[]domain.Category
 		Meta        *utils.Metadata
 	}{
-		jodcategory: categories,
+		jobcategory: categories,
 		Meta:        &metadata,
 	}
 
@@ -207,7 +207,7 @@ func (cr *WorkerHandler) AddJob(c *gin.Context) {
 
 	c.Bind(&workerjob)
 
-	workerjob.IdWorker = id
+	// workerjob.IdWorker = id
 
 	_, err := cr.workerService.AddJob(workerjob)
 
