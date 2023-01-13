@@ -196,7 +196,7 @@ func (c *workerRepository) WorkerEditProfile(userProfile domain.Profile, id int)
 		contact_number = $8, 
 		email_id = $9, 
 		photo = $10
-	WHERE id_login = $11
+	WHERE login_id = $11
 	RETURNING id_user;
 	`
 
@@ -225,9 +225,9 @@ func (c *workerRepository) WorkerEditProfile(userProfile domain.Profile, id int)
 func (c *workerRepository) WorkerAddProfile(workerProfile domain.Profile, id int) (int, error) {
 	var Id int
 	query := ` INSERT INTO Profiles 
-	(id_login,name,gender,date_of_birth,house_name,place,post,pin,contact_number,email_id,photo) 
+	(login_id,name,gender,date_of_birth,house_name,place,post,pin,contact_number,email_id,photo) 
 	VALUES 
-	($1,$2,$3,$4,$5,$6,$7,$8,$9,$10,$11) RETURNING id_login;`
+	($1,$2,$3,$4,$5,$6,$7,$8,$9,$10,$11) RETURNING login_id;`
 
 	err := c.db.QueryRow(query,
 		id,
