@@ -39,7 +39,7 @@ func (c *workerRepository) ViewJob(id int) ([]domain.WorkerJob, error) {
 				FROM
     			categories AS C
 				INNER JOIN jobs AS J 
-   				ON C.id_category = J.id_category
+   				ON C.id_category = J.category_id
 				WHERE J.id_worker=$1;`
 
 	rows, err := c.db.Query(query, id)
@@ -123,7 +123,7 @@ func (c *workerRepository) ListJobCategoryUser(pagenation utils.Filter) ([]domai
 	var categories []domain.Category
 
 	query := `SELECT COUNT(*) OVER(),
-	category_id,
+	id_category,
 		  category	
 		  FROM categories 
 		  LIMIT $1 OFFSET $2;`

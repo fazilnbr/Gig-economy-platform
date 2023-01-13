@@ -207,7 +207,7 @@ func (cr *WorkerHandler) AddJob(c *gin.Context) {
 
 	c.Bind(&workerjob)
 
-	// workerjob.IdWorker = id
+	workerjob.IdWorker = id
 
 	_, err := cr.workerService.AddJob(workerjob)
 
