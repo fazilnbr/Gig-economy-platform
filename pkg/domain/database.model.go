@@ -15,7 +15,8 @@ type Login struct {
 }
 type Profile struct {
 	IdUser        int    `gorm:"primaryKey;autoIncrement:true;unique"`
-	IdLogin       int    `gorm:"unique"`
+	LoginId       int    `gorm:"unique"`
+	Login         Login  `gorm:"foreignKey:LoginId;references:IdLogin"`
 	Name          string `json:"name"`
 	Gender        string `json:"gender"`
 	DateOfBirth   string `json:"dateofbirth"`

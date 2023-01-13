@@ -39,9 +39,9 @@ func NewServerHTTP(authHandler handler.AuthHandler, adminHandler handler.AdminHa
 			// User management
 
 			admin.GET("/list-all-users", adminHandler.ListAllUsers)
-			admin.GET("/list-newusers", adminHandler.ListNewUsers)
+			admin.GET("/list-new-users", adminHandler.ListNewUsers)
 			admin.GET("/list-blockedusers", adminHandler.ListBlockUsers)
-			admin.PATCH("/activate-user", adminHandler.ActivateUsers)
+			admin.PATCH("/activate-users", adminHandler.ActivateUsers)
 			admin.PATCH("/block-users", adminHandler.BlockUsers)
 
 			// Worker management
