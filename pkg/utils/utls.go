@@ -7,6 +7,7 @@ import (
 )
 
 func ResponseJSON(c gin.Context, data interface{}) {
+
 	c.Writer.Header().Set("Content-Type", "application/json")
 	json.NewEncoder(c.Writer).Encode(data)
 }
