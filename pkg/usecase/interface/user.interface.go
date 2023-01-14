@@ -1,6 +1,9 @@
 package interfaces
 
-import "github.com/fazilnbr/project-workey/pkg/domain"
+import (
+	"github.com/fazilnbr/project-workey/pkg/domain"
+	"github.com/fazilnbr/project-workey/pkg/utils"
+)
 
 type UserUseCase interface {
 	CreateUser(newUser domain.Login) error
@@ -10,4 +13,5 @@ type UserUseCase interface {
 	UserEditProfile(userProfile domain.Profile, id int) error
 	UserVerifyPassword(changepassword domain.ChangePassword, id int) error
 	UserChangePassword(changepassword string, id int) error
+	ListWorkersWithJob(pagenation utils.Filter) (*[]domain.ListJobsWithWorker, *utils.Metadata, error)
 }

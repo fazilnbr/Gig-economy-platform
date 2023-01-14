@@ -3,7 +3,7 @@ definitions:
     properties:
       category:
         type: string
-      idCategory:
+      categoryid:
         type: integer
     type: object
   domain.ChangePassword:
@@ -21,10 +21,14 @@ definitions:
     type: object
   domain.Job:
     properties:
+      category:
+        $ref: '#/definitions/domain.Category'
       categoryid:
         type: integer
       idJob:
         type: integer
+      login:
+        $ref: '#/definitions/domain.Login'
       workerid:
         type: integer
     type: object
@@ -55,9 +59,11 @@ definitions:
         type: string
       housename:
         type: string
-      idLogin:
-        type: integer
       idUser:
+        type: integer
+      login:
+        $ref: '#/definitions/domain.Login'
+      loginId:
         type: integer
       name:
         type: string
@@ -632,6 +638,36 @@ paths:
       security:
       - BearerAuth: []
       summary: Edit profile for User
+      tags:
+      - User
+  /user/list-workers-with-job:
+    get:
+      operationId: list all job with workers for users
+      parameters:
+      - description: 'Page : '
+        in: query
+        name: page
+        required: true
+        type: string
+      - description: 'Pagesize : '
+        in: query
+        name: pagesize
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/response.Response'
+        "422":
+          description: Unprocessable Entity
+          schema:
+            $ref: '#/definitions/response.Response'
+      security:
+      - BearerAuth: []
+      summary: list all job with workers for users
       tags:
       - User
   /user/login:

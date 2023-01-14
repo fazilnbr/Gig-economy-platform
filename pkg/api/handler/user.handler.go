@@ -2,6 +2,7 @@ package handler
 
 import (
 	"fmt"
+	"log"
 	"net/http"
 	"strconv"
 
@@ -135,6 +136,53 @@ func (cr *UserHandler) UserChangePassword(c *gin.Context) {
 	changepassword.NewPassword = ""
 	changepassword.OldPassword = ""
 	response := response.SuccessResponse(true, "SUCCESS", changepassword)
+	c.Writer.Header().Set("Content-Type", "application/json")
+	c.Writer.WriteHeader(http.StatusOK)
+	utils.ResponseJSON(*c, response)
+}
+
+// @Summary list all job with workers for users
+// @ID list all job with workers for users
+// @Tags User
+// @Security BearerAuth
+// @Produce json
+// @Param        page   query      string  true  "Page : "
+// @Param        pagesize   query      string  true  "Pagesize : "
+// @Success 200 {object} response.Response{}
+// @Failure 422 {object} response.Response{}
+// @Router /user/list-workers-with-job [get]
+func (cr *UserHandler) ListWorkersWithJob(c *gin.Context) {
+	page, _ := strconv.Atoi(c.Query("page"))
+
+	pageSize, _ := strconv.Atoi(c.Query("pagesize"))
+	fmt.Printf("\n\nuser : %v\n\nmetea : %v\n\n", page, pageSize)
+	log.Println(page, "   ", pageSize)
+
+	pagenation := utils.Filter{
+		Page:     page,
+		PageSize: pageSize,
+	}
+
+	jobs, metadata, err := cr.userService.ListWorkersWithJob(pagenation)
+
+	if err != nil {
+		response := response.ErrorResponse("Failed to list user", err.Error(), nil)
+		c.Writer.Header().Set("Content-Type", "application/json")
+		c.Writer.WriteHeader(http.StatusUnprocessableEntity)
+
+		utils.ResponseJSON(*c, response)
+		return
+	}
+
+	result := struct {
+		Users *[]domain.ListJobsWithWorker
+		Meta  *utils.Metadata
+	}{
+		Users: jobs,
+		Meta:  metadata,
+	}
+
+	response := response.SuccessResponse(true, "SUCCESS", result)
 	c.Writer.Header().Set("Content-Type", "application/json")
 	c.Writer.WriteHeader(http.StatusOK)
 	utils.ResponseJSON(*c, response)

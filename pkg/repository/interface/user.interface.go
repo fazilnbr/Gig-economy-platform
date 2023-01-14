@@ -2,6 +2,7 @@ package interfaces
 
 import (
 	"github.com/fazilnbr/project-workey/pkg/domain"
+	"github.com/fazilnbr/project-workey/pkg/utils"
 )
 
 type UserRepository interface {
@@ -12,5 +13,6 @@ type UserRepository interface {
 	UserAddProfile(Profile domain.Profile, id int) (int, error)
 	UserEditProfile(Profile domain.Profile, id int) (int, error)
 	UserChangePassword(changepassword string, id int) (int, error)
-	// verifyPassword(changepassword string, id int) (int, error)
+	ListWorkersWithJob(pagenation utils.Filter) ([]domain.ListJobsWithWorker, utils.Metadata, error)
+	SearchWorkersWithJob(pagenation utils.Filter) ([]domain.ListJobsWithWorker, utils.Metadata, error)
 }

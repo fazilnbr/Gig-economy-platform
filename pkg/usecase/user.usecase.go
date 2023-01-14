@@ -8,17 +8,18 @@ import (
 	"github.com/fazilnbr/project-workey/pkg/domain"
 	interfaces "github.com/fazilnbr/project-workey/pkg/repository/interface"
 	services "github.com/fazilnbr/project-workey/pkg/usecase/interface"
+	"github.com/fazilnbr/project-workey/pkg/utils"
 )
 
 type userUseCase struct {
 	userRepo interfaces.UserRepository
 }
 
-func NewUserService(
-	userRepo interfaces.UserRepository) services.UserUseCase {
-	return &userUseCase{
-		userRepo: userRepo,
-	}
+// ListWorkersWithJob implements interfaces.UserUseCase
+func (c *userUseCase) ListWorkersWithJob(pagenation utils.Filter) (*[]domain.ListJobsWithWorker, *utils.Metadata, error) {
+	jobs, metadata, err := c.userRepo.ListWorkersWithJob(pagenation)
+
+	return &jobs, &metadata, err
 }
 
 // VerifyPassword implements interfaces.UserUseCase
@@ -118,4 +119,11 @@ func VerifyPassword(requestPassword, dbPassword string) bool {
 
 	requestPassword = fmt.Sprintf("%x", md5.Sum([]byte(requestPassword)))
 	return requestPassword == dbPassword
+}
+
+func NewUserService(
+	userRepo interfaces.UserRepository) services.UserUseCase {
+	return &userUseCase{
+		userRepo: userRepo,
+	}
 }

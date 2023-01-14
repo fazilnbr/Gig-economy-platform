@@ -886,6 +886,53 @@ const docTemplate = `{
                 }
             }
         },
+        "/user/list-workers-with-job": {
+            "get": {
+                "security": [
+                    {
+                        "BearerAuth": []
+                    }
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "User"
+                ],
+                "summary": "list all job with workers for users",
+                "operationId": "list all job with workers for users",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "Page : ",
+                        "name": "page",
+                        "in": "query",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": "Pagesize : ",
+                        "name": "pagesize",
+                        "in": "query",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/response.Response"
+                        }
+                    },
+                    "422": {
+                        "description": "Unprocessable Entity",
+                        "schema": {
+                            "$ref": "#/definitions/response.Response"
+                        }
+                    }
+                }
+            }
+        },
         "/user/login": {
             "post": {
                 "produces": [
@@ -1583,7 +1630,7 @@ const docTemplate = `{
                 "category": {
                     "type": "string"
                 },
-                "idCategory": {
+                "categoryid": {
                     "type": "integer"
                 }
             }
@@ -1610,11 +1657,17 @@ const docTemplate = `{
         "domain.Job": {
             "type": "object",
             "properties": {
+                "category": {
+                    "$ref": "#/definitions/domain.Category"
+                },
                 "categoryid": {
                     "type": "integer"
                 },
                 "idJob": {
                     "type": "integer"
+                },
+                "login": {
+                    "$ref": "#/definitions/domain.Login"
                 },
                 "workerid": {
                     "type": "integer"
@@ -1662,10 +1715,13 @@ const docTemplate = `{
                 "housename": {
                     "type": "string"
                 },
-                "idLogin": {
+                "idUser": {
                     "type": "integer"
                 },
-                "idUser": {
+                "login": {
+                    "$ref": "#/definitions/domain.Login"
+                },
+                "loginId": {
                     "type": "integer"
                 },
                 "name": {
