@@ -72,6 +72,7 @@ func NewServerHTTP(authHandler handler.AuthHandler, adminHandler handler.AdminHa
 				user.POST("/add-profile", UserHandler.UserAddProfile)
 				user.PATCH("/edit-profile", UserHandler.UserEditProfile)
 				user.PATCH("/change-password", UserHandler.UserChangePassword)
+				user.GET("/list-workers-with-job", UserHandler.ListWorkersWithJob)
 			}
 		}
 

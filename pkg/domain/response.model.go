@@ -46,3 +46,9 @@ type ChangePassword struct {
 type WorkerJob struct {
 	JobTitile string
 }
+
+type ListJobsWithWorker struct {
+	IdJob        int    `gorm:"primaryKey;autoIncrement:true;unique"`
+	CategoryName string `json:"categoryname"`
+	WorkerName   string `json:"workername"`
+}
