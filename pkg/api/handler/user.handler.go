@@ -187,3 +187,52 @@ func (cr *UserHandler) ListWorkersWithJob(c *gin.Context) {
 	c.Writer.WriteHeader(http.StatusOK)
 	utils.ResponseJSON(*c, response)
 }
+
+// @Summary search job with workers for users
+// @ID search job with workers for users
+// @Tags User
+// @Security BearerAuth
+// @Produce json
+// @Param        search   query      string  true  "search : "
+// @Param        page   query      string  true  "Page : "
+// @Param        pagesize   query      string  true  "Pagesize : "
+// @Success 200 {object} response.Response{}
+// @Failure 422 {object} response.Response{}
+// @Router /user/search-workers-with-job [get]
+func (cr *UserHandler) SearchWorkersWithJob(c *gin.Context) {
+	page, _ := strconv.Atoi(c.Query("page"))
+
+	pageSize, _ := strconv.Atoi(c.Query("pagesize"))
+	searchkey := c.Query("search")
+	fmt.Printf("\n\nuser : %v\n\nmetea : %v\n\n", page, pageSize)
+	log.Println(page, "   ", pageSize)
+
+	pagenation := utils.Filter{
+		Page:     page,
+		PageSize: pageSize,
+	}
+
+	jobs, metadata, err := cr.userService.SearchWorkersWithJob(pagenation, searchkey)
+
+	if err != nil {
+		response := response.ErrorResponse("Failed to list user", err.Error(), nil)
+		c.Writer.Header().Set("Content-Type", "application/json")
+		c.Writer.WriteHeader(http.StatusUnprocessableEntity)
+
+		utils.ResponseJSON(*c, response)
+		return
+	}
+
+	result := struct {
+		Users *[]domain.ListJobsWithWorker
+		Meta  *utils.Metadata
+	}{
+		Users: jobs,
+		Meta:  metadata,
+	}
+
+	response := response.SuccessResponse(true, "SUCCESS", result)
+	c.Writer.Header().Set("Content-Type", "application/json")
+	c.Writer.WriteHeader(http.StatusOK)
+	utils.ResponseJSON(*c, response)
+}

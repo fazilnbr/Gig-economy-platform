@@ -17,11 +17,11 @@ const (
 	inner join logins t2 on t1.id_worker = t2.id_login
 	inner join categories t3 on t1.category_id=t3.id_category
 	LIMIT $1 OFFSET $2;`
-	listjobsearch = `select t1.id_job,t2.user_name, t3.category        
+	listjobsearch = `select COUNT(*) OVER(),t1.id_job,t2.user_name, t3.category        
 	from jobs t1 
 	inner join logins t2 on t1.id_worker = t2.id_login
-	inner join categories t3 on t1.category_id=t3.id_category WHERE category LIKE '%c%'
-	LIMIT $1 OFFSET %2;`
+	inner join categories t3 on t1.category_id=t3.id_category WHERE category LIKE '%' || $1 || '%'
+	LIMIT $2 OFFSET $3;`
 )
 
 type userRepo struct {
@@ -29,8 +29,43 @@ type userRepo struct {
 }
 
 // SearchWorkersWithJob implements interfaces.UserRepository
-func (*userRepo) SearchWorkersWithJob(pagenation utils.Filter) ([]domain.ListJobsWithWorker, utils.Metadata, error) {
-	panic("unimplemented")
+func (c *userRepo) SearchWorkersWithJob(pagenation utils.Filter, key string) ([]domain.ListJobsWithWorker, utils.Metadata, error) {
+	var jobs []domain.ListJobsWithWorker
+
+	rows, err := c.db.Query(listjobsearch, key, pagenation.Limit(), pagenation.Offset())
+
+	if err != nil {
+		return jobs, utils.Metadata{}, err
+	}
+
+	var totalRecords int
+
+	defer rows.Close()
+
+	for rows.Next() {
+		var job domain.ListJobsWithWorker
+
+		err = rows.Scan(
+			&totalRecords,
+			&job.IdJob,
+			&job.WorkerName,
+			&job.CategoryName,
+		)
+
+		if err != nil {
+			return jobs, utils.ComputeMetaData(totalRecords, pagenation.Page, pagenation.PageSize), err
+		}
+
+		jobs = append(jobs, job)
+	}
+	fmt.Printf("\n\nusers : %v\n\n", jobs)
+
+	if err := rows.Err(); err != nil {
+		return jobs, utils.ComputeMetaData(totalRecords, pagenation.Page, pagenation.PageSize), err
+	}
+	log.Println(jobs)
+	log.Println(utils.ComputeMetaData(totalRecords, pagenation.Page, pagenation.PageSize))
+	return jobs, utils.ComputeMetaData(totalRecords, pagenation.Page, pagenation.PageSize), nil
 }
 
 // ListWorkers implements interfaces.UserRepository

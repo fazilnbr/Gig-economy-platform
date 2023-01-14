@@ -701,6 +701,41 @@ paths:
       summary: Login for users
       tags:
       - User
+  /user/search-workers-with-job:
+    get:
+      operationId: search job with workers for users
+      parameters:
+      - description: 'search : '
+        in: query
+        name: search
+        required: true
+        type: string
+      - description: 'Page : '
+        in: query
+        name: page
+        required: true
+        type: string
+      - description: 'Pagesize : '
+        in: query
+        name: pagesize
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/response.Response'
+        "422":
+          description: Unprocessable Entity
+          schema:
+            $ref: '#/definitions/response.Response'
+      security:
+      - BearerAuth: []
+      summary: search job with workers for users
+      tags:
+      - User
   /user/send/verification:
     post:
       operationId: SendVerificationMail authentication
