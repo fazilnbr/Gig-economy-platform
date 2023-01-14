@@ -15,6 +15,13 @@ type userUseCase struct {
 	userRepo interfaces.UserRepository
 }
 
+// SearchWorkersWithJob implements interfaces.UserUseCase
+func (c *userUseCase) SearchWorkersWithJob(pagenation utils.Filter, key string) (*[]domain.ListJobsWithWorker, *utils.Metadata, error) {
+	jobs, metadata, err := c.userRepo.SearchWorkersWithJob(pagenation, key)
+
+	return &jobs, &metadata, err
+}
+
 // ListWorkersWithJob implements interfaces.UserUseCase
 func (c *userUseCase) ListWorkersWithJob(pagenation utils.Filter) (*[]domain.ListJobsWithWorker, *utils.Metadata, error) {
 	jobs, metadata, err := c.userRepo.ListWorkersWithJob(pagenation)

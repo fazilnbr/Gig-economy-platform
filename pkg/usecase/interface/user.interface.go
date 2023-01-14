@@ -14,4 +14,5 @@ type UserUseCase interface {
 	UserVerifyPassword(changepassword domain.ChangePassword, id int) error
 	UserChangePassword(changepassword string, id int) error
 	ListWorkersWithJob(pagenation utils.Filter) (*[]domain.ListJobsWithWorker, *utils.Metadata, error)
+	SearchWorkersWithJob(pagenation utils.Filter, key string) (*[]domain.ListJobsWithWorker, *utils.Metadata, error)
 }
