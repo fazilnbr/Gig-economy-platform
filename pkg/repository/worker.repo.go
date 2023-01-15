@@ -103,13 +103,15 @@ func (c *workerRepository) AddJob(job domain.Job) (int, error) {
 	}
 
 	query = ` INSERT INTO jobs 
-	(category_id,id_worker) 
+	(category_id,id_worker,wage,description) 
 	VALUES 
-	($1,$2)  RETURNING id_job;`
+	($1,$2,$3,$4)  RETURNING id_job;`
 
 	err = c.db.QueryRow(query,
 		job.CategoryId,
 		job.IdWorker,
+		job.Wage,
+		job.Description,
 	).Scan(
 		&Id,
 	)

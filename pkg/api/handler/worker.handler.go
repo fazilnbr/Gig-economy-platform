@@ -195,7 +195,7 @@ func (cr *WorkerHandler) ListJobCategoryUser(c *gin.Context) {
 // @Tags Worker
 // @Security BearerAuth
 // @Produce json
-// @Param WorkerAddProfile body domain.Job{} true "Worker Add Profile"
+// @Param WorkerAddJob body domain.Job{} true "Worker Add job"
 // @Success 200 {object} response.Response{}
 // @Failure 422 {object} response.Response{}
 // @Router /worker/add-job [post]

@@ -6,17 +6,17 @@ import "gorm.io/gorm"
 type Login struct {
 	// gorm.Model
 
-	IdLogin      int    `json:"id_login" gorm:"primaryKey;autoIncrement:true;unique"`
+	IdLogin      int    `json:"-" gorm:"primaryKey;autoIncrement:true;unique"`
 	UserName     string `json:"username" gorm:"not null;unique"`
 	Password     string `json:"password"`
-	UserType     string `json:"usertype" postgres:"type:ENUM('admin', 'worker', 'user')" gorm:"not null"`
-	Verification string `json:"verification" gorm:"default:false"`
-	Status       string `json:"status" gorm:"default:newuser"`
+	UserType     string `json:"-" postgres:"type:ENUM('admin', 'worker', 'user')" gorm:"not null"`
+	Verification string `json:"-" gorm:"default:false"`
+	Status       string `json:"-" gorm:"default:newuser"`
 }
 type Profile struct {
-	IdUser        int    `gorm:"primaryKey;autoIncrement:true;unique"`
-	LoginId       int    `gorm:"unique"`
-	Login         Login  `gorm:"foreignKey:LoginId;references:IdLogin"`
+	IdUser        int    `json:"-" gorm:"primaryKey;autoIncrement:true;unique"`
+	LoginId       int    `json:"-" gorm:"unique"`
+	Login         Login  `json:"-" gorm:"foreignKey:LoginId;references:IdLogin"`
 	Name          string `json:"name"`
 	Gender        string `json:"gender"`
 	DateOfBirth   string `json:"dateofbirth"`
@@ -38,14 +38,16 @@ type Verification struct {
 }
 
 type Category struct {
-	IdCategory int    `json:"categoryid" gorm:"primaryKey;autoIncrement:true;unique"`
+	IdCategory int    `json:"-" gorm:"primaryKey;autoIncrement:true;unique"`
 	Category   string `gorm:"unique" json:"category"`
 }
 
 type Job struct {
-	IdJob      int      `gorm:"primaryKey;autoIncrement:true;unique"`
-	CategoryId int      `json:"categoryid"`
-	Category   Category `gorm:"foreignKey:CategoryId;references:IdCategory"`
-	IdWorker   int      `json:"workerid"`
-	Login      Login    `gorm:"foreignKey:IdWorker;references:IdLogin"`
+	IdJob       int      `json:"-" gorm:"primaryKey;autoIncrement:true;unique"`
+	CategoryId  int      `json:"categoryid" gorm:"not null"`
+	Category    Category `json:"-" gorm:"foreignKey:CategoryId;references:IdCategory"`
+	IdWorker    int      `json:"-" gorm:"not null"`
+	Login       Login    `json:"-" gorm:"foreignKey:IdWorker;references:IdLogin"`
+	Wage        int64    `json:"wage" gorm:"not null"`
+	Description string   `json:"desctription"`
 }

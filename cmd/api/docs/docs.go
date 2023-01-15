@@ -1226,8 +1226,8 @@ const docTemplate = `{
                 "operationId": "worker add job",
                 "parameters": [
                     {
-                        "description": "Worker Add Profile",
-                        "name": "WorkerAddProfile",
+                        "description": "Worker Add job",
+                        "name": "WorkerAddJob",
                         "in": "body",
                         "required": true,
                         "schema": {
@@ -1683,9 +1683,6 @@ const docTemplate = `{
             "properties": {
                 "category": {
                     "type": "string"
-                },
-                "categoryid": {
-                    "type": "integer"
                 }
             }
         },
@@ -1711,19 +1708,13 @@ const docTemplate = `{
         "domain.Job": {
             "type": "object",
             "properties": {
-                "category": {
-                    "$ref": "#/definitions/domain.Category"
-                },
                 "categoryid": {
                     "type": "integer"
                 },
-                "idJob": {
-                    "type": "integer"
+                "desctription": {
+                    "type": "string"
                 },
-                "login": {
-                    "$ref": "#/definitions/domain.Login"
-                },
-                "workerid": {
+                "wage": {
                     "type": "integer"
                 }
             }
@@ -1731,22 +1722,10 @@ const docTemplate = `{
         "domain.Login": {
             "type": "object",
             "properties": {
-                "id_login": {
-                    "type": "integer"
-                },
                 "password": {
                     "type": "string"
                 },
-                "status": {
-                    "type": "string"
-                },
                 "username": {
-                    "type": "string"
-                },
-                "usertype": {
-                    "type": "string"
-                },
-                "verification": {
                     "type": "string"
                 }
             }
@@ -1768,15 +1747,6 @@ const docTemplate = `{
                 },
                 "housename": {
                     "type": "string"
-                },
-                "idUser": {
-                    "type": "integer"
-                },
-                "login": {
-                    "$ref": "#/definitions/domain.Login"
-                },
-                "loginId": {
-                    "type": "integer"
                 },
                 "name": {
                     "type": "string"
