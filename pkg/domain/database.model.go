@@ -48,6 +48,6 @@ type Job struct {
 	Category    Category `json:"-" gorm:"foreignKey:CategoryId;references:IdCategory"`
 	IdWorker    int      `json:"-" gorm:"not null"`
 	Login       Login    `json:"-" gorm:"foreignKey:IdWorker;references:IdLogin"`
-	Wage        int64    `json:"wage" gorm:"not null"`
+	Wage        int      `json:"wage" gorm:"not null"`
 	Description string   `json:"desctription"`
 }

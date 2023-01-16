@@ -44,7 +44,10 @@ type ChangePassword struct {
 }
 
 type WorkerJob struct {
-	JobTitile string
+	Id          int
+	JobTitile   string
+	Wage        int64
+	Description string
 }
 
 type ListJobsWithWorker struct {

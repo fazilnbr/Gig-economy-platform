@@ -34,15 +34,15 @@ func (c *workerRepository) DeleteJob(id int) error {
 func (c *workerRepository) ViewJob(id int) ([]domain.WorkerJob, error) {
 	var jobs []domain.WorkerJob
 
-	query := `	SELECT
- 			   	c.category
-				FROM
-    			categories AS C
+	query := `SELECT 
+				C.id_category,C.category,J.wage,J.description 
+				FROM categories AS C 
 				INNER JOIN jobs AS J 
-   				ON C.id_category = J.category_id
+				ON C.id_category = J.category_id 
 				WHERE J.id_worker=$1;`
 
 	rows, err := c.db.Query(query, id)
+	fmt.Println(err)
 
 	if err != nil {
 		return nil, err
@@ -54,7 +54,10 @@ func (c *workerRepository) ViewJob(id int) ([]domain.WorkerJob, error) {
 		var job domain.WorkerJob
 
 		err = rows.Scan(
+			&job.Id,
 			&job.JobTitile,
+			&job.Wage,
+			&job.Description,
 		)
 
 		if err != nil {
