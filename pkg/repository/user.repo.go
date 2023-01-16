@@ -28,6 +28,21 @@ type userRepo struct {
 	db *sql.DB
 }
 
+// AddToFavorite implements interfaces.UserRepository
+func (c *userRepo) AddToFavorite(favorite domain.Favorite) (int, error) {
+	var Id int
+	query := `INSERT INTO favorites (user_id,worker_id) VALUES ($1,$2) RETURNING id_favorite;`
+
+	err := c.db.QueryRow(query,
+		favorite.UserId,
+		favorite.WorkerId,
+	).Scan(
+		&Id,
+	)
+
+	return Id, err
+}
+
 // SearchWorkersWithJob implements interfaces.UserRepository
 func (c *userRepo) SearchWorkersWithJob(pagenation utils.Filter, key string) ([]domain.ListJobsWithWorker, utils.Metadata, error) {
 	var jobs []domain.ListJobsWithWorker

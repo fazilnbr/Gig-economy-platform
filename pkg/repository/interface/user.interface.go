@@ -15,4 +15,5 @@ type UserRepository interface {
 	UserChangePassword(changepassword string, id int) (int, error)
 	ListWorkersWithJob(pagenation utils.Filter) ([]domain.ListJobsWithWorker, utils.Metadata, error)
 	SearchWorkersWithJob(pagenation utils.Filter, key string) ([]domain.ListJobsWithWorker, utils.Metadata, error)
+	AddToFavorite(favorite domain.Favorite) (int, error)
 }
