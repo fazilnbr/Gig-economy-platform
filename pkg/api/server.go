@@ -75,6 +75,7 @@ func NewServerHTTP(authHandler handler.AuthHandler, adminHandler handler.AdminHa
 				user.GET("/list-workers-with-job", UserHandler.ListWorkersWithJob)
 				user.GET("/search-workers-with-job", UserHandler.SearchWorkersWithJob)
 				user.POST("/add-to-favorite", UserHandler.UserAddToFavorite)
+				user.GET("/list-favorite-list", UserHandler.ListFavorite)
 			}
 		}
 

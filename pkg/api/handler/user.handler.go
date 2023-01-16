@@ -271,3 +271,51 @@ func (cr *UserHandler) UserAddToFavorite(c *gin.Context) {
 	c.Writer.WriteHeader(http.StatusOK)
 	utils.ResponseJSON(*c, response)
 }
+
+// @Summary list favorite list of workers for users
+// @ID list favorite list of workers for users
+// @Tags User
+// @Security BearerAuth
+// @Produce json
+// @Param        page   query      string  true  "Page : "
+// @Param        pagesize   query      string  true  "Pagesize : "
+// @Success 200 {object} response.Response{}
+// @Failure 422 {object} response.Response{}
+// @Router /user/list-favorite-list [get]
+func (cr *UserHandler) ListFavorite(c *gin.Context) {
+	id, _ := strconv.Atoi(c.Writer.Header().Get("id"))
+	page, _ := strconv.Atoi(c.Query("page"))
+
+	pageSize, _ := strconv.Atoi(c.Query("pagesize"))
+	fmt.Printf("\n\nuser : %v\n\nmetea : %v\n\n", page, pageSize)
+	log.Println(page, "   ", pageSize)
+
+	pagenation := utils.Filter{
+		Page:     page,
+		PageSize: pageSize,
+	}
+
+	favorites, metadata, err := cr.userService.ListFevorite(pagenation, id)
+
+	if err != nil {
+		response := response.ErrorResponse("Failed to list user", err.Error(), nil)
+		c.Writer.Header().Set("Content-Type", "application/json")
+		c.Writer.WriteHeader(http.StatusUnprocessableEntity)
+
+		utils.ResponseJSON(*c, response)
+		return
+	}
+
+	result := struct {
+		Users *[]domain.ListFavorite
+		Meta  *utils.Metadata
+	}{
+		Users: favorites,
+		Meta:  metadata,
+	}
+
+	response := response.SuccessResponse(true, "SUCCESS", result)
+	c.Writer.Header().Set("Content-Type", "application/json")
+	c.Writer.WriteHeader(http.StatusOK)
+	utils.ResponseJSON(*c, response)
+}

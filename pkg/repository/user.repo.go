@@ -27,7 +27,7 @@ const (
 	INNER JOIN categories C ON J.category_id=C.id_category
 	INNER JOIN profiles P ON J.id_worker=P.login_id
 	INNER JOIN favorites F ON F.job_id=J.id_job
-	WHERE F.user_id=2
+	WHERE F.user_id=$1
 	LIMIT $2 OFFSET $3;`
 )
 

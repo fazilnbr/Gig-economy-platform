@@ -610,7 +610,7 @@ const docTemplate = `{
                         "schema": {
                             "allOf": [
                                 {
-                                    "$ref": "#/definitions/domain.Login"
+                                    "$ref": "#/definitions/domain.User"
                                 },
                                 {
                                     "type": "object",
@@ -928,6 +928,53 @@ const docTemplate = `{
                 }
             }
         },
+        "/user/list-favorite-list": {
+            "get": {
+                "security": [
+                    {
+                        "BearerAuth": []
+                    }
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "User"
+                ],
+                "summary": "list favorite list of workers for users",
+                "operationId": "list favorite list of workers for users",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "Page : ",
+                        "name": "page",
+                        "in": "query",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": "Pagesize : ",
+                        "name": "pagesize",
+                        "in": "query",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/response.Response"
+                        }
+                    },
+                    "422": {
+                        "description": "Unprocessable Entity",
+                        "schema": {
+                            "$ref": "#/definitions/response.Response"
+                        }
+                    }
+                }
+            }
+        },
         "/user/list-workers-with-job": {
             "get": {
                 "security": [
@@ -994,7 +1041,7 @@ const docTemplate = `{
                         "schema": {
                             "allOf": [
                                 {
-                                    "$ref": "#/definitions/domain.Login"
+                                    "$ref": "#/definitions/domain.User"
                                 },
                                 {
                                     "type": "object",
@@ -1136,7 +1183,7 @@ const docTemplate = `{
                         "schema": {
                             "allOf": [
                                 {
-                                    "$ref": "#/definitions/domain.Login"
+                                    "$ref": "#/definitions/domain.User"
                                 },
                                 {
                                     "type": "object",
@@ -1525,7 +1572,7 @@ const docTemplate = `{
                         "schema": {
                             "allOf": [
                                 {
-                                    "$ref": "#/definitions/domain.Login"
+                                    "$ref": "#/definitions/domain.User"
                                 },
                                 {
                                     "type": "object",
@@ -1612,7 +1659,7 @@ const docTemplate = `{
                         "schema": {
                             "allOf": [
                                 {
-                                    "$ref": "#/definitions/domain.Login"
+                                    "$ref": "#/definitions/domain.User"
                                 },
                                 {
                                     "type": "object",
@@ -1769,17 +1816,6 @@ const docTemplate = `{
                 }
             }
         },
-        "domain.Login": {
-            "type": "object",
-            "properties": {
-                "password": {
-                    "type": "string"
-                },
-                "username": {
-                    "type": "string"
-                }
-            }
-        },
         "domain.Profile": {
             "type": "object",
             "properties": {
@@ -1811,6 +1847,17 @@ const docTemplate = `{
                     "type": "string"
                 },
                 "post": {
+                    "type": "string"
+                }
+            }
+        },
+        "domain.User": {
+            "type": "object",
+            "properties": {
+                "password": {
+                    "type": "string"
+                },
+                "username": {
                     "type": "string"
                 }
             }
