@@ -3,8 +3,6 @@ definitions:
     properties:
       category:
         type: string
-      categoryid:
-        type: integer
     type: object
   domain.ChangePassword:
     properties:
@@ -21,30 +19,18 @@ definitions:
     type: object
   domain.Job:
     properties:
-      category:
-        $ref: '#/definitions/domain.Category'
       categoryid:
         type: integer
-      idJob:
-        type: integer
-      login:
-        $ref: '#/definitions/domain.Login'
-      workerid:
+      desctription:
+        type: string
+      wage:
         type: integer
     type: object
   domain.Login:
     properties:
-      id_login:
-        type: integer
       password:
         type: string
-      status:
-        type: string
       username:
-        type: string
-      usertype:
-        type: string
-      verification:
         type: string
     type: object
   domain.Profile:
@@ -59,12 +45,6 @@ definitions:
         type: string
       housename:
         type: string
-      idUser:
-        type: integer
-      login:
-        $ref: '#/definitions/domain.Login'
-      loginId:
-        type: integer
       name:
         type: string
       photo:
@@ -848,9 +828,9 @@ paths:
     post:
       operationId: worker add job
       parameters:
-      - description: Worker Add Profile
+      - description: Worker Add job
         in: body
-        name: WorkerAddProfile
+        name: WorkerAddJob
         required: true
         schema:
           $ref: '#/definitions/domain.Job'
