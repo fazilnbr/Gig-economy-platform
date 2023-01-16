@@ -236,3 +236,38 @@ func (cr *UserHandler) SearchWorkersWithJob(c *gin.Context) {
 	c.Writer.WriteHeader(http.StatusOK)
 	utils.ResponseJSON(*c, response)
 }
+
+// @Summary user could add to favoroite list of worker
+// @ID user add to favorite list
+// @Tags User
+// @Security BearerAuth
+// @Produce json
+// @Param addtofavotite body domain.Favorite{} true "User Add To Favorite"
+// @Success 200 {object} response.Response{}
+// @Failure 422 {object} response.Response{}
+// @Router /user/add-to-favorite [post]
+func (cr *UserHandler) UserAddToFavorite(c *gin.Context) {
+	id, _ := strconv.Atoi(c.Writer.Header().Get("id"))
+	var favorite domain.Favorite
+
+	c.Bind(&favorite)
+	favorite.UserId = id
+
+	fmt.Printf("\n\nuser Profile : \n%v\n\n%v\n\n", favorite, id)
+
+	_, err := cr.userService.AddToFavorite(favorite)
+
+	if err != nil {
+		response := response.ErrorResponse("Error while editing profile", err.Error(), nil)
+		c.Writer.Header().Set("Content-Type", "application/json")
+		c.Writer.WriteHeader(http.StatusUnprocessableEntity)
+
+		utils.ResponseJSON(*c, response)
+		return
+	}
+
+	response := response.SuccessResponse(true, "SUCCESS", favorite)
+	c.Writer.Header().Set("Content-Type", "application/json")
+	c.Writer.WriteHeader(http.StatusOK)
+	utils.ResponseJSON(*c, response)
+}
