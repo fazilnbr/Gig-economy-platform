@@ -51,3 +51,9 @@ type Job struct {
 	Wage        int      `json:"wage" gorm:"not null"`
 	Description string   `json:"desctription"`
 }
+
+type Favorite struct {
+	IdFavorite int `gorm:"primaryKey;autoIncrement:true;unique"`
+	UserId     int
+	WorkerId   int
+}

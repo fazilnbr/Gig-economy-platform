@@ -18,11 +18,20 @@ func ConnectGormDB(cfg config.Config) (*gorm.DB, error) {
 		SkipDefaultTransaction: true,
 	})
 
-	db.AutoMigrate(&domain.Login{})
-	db.AutoMigrate(&domain.Profile{})
-	db.AutoMigrate(&domain.Verification{})
-	db.AutoMigrate(&domain.Category{})
-	db.AutoMigrate(&domain.Job{})
+	db.AutoMigrate(
+		&domain.Login{},
+		&domain.Profile{},
+		&domain.Verification{},
+		&domain.Category{},
+		&domain.Job{},
+		&domain.Favorite{},
+	)
+
+	// db.AutoMigrate(&domain.Login{})
+	// db.AutoMigrate(&domain.Profile{})
+	// db.AutoMigrate(&domain.Verification{})
+	// db.AutoMigrate(&domain.Category{})
+	// db.AutoMigrate(&domain.Job{})
 
 	return db, dbErr
 }
