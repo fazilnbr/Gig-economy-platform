@@ -17,6 +17,15 @@ definitions:
     - newpassword
     - oldpassword
     type: object
+  domain.Favorite:
+    properties:
+      idFavorite:
+        type: integer
+      userId:
+        type: integer
+      workerId:
+        type: integer
+    type: object
   domain.Job:
     properties:
       categoryid:
@@ -566,6 +575,32 @@ paths:
       security:
       - BearerAuth: []
       summary: Add profile for User
+      tags:
+      - User
+  /user/add-to-favorite:
+    post:
+      operationId: user add to favorite list
+      parameters:
+      - description: User Add To Favorite
+        in: body
+        name: addtofavotite
+        required: true
+        schema:
+          $ref: '#/definitions/domain.Favorite'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/response.Response'
+        "422":
+          description: Unprocessable Entity
+          schema:
+            $ref: '#/definitions/response.Response'
+      security:
+      - BearerAuth: []
+      summary: user could add to favoroite list of worker
       tags:
       - User
   /user/change-password:

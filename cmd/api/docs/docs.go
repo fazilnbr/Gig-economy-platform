@@ -802,6 +802,48 @@ const docTemplate = `{
                 }
             }
         },
+        "/user/add-to-favorite": {
+            "post": {
+                "security": [
+                    {
+                        "BearerAuth": []
+                    }
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "User"
+                ],
+                "summary": "user could add to favoroite list of worker",
+                "operationId": "user add to favorite list",
+                "parameters": [
+                    {
+                        "description": "User Add To Favorite",
+                        "name": "addtofavotite",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/domain.Favorite"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/response.Response"
+                        }
+                    },
+                    "422": {
+                        "description": "Unprocessable Entity",
+                        "schema": {
+                            "$ref": "#/definitions/response.Response"
+                        }
+                    }
+                }
+            }
+        },
         "/user/change-password": {
             "patch": {
                 "security": [
@@ -1702,6 +1744,20 @@ const docTemplate = `{
                 },
                 "oldpassword": {
                     "type": "string"
+                }
+            }
+        },
+        "domain.Favorite": {
+            "type": "object",
+            "properties": {
+                "idFavorite": {
+                    "type": "integer"
+                },
+                "userId": {
+                    "type": "integer"
+                },
+                "workerId": {
+                    "type": "integer"
                 }
             }
         },
