@@ -31,13 +31,6 @@ definitions:
       wage:
         type: integer
     type: object
-  domain.Login:
-    properties:
-      password:
-        type: string
-      username:
-        type: string
-    type: object
   domain.Profile:
     properties:
       contactnumber:
@@ -59,6 +52,13 @@ definitions:
       place:
         type: string
       post:
+        type: string
+    type: object
+  domain.User:
+    properties:
+      password:
+        type: string
+      username:
         type: string
     type: object
   response.Response:
@@ -453,7 +453,7 @@ paths:
         required: true
         schema:
           allOf:
-          - $ref: '#/definitions/domain.Login'
+          - $ref: '#/definitions/domain.User'
           - properties:
               password:
                 type: string
@@ -651,6 +651,36 @@ paths:
       summary: Edit profile for User
       tags:
       - User
+  /user/list-favorite-list:
+    get:
+      operationId: list favorite list of workers for users
+      parameters:
+      - description: 'Page : '
+        in: query
+        name: page
+        required: true
+        type: string
+      - description: 'Pagesize : '
+        in: query
+        name: pagesize
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/response.Response'
+        "422":
+          description: Unprocessable Entity
+          schema:
+            $ref: '#/definitions/response.Response'
+      security:
+      - BearerAuth: []
+      summary: list favorite list of workers for users
+      tags:
+      - User
   /user/list-workers-with-job:
     get:
       operationId: list all job with workers for users
@@ -691,7 +721,7 @@ paths:
         required: true
         schema:
           allOf:
-          - $ref: '#/definitions/domain.Login'
+          - $ref: '#/definitions/domain.User'
           - properties:
               password:
                 type: string
@@ -780,7 +810,7 @@ paths:
         required: true
         schema:
           allOf:
-          - $ref: '#/definitions/domain.Login'
+          - $ref: '#/definitions/domain.User'
           - properties:
               password:
                 type: string
@@ -1024,7 +1054,7 @@ paths:
         required: true
         schema:
           allOf:
-          - $ref: '#/definitions/domain.Login'
+          - $ref: '#/definitions/domain.User'
           - properties:
               password:
                 type: string
@@ -1078,7 +1108,7 @@ paths:
         required: true
         schema:
           allOf:
-          - $ref: '#/definitions/domain.Login'
+          - $ref: '#/definitions/domain.User'
           - properties:
               password:
                 type: string
