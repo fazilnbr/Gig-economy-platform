@@ -24,7 +24,14 @@ func (c *userUseCase) ListFevorite(pagenation utils.Filter, id int) (*[]domain.L
 
 // AddToFavorite implements interfaces.UserUseCase
 func (c *userUseCase) AddToFavorite(favorite domain.Favorite) (int, error) {
-	id, err := c.userRepo.AddToFavorite(favorite)
+	id, err := c.userRepo.CheckInFevorite(favorite)
+	if err != nil {
+		return id, err
+	}
+	if id != 0 {
+		return id, errors.New("You already added this job to your list")
+	}
+	id, err = c.userRepo.AddToFavorite(favorite)
 	return id, err
 }
 
