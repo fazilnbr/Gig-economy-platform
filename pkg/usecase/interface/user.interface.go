@@ -6,7 +6,7 @@ import (
 )
 
 type UserUseCase interface {
-	CreateUser(newUser domain.Login) error
+	CreateUser(newUser domain.User) error
 	FindUser(email string) (*domain.UserResponse, error)
 	VerifyUser(email string, password string) error
 	AddProfile(userProfile domain.Profile, id int) error
@@ -15,4 +15,5 @@ type UserUseCase interface {
 	UserChangePassword(changepassword string, id int) error
 	ListWorkersWithJob(pagenation utils.Filter) (*[]domain.ListJobsWithWorker, *utils.Metadata, error)
 	SearchWorkersWithJob(pagenation utils.Filter, key string) (*[]domain.ListJobsWithWorker, *utils.Metadata, error)
+	AddToFavorite(favorite domain.Favorite) (int, error)
 }

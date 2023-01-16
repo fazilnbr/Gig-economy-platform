@@ -10,7 +10,7 @@ import (
 	"github.com/stretchr/testify/assert"
 )
 
-var Login = domain.Login{
+var Login = domain.User{
 	UserName: utils.RandomString(6),
 	Password: fmt.Sprint(utils.RandomInt(10000, 99999)),
 }
@@ -20,7 +20,7 @@ func TestInsertUser(t *testing.T) {
 	t.Run("test normal case repo register", func(t *testing.T) {
 		gormDB, mock := utils.MockGormDB()
 
-		query := "INSERT INTO logins (user_name,password,user_type) VALUES (?,?,?) RETURNING id_login;"
+		query := "INSERT INTO users (user_name,password,user_type) VALUES (?,?,?) RETURNING id_login;"
 		mock.ExpectExec(query).
 			WithArgs(sqlmock.AnyArg(), sqlmock.AnyArg(), Login.UserName, Login.Password, "user").
 			WillReturnResult(sqlmock.NewResult(1, 1))

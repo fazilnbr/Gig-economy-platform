@@ -14,13 +14,13 @@ import (
 const (
 	listjob = `select COUNT(*) OVER(),t1.id_job,t2.user_name, t3.category        
 	from jobs t1 
-	inner join logins t2 on t1.id_worker = t2.id_login
+	inner join users t2 on t1.id_worker = t2.id_login
 	inner join categories t3 on t1.category_id=t3.id_category
 	LIMIT $1 OFFSET $2;`
 	listjobsearch = `select COUNT(*) OVER(),t1.id_job,t2.user_name, t3.category        
 	from jobs t1 
-	inner join logins t2 on t1.id_worker = t2.id_login
-	inner join categories t3 on t1.category_id=t3.id_category WHERE category LIKE '%' || $1 || '%'
+	inner join users t2 on t1.id_worker = t2.id_login
+	inner join categories t3 on t1.category_id=t3.id_category WHERE category ILIKE '%' || $1 || '%'
 	LIMIT $2 OFFSET $3;`
 )
 
@@ -31,11 +31,11 @@ type userRepo struct {
 // AddToFavorite implements interfaces.UserRepository
 func (c *userRepo) AddToFavorite(favorite domain.Favorite) (int, error) {
 	var Id int
-	query := `INSERT INTO favorites (user_id,worker_id) VALUES ($1,$2) RETURNING id_favorite;`
+	query := `INSERT INTO favorites (user_id,job_id) VALUES ($1,$2) RETURNING id_favorite;`
 
 	err := c.db.QueryRow(query,
 		favorite.UserId,
-		favorite.WorkerId,
+		favorite.JobId,
 	).Scan(
 		&Id,
 	)
@@ -132,7 +132,7 @@ func (c *userRepo) ListWorkersWithJob(pagenation utils.Filter) ([]domain.ListJob
 func (c *userRepo) UserChangePassword(changepassword string, id int) (int, error) {
 	var Id int
 	fmt.Println("id", id)
-	query := ` UPDATE logins
+	query := ` UPDATE users
 	SET password = $1
 	WHERE id_login = $2
 	RETURNING id_login;
@@ -240,7 +240,7 @@ func (c *userRepo) VerifyAccount(email string, code int) error {
 		return err
 	}
 
-	query = `UPDATE logins 
+	query = `UPDATE users 
 				SET
 				verification = $1
 				WHERE
@@ -263,7 +263,7 @@ func (c *userRepo) VerifyAccount(email string, code int) error {
 func (c *userRepo) FindUser(email string) (domain.UserResponse, error) {
 	var user domain.UserResponse
 
-	query := `SELECT id_login,user_name,password,verification  FROM logins WHERE user_name=$1 AND user_type='user' ;`
+	query := `SELECT id_login,user_name,password,verification  FROM users WHERE user_name=$1 AND user_type='user' ;`
 
 	err := c.db.QueryRow(query,
 		email).Scan(
@@ -281,10 +281,10 @@ func (c *userRepo) FindUser(email string) (domain.UserResponse, error) {
 }
 
 // InsertUser implements interfaces.UserRepository
-func (c *userRepo) InsertUser(login domain.Login) (int, error) {
+func (c *userRepo) InsertUser(login domain.User) (int, error) {
 	var id int
 
-	query := `INSERT INTO logins (user_name,password,user_type) VALUES ($1,$2,$3) RETURNING id_login;`
+	query := `INSERT INTO users (user_name,password,user_type) VALUES ($1,$2,$3) RETURNING id_login;`
 
 	err := c.db.QueryRow(query,
 		login.UserName,

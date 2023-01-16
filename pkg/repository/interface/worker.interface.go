@@ -6,7 +6,7 @@ import (
 )
 
 type WorkerRepository interface {
-	InsertWorker(newWorker domain.Login) (int, error)
+	InsertWorker(newWorker domain.User) (int, error)
 	// AddProfile(workerProfile domain.Profile, id int) (int, error)
 	FindWorker(email string) (domain.WorkerResponse, error)
 	StoreVerificationDetails(email string, code int) error

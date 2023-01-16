@@ -3,7 +3,7 @@ package domain
 import "gorm.io/gorm"
 
 // user schema for user table to get listed all users
-type Login struct {
+type User struct {
 	// gorm.Model
 
 	IdLogin      int    `json:"-" gorm:"primaryKey;autoIncrement:true;unique"`
@@ -16,7 +16,7 @@ type Login struct {
 type Profile struct {
 	IdUser        int    `json:"-" gorm:"primaryKey;autoIncrement:true;unique"`
 	LoginId       int    `json:"-" gorm:"unique"`
-	Login         Login  `json:"-" gorm:"foreignKey:LoginId;references:IdLogin"`
+	Login         User   `json:"-" gorm:"foreignKey:LoginId;references:IdLogin"`
 	Name          string `json:"name"`
 	Gender        string `json:"gender"`
 	DateOfBirth   string `json:"dateofbirth"`
@@ -47,15 +47,15 @@ type Job struct {
 	CategoryId  int      `json:"categoryid" gorm:"not null"`
 	Category    Category `json:"-" gorm:"foreignKey:CategoryId;references:IdCategory"`
 	IdWorker    int      `json:"-" gorm:"not null"`
-	Login       Login    `json:"-" gorm:"foreignKey:IdWorker;references:IdLogin"`
+	Login       User     `json:"-" gorm:"foreignKey:IdWorker;references:IdLogin"`
 	Wage        int      `json:"wage" gorm:"not null"`
 	Description string   `json:"desctription"`
 }
 
 type Favorite struct {
-	IdFavorite int `gorm:"primaryKey;autoIncrement:true;unique"`
-	UserId     int
-	User       Login `json:"-" gorm:"foreignKey:UserId;references:IdLogin"`
-	WorkerId   int
-	Worker     Login `json:"-" gorm:"foreignKey:WorkerId;references:IdLogin"`
+	IdFavorite int  `json:"-" gorm:"primaryKey;autoIncrement:true;unique"`
+	UserId     int  `json:"-"`
+	User       User `json:"-" gorm:"foreignKey:UserId;references:IdLogin"`
+	JobId      int  `json:"jobid" `
+	job        Job  `json:"-" gorm:"foreignKey:JobId;references:IdJob;unique"`
 }
