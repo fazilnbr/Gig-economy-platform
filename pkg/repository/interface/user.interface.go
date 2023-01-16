@@ -16,5 +16,6 @@ type UserRepository interface {
 	ListWorkersWithJob(pagenation utils.Filter) ([]domain.ListJobsWithWorker, utils.Metadata, error)
 	SearchWorkersWithJob(pagenation utils.Filter, key string) ([]domain.ListJobsWithWorker, utils.Metadata, error)
 	AddToFavorite(favorite domain.Favorite) (int, error)
+	CheckInFevorite(favorite domain.Favorite) (int, error)
 	ListFevorite(pagenation utils.Filter, id int) ([]domain.ListFavorite, utils.Metadata, error)
 }
