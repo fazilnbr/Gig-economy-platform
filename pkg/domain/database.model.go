@@ -55,5 +55,7 @@ type Job struct {
 type Favorite struct {
 	IdFavorite int `gorm:"primaryKey;autoIncrement:true;unique"`
 	UserId     int
+	User       Login `json:"-" gorm:"foreignKey:UserId;references:IdLogin"`
 	WorkerId   int
+	Worker     Login `json:"-" gorm:"foreignKey:WorkerId;references:IdLogin"`
 }
