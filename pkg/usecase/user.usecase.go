@@ -15,6 +15,13 @@ type userUseCase struct {
 	userRepo interfaces.UserRepository
 }
 
+// ListFevorite implements interfaces.UserUseCase
+func (c *userUseCase) ListFevorite(pagenation utils.Filter, id int) (*[]domain.ListFavorite, *utils.Metadata, error) {
+	favorites, metadata, err := c.userRepo.ListFevorite(pagenation, id)
+
+	return &favorites, &metadata, err
+}
+
 // AddToFavorite implements interfaces.UserUseCase
 func (c *userUseCase) AddToFavorite(favorite domain.Favorite) (int, error) {
 	id, err := c.userRepo.AddToFavorite(favorite)
