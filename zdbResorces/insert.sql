@@ -1,4 +1,4 @@
-\COPY logins (user_name,password,user_type,verification,status) from 'logins.txt' WITH  DELIMITER ',';
+\COPY users (user_name,password,user_type,verification,status) from 'logins.txt' WITH  DELIMITER ',';
 
 \COPY profiles (login_id,name,gender,date_of_birth,house_name,place,post,pin,contact_number,email_id,photo) from 'profiles.txt' WITH  DELIMITER ',';
 

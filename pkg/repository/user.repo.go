@@ -22,10 +22,60 @@ const (
 	inner join users t2 on t1.id_worker = t2.id_login
 	inner join categories t3 on t1.category_id=t3.id_category WHERE category ILIKE '%' || $1 || '%'
 	LIMIT $2 OFFSET $3;`
+	ListFavorite = `SELECT COUNT(*) OVER(),F.id_favorite,P.name,P.photo,C.category,J.wage,J.description
+	FROM jobs J
+	INNER JOIN categories C ON J.category_id=C.id_category
+	INNER JOIN profiles P ON J.id_worker=P.login_id
+	INNER JOIN favorites F ON F.job_id=J.id_job
+	WHERE F.user_id=2
+	LIMIT $2 OFFSET $3;`
 )
 
 type userRepo struct {
 	db *sql.DB
+}
+
+// ListFevorite implements interfaces.UserRepository
+func (c *userRepo) ListFevorite(pagenation utils.Filter, id int) ([]domain.ListFavorite, utils.Metadata, error) {
+	var favorites []domain.ListFavorite
+
+	rows, err := c.db.Query(ListFavorite, id, pagenation.Limit(), pagenation.Offset())
+
+	if err != nil {
+		return favorites, utils.Metadata{}, err
+	}
+
+	var totalRecords int
+
+	defer rows.Close()
+
+	for rows.Next() {
+		var favorite domain.ListFavorite
+
+		err = rows.Scan(
+			&totalRecords,
+			&favorite.FavoriteId,
+			&favorite.Name,
+			&favorite.Photo,
+			&favorite.JobCategory,
+			&favorite.Wage,
+			&favorite.Description,
+		)
+
+		if err != nil {
+			return favorites, utils.ComputeMetaData(totalRecords, pagenation.Page, pagenation.PageSize), err
+		}
+
+		favorites = append(favorites, favorite)
+	}
+	fmt.Printf("\n\nusers : %v\n\n", favorites)
+
+	if err := rows.Err(); err != nil {
+		return favorites, utils.ComputeMetaData(totalRecords, pagenation.Page, pagenation.PageSize), err
+	}
+	log.Println(favorites)
+	log.Println(utils.ComputeMetaData(totalRecords, pagenation.Page, pagenation.PageSize))
+	return favorites, utils.ComputeMetaData(totalRecords, pagenation.Page, pagenation.PageSize), nil
 }
 
 // AddToFavorite implements interfaces.UserRepository
