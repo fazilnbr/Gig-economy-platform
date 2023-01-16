@@ -85,7 +85,7 @@ func (c *workerService) AddProfile(workerProfile domain.Profile, id int) error {
 }
 
 // CreateUser implements interfaces.WorkerUseCase
-func (c *workerService) CreateUser(newWorker domain.Login) error {
+func (c *workerService) CreateUser(newWorker domain.User) error {
 	_, err := c.workerRepo.FindWorker(newWorker.UserName)
 
 	if err == nil {

@@ -6,7 +6,7 @@ import (
 )
 
 type WorkerUseCase interface {
-	CreateUser(newWorker domain.Login) error
+	CreateUser(newWorker domain.User) error
 	FindWorker(email string) (*domain.WorkerResponse, error)
 	SendVerificationEmail(email string) error
 	VerifyAccount(email string, code int) error

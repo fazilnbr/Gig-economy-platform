@@ -11,7 +11,7 @@ import (
 	"github.com/stretchr/testify/assert"
 )
 
-var Login = domain.Login{
+var Login = domain.User{
 	UserName: utils.RandomString(6),
 	Password: fmt.Sprint(utils.RandomInt(10000, 99999)),
 }

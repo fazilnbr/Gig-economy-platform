@@ -78,7 +78,7 @@ func (c *userUseCase) AddProfile(userProfile domain.Profile, id int) error {
 }
 
 // CreateUser implements interfaces.UserService
-func (c *userUseCase) CreateUser(newUser domain.Login) error {
+func (c *userUseCase) CreateUser(newUser domain.User) error {
 	_, err := c.userRepo.FindUser(newUser.UserName)
 
 	if err == nil {

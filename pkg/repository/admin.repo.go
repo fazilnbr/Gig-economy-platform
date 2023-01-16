@@ -100,7 +100,7 @@ func (c *adminRepo) AddJobCategory(category string) error {
 func (c *adminRepo) ActivateWorker(id int) (domain.UserResponse, error) {
 	var user domain.UserResponse
 
-	query := `UPDATE logins SET status = 'unblocked' WHERE id_login=$1  RETURNING id_login,user_name,password;`
+	query := `UPDATE users SET status = 'unblocked' WHERE id_login=$1  RETURNING id_login,user_name,password;`
 
 	err := c.db.QueryRow(query, id).Scan(
 		&user.ID,
@@ -115,7 +115,7 @@ func (c *adminRepo) ActivateWorker(id int) (domain.UserResponse, error) {
 func (c *adminRepo) BlockWorker(id int) (domain.UserResponse, error) {
 	var user domain.UserResponse
 
-	query := `UPDATE logins SET status = 'blocked' WHERE id_login=$1  RETURNING id_login,user_name,password;`
+	query := `UPDATE users SET status = 'blocked' WHERE id_login=$1  RETURNING id_login,user_name,password;`
 
 	err := c.db.QueryRow(query, id).Scan(
 		&user.ID,
@@ -134,7 +134,7 @@ func (c *adminRepo) ListBlockedWorkers(pagenation utils.Filter) ([]domain.UserRe
 			  id_login,
 			  user_name,
 			  password 		
-			  FROM logins 
+			  FROM users 
 			  WHERE user_type='worker' 
 			  AND verification='true' 
 			  AND status='blocked'
@@ -182,7 +182,7 @@ func (c *adminRepo) ListNewWorkers(pagenation utils.Filter) ([]domain.UserRespon
 			  id_login,
 			  user_name,
 			  password 		
-			  FROM logins 
+			  FROM users 
 			  WHERE user_type='worker' 
 			  AND verification='true' 
 			  AND status='newuser'
@@ -230,7 +230,7 @@ func (c *adminRepo) ListWorkers(pagenation utils.Filter) ([]domain.UserResponse,
 			  id_login,
 			  user_name,
 			  password 		
-			  FROM logins 
+			  FROM users 
 			  WHERE user_type='worker' 
 			  AND verification='true' 
 			  AND status='unblocked'
@@ -275,7 +275,7 @@ func (c *adminRepo) ListWorkers(pagenation utils.Filter) ([]domain.UserResponse,
 func (c *adminRepo) ActivateUser(id int) (domain.UserResponse, error) {
 	var user domain.UserResponse
 
-	query := `UPDATE logins SET status = 'unblocked' WHERE id_login=$1  RETURNING id_login,user_name,password;`
+	query := `UPDATE users SET status = 'unblocked' WHERE id_login=$1  RETURNING id_login,user_name,password;`
 
 	err := c.db.QueryRow(query, id).Scan(
 		&user.ID,
@@ -290,7 +290,7 @@ func (c *adminRepo) ActivateUser(id int) (domain.UserResponse, error) {
 func (c *adminRepo) BlockUser(id int) (domain.UserResponse, error) {
 	var user domain.UserResponse
 
-	query := `UPDATE logins SET status = 'blocked' WHERE id_login=$1  RETURNING id_login,user_name,password;`
+	query := `UPDATE users SET status = 'blocked' WHERE id_login=$1  RETURNING id_login,user_name,password;`
 
 	err := c.db.QueryRow(query, id).Scan(
 		&user.ID,
@@ -305,7 +305,7 @@ func (c *adminRepo) BlockUser(id int) (domain.UserResponse, error) {
 func (c *adminRepo) FindAdmin(email string) (domain.AdminResponse, error) {
 	var admin domain.AdminResponse
 
-	query := `SELECT id_login,user_name,password  FROM logins WHERE user_name=$1 AND user_type='admin';`
+	query := `SELECT id_login,user_name,password  FROM users WHERE user_name=$1 AND user_type='admin';`
 
 	err := c.db.QueryRow(query, email).Scan(
 		&admin.ID,
@@ -324,7 +324,7 @@ func (c *adminRepo) ListBlockedUsers(pagenation utils.Filter) ([]domain.UserResp
 			  id_login,
 			  user_name,
 			  password 		
-			  FROM logins 
+			  FROM users 
 			  WHERE user_type='user' 
 			  AND verification='true' 
 			  AND status='blocked'
@@ -372,7 +372,7 @@ func (c *adminRepo) ListNewUsers(pagenation utils.Filter) ([]domain.UserResponse
 			  id_login,
 			  user_name,
 			  password 		
-			  FROM logins 
+			  FROM users 
 			  WHERE user_type='user' 
 			  AND verification='true' 
 			  AND status='newuser'
@@ -421,7 +421,7 @@ func (c *adminRepo) ListUsers(pagenation utils.Filter) ([]domain.UserResponse, u
 			  id_login,
 			  user_name,
 			  password 		
-			  FROM logins 
+			  FROM users 
 			  WHERE user_type='user' 
 			  AND verification='true' 
 			  AND status='unblocked'

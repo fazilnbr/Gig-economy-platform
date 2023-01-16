@@ -19,11 +19,7 @@ definitions:
     type: object
   domain.Favorite:
     properties:
-      idFavorite:
-        type: integer
-      userId:
-        type: integer
-      workerId:
+      jobid:
         type: integer
     type: object
   domain.Job:

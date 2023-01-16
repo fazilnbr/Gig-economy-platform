@@ -81,12 +81,12 @@ func (cr *AuthHandler) RefreshToken(c *gin.Context) {
 // @Tags Admin
 // @accept json
 // @Produce json
-// @Param AdminLogin body domain.Login{username=string,password=string} true "admin login"
+// @Param AdminLogin body domain.User{username=string,password=string} true "admin login"
 // @Success 200 {object} response.Response{}
 // @Failure 422 {object} response.Response{}
 // @Router /admin/login [post]
 func (cr *AuthHandler) AdminLogin(c *gin.Context) {
-	var loginAdmin domain.Login
+	var loginAdmin domain.User
 
 	fmt.Print("\n\nhi\n\n")
 	c.Bind(&loginAdmin)
@@ -139,12 +139,12 @@ func (cr *AuthHandler) AdminLogin(c *gin.Context) {
 // @Tags User
 // @Produce json
 // @Tags User
-// @Param WorkerLogin body domain.Login{username=string,password=string} true "Worker Login"
+// @Param WorkerLogin body domain.User{username=string,password=string} true "Worker Login"
 // @Success 200 {object} response.Response{}
 // @Failure 422 {object} response.Response{}
 // @Router /user/signup [post]
 func (cr *AuthHandler) UserSignUp(c *gin.Context) {
-	var newUser domain.Login
+	var newUser domain.User
 	fmt.Printf("\n\nerrrrrrr : %v\n\n", c.Bind(&newUser))
 
 	err := c.Bind(&newUser)
@@ -178,12 +178,12 @@ func (cr *AuthHandler) UserSignUp(c *gin.Context) {
 // @ID login authentication
 // @Tags User
 // @Produce json
-// @Param WorkerLogin body domain.Login{username=string,password=string} true "Worker Login"
+// @Param WorkerLogin body domain.User{username=string,password=string} true "Worker Login"
 // @Success 200 {object} response.Response{}
 // @Failure 422 {object} response.Response{}
 // @Router /user/login [post]
 func (cr *AuthHandler) UserLogin(c *gin.Context) {
-	var loginUser domain.Login
+	var loginUser domain.User
 
 	c.Bind(&loginUser)
 
@@ -234,12 +234,12 @@ func (cr *AuthHandler) UserLogin(c *gin.Context) {
 // @ID Worker SignUp authentication
 // @Tags Worker
 // @Produce json
-// @Param WorkerSignup body domain.Login{username=string,password=string} true "Worker Signup"
+// @Param WorkerSignup body domain.User{username=string,password=string} true "Worker Signup"
 // @Success 200 {object} response.Response{}
 // @Failure 422 {object} response.Response{}
 // @Router /worker/signup [post]
 func (cr *AuthHandler) WorkerSignUp(c *gin.Context) {
-	var newUser domain.Login
+	var newUser domain.User
 
 	c.Bind(&newUser)
 
@@ -269,12 +269,12 @@ func (cr *AuthHandler) WorkerSignUp(c *gin.Context) {
 // @ID worker login authentication
 // @Tags Worker
 // @Produce json
-// @Param WorkerLogin body domain.Login{username=string,password=string} true "Worker Login"
+// @Param WorkerLogin body domain.User{username=string,password=string} true "Worker Login"
 // @Success 200 {object} response.Response{}
 // @Failure 422 {object} response.Response{}
 // @Router /worker/login [post]
 func (cr *AuthHandler) WorkerLogin(c *gin.Context) {
-	var loginWorker domain.Login
+	var loginWorker domain.User
 
 	c.Bind(&loginWorker)
 

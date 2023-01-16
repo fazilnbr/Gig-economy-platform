@@ -170,7 +170,7 @@ func (c *workerRepository) ListJobCategoryUser(pagenation utils.Filter) ([]domai
 func (c *workerRepository) WorkerChangePassword(changepassword string, id int) (int, error) {
 	var Id int
 	fmt.Println("id", id)
-	query := ` UPDATE logins
+	query := ` UPDATE users
 	SET password = $1
 	WHERE id_login = $2
 	RETURNING id_login;
@@ -257,7 +257,7 @@ func (c *workerRepository) WorkerAddProfile(workerProfile domain.Profile, id int
 func (c *workerRepository) FindWorker(email string) (domain.WorkerResponse, error) {
 	var worker domain.WorkerResponse
 
-	query := `SELECT id_login,user_name,password  FROM logins WHERE user_name=$1 AND user_type='worker';`
+	query := `SELECT id_login,user_name,password  FROM users WHERE user_name=$1 AND user_type='worker';`
 
 	err := c.db.QueryRow(query,
 		email).Scan(
@@ -271,10 +271,10 @@ func (c *workerRepository) FindWorker(email string) (domain.WorkerResponse, erro
 }
 
 // InsertWorker implements interfaces.WorkerRepository
-func (c *workerRepository) InsertWorker(newWorker domain.Login) (int, error) {
+func (c *workerRepository) InsertWorker(newWorker domain.User) (int, error) {
 	var id int
 
-	query := `INSERT INTO logins (user_name,password,user_type) VALUES ($1,$2,$3) RETURNING id_login;`
+	query := `INSERT INTO users (user_name,password,user_type) VALUES ($1,$2,$3) RETURNING id_login;`
 
 	err := c.db.QueryRow(query,
 		newWorker.UserName,
@@ -309,7 +309,7 @@ func (c *workerRepository) VerifyAccount(email string, code int) error {
 		return err
 	}
 
-	query = `UPDATE logins 
+	query = `UPDATE users 
 	SET
 	verification = $1
 	WHERE

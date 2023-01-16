@@ -1750,13 +1750,7 @@ const docTemplate = `{
         "domain.Favorite": {
             "type": "object",
             "properties": {
-                "idFavorite": {
-                    "type": "integer"
-                },
-                "userId": {
-                    "type": "integer"
-                },
-                "workerId": {
+                "jobid": {
                     "type": "integer"
                 }
             }

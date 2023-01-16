@@ -1,0 +1,4 @@
+1,5,1200,I have 3 year experiance at welding
+2,5,1000,I have 2 year expiriance as plumber
+4,6,1500,I have 5 year expiriance as painter
+6,6,800,I have 2 year expiriance as mechanic

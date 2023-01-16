@@ -6,7 +6,7 @@ import (
 )
 
 type UserRepository interface {
-	InsertUser(login domain.Login) (int, error)
+	InsertUser(login domain.User) (int, error)
 	FindUser(email string) (domain.UserResponse, error)
 	StoreVerificationDetails(email string, code int) error
 	VerifyAccount(email string, code int) error

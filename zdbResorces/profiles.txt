@@ -1,0 +1,5 @@
+2,Sethu Kumar   ,Male,17-10-2002,Parakkal,Idukki,Chinnar,685501,7025498334,sethukumarj.76@gmail.com,sethu.jpg
+3,Jaseela       ,Female,04-10-2002,Kilikkode,Perumbavor,Perumbavor,679332,9945342345,jaseela@gmail.com,jaseela.jpg
+4,Ajal CK       ,Male,24-03-2001,Chayilot,Kannur,Mamba,670611,7907673133,ack6627@gmail.com,ajal.jpg
+5,Fasil Muhammed,Male,17-01-2000,Kakkappara,Nilambur,Nallamthanni,679330,9946573296,fazilkp2000@gmail.com,fasil.jpg
+6,Prashath      ,Male ,01-10-1996,Prashanth Nivas,Attappadi,Thaloor,678585,9876567876,prashanthpn68@gmail.com,prshanth.jpg
