@@ -15,6 +15,12 @@ type userUseCase struct {
 	userRepo interfaces.UserRepository
 }
 
+// AddToFavorite implements interfaces.UserUseCase
+func (c *userUseCase) AddToFavorite(favorite domain.Favorite) (int, error) {
+	id, err := c.userRepo.AddToFavorite(favorite)
+	return id, err
+}
+
 // SearchWorkersWithJob implements interfaces.UserUseCase
 func (c *userUseCase) SearchWorkersWithJob(pagenation utils.Filter, key string) (*[]domain.ListJobsWithWorker, *utils.Metadata, error) {
 	jobs, metadata, err := c.userRepo.SearchWorkersWithJob(pagenation, key)
