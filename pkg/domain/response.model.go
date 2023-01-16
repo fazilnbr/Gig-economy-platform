@@ -55,3 +55,12 @@ type ListJobsWithWorker struct {
 	CategoryName string `json:"categoryname"`
 	WorkerName   string `json:"workername"`
 }
+
+type ListFavorite struct {
+	FavoriteId  int
+	Name        string
+	Photo       string
+	JobCategory string
+	Wage        int
+	Description string
+}
