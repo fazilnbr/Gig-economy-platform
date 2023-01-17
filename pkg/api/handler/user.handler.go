@@ -319,3 +319,37 @@ func (cr *UserHandler) ListFavorite(c *gin.Context) {
 	c.Writer.WriteHeader(http.StatusOK)
 	utils.ResponseJSON(*c, response)
 }
+
+// @Summary Add address for User
+// @ID user add address
+// @Tags User
+// @Security BearerAuth
+// @Produce json
+// @Param UserAddProfile body domain.Address{} true "User Add Profile"
+// @Success 200 {object} response.Response{}
+// @Failure 422 {object} response.Response{}
+// @Router /user/add-address [post]
+func (cr *UserHandler) UserAddAddress(c *gin.Context) {
+	id, _ := strconv.Atoi(c.Writer.Header().Get("id"))
+
+	fmt.Printf("\n\nidea : %v\n\n", id)
+	var address domain.Address
+
+	c.Bind(&address)
+	address.UserId = id
+	_, err := cr.userService.AddAddress(address)
+
+	if err != nil {
+		response := response.ErrorResponse("Error while adding profile", err.Error(), nil)
+		c.Writer.Header().Set("Content-Type", "application/json")
+		c.Writer.WriteHeader(http.StatusUnprocessableEntity)
+
+		utils.ResponseJSON(*c, response)
+		return
+	}
+
+	response := response.SuccessResponse(true, "SUCCESS", address)
+	c.Writer.Header().Set("Content-Type", "application/json")
+	c.Writer.WriteHeader(http.StatusOK)
+	utils.ResponseJSON(*c, response)
+}

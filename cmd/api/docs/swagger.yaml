@@ -1,4 +1,19 @@
 definitions:
+  domain.Address:
+    properties:
+      city:
+        type: string
+      houseName:
+        type: string
+      phone:
+        type: string
+      pin:
+        type: string
+      place:
+        type: string
+      post:
+        type: string
+    type: object
   domain.Category:
     properties:
       category:
@@ -545,6 +560,32 @@ paths:
       security:
       - BearerAuth: []
       summary: Varify JWT of users
+      tags:
+      - User
+  /user/add-address:
+    post:
+      operationId: user add address
+      parameters:
+      - description: User Add Profile
+        in: body
+        name: UserAddProfile
+        required: true
+        schema:
+          $ref: '#/definitions/domain.Address'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/response.Response'
+        "422":
+          description: Unprocessable Entity
+          schema:
+            $ref: '#/definitions/response.Response'
+      security:
+      - BearerAuth: []
+      summary: Add address for User
       tags:
       - User
   /user/add-profile:

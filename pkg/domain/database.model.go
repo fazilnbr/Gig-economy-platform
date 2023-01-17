@@ -59,3 +59,25 @@ type Favorite struct {
 	JobId      int  `json:"jobid" `
 	job        Job  `json:"-" gorm:"foreignKey:JobId;references:IdJob;unique"`
 }
+
+type Address struct {
+	IdAddress int  `json:"-" gorm:"primaryKey;autoIncrement:true;unique"`
+	UserId    int  `json:"-"`
+	User      User `json:"-" gorm:"foreignKey:UserId;references:IdLogin"`
+	HouseName string
+	Place     string
+	City      string
+	Post      string
+	Pin       string
+	Phone     string
+}
+
+type Request struct {
+	IdRequset int `json:"-" gorm:"primaryKey;autoIncrement:true;unique"`
+	UserId    int
+	User      User `json:"-" gorm:"foreignKey:UserId;references:IdLogin"`
+	AddressId int
+	Address   Address `json:"-" gorm:"foreignKey:AddressId;references:IdAddress"`
+	Status    string
+	Date      string
+}

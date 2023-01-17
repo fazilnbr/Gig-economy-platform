@@ -35,6 +35,27 @@ type userRepo struct {
 	db *sql.DB
 }
 
+// AddAddress implements interfaces.UserRepository
+func (c *userRepo) AddAddress(address domain.Address) (int, error) {
+	var Id int
+	query := `INSERT INTO addresses (user_id,house_name,place,city,post,pin,phone)
+			VALUES ($1,$2,$3,$4,$5,$6,$7) RETURNING id_address;`
+
+	err := c.db.QueryRow(query,
+		address.UserId,
+		address.HouseName,
+		address.Place,
+		address.City,
+		address.Post,
+		address.Pin,
+		address.Phone,
+	).Scan(
+		&Id,
+	)
+
+	return Id, err
+}
+
 // CheckInFevorite implements interfaces.UserRepository
 func (c *userRepo) CheckInFevorite(favorite domain.Favorite) (int, error) {
 	query := ` select count(*) from favorites where user_id=$1 and job_id=$2;
