@@ -329,7 +329,7 @@ func (cr *UserHandler) ListFavorite(c *gin.Context) {
 // @Success 200 {object} response.Response{}
 // @Failure 422 {object} response.Response{}
 // @Router /user/add-address [post]
-func (cr *UserHandler) UserAddress(c *gin.Context) {
+func (cr *UserHandler) UserAddAddress(c *gin.Context) {
 	id, _ := strconv.Atoi(c.Writer.Header().Get("id"))
 
 	fmt.Printf("\n\nidea : %v\n\n", id)
