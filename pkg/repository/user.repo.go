@@ -35,6 +35,39 @@ type userRepo struct {
 	db *sql.DB
 }
 
+// CheckInFevorite implements interfaces.UserRepository
+func (c *userRepo) CheckInFevorite(favorite domain.Favorite) (int, error) {
+	query := ` select count(*) from favorites where user_id=$1 and job_id=$2;
+	`
+
+	rows, err := c.db.Query(query,
+		favorite.UserId,
+		favorite.JobId,
+	)
+	fmt.Println("rows : ", rows)
+	if err != nil {
+		return 0, err
+	}
+	var id int
+
+	defer rows.Close()
+
+	for rows.Next() {
+
+		err = rows.Scan(
+			&id,
+		)
+
+		if err != nil {
+			return 0, err
+		}
+	}
+
+	fmt.Println("id : ", id)
+
+	return id, err
+}
+
 // ListFevorite implements interfaces.UserRepository
 func (c *userRepo) ListFevorite(pagenation utils.Filter, id int) ([]domain.ListFavorite, utils.Metadata, error) {
 	var favorites []domain.ListFavorite
