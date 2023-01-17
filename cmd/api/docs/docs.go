@@ -760,6 +760,48 @@ const docTemplate = `{
                 }
             }
         },
+        "/user/add-address": {
+            "post": {
+                "security": [
+                    {
+                        "BearerAuth": []
+                    }
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "User"
+                ],
+                "summary": "Add address for User",
+                "operationId": "user add address",
+                "parameters": [
+                    {
+                        "description": "User Add Profile",
+                        "name": "UserAddProfile",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/domain.Address"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/response.Response"
+                        }
+                    },
+                    "422": {
+                        "description": "Unprocessable Entity",
+                        "schema": {
+                            "$ref": "#/definitions/response.Response"
+                        }
+                    }
+                }
+            }
+        },
         "/user/add-profile": {
             "post": {
                 "security": [
@@ -1767,6 +1809,29 @@ const docTemplate = `{
         }
     },
     "definitions": {
+        "domain.Address": {
+            "type": "object",
+            "properties": {
+                "city": {
+                    "type": "string"
+                },
+                "houseName": {
+                    "type": "string"
+                },
+                "phone": {
+                    "type": "string"
+                },
+                "pin": {
+                    "type": "string"
+                },
+                "place": {
+                    "type": "string"
+                },
+                "post": {
+                    "type": "string"
+                }
+            }
+        },
         "domain.Category": {
             "type": "object",
             "properties": {
