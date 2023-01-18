@@ -16,10 +16,10 @@ type userUseCase struct {
 }
 
 // ListAddress implements interfaces.UserUseCase
-func (c *userUseCase) ListAddress(id int) ([]domain.Address, error) {
+func (c *userUseCase) ListAddress(id int) (*[]domain.Address, error) {
 	address, err := c.userRepo.ListAddress(id)
 
-	return address, err
+	return &address, err
 }
 
 // AddAddress implements interfaces.UserUseCase
