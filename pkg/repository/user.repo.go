@@ -35,6 +35,46 @@ type userRepo struct {
 	db *sql.DB
 }
 
+// ListAddress implements interfaces.UserRepository
+func (c *userRepo) ListAddress(id int) ([]domain.Address, error) {
+	var addresses []domain.Address
+
+	query := `select id_address,user_id,house_name,place,city,post,pin,phone from addresses where user_id=$1;`
+	rows, err := c.db.Query(query, id)
+
+	if err != nil {
+		return addresses, err
+	}
+
+	defer rows.Close()
+
+	for rows.Next() {
+		var address domain.Address
+
+		err = rows.Scan(
+			&address.IdAddress,
+			&address.UserId,
+			&address.HouseName,
+			&address.Place,
+			&address.City,
+			&address.Post,
+			&address.Pin,
+			&address.Phone,
+		)
+
+		if err != nil {
+			return addresses, err
+		}
+
+		addresses = append(addresses, address)
+	}
+
+	if err := rows.Err(); err != nil {
+		return addresses, err
+	}
+	return addresses, nil
+}
+
 // AddAddress implements interfaces.UserRepository
 func (c *userRepo) AddAddress(address domain.Address) (int, error) {
 	var Id int

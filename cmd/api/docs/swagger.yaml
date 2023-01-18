@@ -692,6 +692,25 @@ paths:
       summary: Edit profile for User
       tags:
       - User
+  /user/list-address:
+    get:
+      operationId: user list address
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/response.Response'
+        "422":
+          description: Unprocessable Entity
+          schema:
+            $ref: '#/definitions/response.Response'
+      security:
+      - BearerAuth: []
+      summary: List address for User
+      tags:
+      - User
   /user/list-favorite-list:
     get:
       operationId: list favorite list of workers for users

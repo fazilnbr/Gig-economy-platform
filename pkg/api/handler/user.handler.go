@@ -353,3 +353,31 @@ func (cr *UserHandler) UserAddAddress(c *gin.Context) {
 	c.Writer.WriteHeader(http.StatusOK)
 	utils.ResponseJSON(*c, response)
 }
+
+// @Summary List address for User
+// @ID user list address
+// @Tags User
+// @Security BearerAuth
+// @Produce json
+// @Success 200 {object} response.Response{}
+// @Failure 422 {object} response.Response{}
+// @Router /user/list-address [get]
+func (cr *UserHandler) UserListAddress(c *gin.Context) {
+	id, _ := strconv.Atoi(c.Writer.Header().Get("id"))
+
+	address, err := cr.userService.ListAddress(id)
+
+	if err != nil {
+		response := response.ErrorResponse("Error while adding profile", err.Error(), nil)
+		c.Writer.Header().Set("Content-Type", "application/json")
+		c.Writer.WriteHeader(http.StatusUnprocessableEntity)
+
+		utils.ResponseJSON(*c, response)
+		return
+	}
+
+	response := response.SuccessResponse(true, "SUCCESS", address)
+	c.Writer.Header().Set("Content-Type", "application/json")
+	c.Writer.WriteHeader(http.StatusOK)
+	utils.ResponseJSON(*c, response)
+}
