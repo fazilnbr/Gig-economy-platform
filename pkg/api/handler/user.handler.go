@@ -361,7 +361,7 @@ func (cr *UserHandler) UserAddAddress(c *gin.Context) {
 // @Produce json
 // @Success 200 {object} response.Response{}
 // @Failure 422 {object} response.Response{}
-// @Router /user/add-address [post]
+// @Router /user/list-address [get]
 func (cr *UserHandler) UserListAddress(c *gin.Context) {
 	id, _ := strconv.Atoi(c.Writer.Header().Get("id"))
 
