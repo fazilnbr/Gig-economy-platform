@@ -68,7 +68,6 @@ func (c *userRepo) ListAddress(id int) ([]domain.Address, error) {
 
 		addresses = append(addresses, address)
 	}
-	fmt.Printf("\n\nusers : %v\n\n", addresses)
 
 	if err := rows.Err(); err != nil {
 		return addresses, err

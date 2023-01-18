@@ -365,8 +365,6 @@ func (cr *UserHandler) UserAddAddress(c *gin.Context) {
 func (cr *UserHandler) UserListAddress(c *gin.Context) {
 	id, _ := strconv.Atoi(c.Writer.Header().Get("id"))
 
-	fmt.Printf("\n\nidea : %v\n\n", id)
-
 	address, err := cr.userService.ListAddress(id)
 
 	if err != nil {
