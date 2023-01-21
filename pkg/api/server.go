@@ -78,6 +78,7 @@ func NewServerHTTP(authHandler handler.AuthHandler, adminHandler handler.AdminHa
 				user.GET("/list-favorite-list", UserHandler.ListFavorite)
 				user.POST("add-address", UserHandler.UserAddAddress)
 				user.GET("/list-address", UserHandler.UserListAddress)
+				user.DELETE("/delete-address", UserHandler.DeleteAddress)
 			}
 		}
 
