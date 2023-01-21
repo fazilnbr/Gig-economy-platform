@@ -115,7 +115,7 @@ func (cr *UserHandler) UserChangePassword(c *gin.Context) {
 	err = cr.userService.UserVerifyPassword(changepassword, id)
 
 	if err != nil {
-		response := response.ErrorResponse("Wrong Email id or Password", err.Error(), nil)
+		response := response.ErrorResponse("Faild to verify user password", err.Error(), nil)
 		c.Writer.Header().Set("Content-Type", "application/json")
 		c.Writer.WriteHeader(http.StatusUnprocessableEntity)
 
@@ -166,7 +166,7 @@ func (cr *UserHandler) ListWorkersWithJob(c *gin.Context) {
 	jobs, metadata, err := cr.userService.ListWorkersWithJob(pagenation)
 
 	if err != nil {
-		response := response.ErrorResponse("Failed to list user", err.Error(), nil)
+		response := response.ErrorResponse("Failed to list worker with job", err.Error(), nil)
 		c.Writer.Header().Set("Content-Type", "application/json")
 		c.Writer.WriteHeader(http.StatusUnprocessableEntity)
 
@@ -215,7 +215,7 @@ func (cr *UserHandler) SearchWorkersWithJob(c *gin.Context) {
 	jobs, metadata, err := cr.userService.SearchWorkersWithJob(pagenation, searchkey)
 
 	if err != nil {
-		response := response.ErrorResponse("Failed to list user", err.Error(), nil)
+		response := response.ErrorResponse("Failed to search worker with job", err.Error(), nil)
 		c.Writer.Header().Set("Content-Type", "application/json")
 		c.Writer.WriteHeader(http.StatusUnprocessableEntity)
 
@@ -258,7 +258,7 @@ func (cr *UserHandler) UserAddToFavorite(c *gin.Context) {
 	_, err := cr.userService.AddToFavorite(favorite)
 
 	if err != nil {
-		response := response.ErrorResponse("Error while editing profile", err.Error(), nil)
+		response := response.ErrorResponse("Error while add to favorite worker", err.Error(), nil)
 		c.Writer.Header().Set("Content-Type", "application/json")
 		c.Writer.WriteHeader(http.StatusUnprocessableEntity)
 
@@ -298,7 +298,7 @@ func (cr *UserHandler) ListFavorite(c *gin.Context) {
 	favorites, metadata, err := cr.userService.ListFevorite(pagenation, id)
 
 	if err != nil {
-		response := response.ErrorResponse("Failed to list user", err.Error(), nil)
+		response := response.ErrorResponse("Failed to list favorite worker of user", err.Error(), nil)
 		c.Writer.Header().Set("Content-Type", "application/json")
 		c.Writer.WriteHeader(http.StatusUnprocessableEntity)
 
@@ -340,7 +340,7 @@ func (cr *UserHandler) UserAddAddress(c *gin.Context) {
 	_, err := cr.userService.AddAddress(address)
 
 	if err != nil {
-		response := response.ErrorResponse("Error while adding profile", err.Error(), nil)
+		response := response.ErrorResponse("Error while adding user address", err.Error(), nil)
 		c.Writer.Header().Set("Content-Type", "application/json")
 		c.Writer.WriteHeader(http.StatusUnprocessableEntity)
 
@@ -368,7 +368,7 @@ func (cr *UserHandler) UserListAddress(c *gin.Context) {
 	address, err := cr.userService.ListAddress(id)
 
 	if err != nil {
-		response := response.ErrorResponse("Error while adding profile", err.Error(), nil)
+		response := response.ErrorResponse("Error while list corrent addresses of users", err.Error(), nil)
 		c.Writer.Header().Set("Content-Type", "application/json")
 		c.Writer.WriteHeader(http.StatusUnprocessableEntity)
 
@@ -402,7 +402,7 @@ func (cr *UserHandler) DeleteAddress(c *gin.Context) {
 	err := cr.userService.DeleteAddress(id, userid)
 
 	if err != nil {
-		response := response.ErrorResponse("Error while editing profile", err.Error(), nil)
+		response := response.ErrorResponse("Error while deleting current address of user", err.Error(), nil)
 		c.Writer.Header().Set("Content-Type", "application/json")
 		c.Writer.WriteHeader(http.StatusUnprocessableEntity)
 
