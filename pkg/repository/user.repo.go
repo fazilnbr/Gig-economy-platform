@@ -35,6 +35,39 @@ type userRepo struct {
 	db *sql.DB
 }
 
+// CheckInRequest implements interfaces.UserRepository
+func (c *userRepo) CheckInRequest(request domain.Request) (int, error) {
+	query := `SELECT COUNT(*) FROM requests WHERE user_id=$1 AND job_id=$2 AND address_id=$3;`
+
+	rows, err := c.db.Query(query,
+		request.UserId,
+		request.JobId,
+		request.AddressId,
+	)
+	fmt.Println("rows : ", rows)
+	if err != nil {
+		return 0, err
+	}
+	var id int
+
+	defer rows.Close()
+
+	for rows.Next() {
+
+		err = rows.Scan(
+			&id,
+		)
+
+		if err != nil {
+			return 0, err
+		}
+	}
+
+	fmt.Println("id : ", id)
+
+	return id, err
+}
+
 // SendJobRequest implements interfaces.UserRepository
 func (c *userRepo) SendJobRequest(request domain.Request) (int, error) {
 	var Id int
@@ -129,8 +162,7 @@ func (c *userRepo) AddAddress(address domain.Address) (int, error) {
 
 // CheckInFevorite implements interfaces.UserRepository
 func (c *userRepo) CheckInFevorite(favorite domain.Favorite) (int, error) {
-	query := ` select count(*) from favorites where user_id=$1 and job_id=$2;
-	`
+	query := ` select count(*) from favorites where user_id=$1 and job_id=$2;`
 
 	rows, err := c.db.Query(query,
 		favorite.UserId,
