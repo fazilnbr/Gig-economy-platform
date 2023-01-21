@@ -15,6 +15,19 @@ type userUseCase struct {
 	userRepo interfaces.UserRepository
 }
 
+// SendJobRequest implements interfaces.UserUseCase
+func (c *userUseCase) SendJobRequest(request domain.Request) (int, error) {
+	id, err := c.userRepo.CheckInRequest(request)
+	if err != nil {
+		return id, err
+	}
+	if id != 0 {
+		return id, errors.New("You already added this job request")
+	}
+	id, err = c.userRepo.SendJobRequest(request)
+	return id, err
+}
+
 // DeleteAddress implements interfaces.UserUseCase
 func (c *userUseCase) DeleteAddress(id int, userid int) error {
 	err := c.userRepo.DeleteAddress(id, userid)
