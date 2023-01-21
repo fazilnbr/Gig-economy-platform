@@ -62,7 +62,7 @@ func (cr *AuthHandler) RefreshToken(c *gin.Context) {
 	accesstoken, err := cr.jwtUseCase.GenerateAccessToken(claims.UserId, claims.UserName, claims.Role)
 
 	if err != nil {
-		response := response.ErrorResponse("error generating refresh token login again", err.Error(), nil)
+		response := response.ErrorResponse("Failed to generating refresh token please login again", err.Error(), nil)
 		c.Writer.Header().Add("Content-Type", "application/json")
 		c.Writer.WriteHeader(http.StatusUnprocessableEntity)
 		utils.ResponseJSON(*c, response)
@@ -95,7 +95,7 @@ func (cr *AuthHandler) AdminLogin(c *gin.Context) {
 	err := cr.authUseCase.VerifyAdmin(loginAdmin.UserName, loginAdmin.Password)
 
 	if err != nil {
-		response := response.ErrorResponse("Failed to login", err.Error(), nil)
+		response := response.ErrorResponse("Failed to varifing Admin", err.Error(), nil)
 		c.Writer.Header().Set("Content-Type", "application/json")
 		c.Writer.WriteHeader(http.StatusUnprocessableEntity)
 
@@ -108,7 +108,7 @@ func (cr *AuthHandler) AdminLogin(c *gin.Context) {
 
 	token, err := cr.jwtUseCase.GenerateAccessToken(user.ID, user.Username, "admin")
 	if err != nil {
-		response := response.ErrorResponse("Failed to generate access token", err.Error(), nil)
+		response := response.ErrorResponse("Failed to generate access token please login again", err.Error(), nil)
 		c.Writer.Header().Add("Content-Type", "application/json")
 		c.Writer.WriteHeader(http.StatusUnauthorized)
 		utils.ResponseJSON(*c, response)
@@ -119,7 +119,7 @@ func (cr *AuthHandler) AdminLogin(c *gin.Context) {
 	token, err = cr.jwtUseCase.GenerateRefreshToken(user.ID, user.Username, "admin")
 
 	if err != nil {
-		response := response.ErrorResponse("Failed to generate refresh token", err.Error(), nil)
+		response := response.ErrorResponse("Failed to generate refresh token please login", err.Error(), nil)
 		c.Writer.Header().Add("Content-Type", "application/json")
 		c.Writer.WriteHeader(http.StatusUnauthorized)
 		utils.ResponseJSON(*c, response)
@@ -215,7 +215,7 @@ func (cr *AuthHandler) UserLogin(c *gin.Context) {
 	token, err = cr.jwtUseCase.GenerateRefreshToken(user.ID, user.UserName, "admin")
 
 	if err != nil {
-		response := response.ErrorResponse("Failed to generate refresh token", err.Error(), nil)
+		response := response.ErrorResponse("Failed to generate refresh token please login again", err.Error(), nil)
 		c.Writer.Header().Add("Content-Type", "application/json")
 		c.Writer.WriteHeader(http.StatusUnauthorized)
 		utils.ResponseJSON(*c, response)
@@ -295,7 +295,7 @@ func (cr *AuthHandler) WorkerLogin(c *gin.Context) {
 
 	token, err := cr.jwtUseCase.GenerateAccessToken(user.ID, user.UserName, "admin")
 	if err != nil {
-		response := response.ErrorResponse("Failed to generate access token", err.Error(), nil)
+		response := response.ErrorResponse("Failed to generate access token please login again", err.Error(), nil)
 		c.Writer.Header().Add("Content-Type", "application/json")
 		c.Writer.WriteHeader(http.StatusUnauthorized)
 		utils.ResponseJSON(*c, response)
@@ -306,7 +306,7 @@ func (cr *AuthHandler) WorkerLogin(c *gin.Context) {
 	token, err = cr.jwtUseCase.GenerateRefreshToken(user.ID, user.UserName, "admin")
 
 	if err != nil {
-		response := response.ErrorResponse("Failed to generate refresh token", err.Error(), nil)
+		response := response.ErrorResponse("Failed to generate refresh token please login again", err.Error(), nil)
 		c.Writer.Header().Add("Content-Type", "application/json")
 		c.Writer.WriteHeader(http.StatusUnauthorized)
 		utils.ResponseJSON(*c, response)
@@ -340,7 +340,7 @@ func (cr *AuthHandler) SendVerificationMailUser(c *gin.Context) {
 	}
 
 	if err != nil {
-		response := response.ErrorResponse("Error while sending verification mail", err.Error(), nil)
+		response := response.ErrorResponse("Error while sending verification mail to user", err.Error(), nil)
 		c.Writer.Header().Set("Content-Type", "application/json")
 		c.Writer.WriteHeader(http.StatusUnprocessableEntity)
 
@@ -395,7 +395,7 @@ func (cr *AuthHandler) UserVerifyAccount(c *gin.Context) {
 	err := cr.authUseCase.UserVerifyAccount(email, code)
 
 	if err != nil {
-		response := response.ErrorResponse("Error while sending verification mail", err.Error(), nil)
+		response := response.ErrorResponse("Error while verifing user mail", err.Error(), nil)
 		c.Writer.Header().Set("Content-Type", "application/json")
 		c.Writer.WriteHeader(http.StatusUnprocessableEntity)
 
@@ -428,7 +428,7 @@ func (cr *AuthHandler) SendVerificationMailWorker(c *gin.Context) {
 	}
 
 	if err != nil {
-		response := response.ErrorResponse("Error while sending verification mail", err.Error(), nil)
+		response := response.ErrorResponse("Error while sending verification mail to worker", err.Error(), nil)
 		c.Writer.Header().Set("Content-Type", "application/json")
 		c.Writer.WriteHeader(http.StatusUnprocessableEntity)
 
@@ -483,7 +483,7 @@ func (cr *AuthHandler) WorkerVerifyAccount(c *gin.Context) {
 	err := cr.authUseCase.WorkerVerifyAccount(email, code)
 
 	if err != nil {
-		response := response.ErrorResponse("Error while sending verification mail", err.Error(), nil)
+		response := response.ErrorResponse("Error while verifing worker mail", err.Error(), nil)
 		c.Writer.Header().Set("Content-Type", "application/json")
 		c.Writer.WriteHeader(http.StatusUnprocessableEntity)
 
@@ -510,7 +510,7 @@ func (cr *AuthHandler) WorkerVerifyAccount(c *gin.Context) {
 func (cr *AuthHandler) UserHome(c *gin.Context) {
 	email := c.Query("email")
 
-	response := response.SuccessResponse(true, "welcome home", email)
+	response := response.SuccessResponse(true, "Welcome to user home", email)
 	c.Writer.Header().Set("Content-Type", "application/json")
 	c.Writer.WriteHeader(http.StatusOK)
 	utils.ResponseJSON(*c, response)
@@ -528,7 +528,7 @@ func (cr *AuthHandler) UserHome(c *gin.Context) {
 func (cr *AuthHandler) WorkerHome(c *gin.Context) {
 	email := c.Query("email")
 
-	response := response.SuccessResponse(true, "welcome home", email)
+	response := response.SuccessResponse(true, "Welcome eorker home", email)
 	c.Writer.Header().Set("Content-Type", "application/json")
 	c.Writer.WriteHeader(http.StatusOK)
 	utils.ResponseJSON(*c, response)
@@ -545,7 +545,7 @@ func (cr *AuthHandler) WorkerHome(c *gin.Context) {
 func (cr *AuthHandler) AdminHome(c *gin.Context) {
 	email := c.Query("email")
 
-	response := response.SuccessResponse(true, "welcome home", email)
+	response := response.SuccessResponse(true, "Welcome admin home", email)
 	c.Writer.Header().Set("Content-Type", "application/json")
 	c.Writer.WriteHeader(http.StatusOK)
 	utils.ResponseJSON(*c, response)
