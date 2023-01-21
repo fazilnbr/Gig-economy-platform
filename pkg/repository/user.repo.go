@@ -35,6 +35,22 @@ type userRepo struct {
 	db *sql.DB
 }
 
+// SendJobRequest implements interfaces.UserRepository
+func (c *userRepo) SendJobRequest(request domain.Request) (int, error) {
+	var Id int
+	query := `INSERT INTO requests (user_id,job_id,address_id) VALUES($1,$2,$3) RETURNING id_requset;`
+
+	err := c.db.QueryRow(query,
+		request.UserId,
+		request.JobId,
+		request.AddressId,
+	).Scan(
+		&Id,
+	)
+
+	return Id, err
+}
+
 // DeleteAddress implements interfaces.UserRepository
 func (c *userRepo) DeleteAddress(id int, userid int) error {
 	query := `DELETE FROM addresses WHERE id_address=$1 AND user_id=$2 RETURNING id_address;`

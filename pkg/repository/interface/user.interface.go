@@ -21,4 +21,5 @@ type UserRepository interface {
 	AddAddress(address domain.Address) (int, error)
 	ListAddress(id int) ([]domain.Address, error)
 	DeleteAddress(id int, userid int) error
+	SendJobRequest(request domain.Request) (int, error)
 }
