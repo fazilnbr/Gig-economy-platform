@@ -43,7 +43,7 @@ func (cr *WorkerHandler) WorkerAddProfile(c *gin.Context) {
 	err := cr.workerService.AddProfile(userprofile, id)
 
 	if err != nil {
-		response := response.ErrorResponse("Error while adding profile", err.Error(), nil)
+		response := response.ErrorResponse("Error while adding worker profile", err.Error(), nil)
 		c.Writer.Header().Set("Content-Type", "application/json")
 		c.Writer.WriteHeader(http.StatusUnprocessableEntity)
 
@@ -78,7 +78,7 @@ func (cr *WorkerHandler) WorkerEditProfile(c *gin.Context) {
 	err := cr.workerService.WorkerEditProfile(userprofile, id)
 
 	if err != nil {
-		response := response.ErrorResponse("Error while editing profile", err.Error(), nil)
+		response := response.ErrorResponse("Error while editing worker profile", err.Error(), nil)
 		c.Writer.Header().Set("Content-Type", "application/json")
 		c.Writer.WriteHeader(http.StatusUnprocessableEntity)
 
@@ -168,7 +168,7 @@ func (cr *WorkerHandler) ListJobCategoryUser(c *gin.Context) {
 	categories, metadata, err := cr.workerService.ListJobCategoryUser(pagenation)
 
 	if err != nil {
-		response := response.ErrorResponse("Failed To List Job Category", err.Error(), nil)
+		response := response.ErrorResponse("Failed To List Job Category of worker", err.Error(), nil)
 
 		c.Writer.WriteHeader(http.StatusUnprocessableEntity)
 
@@ -212,7 +212,7 @@ func (cr *WorkerHandler) AddJob(c *gin.Context) {
 	_, err := cr.workerService.AddJob(workerjob)
 
 	if err != nil {
-		response := response.ErrorResponse("Error while adding profile", err.Error(), nil)
+		response := response.ErrorResponse("Error while adding worker job", err.Error(), nil)
 		c.Writer.Header().Set("Content-Type", "application/json")
 		c.Writer.WriteHeader(http.StatusUnprocessableEntity)
 
@@ -251,7 +251,7 @@ func (cr *WorkerHandler) ViewJob(c *gin.Context) {
 	jobs, err := cr.workerService.ViewJob(id)
 
 	if err != nil {
-		response := response.ErrorResponse("Failed to list jobs", err.Error(), nil)
+		response := response.ErrorResponse("Failed to list workers jobs", err.Error(), nil)
 
 		c.Writer.WriteHeader(http.StatusUnprocessableEntity)
 
@@ -293,7 +293,7 @@ func (cr *WorkerHandler) DeleteJob(c *gin.Context) {
 	err := cr.workerService.DeleteJob(id)
 
 	if err != nil {
-		response := response.ErrorResponse("Error while editing profile", err.Error(), nil)
+		response := response.ErrorResponse("Error while deleting worker job", err.Error(), nil)
 		c.Writer.Header().Set("Content-Type", "application/json")
 		c.Writer.WriteHeader(http.StatusUnprocessableEntity)
 
