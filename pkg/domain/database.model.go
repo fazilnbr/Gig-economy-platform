@@ -61,8 +61,8 @@ type Favorite struct {
 }
 
 type Address struct {
-	IdAddress int  `json:"-" gorm:"primaryKey;autoIncrement:true;unique"`
-	UserId    int  `json:"-"`
+	IdAddress int `gorm:"primaryKey;autoIncrement:true;unique"`
+	UserId    int
 	User      User `json:"-" gorm:"foreignKey:UserId;references:IdLogin"`
 	HouseName string
 	Place     string

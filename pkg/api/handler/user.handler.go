@@ -392,14 +392,14 @@ func (cr *UserHandler) UserListAddress(c *gin.Context) {
 // @Failure 422 {object} response.Response{}
 // @Router /user/delete-address [delete]
 func (cr *UserHandler) DeleteAddress(c *gin.Context) {
-	// id, _ := strconv.Atoi(c.Writer.Header().Get("id"))
+	userid, _ := strconv.Atoi(c.Writer.Header().Get("id"))
 	id, _ := strconv.Atoi(c.Query("addressid"))
 
 	// c.Bind(&userprofile)
 
 	fmt.Printf("\n\nuser Profile : \n%v\n\n\n\n", id)
 
-	err := cr.userService.DeleteAddress(id)
+	err := cr.userService.DeleteAddress(id, userid)
 
 	if err != nil {
 		response := response.ErrorResponse("Error while editing profile", err.Error(), nil)

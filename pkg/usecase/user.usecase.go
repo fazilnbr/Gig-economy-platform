@@ -16,8 +16,8 @@ type userUseCase struct {
 }
 
 // DeleteAddress implements interfaces.UserUseCase
-func (c *userUseCase) DeleteAddress(id int) error {
-	err := c.userRepo.DeleteAddress(id)
+func (c *userUseCase) DeleteAddress(id int, userid int) error {
+	err := c.userRepo.DeleteAddress(id, userid)
 
 	return err
 }
