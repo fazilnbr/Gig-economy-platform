@@ -48,7 +48,7 @@ func (cr *AdminHandler) ListAllUsers(c *gin.Context) {
 	users, metadata, err := cr.adminService.ListUsers(pagenation)
 
 	if err != nil {
-		response := response.ErrorResponse("Failed to list user", err.Error(), nil)
+		response := response.ErrorResponse("Failed to list all active user", err.Error(), nil)
 		c.Writer.Header().Set("Content-Type", "application/json")
 		c.Writer.WriteHeader(http.StatusUnprocessableEntity)
 
@@ -102,7 +102,7 @@ func (cr *AdminHandler) ListNewUsers(c *gin.Context) {
 	}
 
 	if err != nil {
-		response := response.ErrorResponse("Failed to list user", err.Error(), nil)
+		response := response.ErrorResponse("Failed to list new user", err.Error(), nil)
 		c.Writer.Header().Set("Content-Type", "application/json")
 		c.Writer.WriteHeader(http.StatusUnprocessableEntity)
 
@@ -139,7 +139,7 @@ func (cr *AdminHandler) ListBlockUsers(c *gin.Context) {
 	users, metadata, err := cr.adminService.ListBlockedUsers(pagenation)
 
 	if err != nil {
-		response := response.ErrorResponse("Failed to list user", err.Error(), nil)
+		response := response.ErrorResponse("Failed to list blocked user", err.Error(), nil)
 
 		c.Writer.WriteHeader(http.StatusUnprocessableEntity)
 
@@ -178,7 +178,7 @@ func (cr *AdminHandler) ActivateUsers(c *gin.Context) {
 	users, err := cr.adminService.ActivateUser(Id)
 
 	if err != nil {
-		response := response.ErrorResponse("Failed to list user", err.Error(), nil)
+		response := response.ErrorResponse("Failed to activate user", err.Error(), nil)
 
 		c.Writer.WriteHeader(http.StatusUnprocessableEntity)
 
@@ -246,7 +246,7 @@ func (cr *AdminHandler) ListAllWorkers(c *gin.Context) {
 	users, metadata, err := cr.adminService.ListWorkers(pagenation)
 
 	if err != nil {
-		response := response.ErrorResponse("Failed to list worker", err.Error(), nil)
+		response := response.ErrorResponse("Failed to list all active worker", err.Error(), nil)
 		c.Writer.Header().Set("Content-Type", "application/json")
 		c.Writer.WriteHeader(http.StatusUnprocessableEntity)
 
@@ -293,7 +293,7 @@ func (cr *AdminHandler) ListNewWorkers(c *gin.Context) {
 	users, metadata, err := cr.adminService.ListNewWorkers(pagenation)
 
 	if err != nil {
-		response := response.ErrorResponse("Failed to list worker", err.Error(), nil)
+		response := response.ErrorResponse("Failed to list new worker", err.Error(), nil)
 		c.Writer.Header().Set("Content-Type", "application/json")
 		c.Writer.WriteHeader(http.StatusUnprocessableEntity)
 
@@ -341,7 +341,7 @@ func (cr *AdminHandler) ListBlockWorkers(c *gin.Context) {
 	users, metadata, err := cr.adminService.ListBlockedWorkers(pagenation)
 
 	if err != nil {
-		response := response.ErrorResponse("Failed to list worker", err.Error(), nil)
+		response := response.ErrorResponse("Failed to list blocked worker", err.Error(), nil)
 
 		c.Writer.WriteHeader(http.StatusUnprocessableEntity)
 
@@ -442,7 +442,7 @@ func (cr *AdminHandler) AddJobCategory(c *gin.Context) {
 	err := cr.adminService.AddJobCategory(category)
 
 	if err != nil {
-		response := response.ErrorResponse("Failed to add category", err.Error(), nil)
+		response := response.ErrorResponse("Failed to add job category", err.Error(), nil)
 
 		c.Writer.WriteHeader(http.StatusUnprocessableEntity)
 
@@ -481,7 +481,7 @@ func (cr *AdminHandler) ListJobCategory(c *gin.Context) {
 	categories, metadata, err := cr.adminService.ListJobCategory(pagenation)
 
 	if err != nil {
-		response := response.ErrorResponse("Failed to list worker", err.Error(), nil)
+		response := response.ErrorResponse("Failed to list job categories", err.Error(), nil)
 
 		c.Writer.WriteHeader(http.StatusUnprocessableEntity)
 
@@ -525,7 +525,7 @@ func (cr *AdminHandler) UpdateJobCategory(c *gin.Context) {
 	_, err := cr.adminService.UpdateJobCategory(category)
 
 	if err != nil {
-		response := response.ErrorResponse("Failed to add category", err.Error(), nil)
+		response := response.ErrorResponse("Failed to update job category", err.Error(), nil)
 
 		c.Writer.WriteHeader(http.StatusUnprocessableEntity)
 
