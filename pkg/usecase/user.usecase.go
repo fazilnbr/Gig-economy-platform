@@ -15,6 +15,13 @@ type userUseCase struct {
 	userRepo interfaces.UserRepository
 }
 
+// DeleteAddress implements interfaces.UserUseCase
+func (c *userUseCase) DeleteAddress(id int) error {
+	err := c.userRepo.DeleteAddress(id)
+
+	return err
+}
+
 // ListAddress implements interfaces.UserUseCase
 func (c *userUseCase) ListAddress(id int) (*[]domain.Address, error) {
 	address, err := c.userRepo.ListAddress(id)

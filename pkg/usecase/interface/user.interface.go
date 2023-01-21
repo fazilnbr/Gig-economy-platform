@@ -19,4 +19,5 @@ type UserUseCase interface {
 	ListFevorite(pagenation utils.Filter, id int) (*[]domain.ListFavorite, *utils.Metadata, error)
 	AddAddress(address domain.Address) (int, error)
 	ListAddress(id int) (*[]domain.Address, error)
+	DeleteAddress(id int) error
 }
