@@ -666,6 +666,31 @@ paths:
       summary: Change Password for User
       tags:
       - User
+  /user/delete-address:
+    delete:
+      operationId: user delete address
+      parameters:
+      - description: 'Job Id : '
+        in: query
+        name: addressid
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/response.Response'
+        "422":
+          description: Unprocessable Entity
+          schema:
+            $ref: '#/definitions/response.Response'
+      security:
+      - BearerAuth: []
+      summary: Delete address for user
+      tags:
+      - User
   /user/edit-profile:
     patch:
       operationId: user edit profile

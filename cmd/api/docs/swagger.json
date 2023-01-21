@@ -919,6 +919,46 @@
                 }
             }
         },
+        "/user/delete-address": {
+            "delete": {
+                "security": [
+                    {
+                        "BearerAuth": []
+                    }
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "User"
+                ],
+                "summary": "Delete address for user",
+                "operationId": "user delete address",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "Job Id : ",
+                        "name": "addressid",
+                        "in": "query",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/response.Response"
+                        }
+                    },
+                    "422": {
+                        "description": "Unprocessable Entity",
+                        "schema": {
+                            "$ref": "#/definitions/response.Response"
+                        }
+                    }
+                }
+            }
+        },
         "/user/edit-profile": {
             "patch": {
                 "security": [

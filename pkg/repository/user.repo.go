@@ -35,6 +35,21 @@ type userRepo struct {
 	db *sql.DB
 }
 
+// DeleteAddress implements interfaces.UserRepository
+func (c *userRepo) DeleteAddress(id int, userid int) error {
+	query := `DELETE FROM addresses WHERE id_address=$1 AND user_id=$2 RETURNING id_address;`
+
+	var row int
+	sql := c.db.QueryRow(query, id, userid)
+
+	sql.Scan(&row)
+	if row == 0 {
+		return errors.New("There is no item to delete")
+	}
+
+	return sql.Err()
+}
+
 // ListAddress implements interfaces.UserRepository
 func (c *userRepo) ListAddress(id int) ([]domain.Address, error) {
 	var addresses []domain.Address
