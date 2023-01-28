@@ -76,8 +76,10 @@ type Request struct {
 	IdRequset int `json:"-" gorm:"primaryKey;autoIncrement:true;unique"`
 	UserId    int
 	User      User `json:"-" gorm:"foreignKey:UserId;references:IdLogin"`
+	JobId     int
+	Job       Job `json:"-" gorm:"foreignKey:JobId;references:IdJob"`
 	AddressId int
 	Address   Address `json:"-" gorm:"foreignKey:AddressId;references:IdAddress"`
-	Status    string
-	Date      string
+	Status    string  `json:"-" gorm:"default:pending"`
+	Date      string  `jsom:"-"`
 }

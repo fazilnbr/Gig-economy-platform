@@ -415,3 +415,38 @@ func (cr *UserHandler) DeleteAddress(c *gin.Context) {
 	c.Writer.WriteHeader(http.StatusOK)
 	utils.ResponseJSON(*c, response)
 }
+
+// @Summary user could send job request to worker
+// @ID user send job request to worker
+// @Tags User
+// @Security BearerAuth
+// @Produce json
+// @Param addtofavotite body domain.Request{} true "User Add To Favorite"
+// @Success 200 {object} response.Response{}
+// @Failure 422 {object} response.Response{}
+// @Router /user/send-job-request [post]
+func (cr *UserHandler) UserSendJobRequest(c *gin.Context) {
+	id, _ := strconv.Atoi(c.Writer.Header().Get("id"))
+	var request domain.Request
+
+	c.Bind(&request)
+	request.UserId = id
+
+	fmt.Printf("\n\nuser Profile : \n%v\n\n%v\n\n", request, id)
+
+	_, err := cr.userService.SendJobRequest(request)
+
+	if err != nil {
+		response := response.ErrorResponse("Error while sending job request ", err.Error(), nil)
+		c.Writer.Header().Set("Content-Type", "application/json")
+		c.Writer.WriteHeader(http.StatusUnprocessableEntity)
+
+		utils.ResponseJSON(*c, response)
+		return
+	}
+
+	response := response.SuccessResponse(true, "SUCCESS", request)
+	c.Writer.Header().Set("Content-Type", "application/json")
+	c.Writer.WriteHeader(http.StatusOK)
+	utils.ResponseJSON(*c, response)
+}

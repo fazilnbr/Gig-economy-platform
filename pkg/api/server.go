@@ -79,6 +79,7 @@ func NewServerHTTP(authHandler handler.AuthHandler, adminHandler handler.AdminHa
 				user.POST("add-address", UserHandler.UserAddAddress)
 				user.GET("/list-address", UserHandler.UserListAddress)
 				user.DELETE("/delete-address", UserHandler.DeleteAddress)
+				user.POST("/send-job-request", UserHandler.UserSendJobRequest)
 			}
 		}
 

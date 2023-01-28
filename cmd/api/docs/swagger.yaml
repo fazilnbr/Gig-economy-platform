@@ -5,6 +5,8 @@ definitions:
         type: string
       houseName:
         type: string
+      idAddress:
+        type: integer
       phone:
         type: string
       pin:
@@ -13,6 +15,8 @@ definitions:
         type: string
       post:
         type: string
+      userId:
+        type: integer
     type: object
   domain.Category:
     properties:
@@ -68,6 +72,17 @@ definitions:
         type: string
       post:
         type: string
+    type: object
+  domain.Request:
+    properties:
+      addressId:
+        type: integer
+      date:
+        type: string
+      jobId:
+        type: integer
+      userId:
+        type: integer
     type: object
   domain.User:
     properties:
@@ -860,6 +875,32 @@ paths:
       security:
       - BearerAuth: []
       summary: search job with workers for users
+      tags:
+      - User
+  /user/send-job-request:
+    post:
+      operationId: user send job request to worker
+      parameters:
+      - description: User Add To Favorite
+        in: body
+        name: addtofavotite
+        required: true
+        schema:
+          $ref: '#/definitions/domain.Request'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/response.Response'
+        "422":
+          description: Unprocessable Entity
+          schema:
+            $ref: '#/definitions/response.Response'
+      security:
+      - BearerAuth: []
+      summary: user could send job request to worker
       tags:
       - User
   /user/send/verification:

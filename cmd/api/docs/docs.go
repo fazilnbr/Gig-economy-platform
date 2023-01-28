@@ -1241,6 +1241,48 @@ const docTemplate = `{
                 }
             }
         },
+        "/user/send-job-request": {
+            "post": {
+                "security": [
+                    {
+                        "BearerAuth": []
+                    }
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "User"
+                ],
+                "summary": "user could send job request to worker",
+                "operationId": "user send job request to worker",
+                "parameters": [
+                    {
+                        "description": "User Add To Favorite",
+                        "name": "addtofavotite",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/domain.Request"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/response.Response"
+                        }
+                    },
+                    "422": {
+                        "description": "Unprocessable Entity",
+                        "schema": {
+                            "$ref": "#/definitions/response.Response"
+                        }
+                    }
+                }
+            }
+        },
         "/user/send/verification": {
             "post": {
                 "produces": [
@@ -1889,6 +1931,9 @@ const docTemplate = `{
                 "houseName": {
                     "type": "string"
                 },
+                "idAddress": {
+                    "type": "integer"
+                },
                 "phone": {
                     "type": "string"
                 },
@@ -1900,6 +1945,9 @@ const docTemplate = `{
                 },
                 "post": {
                     "type": "string"
+                },
+                "userId": {
+                    "type": "integer"
                 }
             }
         },
@@ -1984,6 +2032,23 @@ const docTemplate = `{
                 },
                 "post": {
                     "type": "string"
+                }
+            }
+        },
+        "domain.Request": {
+            "type": "object",
+            "properties": {
+                "addressId": {
+                    "type": "integer"
+                },
+                "date": {
+                    "type": "string"
+                },
+                "jobId": {
+                    "type": "integer"
+                },
+                "userId": {
+                    "type": "integer"
                 }
             }
         },
