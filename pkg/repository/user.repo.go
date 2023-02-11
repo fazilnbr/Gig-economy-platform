@@ -5,6 +5,7 @@ import (
 	"errors"
 	"fmt"
 	"log"
+	"time"
 
 	"github.com/fazilnbr/project-workey/pkg/domain"
 	interfaces "github.com/fazilnbr/project-workey/pkg/repository/interface"
@@ -71,12 +72,16 @@ func (c *userRepo) CheckInRequest(request domain.Request) (int, error) {
 // SendJobRequest implements interfaces.UserRepository
 func (c *userRepo) SendJobRequest(request domain.Request) (int, error) {
 	var Id int
-	query := `INSERT INTO requests (user_id,job_id,address_id) VALUES($1,$2,$3) RETURNING id_requset;`
+	query := `INSERT INTO requests (user_id,job_id,address_id,date) VALUES($1,$2,$3,$4) RETURNING id_requset;`
+
+	time := time.Now()
+	date := fmt.Sprintf("%v/%v/%v", time.Day(), time.Month(), time.Year())
 
 	err := c.db.QueryRow(query,
 		request.UserId,
 		request.JobId,
 		request.AddressId,
+		date,
 	).Scan(
 		&Id,
 	)
