@@ -16,6 +16,7 @@ type ServerHTTP struct {
 }
 
 func NewServerHTTP(authHandler handler.AuthHandler, adminHandler handler.AdminHandler, UserHandler handler.UserHandler, WorkerHandler handler.WorkerHandler, middleware middleware.Middleware) *ServerHTTP {
+	authHandler.InitializeOAuthGoogle()
 	engine := gin.New()
 
 	// Use logger from Gin
@@ -65,6 +66,9 @@ func NewServerHTTP(authHandler handler.AuthHandler, adminHandler handler.AdminHa
 			user.POST("/login", authHandler.UserLogin)
 			user.POST("/send/verification", authHandler.SendVerificationMailUser)
 			user.POST("/verify/account", authHandler.UserVerifyAccount)
+
+			user.GET("/login-gl", authHandler.GoogleAuth)
+			user.GET("/callback-gl", authHandler.CallBackFromGoogle)
 			// authuser := user.Group("/")
 			user.Use(middleware.AthoriseJWT)
 			{

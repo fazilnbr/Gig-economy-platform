@@ -29,7 +29,7 @@ func InitializeAPI(cfg config.Config) (*api.ServerHTTP, error) {
 	userUseCase := usecase.NewUserService(userRepository)
 	jwtUseCase := usecase.NewJWTUserService()
 	authUseCase := usecase.NewAuthService(adminRepository, workerRepository, userRepository, mailConfig, cfg)
-	authHandler := handler.NewAuthHandler(adminUseCase, workerUseCase, userUseCase, jwtUseCase, authUseCase)
+	authHandler := handler.NewAuthHandler(adminUseCase, workerUseCase, userUseCase, jwtUseCase, authUseCase, cfg)
 	adminHandler := handler.NewAdminHandler(adminUseCase)
 	userHandler := handler.NewUserHandler(userUseCase)
 	workerHandler := handler.NewWorkerHandler(workerUseCase)
