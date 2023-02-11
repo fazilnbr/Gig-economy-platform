@@ -9,6 +9,7 @@ import (
 	"strings"
 	"testing"
 
+	"github.com/fazilnbr/project-workey/pkg/config"
 	"github.com/fazilnbr/project-workey/pkg/repository"
 	"github.com/fazilnbr/project-workey/pkg/response"
 	"github.com/fazilnbr/project-workey/pkg/usecase"
@@ -29,7 +30,7 @@ var (
 	gormDB, _       = utils.MockGormDB()
 	authRepoMock    = repository.NewUserRepo(gormDB)
 	authService     = usecase.NewUserService(authRepoMock)
-	authServiceMock = NewAuthHandler(nil, nil, authService, nil, nil)
+	authServiceMock = NewAuthHandler(nil, nil, authService, nil, nil, config.Config{})
 )
 
 func TestLogin(t *testing.T) {
@@ -63,7 +64,7 @@ func TestLoginte(t *testing.T) {
 	gormDB, _ := utils.MockGormDB()
 	authRepoMock := repository.NewUserRepo(gormDB)
 	authService := usecase.NewUserService(authRepoMock)
-	authServiceMock := NewAuthHandler(nil, nil, authService, nil, nil)
+	authServiceMock := NewAuthHandler(nil, nil, authService, nil, nil, config.Config{})
 
 	t.Run("test normal case login 1", func(t *testing.T) {
 
