@@ -16,6 +16,7 @@ import (
 	services "github.com/fazilnbr/project-workey/pkg/usecase/interface"
 	"github.com/fazilnbr/project-workey/pkg/utils"
 	"github.com/gin-gonic/gin"
+	"github.com/golang-jwt/jwt/v4"
 	"golang.org/x/oauth2"
 	"golang.org/x/oauth2/google"
 )
@@ -501,10 +502,30 @@ func (cr *AuthHandler) SendVerificationMailUser(c *gin.Context) {
 // @Failure 422 {object} response.Response{}
 // @Router /user/verify/account [post]
 func (cr *AuthHandler) UserVerifyAccount(c *gin.Context) {
-	email := c.Query("token")
-	code := c.Query("code")
 
-	err := cr.authUseCase.UserVerifyAccount(email, code)
+	fmt.Println("ggggggghggggggggggggggggggggggggggg")
+	// email := c.Query("email")
+	tokenString := c.Query("token")
+	fmt.Printf("\n\ntoken   :   %v\n\n", tokenString)
+	fmt.Println("varify account from authhandler called , ", tokenString)
+	var email string
+	token, err := jwt.Parse(tokenString, func(token *jwt.Token) (interface{}, error) {
+		return []byte("secret"), nil
+	})
+	if err != nil {
+		c.String(http.StatusBadRequest, "Invalid verification token")
+		return
+	}
+	if claims, ok := token.Claims.(jwt.MapClaims); ok && token.Valid {
+		// get the username from the claims
+		email = claims["username"].(string)
+
+	} else {
+		c.String(http.StatusBadRequest, "Invalid verification token")
+		return
+	}
+
+	err = cr.authUseCase.UserVerifyAccount(email, tokenString)
 
 	if err != nil {
 		response := response.ErrorResponse("Error while verifing user mail", err.Error(), nil)

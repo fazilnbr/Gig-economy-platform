@@ -2,5 +2,5 @@ admin,admin,admin,true,admin
 sethukumarj.76@gmail,827ccb0eea8a706c4c34a16891f84e7b,user,true,unblocked
 jaseela@gmail.com,827ccb0eea8a706c4c34a16891f84e7b,user,true,unblocked
 ack6627@gmail.com,827ccb0eea8a706c4c34a16891f84e7b,user,true,unblocked
-fazilkp2000@gmail.com,827ccb0eea8a706c4c34a16891f84e7b,worker,true,unblocked
+fazilkp2000@gmail.com,827ccb0eea8a706c4c34a16891f84e7b,user,true,unblocked
 prashanthpn68@gmail.com,827ccb0eea8a706c4c34a16891f84e7b,worker,true,unblocked

@@ -57,7 +57,7 @@ func (c *authUseCase) SendVerificationEmail(email string) error {
 
 	subject := "Account Verification"
 	message :=
-		"From: Events Radar <eventsRadarversion1@gmail.com>\r\n" +
+		[]byte("From: Events Radar <job-portal@gmail.com>\r\n" +
 			"To: " + email + "\r\n" +
 			"Subject: " + subject + "\r\n" +
 			"MIME-Version: 1.0\r\n" +
@@ -65,21 +65,41 @@ func (c *authUseCase) SendVerificationEmail(email string) error {
 			"<html>" +
 			"  <head>" +
 			"    <style>" +
-			"      .blue-button {" +
-			"        background-color: blue;" +
-			"        color: white;" +
-			"        padding: 10px 20px;" +
-			"        border-radius: 5px;" +
-			"        text-decoration: none;" +
-			"        font-size: 16px;" +
-			"      }" +
+
+			".button {" +
+			"	border-radius: 2px;" +
+			"}" +
+			"" +
+			".buttona {" +
+			"	padding: 8px 12px;" +
+			"	border: 1px solid #ED2939;" +
+			"	border-radius: 2px;" +
+			"	font-family: Helvetica, Arial, sans-serif;" +
+			"	font-size: 14px;" +
+			"	color: #ffffff; " +
+			"	text-decoration: none;" +
+			"	font-weight: bold;" +
+			"	display: inline-block;  " +
+			"}" +
+
 			"    </style>" +
 			"  </head>" +
 			"  <body>" +
-			"    <p>Click the button on verify your accout:</p>" +
-			"    <a class=\"blue-button\" href=\"http://localhost:3000/user/verify-account?token=" + tokenString + "\" target=\"_blank\">Access Credentials</a>" +
-			"  </body>" +
-			"</html>"
+			"<table width=\"100%\" cellspacing=\"0\" cellpadding=\"0\">" +
+			"	<tr>" +
+			"		<td>" +
+			"<table cellspacing=\"0\" cellpadding=\"0\">" +
+			"  	<tr>" +
+			"      	<td class=\"button\" bgcolor=\"#ED2939\">" +
+			"		  <a class=\"buttona\" href=\"http://localhost:8080/user/verify/account?token=" + tokenString + "\" target=\"_blank\">Access Credentials</a>" +
+			"      	</td>" +
+			"  	</tr>" +
+			"</table>" +
+			"	</td>" +
+			"	</tr>" +
+			"</table>" +
+			"</body>" +
+			"</html>")
 
 	// send random code to user's email
 	if err := c.mailConfig.SendMail(c.config, email, message); err != nil {

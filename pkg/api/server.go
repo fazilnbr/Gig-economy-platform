@@ -65,7 +65,7 @@ func NewServerHTTP(authHandler handler.AuthHandler, adminHandler handler.AdminHa
 			user.POST("/signup", authHandler.UserSignUp)
 			user.POST("/login", authHandler.UserLogin)
 			user.POST("/send/verification", authHandler.SendVerificationMailUser)
-			user.POST("/verify/account", authHandler.UserVerifyAccount)
+			user.GET("/verify/account", authHandler.UserVerifyAccount)
 
 			user.GET("/login-gl", authHandler.GoogleAuth)
 			user.GET("/callback-gl", authHandler.CallBackFromGoogle)
