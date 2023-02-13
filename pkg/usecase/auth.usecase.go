@@ -35,12 +35,13 @@ func (c *authUseCase) UserVerifyAccount(email string, code int) error {
 // SendVerificationEmail implements interfaces.AuthUseCase
 func (c *authUseCase) SendVerificationEmail(email string) error {
 
-	token := jwt.NewWithClaims(jwt.SigningMethodES256, jwt.MapClaims{
+	token := jwt.NewWithClaims(jwt.SigningMethodHS256, jwt.MapClaims{
 		"username": email,
 		"exp":      time.Now().Add(time.Hour * 24).Unix(),
 	})
 
 	tokenString, err := token.SignedString([]byte("secret"))
+	fmt.Printf("\n\n emailerr : %v\n\n", err)
 	if err != nil {
 		return err
 	}
