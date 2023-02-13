@@ -445,7 +445,7 @@ func (cr *AuthHandler) SendVerificationMailUser(c *gin.Context) {
 	email := c.Query("email")
 
 	user, err := cr.userUseCase.FindUser(email)
-	fmt.Printf("\n\n emailvar : %v\n\n", email)
+	fmt.Printf("\n\n emailvar : %v\n%v\n", email, err)
 
 	if err == nil {
 		err = cr.authUseCase.SendVerificationEmail(email)

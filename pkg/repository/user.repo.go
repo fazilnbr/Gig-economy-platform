@@ -425,7 +425,7 @@ func (c *userRepo) UserAddProfile(userProfile domain.Profile, id int) (int, erro
 }
 
 // StoreVerificationDetails implements interfaces.UserRepository
-func (c *userRepo) StoreVerificationDetails(email string, code int) error {
+func (c *userRepo) StoreVerificationDetails(email string, code string) error {
 	query := `INSERT INTO 
 		verifications(email, code)
 		VALUES( $1, $2);`
