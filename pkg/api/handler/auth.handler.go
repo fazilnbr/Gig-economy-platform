@@ -501,8 +501,8 @@ func (cr *AuthHandler) SendVerificationMailUser(c *gin.Context) {
 // @Failure 422 {object} response.Response{}
 // @Router /user/verify/account [post]
 func (cr *AuthHandler) UserVerifyAccount(c *gin.Context) {
-	email := c.Query("email")
-	code, _ := strconv.Atoi(c.Query("code"))
+	email := c.Query("token")
+	code := c.Query("code")
 
 	err := cr.authUseCase.UserVerifyAccount(email, code)
 

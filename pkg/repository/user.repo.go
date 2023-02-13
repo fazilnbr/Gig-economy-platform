@@ -436,7 +436,7 @@ func (c *userRepo) StoreVerificationDetails(email string, code string) error {
 }
 
 // VerifyAccount implements interfaces.UserRepository
-func (c *userRepo) VerifyAccount(email string, code int) error {
+func (c *userRepo) VerifyAccount(email string, code string) error {
 	var id int
 
 	query := `SELECT id FROM 

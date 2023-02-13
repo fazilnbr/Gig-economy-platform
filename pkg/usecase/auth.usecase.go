@@ -26,7 +26,7 @@ func (c *authUseCase) WorkerVerifyAccount(email string, code int) error {
 }
 
 // VerifyAccount implements interfaces.AuthUseCase
-func (c *authUseCase) UserVerifyAccount(email string, code int) error {
+func (c *authUseCase) UserVerifyAccount(email string, code string) error {
 	err := c.userRepo.VerifyAccount(email, code)
 
 	return err

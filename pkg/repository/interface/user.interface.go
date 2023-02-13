@@ -9,7 +9,7 @@ type UserRepository interface {
 	InsertUser(login domain.User) (int, error)
 	FindUser(email string) (domain.UserResponse, error)
 	StoreVerificationDetails(email string, code string) error
-	VerifyAccount(email string, code int) error
+	VerifyAccount(email string, code string) error
 	UserAddProfile(Profile domain.Profile, id int) (int, error)
 	UserEditProfile(Profile domain.Profile, id int) (int, error)
 	UserChangePassword(changepassword string, id int) (int, error)
