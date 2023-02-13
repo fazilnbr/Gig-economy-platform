@@ -67,13 +67,13 @@ func (c *authUseCase) SendVerificationEmail(email string) error {
 			"    <style>" +
 
 			".button {" +
-			"	border-radius: 2px;" +
+			"	border-radius: 8px;" +
 			"}" +
 			"" +
 			".buttona {" +
 			"	padding: 8px 12px;" +
 			"	border: 1px solid #ED2939;" +
-			"	border-radius: 2px;" +
+			"	border-radius: 10px;" +
 			"	font-family: Helvetica, Arial, sans-serif;" +
 			"	font-size: 14px;" +
 			"	color: #ffffff; " +
@@ -84,7 +84,10 @@ func (c *authUseCase) SendVerificationEmail(email string) error {
 
 			"    </style>" +
 			"  </head>" +
+			"<br><h2>Dear User,</h2>" +
+			"<h3>Greetings From Workey</h3>" +
 			"  <body>" +
+			"<br><b>Click This Button To Verify Your Email</b><br><br><br>" +
 			"<table width=\"100%\" cellspacing=\"0\" cellpadding=\"0\">" +
 			"	<tr>" +
 			"		<td>" +
