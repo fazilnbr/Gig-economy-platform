@@ -3,12 +3,12 @@ package usecase
 import (
 	"errors"
 	"fmt"
-	"math/rand"
 	"time"
 
 	"github.com/fazilnbr/project-workey/pkg/config"
 	interfaces "github.com/fazilnbr/project-workey/pkg/repository/interface"
 	services "github.com/fazilnbr/project-workey/pkg/usecase/interface"
+	"github.com/golang-jwt/jwt/v4"
 )
 
 type authUseCase struct {
@@ -26,7 +26,7 @@ func (c *authUseCase) WorkerVerifyAccount(email string, code int) error {
 }
 
 // VerifyAccount implements interfaces.AuthUseCase
-func (c *authUseCase) UserVerifyAccount(email string, code int) error {
+func (c *authUseCase) UserVerifyAccount(email string, code string) error {
 	err := c.userRepo.VerifyAccount(email, code)
 
 	return err
@@ -35,21 +35,81 @@ func (c *authUseCase) UserVerifyAccount(email string, code int) error {
 // SendVerificationEmail implements interfaces.AuthUseCase
 func (c *authUseCase) SendVerificationEmail(email string) error {
 
-	//to generate random code
-	rand.Seed(time.Now().UnixNano())
-	code := rand.Intn(999999)
+	token := jwt.NewWithClaims(jwt.SigningMethodHS256, jwt.MapClaims{
+		"username": email,
+		"exp":      time.Now().Add(time.Hour * 24).Unix(),
+	})
 
-	message := fmt.Sprintf(
-		"\nThe verification code is:\n\n%d.\nUse to verify your account.\n Thank you for using Workey.\n with regards Team Workey.",
-		code,
-	)
+	tokenString, err := token.SignedString([]byte("secret"))
+	fmt.Printf("\n\n emailerr : %v\n\n", err)
+	if err != nil {
+		return err
+	}
+
+	// //to generate random code
+	// rand.Seed(time.Now().UnixNano())
+	// code := rand.Intn(999999)
+
+	// message := fmt.Sprintf(
+	// 	"\nThe verification code is:\n\n%d.\nUse to verify your account.\n Thank you for using Workey.\n with regards Team Workey.",
+	// 	code,
+	// )
+
+	subject := "Account Verification"
+	message :=
+		[]byte("From: Events Radar <job-portal@gmail.com>\r\n" +
+			"To: " + email + "\r\n" +
+			"Subject: " + subject + "\r\n" +
+			"MIME-Version: 1.0\r\n" +
+			"Content-Type: text/html; charset=UTF-8\r\n\r\n" +
+			"<html>" +
+			"  <head>" +
+			"    <style>" +
+
+			".button {" +
+			"	border-radius: 8px;" +
+			"}" +
+			"" +
+			".buttona {" +
+			"	padding: 8px 12px;" +
+			"	border: 1px solid #ED2939;" +
+			"	border-radius: 10px;" +
+			"	font-family: Helvetica, Arial, sans-serif;" +
+			"	font-size: 14px;" +
+			"	color: #ffffff; " +
+			"	text-decoration: none;" +
+			"	font-weight: bold;" +
+			"	display: inline-block;  " +
+			"}" +
+
+			"    </style>" +
+			"  </head>" +
+			"<br><h2>Dear User,</h2>" +
+			"<h3>Greetings From Workey</h3>" +
+			"  <body>" +
+			"<br><b>Click This Button To Verify Your Email</b><br><br><br>" +
+			"<table width=\"100%\" cellspacing=\"0\" cellpadding=\"0\">" +
+			"	<tr>" +
+			"		<td>" +
+			"<table cellspacing=\"0\" cellpadding=\"0\">" +
+			"  	<tr>" +
+			"      	<td class=\"button\" bgcolor=\"#ED2939\">" +
+			"		  <a class=\"buttona\" href=\"http://localhost:8080/user/verify/account?token=" + tokenString + "\" target=\"_blank\">Access Credentials</a>" +
+			"      	</td>" +
+			"  	</tr>" +
+			"</table>" +
+			"	</td>" +
+			"	</tr>" +
+			"</table>" +
+			"</body>" +
+			"</html>")
 
 	// send random code to user's email
 	if err := c.mailConfig.SendMail(c.config, email, message); err != nil {
 		return err
 	}
 
-	err := c.userRepo.StoreVerificationDetails(email, code)
+	err = c.userRepo.StoreVerificationDetails(email, tokenString)
 
 	if err != nil {
 		return err

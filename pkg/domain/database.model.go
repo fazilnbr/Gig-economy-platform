@@ -34,7 +34,7 @@ type Profile struct {
 type Verification struct {
 	gorm.Model
 	Email string `json:"email"`
-	Code  int    `json:"code"`
+	Code  string `json:"code"`
 }
 
 type Category struct {

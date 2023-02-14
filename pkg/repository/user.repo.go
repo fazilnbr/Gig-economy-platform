@@ -425,7 +425,7 @@ func (c *userRepo) UserAddProfile(userProfile domain.Profile, id int) (int, erro
 }
 
 // StoreVerificationDetails implements interfaces.UserRepository
-func (c *userRepo) StoreVerificationDetails(email string, code int) error {
+func (c *userRepo) StoreVerificationDetails(email string, code string) error {
 	query := `INSERT INTO 
 		verifications(email, code)
 		VALUES( $1, $2);`
@@ -436,8 +436,9 @@ func (c *userRepo) StoreVerificationDetails(email string, code int) error {
 }
 
 // VerifyAccount implements interfaces.UserRepository
-func (c *userRepo) VerifyAccount(email string, code int) error {
+func (c *userRepo) VerifyAccount(email string, code string) error {
 	var id int
+	fmt.Printf("\n\n%v\n%v\n\n", email, code)
 
 	query := `SELECT id FROM 
 	verifications WHERE 
