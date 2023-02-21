@@ -6,3 +6,5 @@
 
 \COPY jobs (category_id,id_worker,wage,description) from 'jobs.txt' WITH  DELIMITER ',';
 
+\COPY addresses (user_id,house_name,place,city,post,pin,phone) from 'address.txt' WITH  DELIMITER ',';
+
