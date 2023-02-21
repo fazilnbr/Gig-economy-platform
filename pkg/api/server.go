@@ -62,33 +62,46 @@ func NewServerHTTP(authHandler handler.AuthHandler, adminHandler handler.AdminHa
 		// Request JWT
 		user := engine.Group("user")
 		{
+			// User Authentication
 			user.POST("/signup", authHandler.UserSignUp)
 			user.POST("/login", authHandler.UserLogin)
 			user.POST("/send/verification", authHandler.SendVerificationMailUser)
 			user.GET("/verify/account", authHandler.UserVerifyAccount)
 
+			// Google authentication
 			user.GET("/login-gl", authHandler.GoogleAuth)
 			user.GET("/callback-gl", authHandler.CallBackFromGoogle)
 			// authuser := user.Group("/")
 			user.Use(middleware.AthoriseJWT)
 			{
 				user.GET("/account/verifyJWT", authHandler.UserHome)
+
+				// User Profile
 				user.POST("/add-profile", UserHandler.UserAddProfile)
 				user.PATCH("/edit-profile", UserHandler.UserEditProfile)
 				user.PATCH("/change-password", UserHandler.UserChangePassword)
+
+				// List Worker
 				user.GET("/list-workers-with-job", UserHandler.ListWorkersWithJob)
 				user.GET("/search-workers-with-job", UserHandler.SearchWorkersWithJob)
+
+				// Favorite
 				user.POST("/add-to-favorite", UserHandler.UserAddToFavorite)
 				user.GET("/list-favorite-list", UserHandler.ListFavorite)
+
+				// User Address
 				user.POST("add-address", UserHandler.UserAddAddress)
 				user.GET("/list-address", UserHandler.UserListAddress)
 				user.DELETE("/delete-address", UserHandler.DeleteAddress)
+
+				// Job Request
 				user.POST("/send-job-request", UserHandler.UserSendJobRequest)
 			}
 		}
 
 		worker := engine.Group("worker")
 		{
+			//Worker Authentication
 			worker.POST("/signup", authHandler.WorkerSignUp)
 			worker.POST("/login", authHandler.WorkerLogin)
 			worker.POST("/send/verification", authHandler.SendVerificationMailWorker)
@@ -98,7 +111,7 @@ func NewServerHTTP(authHandler handler.AuthHandler, adminHandler handler.AdminHa
 			{
 				worker.GET("/account/verifyJWT", authHandler.WorkerHome)
 
-				// user profile
+				// Worker Profile
 				worker.POST("/add-profile", WorkerHandler.WorkerAddProfile)
 				worker.PATCH("/edit-profile", WorkerHandler.WorkerEditProfile)
 				worker.PATCH("/change-password", WorkerHandler.WorkerChangePassword)

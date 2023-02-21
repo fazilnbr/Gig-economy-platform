@@ -69,11 +69,12 @@ func (cr *AuthHandler) InitializeOAuthGoogle() {
 
 // @Summary Authenticate With Google
 // @ID Authenticate With Google
+// @Tags User
 // @Security BearerAuth
 // @Produce json
 // @Success 200 {object} response.Response{}
 // @Failure 422 {object} response.Response{}
-// @Router /admin/refresh-tocken [get]
+// @Router /user/login-gl [get]
 func (cr *AuthHandler) GoogleAuth(c *gin.Context) {
 	HandileLogin(c, oauthConfGl, oauthStateStringGl)
 }
