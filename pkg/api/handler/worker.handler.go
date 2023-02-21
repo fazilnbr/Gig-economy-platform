@@ -319,6 +319,7 @@ func (cr *WorkerHandler) DeleteJob(c *gin.Context) {
 // @Router /worker/list-job-user-request [get]
 func (cr *WorkerHandler) ListJobRequsetFromUser(c *gin.Context) {
 
+	id, _ := strconv.Atoi(c.Writer.Header().Get("id"))
 	page, err := strconv.Atoi(c.Query("page"))
 
 	pageSize, _ := strconv.Atoi(c.Query("pagesize"))
@@ -330,7 +331,7 @@ func (cr *WorkerHandler) ListJobRequsetFromUser(c *gin.Context) {
 		PageSize: pageSize,
 	}
 
-	categories, metadata, err := cr.workerService.ListJobCategoryUser(pagenation)
+	requests, metadata, err := cr.workerService.ListJobRequsetFromUser(pagenation, id)
 
 	if err != nil {
 		response := response.ErrorResponse("Failed To List Job Category of worker", err.Error(), nil)
@@ -342,10 +343,10 @@ func (cr *WorkerHandler) ListJobRequsetFromUser(c *gin.Context) {
 	}
 
 	result := struct {
-		jobcategory *[]domain.Category
+		jobcategory *[]domain.RequestResponse
 		Meta        *utils.Metadata
 	}{
-		jobcategory: categories,
+		jobcategory: requests,
 		Meta:        &metadata,
 	}
 
