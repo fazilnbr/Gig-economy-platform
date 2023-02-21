@@ -306,3 +306,51 @@ func (cr *WorkerHandler) DeleteJob(c *gin.Context) {
 	c.Writer.WriteHeader(http.StatusOK)
 	utils.ResponseJSON(*c, response)
 }
+
+// @Summary list all job requset from user for Worker
+// @ID list all job requset from user for worker
+// @Tags Worker
+// @Security BearerAuth
+// @Produce json
+// @Param        page   query      string  true  "Page : "
+// @Param        pagesize   query      string  true  "Pagesize : "
+// @Success 200 {object} response.Response{}
+// @Failure 422 {object} response.Response{}
+// @Router /worker/list-job-user-request [get]
+func (cr *WorkerHandler) ListJobRequsetFromUser(c *gin.Context) {
+
+	page, err := strconv.Atoi(c.Query("page"))
+
+	pageSize, _ := strconv.Atoi(c.Query("pagesize"))
+	fmt.Printf("\n\nuser : %v\n\nmetea : %v\n\n", page, c.Query("page"))
+	log.Println(page, "   ", pageSize)
+
+	pagenation := utils.Filter{
+		Page:     page,
+		PageSize: pageSize,
+	}
+
+	categories, metadata, err := cr.workerService.ListJobCategoryUser(pagenation)
+
+	if err != nil {
+		response := response.ErrorResponse("Failed To List Job Category of worker", err.Error(), nil)
+
+		c.Writer.WriteHeader(http.StatusUnprocessableEntity)
+
+		utils.ResponseJSON(*c, response)
+		return
+	}
+
+	result := struct {
+		jobcategory *[]domain.Category
+		Meta        *utils.Metadata
+	}{
+		jobcategory: categories,
+		Meta:        &metadata,
+	}
+
+	response := response.SuccessResponse(true, "SUCCESS", result)
+
+	c.Writer.WriteHeader(http.StatusOK)
+	utils.ResponseJSON(*c, response)
+}
