@@ -121,6 +121,9 @@ func NewServerHTTP(authHandler handler.AuthHandler, adminHandler handler.AdminHa
 				worker.POST("/add-job", WorkerHandler.AddJob)
 				worker.GET("/view-job", WorkerHandler.ViewJob)
 				worker.DELETE("/delete-job", WorkerHandler.DeleteJob)
+
+				// User Job Request
+				worker.GET("/list-user-job-request", WorkerHandler.ListJobRequsetFromUser)
 			}
 		}
 

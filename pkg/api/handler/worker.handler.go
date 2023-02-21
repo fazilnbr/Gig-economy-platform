@@ -316,7 +316,7 @@ func (cr *WorkerHandler) DeleteJob(c *gin.Context) {
 // @Param        pagesize   query      string  true  "Pagesize : "
 // @Success 200 {object} response.Response{}
 // @Failure 422 {object} response.Response{}
-// @Router /worker/list-job-user-request [get]
+// @Router /worker/list-user-job-request [get]
 func (cr *WorkerHandler) ListJobRequsetFromUser(c *gin.Context) {
 
 	id, _ := strconv.Atoi(c.Writer.Header().Get("id"))
