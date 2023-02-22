@@ -36,6 +36,22 @@ type userRepo struct {
 	db *sql.DB
 }
 
+// DeleteJobRequest implements interfaces.UserRepository
+func (c *userRepo) DeleteJobRequest(requestId int, userid int) error {
+	query := `DELETE FROM requests WHERE id_requset=$1 AND user_id=$2 RETURNING id_requset;`
+
+	var row int
+	sql := c.db.QueryRow(query, requestId, userid)
+
+	sql.Scan(&row)
+	if row == 0 {
+		return errors.New("There is no request to cancel")
+	}
+
+	return sql.Err()
+}
+
+
 // CheckInRequest implements interfaces.UserRepository
 func (c *userRepo) CheckInRequest(request domain.Request) (int, error) {
 	query := `SELECT COUNT(*) FROM requests WHERE user_id=$1 AND job_id=$2 AND address_id=$3;`
