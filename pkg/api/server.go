@@ -123,7 +123,7 @@ func NewServerHTTP(authHandler handler.AuthHandler, adminHandler handler.AdminHa
 				worker.DELETE("/delete-job", WorkerHandler.DeleteJob)
 
 				// User Job Request
-				worker.GET("/list-user-job-request", WorkerHandler.ListJobRequsetFromUser)
+				worker.GET("/list-user-pending-job-request", WorkerHandler.ListPendingJobRequsetFromUser)
 			}
 		}
 

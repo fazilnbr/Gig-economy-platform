@@ -66,6 +66,7 @@ type ListFavorite struct {
 }
 
 type RequestResponse struct {
+	IdRequest   string
 	Username    string
 	JobCategory string
 	JobDate     string

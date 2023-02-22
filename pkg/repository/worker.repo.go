@@ -16,16 +16,17 @@ type workerRepository struct {
 }
 
 // ListJobRequsetFromUser implements interfaces.WorkerRepository
-func (c *workerRepository) ListJobRequsetFromUser(pagenation utils.Filter, id int) ([]domain.RequestResponse, utils.Metadata, error) {
+func (c *workerRepository) ListPendingJobRequsetFromUser(pagenation utils.Filter, id int) ([]domain.RequestResponse, utils.Metadata, error) {
 	var requests []domain.RequestResponse
 
-	query := `SELECT COUNT(*) OVER(),U.user_name,C.category,R.date,A.house_name,A.place,A.city,A.post,A.pin,A.phone 
+	query := `SELECT COUNT(*) OVER(),R.id_requset,U.user_name,C.category,R.date,A.house_name,A.place,A.city,A.post,A.pin,A.phone 
 				FROM users AS U 
 				INNER JOIN requests AS R  ON U.id_login=R.user_id
 				INNER JOIN jobs AS J ON J.id_job=R.job_id
 				INNER JOIN addresses AS A ON A.id_address=R.address_id
 				INNER JOIN categories AS C ON J.category_id=C.id_category 
 				WHERE J.id_worker=$1 
+				AND R.status='pending'
 				LIMIT $2 OFFSET $3;
 	`
 
@@ -44,11 +45,12 @@ func (c *workerRepository) ListJobRequsetFromUser(pagenation utils.Filter, id in
 
 		err = rows.Scan(
 			&totalRecords,
+			&request.IdRequest,
 			&request.Username,
 			&request.JobCategory,
 			&request.JobDate,
 			&request.HouseName,
-			request.Place,
+			&request.Place,
 			&request.City,
 			&request.Post,
 			&request.Pin,

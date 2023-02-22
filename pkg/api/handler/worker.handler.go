@@ -185,7 +185,8 @@ func (cr *WorkerHandler) ListJobCategoryUser(c *gin.Context) {
 	}
 
 	response := response.SuccessResponse(true, "SUCCESS", result)
-
+	fmt.Println(response)
+	c.Writer.Header().Set("Content-Type", "application/json")
 	c.Writer.WriteHeader(http.StatusOK)
 	utils.ResponseJSON(*c, response)
 }
@@ -316,10 +317,11 @@ func (cr *WorkerHandler) DeleteJob(c *gin.Context) {
 // @Param        pagesize   query      string  true  "Pagesize : "
 // @Success 200 {object} response.Response{}
 // @Failure 422 {object} response.Response{}
-// @Router /worker/list-user-job-request [get]
-func (cr *WorkerHandler) ListJobRequsetFromUser(c *gin.Context) {
+// @Router /worker/list-user-pending-job-request [get]
+func (cr *WorkerHandler) ListPendingJobRequsetFromUser(c *gin.Context) {
 
 	id, _ := strconv.Atoi(c.Writer.Header().Get("id"))
+	// id := 6
 	page, err := strconv.Atoi(c.Query("page"))
 
 	pageSize, _ := strconv.Atoi(c.Query("pagesize"))
@@ -331,10 +333,10 @@ func (cr *WorkerHandler) ListJobRequsetFromUser(c *gin.Context) {
 		PageSize: pageSize,
 	}
 
-	requests, metadata, err := cr.workerService.ListJobRequsetFromUser(pagenation, id)
+	requests, metadata, err := cr.workerService.ListPendingJobRequsetFromUser(pagenation, id)
 
 	if err != nil {
-		response := response.ErrorResponse("Failed To List Job Category of worker", err.Error(), nil)
+		response := response.ErrorResponse("Failed To List Job Requests of worker", err.Error(), nil)
 
 		c.Writer.WriteHeader(http.StatusUnprocessableEntity)
 
@@ -342,16 +344,18 @@ func (cr *WorkerHandler) ListJobRequsetFromUser(c *gin.Context) {
 		return
 	}
 
-	result := struct {
-		jobcategory *[]domain.RequestResponse
-		Meta        *utils.Metadata
-	}{
-		jobcategory: requests,
-		Meta:        &metadata,
-	}
+	// result := struct {
+	// 	jobrequest *[]domain.RequestResponse
+	// 	Meta       *utils.Metadata
+	// }{
+	// 	jobrequest: requests,
+	// 	Meta:       metadata,
+	// }
 
-	response := response.SuccessResponse(true, "SUCCESS", result)
+	result2 := []interface{}{requests, metadata}
 
+	response := response.SuccessResponse(true, "SUCCESS", result2)
+	c.Writer.Header().Set("Content-Type", "application/json")
 	c.Writer.WriteHeader(http.StatusOK)
 	utils.ResponseJSON(*c, response)
 }
