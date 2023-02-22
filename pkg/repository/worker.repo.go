@@ -17,7 +17,7 @@ type workerRepository struct {
 
 // RejectJobRequest implements interfaces.WorkerRepository
 func (c *workerRepository) RejectJobRequest(id int) error {
-	query := `UPDATE requests SET status='accepted' WHERE id_requset=$1 RETURNING id_requset;`
+	query := `UPDATE requests SET status='rejected' WHERE id_requset=$1 RETURNING id_requset;`
 	var row int
 	sql := c.db.QueryRow(query, id)
 
