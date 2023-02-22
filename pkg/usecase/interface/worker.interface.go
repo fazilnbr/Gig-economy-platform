@@ -19,4 +19,6 @@ type WorkerUseCase interface {
 	ViewJob(id int) ([]domain.WorkerJob, error)
 	DeleteJob(id int) error
 	ListPendingJobRequsetFromUser(pagenation utils.Filter, id int) (*[]domain.RequestResponse, *utils.Metadata, error)
+	ListAcceptedJobRequsetFromUser(pagenation utils.Filter, id int) (*[]domain.RequestResponse, *utils.Metadata, error)
+	AcceptJobRequest(id int) error
 }

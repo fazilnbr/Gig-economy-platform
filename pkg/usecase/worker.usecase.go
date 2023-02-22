@@ -15,6 +15,18 @@ type workerService struct {
 	workerRepo interfaces.WorkerRepository
 }
 
+// AcceptJobRequest implements interfaces.WorkerUseCase
+func (c *workerService) AcceptJobRequest(id int) error {
+	return c.workerRepo.AcceptJobRequest(id)
+}
+
+// ListAcceptedJobRequsetFromUser implements interfaces.WorkerUseCase
+func (c *workerService) ListAcceptedJobRequsetFromUser(pagenation utils.Filter, id int) (*[]domain.RequestResponse, *utils.Metadata, error) {
+	requsets, Metadata, err := c.workerRepo.ListAcceptedJobRequsetFromUser(pagenation, id)
+
+	return &requsets, &Metadata, err
+}
+
 // ListJobRequsetFromUser implements interfaces.WorkerUseCase
 func (c *workerService) ListPendingJobRequsetFromUser(pagenation utils.Filter, id int) (*[]domain.RequestResponse, *utils.Metadata, error) {
 	requsets, Metadata, err := c.workerRepo.ListPendingJobRequsetFromUser(pagenation, id)
@@ -137,4 +149,5 @@ func NewWorkerService(workerRepo interfaces.WorkerRepository) services.WorkerUse
 	return &workerService{
 		workerRepo: workerRepo,
 	}
+
 }
