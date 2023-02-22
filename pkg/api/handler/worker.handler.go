@@ -411,3 +411,37 @@ func (cr *WorkerHandler) ListAcceptedJobRequsetFromUser(c *gin.Context) {
 	c.Writer.WriteHeader(http.StatusOK)
 	utils.ResponseJSON(*c, response)
 }
+
+// @Summary accept job request from user
+// @ID worker accept job request from user
+// @Tags Worker
+// @Security BearerAuth
+// @Produce json
+// @Param        requestId   query      string  true  "RequestId : "
+// @Success 200 {object} response.Response{}
+// @Failure 422 {object} response.Response{}
+// @Router /worker/accept-job-request [patch]
+func (cr *WorkerHandler) AcceptJobRequest(c *gin.Context) {
+
+	id, _ := strconv.Atoi(c.Writer.Header().Get("id"))
+
+	fmt.Println("id : ", id)
+
+	requestId, err := strconv.Atoi(c.Query("requestId"))
+
+	err = cr.workerService.AcceptJobRequest(requestId)
+
+	if err != nil {
+		response := response.ErrorResponse("Failed to Accept Job-Request", err.Error(), nil)
+		c.Writer.Header().Set("Content-Type", "application/json")
+		c.Writer.WriteHeader(http.StatusUnprocessableEntity)
+
+		utils.ResponseJSON(*c, response)
+		return
+	}
+
+	response := response.SuccessResponse(true, "SUCCESS", requestId)
+	c.Writer.Header().Set("Content-Type", "application/json")
+	c.Writer.WriteHeader(http.StatusOK)
+	utils.ResponseJSON(*c, response)
+}
