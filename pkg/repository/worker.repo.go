@@ -17,13 +17,13 @@ type workerRepository struct {
 
 // AcceptJobRequest implements interfaces.WorkerRepository
 func (c *workerRepository) AcceptJobRequest(id int) error {
-	query := `UPDATE requests SET status='accepted' WHERE id_requset=$1;`
+	query := `UPDATE requests SET status='accepted' WHERE id_requset=$1 RETURNING id_requset;`
 	var row int
 	sql := c.db.QueryRow(query, id)
 
 	sql.Scan(&row)
 	if row == 0 {
-		return errors.New("There is no item to delete")
+		return errors.New("There is no request to accept")
 	}
 
 	return sql.Err()

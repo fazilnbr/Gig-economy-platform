@@ -423,9 +423,7 @@ func (cr *WorkerHandler) ListAcceptedJobRequsetFromUser(c *gin.Context) {
 // @Router /worker/accept-job-request [patch]
 func (cr *WorkerHandler) AcceptJobRequest(c *gin.Context) {
 
-	id, _ := strconv.Atoi(c.Writer.Header().Get("id"))
-
-	fmt.Println("id : ", id)
+	// id, _ := strconv.Atoi(c.Writer.Header().Get("id"))
 
 	requestId, err := strconv.Atoi(c.Query("requestId"))
 

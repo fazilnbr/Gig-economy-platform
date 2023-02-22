@@ -125,6 +125,7 @@ func NewServerHTTP(authHandler handler.AuthHandler, adminHandler handler.AdminHa
 				// User Job Request
 				worker.GET("/list-user-pending-job-request", WorkerHandler.ListPendingJobRequsetFromUser)
 				worker.GET("/list-user-accepted-job-request", WorkerHandler.ListAcceptedJobRequsetFromUser)
+				worker.PATCH("/accept-job-request", WorkerHandler.AcceptJobRequest)
 			}
 		}
 
