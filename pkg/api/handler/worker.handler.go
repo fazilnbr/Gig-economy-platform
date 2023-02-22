@@ -308,8 +308,8 @@ func (cr *WorkerHandler) DeleteJob(c *gin.Context) {
 	utils.ResponseJSON(*c, response)
 }
 
-// @Summary list all job requset from user for Worker
-// @ID list all job requset from user for worker
+// @Summary list all pending job requset from user for Worker
+// @ID list all pending job requset from user for worker
 // @Tags Worker
 // @Security BearerAuth
 // @Produce json
@@ -336,7 +336,59 @@ func (cr *WorkerHandler) ListPendingJobRequsetFromUser(c *gin.Context) {
 	requests, metadata, err := cr.workerService.ListPendingJobRequsetFromUser(pagenation, id)
 
 	if err != nil {
-		response := response.ErrorResponse("Failed To List Job Requests of worker", err.Error(), nil)
+		response := response.ErrorResponse("Failed To List Pending Job Requests of worker", err.Error(), nil)
+
+		c.Writer.WriteHeader(http.StatusUnprocessableEntity)
+
+		utils.ResponseJSON(*c, response)
+		return
+	}
+
+	// result := struct {
+	// 	jobrequest *[]domain.RequestResponse
+	// 	Meta       *utils.Metadata
+	// }{
+	// 	jobrequest: requests,
+	// 	Meta:       metadata,
+	// }
+
+	result2 := []interface{}{requests, metadata}
+
+	response := response.SuccessResponse(true, "SUCCESS", result2)
+	c.Writer.Header().Set("Content-Type", "application/json")
+	c.Writer.WriteHeader(http.StatusOK)
+	utils.ResponseJSON(*c, response)
+}
+
+// @Summary list all accepted job requset from user for Worker
+// @ID list all accepted job requset from user for worker
+// @Tags Worker
+// @Security BearerAuth
+// @Produce json
+// @Param        page   query      string  true  "Page : "
+// @Param        pagesize   query      string  true  "Pagesize : "
+// @Success 200 {object} response.Response{}
+// @Failure 422 {object} response.Response{}
+// @Router /worker/list-user-accepted-job-request [get]
+func (cr *WorkerHandler) ListAcceptedJobRequsetFromUser(c *gin.Context) {
+
+	id, _ := strconv.Atoi(c.Writer.Header().Get("id"))
+	// id := 6
+	page, err := strconv.Atoi(c.Query("page"))
+
+	pageSize, _ := strconv.Atoi(c.Query("pagesize"))
+	fmt.Printf("\n\nuser : %v\n\nmetea : %v\n\n", page, c.Query("page"))
+	log.Println(page, "   ", pageSize)
+
+	pagenation := utils.Filter{
+		Page:     page,
+		PageSize: pageSize,
+	}
+
+	requests, metadata, err := cr.workerService.ListAcceptedJobRequsetFromUser(pagenation, id)
+
+	if err != nil {
+		response := response.ErrorResponse("Failed To List Accepted Job Requests of worker", err.Error(), nil)
 
 		c.Writer.WriteHeader(http.StatusUnprocessableEntity)
 
