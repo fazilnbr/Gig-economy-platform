@@ -15,6 +15,62 @@ type workerRepository struct {
 	db *sql.DB
 }
 
+// ListAcceptedJobRequsetFromUser implements interfaces.WorkerRepository
+func (c *workerRepository) ListAcceptedJobRequsetFromUser(pagenation utils.Filter, id int) ([]domain.RequestResponse, utils.Metadata, error) {
+	var requests []domain.RequestResponse
+
+	query := `SELECT COUNT(*) OVER(),R.id_requset,U.user_name,C.category,R.date,A.house_name,A.place,A.city,A.post,A.pin,A.phone 
+				FROM users AS U 
+				INNER JOIN requests AS R  ON U.id_login=R.user_id
+				INNER JOIN jobs AS J ON J.id_job=R.job_id
+				INNER JOIN addresses AS A ON A.id_address=R.address_id
+				INNER JOIN categories AS C ON J.category_id=C.id_category 
+				WHERE J.id_worker=$1 
+				AND R.status='accepted'
+				LIMIT $2 OFFSET $3;
+	`
+
+	rows, err := c.db.Query(query, id, pagenation.Limit(), pagenation.Offset())
+
+	if err != nil {
+		return nil, utils.Metadata{}, err
+	}
+
+	var totalRecords int
+
+	defer rows.Close()
+
+	for rows.Next() {
+		var request domain.RequestResponse
+
+		err = rows.Scan(
+			&totalRecords,
+			&request.IdRequest,
+			&request.Username,
+			&request.JobCategory,
+			&request.JobDate,
+			&request.HouseName,
+			&request.Place,
+			&request.City,
+			&request.Post,
+			&request.Pin,
+			&request.Phone,
+		)
+
+		if err != nil {
+			return requests, utils.ComputeMetaData(totalRecords, pagenation.Page, pagenation.PageSize), err
+		}
+
+		requests = append(requests, request)
+	}
+	if err := rows.Err(); err != nil {
+		return requests, utils.ComputeMetaData(totalRecords, pagenation.Page, pagenation.PageSize), err
+	}
+	log.Println(requests)
+	log.Println(utils.ComputeMetaData(totalRecords, pagenation.Page, pagenation.PageSize))
+	return requests, utils.ComputeMetaData(totalRecords, pagenation.Page, pagenation.PageSize), nil
+}
+
 // ListJobRequsetFromUser implements interfaces.WorkerRepository
 func (c *workerRepository) ListPendingJobRequsetFromUser(pagenation utils.Filter, id int) ([]domain.RequestResponse, utils.Metadata, error) {
 	var requests []domain.RequestResponse
