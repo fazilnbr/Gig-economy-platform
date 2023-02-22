@@ -15,6 +15,13 @@ type workerService struct {
 	workerRepo interfaces.WorkerRepository
 }
 
+// ListJobRequsetFromUser implements interfaces.WorkerUseCase
+func (c *workerService) ListPendingJobRequsetFromUser(pagenation utils.Filter, id int) (*[]domain.RequestResponse, *utils.Metadata, error) {
+	requsets, Metadata, err := c.workerRepo.ListPendingJobRequsetFromUser(pagenation, id)
+
+	return &requsets, &Metadata, err
+}
+
 // DeleteJob implements interfaces.WorkerUseCase
 func (c *workerService) DeleteJob(id int) error {
 	err := c.workerRepo.DeleteJob(id)

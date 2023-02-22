@@ -1,6 +1,8 @@
 package response
 
-import "strings"
+import (
+	"strings"
+)
 
 // Response is used for static shape json return
 type Response struct {

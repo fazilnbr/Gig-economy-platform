@@ -64,3 +64,16 @@ type ListFavorite struct {
 	Wage        int
 	Description string
 }
+
+type RequestResponse struct {
+	IdRequest   string
+	Username    string
+	JobCategory string
+	JobDate     string
+	HouseName   string
+	Place       string
+	City        string
+	Post        string
+	Pin         string
+	Phone       string
+}
