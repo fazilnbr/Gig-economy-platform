@@ -20,4 +20,5 @@ type WorkerRepository interface {
 	DeleteJob(id int) error
 	ListPendingJobRequsetFromUser(pagenation utils.Filter, id int) ([]domain.RequestResponse, utils.Metadata, error)
 	ListAcceptedJobRequsetFromUser(pagenation utils.Filter, id int) ([]domain.RequestResponse, utils.Metadata, error)
+	AcceptJobRequest(id int) error
 }

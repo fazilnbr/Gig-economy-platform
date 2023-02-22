@@ -15,6 +15,20 @@ type workerRepository struct {
 	db *sql.DB
 }
 
+// AcceptJobRequest implements interfaces.WorkerRepository
+func (c *workerRepository) AcceptJobRequest(id int) error {
+	query := `UPDATE requests SET status='accepted' WHERE id_requset=$1;`
+	var row int
+	sql := c.db.QueryRow(query, id)
+
+	sql.Scan(&row)
+	if row == 0 {
+		return errors.New("There is no item to delete")
+	}
+
+	return sql.Err()
+}
+
 // ListAcceptedJobRequsetFromUser implements interfaces.WorkerRepository
 func (c *workerRepository) ListAcceptedJobRequsetFromUser(pagenation utils.Filter, id int) ([]domain.RequestResponse, utils.Metadata, error) {
 	var requests []domain.RequestResponse
