@@ -15,6 +15,11 @@ type workerService struct {
 	workerRepo interfaces.WorkerRepository
 }
 
+// RejectJobRequest implements interfaces.WorkerUseCase
+func (c *workerService) RejectJobRequest(id int) error {
+	return c.workerRepo.RejectJobRequest(id)
+}
+
 // AcceptJobRequest implements interfaces.WorkerUseCase
 func (c *workerService) AcceptJobRequest(id int) error {
 	return c.workerRepo.AcceptJobRequest(id)
