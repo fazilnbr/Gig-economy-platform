@@ -96,6 +96,7 @@ func NewServerHTTP(authHandler handler.AuthHandler, adminHandler handler.AdminHa
 
 				// Job Request
 				user.POST("/send-job-request", UserHandler.UserSendJobRequest)
+				user.DELETE("/cancel-job-request",UserHandler.DeleteJobRequest)
 			}
 		}
 
