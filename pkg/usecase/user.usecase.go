@@ -15,6 +15,11 @@ type userUseCase struct {
 	userRepo interfaces.UserRepository
 }
 
+// DeleteJobRequest implements interfaces.UserUseCase
+func (c *userUseCase) DeleteJobRequest(requestId int, userid int) error {
+	return c.userRepo.DeleteJobRequest(requestId, userid)
+}
+
 // SendJobRequest implements interfaces.UserUseCase
 func (c *userUseCase) SendJobRequest(request domain.Request) (int, error) {
 	id, err := c.userRepo.CheckInRequest(request)
