@@ -486,8 +486,8 @@ func (cr *UserHandler) DeleteJobRequest(c *gin.Context) {
 	utils.ResponseJSON(*c, response)
 }
 
-// @Summary list favorite list of workers for users
-// @ID list favorite list of workers for users
+// @Summary list send job request for users
+// @ID list send job request for users
 // @Tags User
 // @Security BearerAuth
 // @Produce json
@@ -495,7 +495,7 @@ func (cr *UserHandler) DeleteJobRequest(c *gin.Context) {
 // @Param        pagesize   query      string  true  "Pagesize : "
 // @Success 200 {object} response.Response{}
 // @Failure 422 {object} response.Response{}
-// @Router /user/list-favorite-list [get]
+// @Router /user/list-job-request [get]
 func (cr *UserHandler) ListSendRequests(c *gin.Context) {
 	id, _ := strconv.Atoi(c.Writer.Header().Get("id"))
 	page, _ := strconv.Atoi(c.Query("page"))
@@ -512,7 +512,7 @@ func (cr *UserHandler) ListSendRequests(c *gin.Context) {
 	requests, metadata, err := cr.userService.ListSendRequests(pagenation,id)
 
 	if err != nil {
-		response := response.ErrorResponse("Failed to list favorite worker of user", err.Error(), nil)
+		response := response.ErrorResponse("Failed to list send job request of user", err.Error(), nil)
 		c.Writer.Header().Set("Content-Type", "application/json")
 		c.Writer.WriteHeader(http.StatusUnprocessableEntity)
 

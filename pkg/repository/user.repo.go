@@ -40,7 +40,7 @@ type userRepo struct {
 func (c *userRepo) ListSendRequests(pagenation utils.Filter, id int) ([]domain.Request, utils.Metadata, error) {
 	var requests []domain.Request
 
-	query:=`SELECT * FROM requests WHERE user_id=$1 ORDER BY date LIMIT $2 OFFSET $3;`
+	query := `SELECT COUNT(*) OVER(),* FROM requests WHERE user_id=$1 ORDER BY date LIMIT $2 OFFSET $3;`
 	rows, err := c.db.Query(query, id, pagenation.Limit(), pagenation.Offset())
 
 	if err != nil {
@@ -61,22 +61,22 @@ func (c *userRepo) ListSendRequests(pagenation utils.Filter, id int) ([]domain.R
 			&request.JobId,
 			&request.AddressId,
 			&request.Status,
-			&request.Date,			
+			&request.Date,
 		)
-		
+
 		if err != nil {
 			return requests, utils.ComputeMetaData(totalRecords, pagenation.Page, pagenation.PageSize), err
 		}
 
 		requests = append(requests, request)
 	}
-	fmt.Printf("\n\nusers : %v\n\n", requests)
+	// fmt.Printf("\n\nusers : %v\n\n", requests)
 
 	if err := rows.Err(); err != nil {
 		return requests, utils.ComputeMetaData(totalRecords, pagenation.Page, pagenation.PageSize), err
 	}
-	log.Println(requests)
-	log.Println(utils.ComputeMetaData(totalRecords, pagenation.Page, pagenation.PageSize))
+	// log.Println(requests)
+	// log.Println(utils.ComputeMetaData(totalRecords, pagenation.Page, pagenation.PageSize))
 	return requests, utils.ComputeMetaData(totalRecords, pagenation.Page, pagenation.PageSize), nil
 }
 
