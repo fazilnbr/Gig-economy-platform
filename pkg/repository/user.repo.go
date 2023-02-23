@@ -36,6 +36,50 @@ type userRepo struct {
 	db *sql.DB
 }
 
+// ListSendRequests implements interfaces.UserRepository
+func (c *userRepo) ListSendRequests(pagenation utils.Filter, id int) ([]domain.Request, utils.Metadata, error) {
+	var requests []domain.Request
+
+	query:=`SELECT * FROM requests WHERE user_id=$1 ORDER BY date LIMIT $2 OFFSET $3;`
+	rows, err := c.db.Query(query, id, pagenation.Limit(), pagenation.Offset())
+
+	if err != nil {
+		return requests, utils.Metadata{}, err
+	}
+
+	var totalRecords int
+
+	defer rows.Close()
+
+	for rows.Next() {
+		var request domain.Request
+// id_requset,user_id,job_id,address_id,status,date
+		err = rows.Scan(
+			&totalRecords,
+			&request.IdRequset,
+			&request.UserId,
+			&request.JobId,
+			&request.AddressId,
+			&request.Status,
+			&request.Date,			
+		)
+		
+		if err != nil {
+			return requests, utils.ComputeMetaData(totalRecords, pagenation.Page, pagenation.PageSize), err
+		}
+
+		requests = append(requests, request)
+	}
+	fmt.Printf("\n\nusers : %v\n\n", requests)
+
+	if err := rows.Err(); err != nil {
+		return requests, utils.ComputeMetaData(totalRecords, pagenation.Page, pagenation.PageSize), err
+	}
+	log.Println(requests)
+	log.Println(utils.ComputeMetaData(totalRecords, pagenation.Page, pagenation.PageSize))
+	return requests, utils.ComputeMetaData(totalRecords, pagenation.Page, pagenation.PageSize), nil
+}
+
 // DeleteJobRequest implements interfaces.UserRepository
 func (c *userRepo) DeleteJobRequest(requestId int, userid int) error {
 	query := `DELETE FROM requests WHERE id_requset=$1 AND user_id=$2 RETURNING id_requset;`
@@ -50,7 +94,6 @@ func (c *userRepo) DeleteJobRequest(requestId int, userid int) error {
 
 	return sql.Err()
 }
-
 
 // CheckInRequest implements interfaces.UserRepository
 func (c *userRepo) CheckInRequest(request domain.Request) (int, error) {
