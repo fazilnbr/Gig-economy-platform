@@ -485,3 +485,51 @@ func (cr *UserHandler) DeleteJobRequest(c *gin.Context) {
 	c.Writer.WriteHeader(http.StatusOK)
 	utils.ResponseJSON(*c, response)
 }
+
+// @Summary list send job request for users
+// @ID list send job request for users
+// @Tags User
+// @Security BearerAuth
+// @Produce json
+// @Param        page   query      string  true  "Page : "
+// @Param        pagesize   query      string  true  "Pagesize : "
+// @Success 200 {object} response.Response{}
+// @Failure 422 {object} response.Response{}
+// @Router /user/list-job-request [get]
+func (cr *UserHandler) ListSendRequests(c *gin.Context) {
+	id, _ := strconv.Atoi(c.Writer.Header().Get("id"))
+	page, _ := strconv.Atoi(c.Query("page"))
+
+	pageSize, _ := strconv.Atoi(c.Query("pagesize"))
+	fmt.Printf("\n\nuser : %v\n\nmetea : %v\n\n", page, pageSize)
+	log.Println(page, "   ", pageSize)
+
+	pagenation := utils.Filter{
+		Page:     page,
+		PageSize: pageSize,
+	}
+
+	requests, metadata, err := cr.userService.ListSendRequests(pagenation,id)
+
+	if err != nil {
+		response := response.ErrorResponse("Failed to list send job request of user", err.Error(), nil)
+		c.Writer.Header().Set("Content-Type", "application/json")
+		c.Writer.WriteHeader(http.StatusUnprocessableEntity)
+
+		utils.ResponseJSON(*c, response)
+		return
+	}
+
+	result := struct {
+		Users *[]domain.RequestUserResponse
+		Meta  *utils.Metadata
+	}{
+		Users: requests,
+		Meta:  metadata,
+	}
+
+	response := response.SuccessResponse(true, "SUCCESS", result)
+	c.Writer.Header().Set("Content-Type", "application/json")
+	c.Writer.WriteHeader(http.StatusOK)
+	utils.ResponseJSON(*c, response)
+}

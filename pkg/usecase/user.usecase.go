@@ -15,6 +15,12 @@ type userUseCase struct {
 	userRepo interfaces.UserRepository
 }
 
+// ListSendRequests implements interfaces.UserUseCase
+func (c *userUseCase) ListSendRequests(pagenation utils.Filter, id int) (*[]domain.RequestUserResponse, *utils.Metadata, error) {
+	requests,metadata,err:=c.userRepo.ListSendRequests(pagenation,id)
+	return &requests,&metadata,err
+}
+
 // DeleteJobRequest implements interfaces.UserUseCase
 func (c *userUseCase) DeleteJobRequest(requestId int, userid int) error {
 	return c.userRepo.DeleteJobRequest(requestId, userid)

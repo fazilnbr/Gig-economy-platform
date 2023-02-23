@@ -36,6 +36,52 @@ type userRepo struct {
 	db *sql.DB
 }
 
+// ListSendRequests implements interfaces.UserRepository
+func (c *userRepo) ListSendRequests(pagenation utils.Filter, id int) ([]domain.RequestUserResponse, utils.Metadata, error) {
+	var requests []domain.RequestUserResponse
+
+	// query := `SELECT COUNT(*) OVER(),* FROM requests WHERE user_id=$1 ORDER BY date LIMIT $2 OFFSET $3;`
+	query:=`SELECT COUNT(*) OVER(), U.user_name,C.category,R.date,R.status FROM requests AS R
+			INNER JOIN jobs AS J ON R.job_id=J.id_job 
+			INNER JOIN categories AS C ON J.category_id=C.id_category
+			INNER JOIN users AS U ON J.id_worker=U.id_login WHERE R.user_id=$1 ORDER BY R.date LIMIT $2 OFFSET $3;`
+	rows, err := c.db.Query(query, id, pagenation.Limit(), pagenation.Offset())
+
+	if err != nil {
+		return requests, utils.Metadata{}, err
+	}
+
+	var totalRecords int
+
+	defer rows.Close()
+
+	for rows.Next() {
+		var request domain.RequestUserResponse
+
+		err = rows.Scan(
+			&totalRecords,
+			&request.UserName,
+			&request.JobCategory,
+			&request.JobDate,
+			&request.RequestStatus,
+		)
+
+		if err != nil {
+			return requests, utils.ComputeMetaData(totalRecords, pagenation.Page, pagenation.PageSize), err
+		}
+
+		requests = append(requests, request)
+	}
+	// fmt.Printf("\n\nusers : %v\n\n", requests)
+
+	if err := rows.Err(); err != nil {
+		return requests, utils.ComputeMetaData(totalRecords, pagenation.Page, pagenation.PageSize), err
+	}
+	// log.Println(requests)
+	// log.Println(utils.ComputeMetaData(totalRecords, pagenation.Page, pagenation.PageSize))
+	return requests, utils.ComputeMetaData(totalRecords, pagenation.Page, pagenation.PageSize), nil
+}
+
 // DeleteJobRequest implements interfaces.UserRepository
 func (c *userRepo) DeleteJobRequest(requestId int, userid int) error {
 	query := `DELETE FROM requests WHERE id_requset=$1 AND user_id=$2 RETURNING id_requset;`
@@ -50,7 +96,6 @@ func (c *userRepo) DeleteJobRequest(requestId int, userid int) error {
 
 	return sql.Err()
 }
-
 
 // CheckInRequest implements interfaces.UserRepository
 func (c *userRepo) CheckInRequest(request domain.Request) (int, error) {

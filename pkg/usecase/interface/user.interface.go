@@ -22,4 +22,5 @@ type UserUseCase interface {
 	DeleteAddress(id int, userid int) error
 	SendJobRequest(request domain.Request) (int, error)
 	DeleteJobRequest(requestId int, userid int) error
+	ListSendRequests(pagenation utils.Filter, id int) (*[]domain.RequestUserResponse, *utils.Metadata, error)
 }
