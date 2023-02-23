@@ -450,3 +450,38 @@ func (cr *UserHandler) UserSendJobRequest(c *gin.Context) {
 	c.Writer.WriteHeader(http.StatusOK)
 	utils.ResponseJSON(*c, response)
 }
+
+
+// @Summary Cancel request for user
+// @ID user cancel request
+// @Tags User
+// @Security BearerAuth
+// @Produce json
+// @Param        requestId   query      string  true  "Request Id : "
+// @Success 200 {object} response.Response{}
+// @Failure 422 {object} response.Response{}
+// @Router /user/cancel-job-request [delete]
+func (cr *UserHandler) DeleteJobRequest(c *gin.Context) {
+	userid, _ := strconv.Atoi(c.Writer.Header().Get("id"))
+	requestId, _ := strconv.Atoi(c.Query("requestId"))
+
+	// c.Bind(&userprofile)
+
+	// fmt.Printf("\n\nuser Profile : \n%v\n\n\n\n", id)
+
+	err := cr.userService.DeleteJobRequest(requestId,userid)
+
+	if err != nil {
+		response := response.ErrorResponse("Error while deleting current address of user", err.Error(), nil)
+		c.Writer.Header().Set("Content-Type", "application/json")
+		c.Writer.WriteHeader(http.StatusUnprocessableEntity)
+
+		utils.ResponseJSON(*c, response)
+		return
+	}
+
+	response := response.SuccessResponse(true, "SUCCESS", requestId)
+	c.Writer.Header().Set("Content-Type", "application/json")
+	c.Writer.WriteHeader(http.StatusOK)
+	utils.ResponseJSON(*c, response)
+}
