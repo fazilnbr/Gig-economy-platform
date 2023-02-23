@@ -8,3 +8,4 @@
 
 \COPY addresses (user_id,house_name,place,city,post,pin,phone) from 'address.txt' WITH  DELIMITER ',';
 
+\COPY requests (user_id,job_id,address_id,date) from 'request.txt' WITH  DELIMITER ',';
