@@ -16,7 +16,7 @@ type userUseCase struct {
 }
 
 // ListSendRequests implements interfaces.UserUseCase
-func (c *userUseCase) ListSendRequests(pagenation utils.Filter, id int) (*[]domain.Request, *utils.Metadata, error) {
+func (c *userUseCase) ListSendRequests(pagenation utils.Filter, id int) (*[]domain.RequestUserResponse, *utils.Metadata, error) {
 	requests,metadata,err:=c.userRepo.ListSendRequests(pagenation,id)
 	return &requests,&metadata,err
 }

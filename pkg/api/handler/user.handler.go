@@ -521,7 +521,7 @@ func (cr *UserHandler) ListSendRequests(c *gin.Context) {
 	}
 
 	result := struct {
-		Users *[]domain.Request
+		Users *[]domain.RequestUserResponse
 		Meta  *utils.Metadata
 	}{
 		Users: requests,

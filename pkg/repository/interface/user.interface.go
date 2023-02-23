@@ -24,5 +24,5 @@ type UserRepository interface {
 	SendJobRequest(request domain.Request) (int, error)
 	CheckInRequest(request domain.Request) (int, error)
 	DeleteJobRequest(requestId int, userid int) error
-	ListSendRequests(pagenation utils.Filter, id int) ([]domain.Request, utils.Metadata, error)
+	ListSendRequests(pagenation utils.Filter, id int) ([]domain.RequestUserResponse, utils.Metadata, error)
 }

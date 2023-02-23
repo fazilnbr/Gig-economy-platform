@@ -77,3 +77,11 @@ type RequestResponse struct {
 	Pin         string
 	Phone       string
 }
+
+type RequestUserResponse struct {
+	UserName      string
+	JobCategory   string
+	JobDate       string
+	RequestStatus string
+	Address       Address
+}

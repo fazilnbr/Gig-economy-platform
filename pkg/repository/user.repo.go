@@ -37,10 +37,14 @@ type userRepo struct {
 }
 
 // ListSendRequests implements interfaces.UserRepository
-func (c *userRepo) ListSendRequests(pagenation utils.Filter, id int) ([]domain.Request, utils.Metadata, error) {
-	var requests []domain.Request
+func (c *userRepo) ListSendRequests(pagenation utils.Filter, id int) ([]domain.RequestUserResponse, utils.Metadata, error) {
+	var requests []domain.RequestUserResponse
 
-	query := `SELECT COUNT(*) OVER(),* FROM requests WHERE user_id=$1 ORDER BY date LIMIT $2 OFFSET $3;`
+	// query := `SELECT COUNT(*) OVER(),* FROM requests WHERE user_id=$1 ORDER BY date LIMIT $2 OFFSET $3;`
+	query:=`SELECT COUNT(*) OVER(), U.user_name,C.category,R.date,R.status FROM requests AS R
+			INNER JOIN jobs AS J ON R.job_id=J.id_job 
+			INNER JOIN categories AS C ON J.category_id=C.id_category
+			INNER JOIN users AS U ON J.id_worker=U.id_login WHERE R.user_id=$1 ORDER BY R.date LIMIT $2 OFFSET $3;`
 	rows, err := c.db.Query(query, id, pagenation.Limit(), pagenation.Offset())
 
 	if err != nil {
@@ -52,16 +56,14 @@ func (c *userRepo) ListSendRequests(pagenation utils.Filter, id int) ([]domain.R
 	defer rows.Close()
 
 	for rows.Next() {
-		var request domain.Request
+		var request domain.RequestUserResponse
 
 		err = rows.Scan(
 			&totalRecords,
-			&request.IdRequset,
-			&request.UserId,
-			&request.JobId,
-			&request.AddressId,
-			&request.Status,
-			&request.Date,
+			&request.UserName,
+			&request.JobCategory,
+			&request.JobDate,
+			&request.RequestStatus,
 		)
 
 		if err != nil {
