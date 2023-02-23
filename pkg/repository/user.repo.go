@@ -53,7 +53,7 @@ func (c *userRepo) ListSendRequests(pagenation utils.Filter, id int) ([]domain.R
 
 	for rows.Next() {
 		var request domain.Request
-// id_requset,user_id,job_id,address_id,status,date
+
 		err = rows.Scan(
 			&totalRecords,
 			&request.IdRequset,
