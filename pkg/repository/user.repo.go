@@ -59,7 +59,6 @@ func (c *userRepo) ViewSendOneRequest(userId int, requestId int) (domain.Request
 		&request.Address.City,
 		&request.Address.Post,
 		&request.Address.Pin,
-		&request.Address.Pin,
 		&request.Address.Phone,
 	)
 	fmt.Printf("\n\n\nuser : %v\n\n\n", request)

@@ -533,15 +533,15 @@ func (cr *UserHandler) ListSendRequests(c *gin.Context) {
 	utils.ResponseJSON(*c, response)
 }
 
-// @Summary Edit profile for User
-// @ID user edit profile
+// @Summary View One Job Request
+// @ID user view one job request
 // @Tags User
 // @Security BearerAuth
 // @Produce json
 // @Param        requestid   query      string  true  "Request Id : "
 // @Success 200 {object} response.Response{}
 // @Failure 422 {object} response.Response{}
-// @Router /user/edit-profile [patch]
+// @Router /user/view-one-job-request [get]
 func (cr *UserHandler) ViewSendOneRequest(c *gin.Context) {
 	userId, _ := strconv.Atoi(c.Writer.Header().Get("id"))
 
