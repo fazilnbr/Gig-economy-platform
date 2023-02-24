@@ -44,7 +44,7 @@ func (c *userRepo) UpdateJobComplition(userId int, requestId int) error {
 
 	sql.Scan(&row)
 	if row == 0 {
-		return errors.New("There is no job to complition")
+		return errors.New("There is no accepted job to complition")
 	}
 
 	return sql.Err()
