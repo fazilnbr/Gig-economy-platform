@@ -38,13 +38,13 @@ type userRepo struct {
 
 // UpdateJobComplition implements interfaces.UserRepository
 func (c *userRepo) UpdateJobComplition(userId int, requestId int) error {
-	query := `UPDATE requests SET status='completed' WHERE id_requset=$1 AND user_id=$2 RETURNING id_requset;`
+	query := `UPDATE requests SET status='completed' WHERE id_requset=$1 AND user_id=$2 AND status='accepted' RETURNING id_requset;`
 	var row int
 	sql := c.db.QueryRow(query, requestId, userId)
 
 	sql.Scan(&row)
 	if row == 0 {
-		return errors.New("There is no request to accept")
+		return errors.New("There is no job to complition")
 	}
 
 	return sql.Err()
