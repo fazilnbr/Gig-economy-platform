@@ -15,10 +15,16 @@ type userUseCase struct {
 	userRepo interfaces.UserRepository
 }
 
+// ViewSendRequest implements interfaces.UserUseCase
+func (c *userUseCase) ViewSendOneRequest(userId int, requestId int) (*domain.RequestUserResponse, error) {
+	request,err:=c.userRepo.ViewSendOneRequest(userId,requestId)
+	return &request,err
+}
+
 // ListSendRequests implements interfaces.UserUseCase
 func (c *userUseCase) ListSendRequests(pagenation utils.Filter, id int) (*[]domain.RequestUserResponse, *utils.Metadata, error) {
-	requests,metadata,err:=c.userRepo.ListSendRequests(pagenation,id)
-	return &requests,&metadata,err
+	requests, metadata, err := c.userRepo.ListSendRequests(pagenation, id)
+	return &requests, &metadata, err
 }
 
 // DeleteJobRequest implements interfaces.UserUseCase

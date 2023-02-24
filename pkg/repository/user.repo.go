@@ -37,7 +37,7 @@ type userRepo struct {
 }
 
 // ViewSendRequest implements interfaces.UserRepository
-func (c *userRepo) ViewSendRequest(userId int, requestId int) (domain.RequestUserResponse, error) {
+func (c *userRepo) ViewSendOneRequest(userId int, requestId int) (domain.RequestUserResponse, error) {
 	var request domain.RequestUserResponse
 
 	query := `SELECT R.id_requset,U.user_name,C.category,R.date,R.status,A.* FROM requests AS R

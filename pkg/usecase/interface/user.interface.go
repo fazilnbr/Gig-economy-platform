@@ -23,4 +23,5 @@ type UserUseCase interface {
 	SendJobRequest(request domain.Request) (int, error)
 	DeleteJobRequest(requestId int, userid int) error
 	ListSendRequests(pagenation utils.Filter, id int) (*[]domain.RequestUserResponse, *utils.Metadata, error)
+	ViewSendOneRequest(userId int, requestId int) (*domain.RequestUserResponse, error)
 }
