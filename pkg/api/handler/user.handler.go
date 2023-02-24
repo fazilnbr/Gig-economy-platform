@@ -574,7 +574,7 @@ func (cr *UserHandler) ViewSendOneRequest(c *gin.Context) {
 // @Param        requestid   query      string  true  "Request Id : "
 // @Success 200 {object} response.Response{}
 // @Failure 422 {object} response.Response{}
-// @Router /user/view-one-job-request [get]
+// @Router /user/update-job-complition-status [patch]
 func (cr *UserHandler) UpdateJobComplition(c *gin.Context) {
 	userId, _ := strconv.Atoi(c.Writer.Header().Get("id"))
 
