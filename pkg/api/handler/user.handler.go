@@ -565,3 +565,36 @@ func (cr *UserHandler) ViewSendOneRequest(c *gin.Context) {
 	c.Writer.WriteHeader(http.StatusOK)
 	utils.ResponseJSON(*c, response)
 }
+
+// @Summary View One Job Request
+// @ID user view one job request
+// @Tags User
+// @Security BearerAuth
+// @Produce json
+// @Param        requestid   query      string  true  "Request Id : "
+// @Success 200 {object} response.Response{}
+// @Failure 422 {object} response.Response{}
+// @Router /user/view-one-job-request [get]
+func (cr *UserHandler) UpdateJobComplition(c *gin.Context) {
+	userId, _ := strconv.Atoi(c.Writer.Header().Get("id"))
+
+	requestId, _ := strconv.Atoi(c.Query("requestid"))
+
+	// fmt.Printf("\n\nuser Profile : \n%v\n\n%v\n\n", userprofile, id)
+
+	err := cr.userService.UpdateJobComplition(userId, requestId)
+
+	if err != nil {
+		response := response.ErrorResponse("Error while Updating Job Complition", err.Error(), nil)
+		c.Writer.Header().Set("Content-Type", "application/json")
+		c.Writer.WriteHeader(http.StatusUnprocessableEntity)
+
+		utils.ResponseJSON(*c, response)
+		return
+	}
+
+	response := response.SuccessResponse(true, "SUCCESS", requestId)
+	c.Writer.Header().Set("Content-Type", "application/json")
+	c.Writer.WriteHeader(http.StatusOK)
+	utils.ResponseJSON(*c, response)
+}
