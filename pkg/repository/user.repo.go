@@ -41,7 +41,7 @@ func (c *userRepo) ListSendRequests(pagenation utils.Filter, id int) ([]domain.R
 	var requests []domain.RequestUserResponse
 
 	// query := `SELECT COUNT(*) OVER(),* FROM requests WHERE user_id=$1 ORDER BY date LIMIT $2 OFFSET $3;`
-	query:=`SELECT COUNT(*) OVER(), U.user_name,C.category,R.date,R.status FROM requests AS R
+	query := `SELECT COUNT(*) OVER(),R.id_requset, U.user_name,C.category,R.date,R.status FROM requests AS R
 			INNER JOIN jobs AS J ON R.job_id=J.id_job 
 			INNER JOIN categories AS C ON J.category_id=C.id_category
 			INNER JOIN users AS U ON J.id_worker=U.id_login WHERE R.user_id=$1 ORDER BY R.date LIMIT $2 OFFSET $3;`
@@ -60,6 +60,7 @@ func (c *userRepo) ListSendRequests(pagenation utils.Filter, id int) ([]domain.R
 
 		err = rows.Scan(
 			&totalRecords,
+			&request.IdRequest,
 			&request.UserName,
 			&request.JobCategory,
 			&request.JobDate,

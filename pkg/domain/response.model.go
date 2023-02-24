@@ -79,6 +79,7 @@ type RequestResponse struct {
 }
 
 type RequestUserResponse struct {
+	IdRequest     int
 	UserName      string
 	JobCategory   string
 	JobDate       string
