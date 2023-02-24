@@ -451,7 +451,6 @@ func (cr *UserHandler) UserSendJobRequest(c *gin.Context) {
 	utils.ResponseJSON(*c, response)
 }
 
-
 // @Summary Cancel request for user
 // @ID user cancel request
 // @Tags User
@@ -469,7 +468,7 @@ func (cr *UserHandler) DeleteJobRequest(c *gin.Context) {
 
 	// fmt.Printf("\n\nuser Profile : \n%v\n\n\n\n", id)
 
-	err := cr.userService.DeleteJobRequest(requestId,userid)
+	err := cr.userService.DeleteJobRequest(requestId, userid)
 
 	if err != nil {
 		response := response.ErrorResponse("Error while deleting current address of user", err.Error(), nil)
@@ -509,7 +508,7 @@ func (cr *UserHandler) ListSendRequests(c *gin.Context) {
 		PageSize: pageSize,
 	}
 
-	requests, metadata, err := cr.userService.ListSendRequests(pagenation,id)
+	requests, metadata, err := cr.userService.ListSendRequests(pagenation, id)
 
 	if err != nil {
 		response := response.ErrorResponse("Failed to list send job request of user", err.Error(), nil)
@@ -529,6 +528,39 @@ func (cr *UserHandler) ListSendRequests(c *gin.Context) {
 	}
 
 	response := response.SuccessResponse(true, "SUCCESS", result)
+	c.Writer.Header().Set("Content-Type", "application/json")
+	c.Writer.WriteHeader(http.StatusOK)
+	utils.ResponseJSON(*c, response)
+}
+
+// @Summary View One Job Request
+// @ID user view one job request
+// @Tags User
+// @Security BearerAuth
+// @Produce json
+// @Param        requestid   query      string  true  "Request Id : "
+// @Success 200 {object} response.Response{}
+// @Failure 422 {object} response.Response{}
+// @Router /user/view-one-job-request [get]
+func (cr *UserHandler) ViewSendOneRequest(c *gin.Context) {
+	userId, _ := strconv.Atoi(c.Writer.Header().Get("id"))
+
+	requestId, _ := strconv.Atoi(c.Query("requestid"))
+
+	// fmt.Printf("\n\nuser Profile : \n%v\n\n%v\n\n", userprofile, id)
+
+	request, err := cr.userService.ViewSendOneRequest(userId, requestId)
+
+	if err != nil {
+		response := response.ErrorResponse("Error while editing profile", err.Error(), nil)
+		c.Writer.Header().Set("Content-Type", "application/json")
+		c.Writer.WriteHeader(http.StatusUnprocessableEntity)
+
+		utils.ResponseJSON(*c, response)
+		return
+	}
+
+	response := response.SuccessResponse(true, "SUCCESS", request)
 	c.Writer.Header().Set("Content-Type", "application/json")
 	c.Writer.WriteHeader(http.StatusOK)
 	utils.ResponseJSON(*c, response)
