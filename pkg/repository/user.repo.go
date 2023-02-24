@@ -36,6 +36,40 @@ type userRepo struct {
 	db *sql.DB
 }
 
+// ViewSendRequest implements interfaces.UserRepository
+func (c *userRepo) ViewSendRequest(userId int, requestId int) (domain.RequestUserResponse, error) {
+	var request domain.RequestUserResponse
+
+	query := `SELECT R.id_requset,U.user_name,C.category,R.date,R.status,A.* FROM requests AS R
+				INNER JOIN jobs AS J ON R.job_id=J.id_job 
+				INNER JOIN categories AS C ON J.category_id=C.id_category
+				INNER JOIN users AS U ON J.id_worker=U.id_login INNER JOIN addresses AS A ON A.user_id=$1 WHERE R.user_id=$1 AND R.id_requset=$2;
+	`
+
+	err := c.db.QueryRow(query,userId,requestId).Scan(
+		&request.IdRequest,
+		&request.UserName,
+		&request.JobCategory,
+		&request.JobDate,
+		&request.RequestStatus,
+		&request.Address.IdAddress,
+		&request.Address.UserId,
+		&request.Address.HouseName,
+		&request.Address.Place,
+		&request.Address.City,
+		&request.Address.Post,
+		&request.Address.Pin,
+		&request.Address.Pin,
+		&request.Address.Phone,
+	)
+	fmt.Printf("\n\n\nuser : %v\n\n\n", request)
+	if err != nil && err != sql.ErrNoRows {
+		return request, err
+	}
+
+	return request, err
+}
+
 // ListSendRequests implements interfaces.UserRepository
 func (c *userRepo) ListSendRequests(pagenation utils.Filter, id int) ([]domain.RequestUserResponse, utils.Metadata, error) {
 	var requests []domain.RequestUserResponse
