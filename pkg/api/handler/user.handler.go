@@ -616,10 +616,10 @@ func (cr *UserHandler) RazorPayHome(c *gin.Context) {
 	requestId, _ := strconv.Atoi(c.Query("requestid"))
 
 
-	err := cr.userService.UpdateJobComplition(userId, requestId)
+	razordata,err := cr.userService.FetchRazorPayDetials(userId,requestId)
 
 	if err != nil {
-		response := response.ErrorResponse("Error while Updating Job Complition", err.Error(), nil)
+		response := response.ErrorResponse("Error while Fetching Razor-Pay Request data", err.Error(), nil)
 		c.Writer.Header().Set("Content-Type", "application/json")
 		c.Writer.WriteHeader(http.StatusUnprocessableEntity)
 
@@ -627,7 +627,7 @@ func (cr *UserHandler) RazorPayHome(c *gin.Context) {
 		return
 	}
 
-	response := response.SuccessResponse(true, "SUCCESS", requestId)
+	response := response.SuccessResponse(true, "SUCCESS", razordata)
 	c.Writer.Header().Set("Content-Type", "application/json")
 	c.Writer.WriteHeader(http.StatusOK)
 	utils.ResponseJSON(*c, response)
