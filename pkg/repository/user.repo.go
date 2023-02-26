@@ -36,6 +36,20 @@ type userRepo struct {
 	db *sql.DB
 }
 
+// UpdatePaymentId implements interfaces.UserRepository
+func (c *userRepo) UpdatePaymentId(razorPaymentId string, idPayment int) error {
+	query := `UPDATE job_payments SET razor_paymet_id=$1 WHERE id_payment=$2;`
+	var row int
+	sql := c.db.QueryRow(query, razorPaymentId,idPayment)
+
+	sql.Scan(&row)
+	if row == 0 {
+		return errors.New("There is no accepted job to complition")
+	}
+
+	return sql.Err()
+}
+
 // CheckOrderId implements interfaces.UserRepository
 func (c *userRepo) CheckOrderId(userId int, orderId string) (int, error) {
 	var id int
@@ -70,7 +84,7 @@ func (c *userRepo) SavePaymentOrderDeatials(payment domain.JobPayment) (int, err
 		payment.UserId,
 		payment.Amount,
 		date,
-		).Scan(
+	).Scan(
 		&Id,
 	)
 
