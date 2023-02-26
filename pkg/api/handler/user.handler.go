@@ -598,3 +598,37 @@ func (cr *UserHandler) UpdateJobComplition(c *gin.Context) {
 	c.Writer.WriteHeader(http.StatusOK)
 	utils.ResponseJSON(*c, response)
 }
+
+
+
+// @Summary To Open Home Page To Razor-Pay Payment
+// @ID To open home page to razor-pay payment
+// @Tags User
+// @Security BearerAuth
+// @Produce json
+// @Param        requestid   query      string  true  "Request Id : "
+// @Success 200 {object} response.Response{}
+// @Failure 422 {object} response.Response{}
+// @Router /user/update-job-complition-status [patch]
+func (cr *UserHandler) RazorPayHome(c *gin.Context) {
+	userId, _ := strconv.Atoi(c.Writer.Header().Get("id"))
+
+	requestId, _ := strconv.Atoi(c.Query("requestid"))
+
+
+	err := cr.userService.UpdateJobComplition(userId, requestId)
+
+	if err != nil {
+		response := response.ErrorResponse("Error while Updating Job Complition", err.Error(), nil)
+		c.Writer.Header().Set("Content-Type", "application/json")
+		c.Writer.WriteHeader(http.StatusUnprocessableEntity)
+
+		utils.ResponseJSON(*c, response)
+		return
+	}
+
+	response := response.SuccessResponse(true, "SUCCESS", requestId)
+	c.Writer.Header().Set("Content-Type", "application/json")
+	c.Writer.WriteHeader(http.StatusOK)
+	utils.ResponseJSON(*c, response)
+}

@@ -100,6 +100,12 @@ func NewServerHTTP(authHandler handler.AuthHandler, adminHandler handler.AdminHa
 				user.GET("/list-job-request",UserHandler.ListSendRequests)
 				user.GET("/view-one-job-request",UserHandler.ViewSendOneRequest)
 				user.PATCH("/update-job-complition-status",UserHandler.UpdateJobComplition)
+
+				// Job Payment
+					// Razor-pay
+					user.GET("/razor-pay-home",UserHandler.RazorPayHome)
+
+
 			}
 		}
 
