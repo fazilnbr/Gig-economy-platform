@@ -28,4 +28,5 @@ type UserUseCase interface {
 	FetchRazorPayDetials(userId int, requestId int) (*domain.RazorPayVariables, error)
 	SavePaymentOrderDeatials(payment domain.JobPayment) (int, error)
 	CheckOrderId(userId int, orderId string) (int, error)
+	UpdatePaymentId(razorPaymentId string, idPayment int) error
 }
