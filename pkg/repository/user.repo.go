@@ -5,6 +5,7 @@ import (
 	"errors"
 	"fmt"
 	"log"
+	"strings"
 	"time"
 
 	"github.com/fazilnbr/project-workey/pkg/domain"
@@ -34,6 +35,94 @@ const (
 
 type userRepo struct {
 	db *sql.DB
+}
+
+// UpdatePaymentId implements interfaces.UserRepository
+func (c *userRepo) UpdatePaymentId(razorPaymentId string, idPayment int) error {
+	query := `UPDATE job_payments SET razor_paymet_id=$1,payment_status='completed' WHERE id_payment=$2 RETURNING id_payment;`
+	var row int
+	sql := c.db.QueryRow(query, razorPaymentId, idPayment)
+
+	sql.Scan(&row)
+	if row == 0 {
+		return errors.New("There is no accepted job to complition")
+	}
+
+	return sql.Err()
+}
+
+// CheckOrderId implements interfaces.UserRepository
+func (c *userRepo) CheckOrderId(userId int, orderId string) (int, error) {
+	var id int
+
+	query := `SELECT id_payment FROM job_payments WHERE order_id=$1 AND user_id=$2;`
+
+	err := c.db.QueryRow(query, strings.Join(strings.Fields(orderId), ""), userId).Scan(
+		&id,
+	)
+	fmt.Printf("\n\n\nuser : %v\n\nuserid : %v\n\norderid :%v\n\n", id, userId, orderId)
+	if err == sql.ErrNoRows {
+		return id, errors.New("Fake payment order id ")
+	}
+	if id == 0 {
+		return id, errors.New("no data")
+	}
+	if err != nil && err != sql.ErrNoRows {
+		return id, err
+	}
+
+	return id, err
+}
+
+// SaveOrderId implements interfaces.UserRepository
+func (c *userRepo) SavePaymentOrderDeatials(payment domain.JobPayment) (int, error) {
+	var Id int
+	query := `insert into job_payments (request_id,order_id,user_id,amount,date) values($1,$2,$3,$4,$5) RETURNING id_payment;`
+
+	time := time.Now()
+	date := fmt.Sprintf("%v/%v/%v", time.Day(), time.Month(), time.Year())
+
+
+	err := c.db.QueryRow(query,
+		payment.RequestId,
+		payment.OrderId,
+		payment.UserId,
+		payment.Amount,
+		date,
+	).Scan(
+		&Id,
+	)
+
+	return Id, err
+}
+
+// FetchRazorPayDetials implements interfaces.UserRepository
+func (c *userRepo) FetchRazorPayDetials(userId int, requestId int) (domain.RazorPayVariables, error) {
+	var razordata domain.RazorPayVariables
+
+	query := `SELECT U.user_name,U.user_name,A.phone,J.wage from users AS U
+			INNER JOIN addresses AS A ON A.user_id=id_login 
+			INNER JOIN requests AS R ON R.user_id=U.id_login
+			INNER JOIN jobs AS J ON id_job=R.job_id 
+			WHERE U.id_login=$1 
+			AND R.id_requset=$2
+			AND R.status='completed';`
+
+	err := c.db.QueryRow(query, userId, requestId).Scan(
+		&razordata.Email,
+		&razordata.Name,
+		&razordata.Contact,
+		&razordata.Amount,
+	)
+	fmt.Printf("\n\n\nuser : %v\n\n\n", razordata)
+	if err == sql.ErrNoRows {
+		return razordata, errors.New("There is no job completed to done payment")
+	}
+	if err != nil && err != sql.ErrNoRows {
+		return razordata, err
+	}
+
+	return razordata, err
 }
 
 // UpdateJobComplition implements interfaces.UserRepository

@@ -25,6 +25,10 @@ type UserRepository interface {
 	CheckInRequest(request domain.Request) (int, error)
 	DeleteJobRequest(requestId int, userid int) error
 	ListSendRequests(pagenation utils.Filter, id int) ([]domain.RequestUserResponse, utils.Metadata, error)
-	ViewSendOneRequest(userId int,requestId int) (domain.RequestUserResponse, error)
-	UpdateJobComplition(userId int,requestId int)error
+	ViewSendOneRequest(userId int, requestId int) (domain.RequestUserResponse, error)
+	UpdateJobComplition(userId int, requestId int) error
+	FetchRazorPayDetials(userId int, requestId int) (domain.RazorPayVariables, error)
+	SavePaymentOrderDeatials(payment domain.JobPayment) (int, error)
+	CheckOrderId(userId int, orderId string) (int, error)
+	UpdatePaymentId(razorPaymentId string, idPayment int) error
 }

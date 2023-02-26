@@ -15,9 +15,32 @@ type userUseCase struct {
 	userRepo interfaces.UserRepository
 }
 
+// UpdatePaymentId implements interfaces.UserUseCase
+func (c *userUseCase) UpdatePaymentId(razorPaymentId string, idPayment int) error {
+	return c.userRepo.UpdatePaymentId(razorPaymentId,idPayment)
+}
+
+// CheckOrderId implements interfaces.UserUseCase
+func (c *userUseCase) CheckOrderId(userId int, orderId string) (int, error) {
+	id, err := c.userRepo.CheckOrderId(userId, orderId)
+	return id, err
+}
+
+// SaveOrderId implements interfaces.UserUseCase
+func (c *userUseCase) SavePaymentOrderDeatials(payment domain.JobPayment) (int, error) {
+	id, err := c.userRepo.SavePaymentOrderDeatials(payment)
+	return id, err
+}
+
+// FetchRazorPayDetials implements interfaces.UserUseCase
+func (c *userUseCase) FetchRazorPayDetials(userId int, requestId int) (*domain.RazorPayVariables, error) {
+	razordata, err := c.userRepo.FetchRazorPayDetials(userId, requestId)
+	return &razordata, err
+}
+
 // UpdateJobComplition implements interfaces.UserUseCase
 func (c *userUseCase) UpdateJobComplition(userId int, requestId int) error {
-	return c.userRepo.UpdateJobComplition(userId,requestId)
+	return c.userRepo.UpdateJobComplition(userId, requestId)
 }
 
 // ViewSendRequest implements interfaces.UserUseCase

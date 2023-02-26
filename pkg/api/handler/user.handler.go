@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"log"
 	"net/http"
+	"os"
 	"strconv"
 
 	"github.com/fazilnbr/project-workey/pkg/common/response"
@@ -11,6 +12,7 @@ import (
 	services "github.com/fazilnbr/project-workey/pkg/usecase/interface"
 	"github.com/fazilnbr/project-workey/pkg/utils"
 	"github.com/gin-gonic/gin"
+	razorpay "github.com/razorpay/razorpay-go"
 )
 
 type UserHandler struct {
@@ -597,4 +599,139 @@ func (cr *UserHandler) UpdateJobComplition(c *gin.Context) {
 	c.Writer.Header().Set("Content-Type", "application/json")
 	c.Writer.WriteHeader(http.StatusOK)
 	utils.ResponseJSON(*c, response)
+}
+
+// @Summary To Open Home Page To Razor-Pay Payment
+// @ID To open home page to razor-pay payment
+// @Tags User
+// @Security BearerAuth
+// @Produce json
+// @Param        requestid   query      string  true  "Request Id : "
+// @Success 200 {object} response.Response{}
+// @Failure 422 {object} response.Response{}
+// @Router /user/razor-pay-home [get]
+func (cr *UserHandler) RazorPayHome(c *gin.Context) {
+	// userId, _ := strconv.Atoi(c.Writer.Header().Get("id"))
+	userId := 5
+
+	requestId, _ := strconv.Atoi(c.Query("requestId"))
+
+	// Fetch razor pay request data
+	razordata, err := cr.userService.FetchRazorPayDetials(userId, requestId)
+
+	if err != nil {
+		response := response.ErrorResponse("Error while Fetching Razor-Pay Request data", err.Error(), nil)
+		c.Writer.Header().Set("Content-Type", "application/json")
+		c.Writer.WriteHeader(http.StatusUnprocessableEntity)
+
+		utils.ResponseJSON(*c, response)
+		return
+	}
+
+	// Create order_id from the Razor-Pay server
+	client := razorpay.NewClient("rzp_test_vOsKKSWnOE803Q", "JINdUUpdybhJ707mAu37fH84")
+
+	// Create data to get order id
+	data := map[string]interface{}{
+		"amount":   razordata.Amount * 100,
+		"currency": "INR",
+		"receipt":  "some_receipt_id",
+	}
+
+	// Make an order in razor pay to payment
+	body, err := client.Order.Create(data, nil)
+	fmt.Println("////////////////reciept", body)
+	if err != nil {
+		fmt.Println("Problem getting the repository information", err)
+		os.Exit(1)
+	}
+
+	value := body["id"]
+
+	orderId := value.(string)
+	fmt.Println("str////////////////", orderId)
+
+	// Save the order id
+	// In razordata
+	razordata.OrderId = orderId
+	// In database
+	payment := domain.JobPayment{
+		RequestId: requestId,
+		OrderId:   orderId,
+		UserId:    userId,
+		Amount:    razordata.Amount,
+	}
+	_, err = cr.userService.SavePaymentOrderDeatials(payment)
+
+	if err != nil {
+		response := response.ErrorResponse("Error while Storing Razor-Pay order id", err.Error(), nil)
+		c.Writer.Header().Set("Content-Type", "application/json")
+		c.Writer.WriteHeader(http.StatusUnprocessableEntity)
+
+		utils.ResponseJSON(*c, response)
+		return
+	}
+
+	// response := response.SuccessResponse(true, "SUCCESS", razordata)
+	// c.Writer.Header().Set("Content-Type", "application/json")
+	// c.Writer.WriteHeader(http.StatusOK)
+	// utils.ResponseJSON(*c, response)
+	// razordata.Amount = razordata.Amount * 100
+	// fmt.Printf("\n\namt :%v\n\n",razordata.Amount)
+
+	c.HTML(http.StatusOK, "razor-pay-home.html", razordata)
+
+}
+
+// @Summary To Open Succes Page To Razor-Pay Payment If Success
+// @ID To open Success page to razor-pay payment if success
+// @Tags User
+// @Security BearerAuth
+// @Produce json
+// @Success 200 {object} response.Response{}
+// @Failure 422 {object} response.Response{}
+// @Router /user/razor-pay-home [get]
+func (cr *UserHandler) RazorPaySuccess(c *gin.Context) {
+	// userId, _ := strconv.Atoi(c.Writer.Header().Get("id"))
+	userId := 5
+
+	// signature := c.Query("signature")
+	orderid := c.Query("orderid")
+
+	fmt.Printf("\n\norderid :%v\n\n", orderid)
+	// Fetch razor pay request data
+	paymentId, err := cr.userService.CheckOrderId(userId, orderid)
+	fmt.Printf("\n\npayment id : %v\n\n", paymentId)
+
+	if err != nil {
+
+		c.HTML(http.StatusOK, "razor-pay-failed.html", err)
+		// response := response.ErrorResponse("Error while Fetching Razor-Pay Request data", err.Error(), nil)
+		// c.Writer.Header().Set("Content-Type", "application/json")
+		// c.Writer.WriteHeader(http.StatusUnprocessableEntity)
+
+		// utils.ResponseJSON(*c, response)
+		return
+	}
+
+	razorpaymentid := c.Query("paymentid")
+
+	err = cr.userService.UpdatePaymentId(razorpaymentid, paymentId)
+
+	if err != nil {
+		response := response.ErrorResponse("Error while Updating Razor-Pay Request Id", err.Error(), nil)
+		c.Writer.Header().Set("Content-Type", "application/json")
+		c.Writer.WriteHeader(http.StatusUnprocessableEntity)
+
+		utils.ResponseJSON(*c, response)
+		return
+	}
+
+	// response := response.SuccessResponse(true, "SUCCESS", razordata)
+	// c.Writer.Header().Set("Content-Type", "application/json")
+	// c.Writer.WriteHeader(http.StatusOK)
+	// utils.ResponseJSON(*c, response)
+
+	c.HTML(http.StatusOK, "razor-pay-success.html", userId)
+
 }

@@ -85,12 +85,14 @@ type Request struct {
 }
 
 type JobPayment struct {
-	IdPayment int
-	RequestId int
-	OrderId   string
-	PaymetId  string
-	UserId    int
-	WorkerId  int
-	Amount    int
-	Date      string
+	IdPayment     int `json:"-" gorm:"primaryKey;autoIncrement:true;unique"`
+	RequestId     int
+	Request       Request `json:"-" gorm:"foreignKey:RequestId;references:IdRequset"`
+	OrderId       string
+	RazorPaymetId string
+	UserId        int
+	User          User `json:"-" gorm:"foreignKey:UserId;references:IdLogin"`
+	Amount        int
+	Date          string
+	PaymentStatus string `json:"-" gorm:"default:orderd"`
 }
