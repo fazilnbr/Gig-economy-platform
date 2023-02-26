@@ -36,6 +36,21 @@ type userRepo struct {
 	db *sql.DB
 }
 
+// SaveOrderId implements interfaces.UserRepository
+func (c *userRepo) SaveOrderId(userId int, orderId int) (int, error) {
+	var Id int
+	query := `insert into job_payments (user_id,order_id) values($1,$2) RETURNING id_payment;`
+
+	// time := time.Now()
+	// date := fmt.Sprintf("%v/%v/%v", time.Day(), time.Month(), time.Year())
+
+	err := c.db.QueryRow(query, userId, orderId).Scan(
+		&Id,
+	)
+
+	return Id, err
+}
+
 // FetchRazorPayDetials implements interfaces.UserRepository
 func (c *userRepo) FetchRazorPayDetials(userId int, requestId int) (domain.RazorPayVariables, error) {
 	var razordata domain.RazorPayVariables
