@@ -87,6 +87,7 @@ type Request struct {
 type JobPayment struct {
 	IdPayment int
 	UserId    int
+	RequestId int
 	WorkerId  int
 	Amount    int
 	Date      string
