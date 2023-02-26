@@ -77,6 +77,7 @@ func NewServerHTTP(authHandler handler.AuthHandler, adminHandler handler.AdminHa
 			// Job Payment test
 				// Razor-pay
 				user.GET("/razor-pay-home", UserHandler.RazorPayHome)
+				user.GET("/razor-pay-payment-success", UserHandler.RazorPaySuccess)
 
 
 			user.Use(middleware.AthoriseJWT)
