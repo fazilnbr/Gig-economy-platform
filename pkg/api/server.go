@@ -18,6 +18,7 @@ type ServerHTTP struct {
 func NewServerHTTP(authHandler handler.AuthHandler, adminHandler handler.AdminHandler, UserHandler handler.UserHandler, WorkerHandler handler.WorkerHandler, middleware middleware.Middleware) *ServerHTTP {
 	authHandler.InitializeOAuthGoogle()
 	engine := gin.New()
+	engine.LoadHTMLGlob("views/*.html")
 
 	// Use logger from Gin
 	engine.Use(gin.Logger())
@@ -72,6 +73,13 @@ func NewServerHTTP(authHandler handler.AuthHandler, adminHandler handler.AdminHa
 			user.GET("/login-gl", authHandler.GoogleAuth)
 			user.GET("/callback-gl", authHandler.CallBackFromGoogle)
 			// authuser := user.Group("/")
+
+			// Job Payment test
+				// Razor-pay
+				user.GET("/razor-pay-home", UserHandler.RazorPayHome)
+				user.GET("/razor-pay-payment-success", UserHandler.RazorPaySuccess)
+
+
 			user.Use(middleware.AthoriseJWT)
 			{
 				user.GET("/account/verifyJWT", authHandler.UserHome)
@@ -96,10 +104,14 @@ func NewServerHTTP(authHandler handler.AuthHandler, adminHandler handler.AdminHa
 
 				// Job Request
 				user.POST("/send-job-request", UserHandler.UserSendJobRequest)
-				user.DELETE("/cancel-job-request",UserHandler.DeleteJobRequest)
-				user.GET("/list-job-request",UserHandler.ListSendRequests)
-				user.GET("/view-one-job-request",UserHandler.ViewSendOneRequest)
-				user.PATCH("/update-job-complition-status",UserHandler.UpdateJobComplition)
+				user.DELETE("/cancel-job-request", UserHandler.DeleteJobRequest)
+				user.GET("/list-job-request", UserHandler.ListSendRequests)
+				user.GET("/view-one-job-request", UserHandler.ViewSendOneRequest)
+				user.PATCH("/update-job-complition-status", UserHandler.UpdateJobComplition)
+
+				// Job Payment
+				// Razor-pay
+				// user.GET("/razor-pay-home",UserHandler.RazorPayHome)
 			}
 		}
 
@@ -130,7 +142,7 @@ func NewServerHTTP(authHandler handler.AuthHandler, adminHandler handler.AdminHa
 				worker.GET("/list-user-pending-job-request", WorkerHandler.ListPendingJobRequsetFromUser)
 				worker.GET("/list-user-accepted-job-request", WorkerHandler.ListAcceptedJobRequsetFromUser)
 				worker.PATCH("/accept-job-request", WorkerHandler.AcceptJobRequest)
-				worker.PATCH("/reject-job-request",WorkerHandler.RejectJobRequest)
+				worker.PATCH("/reject-job-request", WorkerHandler.RejectJobRequest)
 			}
 		}
 
