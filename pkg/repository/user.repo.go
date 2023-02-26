@@ -36,6 +36,32 @@ type userRepo struct {
 	db *sql.DB
 }
 
+// FetchRazorPayDetials implements interfaces.UserRepository
+func (c *userRepo) FetchRazorPayDetials(userId int, requestId int) (domain.RazorPayVariables, error) {
+	var razordata domain.RazorPayVariables
+
+	query := `SELECT U.user_name,U.user_name,A.phone,J.wage from users AS U
+			INNER JOIN addresses AS A ON A.user_id=id_login 
+			INNER JOIN requests AS R ON R.user_id=U.id_login
+			INNER JOIN jobs AS J ON id_job=R.job_id 
+			WHERE U.id_login=$1 
+			AND R.id_requset=$2
+			AND R.status='completed';`
+
+	err := c.db.QueryRow(query, userId, requestId).Scan(
+		&razordata.Email,
+		&razordata.Name,
+		&razordata.Contact,
+		&razordata.Amount,
+	)
+	fmt.Printf("\n\n\nuser : %v\n\n\n", razordata)
+	if err != nil && err != sql.ErrNoRows {
+		return razordata, err
+	}
+
+	return razordata, err
+}
+
 // UpdateJobComplition implements interfaces.UserRepository
 func (c *userRepo) UpdateJobComplition(userId int, requestId int) error {
 	query := `UPDATE requests SET status='completed' WHERE id_requset=$1 AND user_id=$2 AND status='accepted' RETURNING id_requset;`
