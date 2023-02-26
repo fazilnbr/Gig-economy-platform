@@ -611,7 +611,7 @@ func (cr *UserHandler) UpdateJobComplition(c *gin.Context) {
 func (cr *UserHandler) RazorPayHome(c *gin.Context) {
 	userId, _ := strconv.Atoi(c.Writer.Header().Get("id"))
 
-	requestId, _ := strconv.Atoi(c.Query("requestid"))
+	requestId, _ := strconv.Atoi(c.Query("requestId"))
 
 	razordata, err := cr.userService.FetchRazorPayDetials(userId, requestId)
 

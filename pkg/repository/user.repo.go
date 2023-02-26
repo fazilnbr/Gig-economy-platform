@@ -55,6 +55,9 @@ func (c *userRepo) FetchRazorPayDetials(userId int, requestId int) (domain.Razor
 		&razordata.Amount,
 	)
 	fmt.Printf("\n\n\nuser : %v\n\n\n", razordata)
+	if err == sql.ErrNoRows {
+		return razordata, errors.New("There is no job completed to done payment")
+	}
 	if err != nil && err != sql.ErrNoRows {
 		return razordata, err
 	}
