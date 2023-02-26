@@ -15,6 +15,12 @@ type userUseCase struct {
 	userRepo interfaces.UserRepository
 }
 
+// SaveOrderId implements interfaces.UserUseCase
+func (c *userUseCase) SaveOrderId(userId int, orderId int) (int, error) {
+	id, err := c.userRepo.SaveOrderId(userId, orderId)
+	return id, err
+}
+
 // FetchRazorPayDetials implements interfaces.UserUseCase
 func (c *userUseCase) FetchRazorPayDetials(userId int, requestId int) (*domain.RazorPayVariables, error) {
 	razordata, err := c.userRepo.FetchRazorPayDetials(userId, requestId)

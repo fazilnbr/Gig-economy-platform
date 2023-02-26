@@ -26,4 +26,5 @@ type UserUseCase interface {
 	ViewSendOneRequest(userId int, requestId int) (*domain.RequestUserResponse, error)
 	UpdateJobComplition(userId int, requestId int) error
 	FetchRazorPayDetials(userId int, requestId int) (*domain.RazorPayVariables, error)
+	SaveOrderId(userId int, orderId int) (int, error)
 }
