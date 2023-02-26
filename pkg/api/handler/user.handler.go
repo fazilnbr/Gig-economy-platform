@@ -698,7 +698,7 @@ func (cr *UserHandler) RazorPaySuccess(c *gin.Context) {
 	orderid := c.Query("orderid")
 
 	// Fetch razor pay request data
-	_, err := cr.userService.CheckOrderId(userId, orderid)
+	paymentId, err := cr.userService.CheckOrderId(userId, orderid)
 
 	if err != nil {
 
@@ -711,13 +711,24 @@ func (cr *UserHandler) RazorPaySuccess(c *gin.Context) {
 		return
 	}
 
-	// paymentid := c.Query("paymentid")
+	razorpaymentid := c.Query("paymentid")
+	
+	err=cr.userService.UpdatePaymentId(razorpaymentid,paymentId)
+
+	if err != nil {
+		response := response.ErrorResponse("Error while Updating Razor-Pay Request Id", err.Error(), nil)
+		c.Writer.Header().Set("Content-Type", "application/json")
+		c.Writer.WriteHeader(http.StatusUnprocessableEntity)
+
+		utils.ResponseJSON(*c, response)
+		return
+	}
 
 	// response := response.SuccessResponse(true, "SUCCESS", razordata)
 	// c.Writer.Header().Set("Content-Type", "application/json")
 	// c.Writer.WriteHeader(http.StatusOK)
 	// utils.ResponseJSON(*c, response)
 
-	c.HTML(http.StatusOK, "razor-pay-home.html", userId)
+	c.HTML(http.StatusOK, "razor-pay-success.html", userId)
 
 }
