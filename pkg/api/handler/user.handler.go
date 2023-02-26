@@ -599,8 +599,6 @@ func (cr *UserHandler) UpdateJobComplition(c *gin.Context) {
 	utils.ResponseJSON(*c, response)
 }
 
-
-
 // @Summary To Open Home Page To Razor-Pay Payment
 // @ID To open home page to razor-pay payment
 // @Tags User
@@ -609,14 +607,13 @@ func (cr *UserHandler) UpdateJobComplition(c *gin.Context) {
 // @Param        requestid   query      string  true  "Request Id : "
 // @Success 200 {object} response.Response{}
 // @Failure 422 {object} response.Response{}
-// @Router /user/update-job-complition-status [patch]
+// @Router /user/razor-pay-home [get]
 func (cr *UserHandler) RazorPayHome(c *gin.Context) {
 	userId, _ := strconv.Atoi(c.Writer.Header().Get("id"))
 
 	requestId, _ := strconv.Atoi(c.Query("requestid"))
 
-
-	razordata,err := cr.userService.FetchRazorPayDetials(userId,requestId)
+	razordata, err := cr.userService.FetchRazorPayDetials(userId, requestId)
 
 	if err != nil {
 		response := response.ErrorResponse("Error while Fetching Razor-Pay Request data", err.Error(), nil)
