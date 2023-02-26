@@ -611,7 +611,8 @@ func (cr *UserHandler) UpdateJobComplition(c *gin.Context) {
 // @Failure 422 {object} response.Response{}
 // @Router /user/razor-pay-home [get]
 func (cr *UserHandler) RazorPayHome(c *gin.Context) {
-	userId, _ := strconv.Atoi(c.Writer.Header().Get("id"))
+	// userId, _ := strconv.Atoi(c.Writer.Header().Get("id"))
+	userId := 5
 
 	requestId, _ := strconv.Atoi(c.Query("requestId"))
 
@@ -650,9 +651,12 @@ func (cr *UserHandler) RazorPayHome(c *gin.Context) {
 	orderId := value.(string)
 	fmt.Println("str////////////////", orderId)
 
-	// Save the order id in database
+	// Save the order id
+	// In razordata
+	razordata.OrderId = orderId
+	// In database
 	_, err = cr.userService.SaveOrderId(userId, orderId)
-	
+
 	if err != nil {
 		response := response.ErrorResponse("Error while Storing Razor-Pay order id", err.Error(), nil)
 		c.Writer.Header().Set("Content-Type", "application/json")
@@ -662,8 +666,13 @@ func (cr *UserHandler) RazorPayHome(c *gin.Context) {
 		return
 	}
 
-	response := response.SuccessResponse(true, "SUCCESS", razordata)
-	c.Writer.Header().Set("Content-Type", "application/json")
-	c.Writer.WriteHeader(http.StatusOK)
-	utils.ResponseJSON(*c, response)
+	// response := response.SuccessResponse(true, "SUCCESS", razordata)
+	// c.Writer.Header().Set("Content-Type", "application/json")
+	// c.Writer.WriteHeader(http.StatusOK)
+	// utils.ResponseJSON(*c, response)
+
+	c.HTML(http.StatusOK, "razor-pay-home.html", razordata)
+
 }
+
+
