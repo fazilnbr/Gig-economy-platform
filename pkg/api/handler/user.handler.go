@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"log"
 	"net/http"
+	"os"
 	"strconv"
 
 	"github.com/fazilnbr/project-workey/pkg/common/response"
@@ -11,6 +12,7 @@ import (
 	services "github.com/fazilnbr/project-workey/pkg/usecase/interface"
 	"github.com/fazilnbr/project-workey/pkg/utils"
 	"github.com/gin-gonic/gin"
+	razorpay "github.com/razorpay/razorpay-go"
 )
 
 type UserHandler struct {
@@ -613,6 +615,7 @@ func (cr *UserHandler) RazorPayHome(c *gin.Context) {
 
 	requestId, _ := strconv.Atoi(c.Query("requestId"))
 
+	// Fetch razor pay request data
 	razordata, err := cr.userService.FetchRazorPayDetials(userId, requestId)
 
 	if err != nil {
@@ -623,6 +626,32 @@ func (cr *UserHandler) RazorPayHome(c *gin.Context) {
 		utils.ResponseJSON(*c, response)
 		return
 	}
+
+	// Create order_id from the Razor-Pay server
+	client := razorpay.NewClient("rzp_test_vOsKKSWnOE803Q", "JINdUUpdybhJ707mAu37fH84")
+
+	// Create data to get order id
+	data := map[string]interface{}{
+		"amount":   razordata.Amount,
+		"currency": "INR",
+		"receipt":  "some_receipt_id",
+	}
+
+	// Make an order in razor pay to payment
+	body, err := client.Order.Create(data, nil)
+	fmt.Println("////////////////reciept", body)
+	if err != nil {
+		fmt.Println("Problem getting the repository information", err)
+		os.Exit(1)
+	}
+
+	value := body["id"]
+
+	orderId := value.(string)
+	fmt.Println("str////////////////", orderId)
+
+	// Save the order id in database
+	
 
 	response := response.SuccessResponse(true, "SUCCESS", razordata)
 	c.Writer.Header().Set("Content-Type", "application/json")
