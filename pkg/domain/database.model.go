@@ -94,4 +94,5 @@ type JobPayment struct {
 	User          User `json:"-" gorm:"foreignKey:UserId;references:IdLogin"`
 	Amount        int
 	Date          string
+	PaymentStatus string `json:"-" gorm:"default:orderd"`
 }
