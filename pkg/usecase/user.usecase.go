@@ -15,9 +15,15 @@ type userUseCase struct {
 	userRepo interfaces.UserRepository
 }
 
+// FetchRazorPayDetials implements interfaces.UserUseCase
+func (c *userUseCase) FetchRazorPayDetials(userId int, requestId int) (*domain.RazorPayVariables, error) {
+	razordata, err := c.userRepo.FetchRazorPayDetials(userId, requestId)
+	return &razordata, err
+}
+
 // UpdateJobComplition implements interfaces.UserUseCase
 func (c *userUseCase) UpdateJobComplition(userId int, requestId int) error {
-	return c.userRepo.UpdateJobComplition(userId,requestId)
+	return c.userRepo.UpdateJobComplition(userId, requestId)
 }
 
 // ViewSendRequest implements interfaces.UserUseCase
