@@ -39,7 +39,7 @@ type userRepo struct {
 
 // UpdatePaymentId implements interfaces.UserRepository
 func (c *userRepo) UpdatePaymentId(razorPaymentId string, idPayment int) error {
-	query := `UPDATE job_payments SET razor_paymet_id=$1 WHERE id_payment=$2 RETURNING id_payment;`
+	query := `UPDATE job_payments SET razor_paymet_id=$1,payment_status='completed' WHERE id_payment=$2 RETURNING id_payment;`
 	var row int
 	sql := c.db.QueryRow(query, razorPaymentId, idPayment)
 
