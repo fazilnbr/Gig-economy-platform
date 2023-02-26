@@ -651,7 +651,17 @@ func (cr *UserHandler) RazorPayHome(c *gin.Context) {
 	fmt.Println("str////////////////", orderId)
 
 	// Save the order id in database
-	
+	if err != nil {
+		response := response.ErrorResponse("Error while Storing Razor-Pay order id", err.Error(), nil)
+		c.Writer.Header().Set("Content-Type", "application/json")
+		c.Writer.WriteHeader(http.StatusUnprocessableEntity)
+
+		utils.ResponseJSON(*c, response)
+		return
+	}
+
+	_,err=cr.userService.SaveOrderId(userId,orderId)
+
 
 	response := response.SuccessResponse(true, "SUCCESS", razordata)
 	c.Writer.Header().Set("Content-Type", "application/json")

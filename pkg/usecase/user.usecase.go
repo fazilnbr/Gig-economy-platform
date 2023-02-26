@@ -16,7 +16,7 @@ type userUseCase struct {
 }
 
 // SaveOrderId implements interfaces.UserUseCase
-func (c *userUseCase) SaveOrderId(userId int, orderId int) (int, error) {
+func (c *userUseCase) SaveOrderId(userId int, orderId string) (int, error) {
 	id, err := c.userRepo.SaveOrderId(userId, orderId)
 	return id, err
 }

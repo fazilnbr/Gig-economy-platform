@@ -37,7 +37,7 @@ type userRepo struct {
 }
 
 // SaveOrderId implements interfaces.UserRepository
-func (c *userRepo) SaveOrderId(userId int, orderId int) (int, error) {
+func (c *userRepo) SaveOrderId(userId int, orderId string) (int, error) {
 	var Id int
 	query := `insert into job_payments (user_id,order_id) values($1,$2) RETURNING id_payment;`
 
