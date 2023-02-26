@@ -5,6 +5,7 @@ import (
 	"errors"
 	"fmt"
 	"log"
+	"strings"
 	"time"
 
 	"github.com/fazilnbr/project-workey/pkg/domain"
@@ -38,9 +39,9 @@ type userRepo struct {
 
 // UpdatePaymentId implements interfaces.UserRepository
 func (c *userRepo) UpdatePaymentId(razorPaymentId string, idPayment int) error {
-	query := `UPDATE job_payments SET razor_paymet_id=$1 WHERE id_payment=$2;`
+	query := `UPDATE job_payments SET razor_paymet_id=$1 WHERE id_payment=$2 RETURNING id_payment;`
 	var row int
-	sql := c.db.QueryRow(query, razorPaymentId,idPayment)
+	sql := c.db.QueryRow(query, razorPaymentId, idPayment)
 
 	sql.Scan(&row)
 	if row == 0 {
@@ -56,12 +57,15 @@ func (c *userRepo) CheckOrderId(userId int, orderId string) (int, error) {
 
 	query := `SELECT id_payment FROM job_payments WHERE order_id=$1 AND user_id=$2;`
 
-	err := c.db.QueryRow(query, userId, orderId).Scan(
+	err := c.db.QueryRow(query, strings.Join(strings.Fields(orderId), ""), userId).Scan(
 		&id,
 	)
-	fmt.Printf("\n\n\nuser : %v\n\n\n", id)
+	fmt.Printf("\n\n\nuser : %v\n\nuserid : %v\n\norderid :%v\n\n", id, userId, orderId)
 	if err == sql.ErrNoRows {
 		return id, errors.New("Fake payment order id ")
+	}
+	if id == 0 {
+		return id, errors.New("no data")
 	}
 	if err != nil && err != sql.ErrNoRows {
 		return id, err

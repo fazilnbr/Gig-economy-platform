@@ -697,8 +697,10 @@ func (cr *UserHandler) RazorPaySuccess(c *gin.Context) {
 	// signature := c.Query("signature")
 	orderid := c.Query("orderid")
 
+	fmt.Printf("\n\norderid :%v\n\n",orderid)
 	// Fetch razor pay request data
 	paymentId, err := cr.userService.CheckOrderId(userId, orderid)
+	fmt.Printf("\n\npayment id : %v\n\n",paymentId)
 
 	if err != nil {
 
