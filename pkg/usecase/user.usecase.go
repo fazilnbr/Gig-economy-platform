@@ -15,10 +15,15 @@ type userUseCase struct {
 	userRepo interfaces.UserRepository
 }
 
+// UpdateJobComplition implements interfaces.UserUseCase
+func (c *userUseCase) UpdateJobComplition(userId int, requestId int) error {
+	return c.userRepo.UpdateJobComplition(userId,requestId)
+}
+
 // ViewSendRequest implements interfaces.UserUseCase
 func (c *userUseCase) ViewSendOneRequest(userId int, requestId int) (*domain.RequestUserResponse, error) {
-	request,err:=c.userRepo.ViewSendOneRequest(userId,requestId)
-	return &request,err
+	request, err := c.userRepo.ViewSendOneRequest(userId, requestId)
+	return &request, err
 }
 
 // ListSendRequests implements interfaces.UserUseCase

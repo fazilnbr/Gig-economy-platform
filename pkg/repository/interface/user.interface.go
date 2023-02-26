@@ -26,4 +26,5 @@ type UserRepository interface {
 	DeleteJobRequest(requestId int, userid int) error
 	ListSendRequests(pagenation utils.Filter, id int) ([]domain.RequestUserResponse, utils.Metadata, error)
 	ViewSendOneRequest(userId int,requestId int) (domain.RequestUserResponse, error)
+	UpdateJobComplition(userId int,requestId int)error
 }

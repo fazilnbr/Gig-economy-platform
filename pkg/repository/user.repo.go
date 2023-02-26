@@ -36,6 +36,20 @@ type userRepo struct {
 	db *sql.DB
 }
 
+// UpdateJobComplition implements interfaces.UserRepository
+func (c *userRepo) UpdateJobComplition(userId int, requestId int) error {
+	query := `UPDATE requests SET status='completed' WHERE id_requset=$1 AND user_id=$2 AND status='accepted' RETURNING id_requset;`
+	var row int
+	sql := c.db.QueryRow(query, requestId, userId)
+
+	sql.Scan(&row)
+	if row == 0 {
+		return errors.New("There is no accepted job to complition")
+	}
+
+	return sql.Err()
+}
+
 // ViewSendRequest implements interfaces.UserRepository
 func (c *userRepo) ViewSendOneRequest(userId int, requestId int) (domain.RequestUserResponse, error) {
 	var request domain.RequestUserResponse
@@ -46,7 +60,7 @@ func (c *userRepo) ViewSendOneRequest(userId int, requestId int) (domain.Request
 				INNER JOIN users AS U ON J.id_worker=U.id_login INNER JOIN addresses AS A ON A.user_id=$1 WHERE R.user_id=$1 AND R.id_requset=$2;
 	`
 
-	err := c.db.QueryRow(query,userId,requestId).Scan(
+	err := c.db.QueryRow(query, userId, requestId).Scan(
 		&request.IdRequest,
 		&request.UserName,
 		&request.JobCategory,

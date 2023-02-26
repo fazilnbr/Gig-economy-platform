@@ -99,6 +99,7 @@ func NewServerHTTP(authHandler handler.AuthHandler, adminHandler handler.AdminHa
 				user.DELETE("/cancel-job-request",UserHandler.DeleteJobRequest)
 				user.GET("/list-job-request",UserHandler.ListSendRequests)
 				user.GET("/view-one-job-request",UserHandler.ViewSendOneRequest)
+				user.PATCH("/update-job-complition-status",UserHandler.UpdateJobComplition)
 			}
 		}
 
