@@ -36,6 +36,26 @@ type userRepo struct {
 	db *sql.DB
 }
 
+// CheckOrderId implements interfaces.UserRepository
+func (c *userRepo) CheckOrderId(userId int, orderId string) (int, error) {
+	var id int
+
+	query := `SELECT id_payment FROM job_payments WHERE order_id=$1 AND user_id=$2;`
+
+	err := c.db.QueryRow(query, userId, orderId).Scan(
+		&id,
+	)
+	fmt.Printf("\n\n\nuser : %v\n\n\n", id)
+	if err == sql.ErrNoRows {
+		return id, errors.New("Fake payment order id ")
+	}
+	if err != nil && err != sql.ErrNoRows {
+		return id, err
+	}
+
+	return id, err
+}
+
 // SaveOrderId implements interfaces.UserRepository
 func (c *userRepo) SaveOrderId(userId int, orderId string) (int, error) {
 	var Id int
