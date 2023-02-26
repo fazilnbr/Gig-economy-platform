@@ -651,6 +651,8 @@ func (cr *UserHandler) RazorPayHome(c *gin.Context) {
 	fmt.Println("str////////////////", orderId)
 
 	// Save the order id in database
+	_, err = cr.userService.SaveOrderId(userId, orderId)
+	
 	if err != nil {
 		response := response.ErrorResponse("Error while Storing Razor-Pay order id", err.Error(), nil)
 		c.Writer.Header().Set("Content-Type", "application/json")
@@ -659,9 +661,6 @@ func (cr *UserHandler) RazorPayHome(c *gin.Context) {
 		utils.ResponseJSON(*c, response)
 		return
 	}
-
-	_,err=cr.userService.SaveOrderId(userId,orderId)
-
 
 	response := response.SuccessResponse(true, "SUCCESS", razordata)
 	c.Writer.Header().Set("Content-Type", "application/json")
