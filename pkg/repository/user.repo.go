@@ -82,6 +82,7 @@ func (c *userRepo) SavePaymentOrderDeatials(payment domain.JobPayment) (int, err
 	time := time.Now()
 	date := fmt.Sprintf("%v/%v/%v", time.Day(), time.Month(), time.Year())
 
+
 	err := c.db.QueryRow(query,
 		payment.RequestId,
 		payment.OrderId,

@@ -633,7 +633,7 @@ func (cr *UserHandler) RazorPayHome(c *gin.Context) {
 
 	// Create data to get order id
 	data := map[string]interface{}{
-		"amount":   razordata.Amount,
+		"amount":   razordata.Amount * 100,
 		"currency": "INR",
 		"receipt":  "some_receipt_id",
 	}
@@ -655,12 +655,11 @@ func (cr *UserHandler) RazorPayHome(c *gin.Context) {
 	// In razordata
 	razordata.OrderId = orderId
 	// In database
-	payment :=domain.JobPayment{
+	payment := domain.JobPayment{
 		RequestId: requestId,
-		OrderId: orderId,
-		UserId: userId,
-		Amount: razordata.Amount,
-
+		OrderId:   orderId,
+		UserId:    userId,
+		Amount:    razordata.Amount,
 	}
 	_, err = cr.userService.SavePaymentOrderDeatials(payment)
 
@@ -677,6 +676,8 @@ func (cr *UserHandler) RazorPayHome(c *gin.Context) {
 	// c.Writer.Header().Set("Content-Type", "application/json")
 	// c.Writer.WriteHeader(http.StatusOK)
 	// utils.ResponseJSON(*c, response)
+	// razordata.Amount = razordata.Amount * 100
+	// fmt.Printf("\n\namt :%v\n\n",razordata.Amount)
 
 	c.HTML(http.StatusOK, "razor-pay-home.html", razordata)
 
@@ -697,10 +698,10 @@ func (cr *UserHandler) RazorPaySuccess(c *gin.Context) {
 	// signature := c.Query("signature")
 	orderid := c.Query("orderid")
 
-	fmt.Printf("\n\norderid :%v\n\n",orderid)
+	fmt.Printf("\n\norderid :%v\n\n", orderid)
 	// Fetch razor pay request data
 	paymentId, err := cr.userService.CheckOrderId(userId, orderid)
-	fmt.Printf("\n\npayment id : %v\n\n",paymentId)
+	fmt.Printf("\n\npayment id : %v\n\n", paymentId)
 
 	if err != nil {
 
@@ -714,8 +715,8 @@ func (cr *UserHandler) RazorPaySuccess(c *gin.Context) {
 	}
 
 	razorpaymentid := c.Query("paymentid")
-	
-	err=cr.userService.UpdatePaymentId(razorpaymentid,paymentId)
+
+	err = cr.userService.UpdatePaymentId(razorpaymentid, paymentId)
 
 	if err != nil {
 		response := response.ErrorResponse("Error while Updating Razor-Pay Request Id", err.Error(), nil)
