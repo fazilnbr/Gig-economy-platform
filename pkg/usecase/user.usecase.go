@@ -15,6 +15,12 @@ type userUseCase struct {
 	userRepo interfaces.UserRepository
 }
 
+// CheckOrderId implements interfaces.UserUseCase
+func (c *userUseCase) CheckOrderId(userId int, orderId string) (int, error) {
+	id, err := c.userRepo.CheckOrderId(userId, orderId)
+	return id, err
+}
+
 // SaveOrderId implements interfaces.UserUseCase
 func (c *userUseCase) SaveOrderId(userId int, orderId string) (int, error) {
 	id, err := c.userRepo.SaveOrderId(userId, orderId)
