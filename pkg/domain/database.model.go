@@ -83,3 +83,14 @@ type Request struct {
 	Status    string  `json:"-" gorm:"default:pending"`
 	Date      string  `jsom:"-"`
 }
+
+type JobPayment struct {
+	IdPayment int
+	RequestId int
+	OrderId   string
+	PaymetId  string
+	UserId    int
+	WorkerId  int
+	Amount    int
+	Date      string
+}
