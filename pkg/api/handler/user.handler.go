@@ -655,7 +655,14 @@ func (cr *UserHandler) RazorPayHome(c *gin.Context) {
 	// In razordata
 	razordata.OrderId = orderId
 	// In database
-	_, err = cr.userService.SaveOrderId(userId, orderId)
+	payment :=domain.JobPayment{
+		RequestId: requestId,
+		OrderId: orderId,
+		UserId: userId,
+		Amount: razordata.Amount,
+
+	}
+	_, err = cr.userService.SavePaymentOrderDeatials(payment)
 
 	if err != nil {
 		response := response.ErrorResponse("Error while Storing Razor-Pay order id", err.Error(), nil)

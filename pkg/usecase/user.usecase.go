@@ -22,8 +22,8 @@ func (c *userUseCase) CheckOrderId(userId int, orderId string) (int, error) {
 }
 
 // SaveOrderId implements interfaces.UserUseCase
-func (c *userUseCase) SaveOrderId(userId int, orderId string) (int, error) {
-	id, err := c.userRepo.SaveOrderId(userId, orderId)
+func (c *userUseCase) SavePaymentOrderDeatials(payment domain.JobPayment) (int, error) {
+	id, err := c.userRepo.SavePaymentOrderDeatials(payment)
 	return id, err
 }
 

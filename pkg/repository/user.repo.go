@@ -57,14 +57,20 @@ func (c *userRepo) CheckOrderId(userId int, orderId string) (int, error) {
 }
 
 // SaveOrderId implements interfaces.UserRepository
-func (c *userRepo) SaveOrderId(userId int, orderId string) (int, error) {
+func (c *userRepo) SavePaymentOrderDeatials(payment domain.JobPayment) (int, error) {
 	var Id int
-	query := `insert into job_payments (user_id,order_id) values($1,$2) RETURNING id_payment;`
+	query := `insert into job_payments (request_id,order_id,user_id,amount,date) values($1,$2,$3,$4,$5) RETURNING id_payment;`
 
-	// time := time.Now()
-	// date := fmt.Sprintf("%v/%v/%v", time.Day(), time.Month(), time.Year())
+	time := time.Now()
+	date := fmt.Sprintf("%v/%v/%v", time.Day(), time.Month(), time.Year())
 
-	err := c.db.QueryRow(query, userId, orderId).Scan(
+	err := c.db.QueryRow(query,
+		payment.RequestId,
+		payment.OrderId,
+		payment.UserId,
+		payment.Amount,
+		date,
+		).Scan(
 		&Id,
 	)
 
