@@ -18,7 +18,7 @@ var options = {
         a = (response.razorpay_payment_id);
         b =(response.razorpay_order_id);
         c = (response.razorpay_signature)
-        window.location.replace("http:/razor-pay-payment-success?paymentid="+a+"&orderid=+"+b+"&signature="+c);
+        window.location.replace("http:/user/razor-pay-payment-success?paymentid="+a+"&orderid=+"+b+"&signature="+c);
     },
     "prefill": {
         "name": '{{.Name}}',
