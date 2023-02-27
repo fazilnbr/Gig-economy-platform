@@ -150,7 +150,7 @@ paths:
       - BearerAuth: []
       summary: activate users for admin
       tags:
-      - Admin
+      - Admin User Management
   /admin/activate-workers:
     patch:
       operationId: activate workers
@@ -175,7 +175,7 @@ paths:
       - BearerAuth: []
       summary: activate workers for admin
       tags:
-      - Admin
+      - Admin Worker Management
   /admin/add-job-category:
     post:
       operationId: add category
@@ -200,7 +200,7 @@ paths:
       - BearerAuth: []
       summary: add job category for admin
       tags:
-      - Admin
+      - Admin Job Management
   /admin/block-users:
     patch:
       operationId: block users
@@ -225,7 +225,7 @@ paths:
       - BearerAuth: []
       summary: block users for admin
       tags:
-      - Admin
+      - Admin User Management
   /admin/block-workers:
     patch:
       operationId: block workers
@@ -250,7 +250,7 @@ paths:
       - BearerAuth: []
       summary: block workers for admin
       tags:
-      - Admin
+      - Admin Worker Management
   /admin/list-all-users:
     get:
       operationId: list all active users
@@ -280,7 +280,7 @@ paths:
       - BearerAuth: []
       summary: list all active users for admin
       tags:
-      - Admin
+      - Admin User Management
   /admin/list-all-workers:
     get:
       operationId: list all active workers
@@ -310,7 +310,7 @@ paths:
       - BearerAuth: []
       summary: list all active workers for admin
       tags:
-      - Admin
+      - Admin Worker Management
   /admin/list-blocked-users:
     get:
       operationId: list all blocked users
@@ -340,7 +340,7 @@ paths:
       - BearerAuth: []
       summary: list all blocked users for admin
       tags:
-      - Admin
+      - Admin User Management
   /admin/list-blocked-workers:
     get:
       operationId: list all blocked workers
@@ -370,7 +370,7 @@ paths:
       - BearerAuth: []
       summary: list all blocked workers for admin
       tags:
-      - Admin
+      - Admin Worker Management
   /admin/list-job-category:
     get:
       operationId: list all job category
@@ -400,7 +400,7 @@ paths:
       - BearerAuth: []
       summary: list all job categories for admin
       tags:
-      - Admin
+      - Admin Job Management
   /admin/list-new-users:
     get:
       operationId: list all new users
@@ -430,7 +430,7 @@ paths:
       - BearerAuth: []
       summary: list all new users for admin
       tags:
-      - Admin
+      - Admin User Management
   /admin/list-new-workers:
     get:
       operationId: list all new workers
@@ -460,7 +460,7 @@ paths:
       - BearerAuth: []
       summary: list all new workers for admin
       tags:
-      - Admin
+      - Admin Worker Management
   /admin/login:
     post:
       consumes:
@@ -493,7 +493,7 @@ paths:
             $ref: '#/definitions/github_com_fazilnbr_project-workey_pkg_common_response.Response'
       summary: Login for admin
       tags:
-      - Admin
+      - Admin Authentication
   /admin/refresh-tocken:
     get:
       operationId: Refresh access token
@@ -511,6 +511,8 @@ paths:
       security:
       - BearerAuth: []
       summary: Refresh The Access Token
+      tags:
+      - Refresh Token
   /admin/update-job-category:
     patch:
       operationId: update category
@@ -536,7 +538,7 @@ paths:
       - BearerAuth: []
       summary: update job category for admin
       tags:
-      - Admin
+      - Admin Job Management
   /user/account/verifyJWT:
     get:
       operationId: Varify JWT authentication

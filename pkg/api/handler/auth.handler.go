@@ -155,6 +155,7 @@ func (cr *AuthHandler) CallBackFromGoogle(c *gin.Context) {
 
 // @Summary Refresh The Access Token
 // @ID Refresh access token
+// @Tags Refresh Token
 // @Security BearerAuth
 // @Produce json
 // @Success 200 {object} response.Response{}
@@ -192,7 +193,7 @@ func (cr *AuthHandler) RefreshToken(c *gin.Context) {
 
 // @Summary Login for admin
 // @ID admin login authentication
-// @Tags Admin
+// @Tags Admin Authentication
 // @accept json
 // @Produce json
 // @Param AdminLogin body domain.User{username=string,password=string} true "admin login"

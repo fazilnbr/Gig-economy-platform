@@ -61,7 +61,7 @@ const docTemplate = `{
                     "application/json"
                 ],
                 "tags": [
-                    "Admin"
+                    "Admin User Management"
                 ],
                 "summary": "activate users for admin",
                 "operationId": "activate users",
@@ -101,7 +101,7 @@ const docTemplate = `{
                     "application/json"
                 ],
                 "tags": [
-                    "Admin"
+                    "Admin Worker Management"
                 ],
                 "summary": "activate workers for admin",
                 "operationId": "activate workers",
@@ -141,7 +141,7 @@ const docTemplate = `{
                     "application/json"
                 ],
                 "tags": [
-                    "Admin"
+                    "Admin Job Management"
                 ],
                 "summary": "add job category for admin",
                 "operationId": "add category",
@@ -181,7 +181,7 @@ const docTemplate = `{
                     "application/json"
                 ],
                 "tags": [
-                    "Admin"
+                    "Admin User Management"
                 ],
                 "summary": "block users for admin",
                 "operationId": "block users",
@@ -221,7 +221,7 @@ const docTemplate = `{
                     "application/json"
                 ],
                 "tags": [
-                    "Admin"
+                    "Admin Worker Management"
                 ],
                 "summary": "block workers for admin",
                 "operationId": "block workers",
@@ -261,7 +261,7 @@ const docTemplate = `{
                     "application/json"
                 ],
                 "tags": [
-                    "Admin"
+                    "Admin User Management"
                 ],
                 "summary": "list all active users for admin",
                 "operationId": "list all active users",
@@ -308,7 +308,7 @@ const docTemplate = `{
                     "application/json"
                 ],
                 "tags": [
-                    "Admin"
+                    "Admin Worker Management"
                 ],
                 "summary": "list all active workers for admin",
                 "operationId": "list all active workers",
@@ -355,7 +355,7 @@ const docTemplate = `{
                     "application/json"
                 ],
                 "tags": [
-                    "Admin"
+                    "Admin User Management"
                 ],
                 "summary": "list all blocked users for admin",
                 "operationId": "list all blocked users",
@@ -402,7 +402,7 @@ const docTemplate = `{
                     "application/json"
                 ],
                 "tags": [
-                    "Admin"
+                    "Admin Worker Management"
                 ],
                 "summary": "list all blocked workers for admin",
                 "operationId": "list all blocked workers",
@@ -449,7 +449,7 @@ const docTemplate = `{
                     "application/json"
                 ],
                 "tags": [
-                    "Admin"
+                    "Admin Job Management"
                 ],
                 "summary": "list all job categories for admin",
                 "operationId": "list all job category",
@@ -496,7 +496,7 @@ const docTemplate = `{
                     "application/json"
                 ],
                 "tags": [
-                    "Admin"
+                    "Admin User Management"
                 ],
                 "summary": "list all new users for admin",
                 "operationId": "list all new users",
@@ -543,7 +543,7 @@ const docTemplate = `{
                     "application/json"
                 ],
                 "tags": [
-                    "Admin"
+                    "Admin Worker Management"
                 ],
                 "summary": "list all new workers for admin",
                 "operationId": "list all new workers",
@@ -588,7 +588,7 @@ const docTemplate = `{
                     "application/json"
                 ],
                 "tags": [
-                    "Admin"
+                    "Admin Authentication"
                 ],
                 "summary": "Login for admin",
                 "operationId": "admin login authentication",
@@ -644,6 +644,9 @@ const docTemplate = `{
                 "produces": [
                     "application/json"
                 ],
+                "tags": [
+                    "Refresh Token"
+                ],
                 "summary": "Refresh The Access Token",
                 "operationId": "Refresh access token",
                 "responses": {
@@ -673,7 +676,7 @@ const docTemplate = `{
                     "application/json"
                 ],
                 "tags": [
-                    "Admin"
+                    "Admin Job Management"
                 ],
                 "summary": "update job category for admin",
                 "operationId": "update category",

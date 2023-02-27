@@ -25,7 +25,7 @@ func NewAdminHandler(adminService services.AdminUseCase) AdminHandler {
 
 // @Summary list all active users for admin
 // @ID list all active users
-// @Tags Admin
+// @Tags Admin User Management
 // @Security BearerAuth
 // @Produce json
 // @Param        page   query      string  true  "Page : "
@@ -72,7 +72,7 @@ func (cr *AdminHandler) ListAllUsers(c *gin.Context) {
 
 // @Summary list all new users for admin
 // @ID list all new users
-// @Tags Admin
+// @Tags Admin User Management
 // @Security BearerAuth
 // @Produce json
 // @Param        page   query      string  true  "Page : "
@@ -117,7 +117,7 @@ func (cr *AdminHandler) ListNewUsers(c *gin.Context) {
 
 // @Summary list all blocked users for admin
 // @ID list all blocked users
-// @Tags Admin
+// @Tags Admin User Management
 // @Security BearerAuth
 // @Produce json
 // @Param        page   query      string  true  "Page : "
@@ -163,7 +163,7 @@ func (cr *AdminHandler) ListBlockUsers(c *gin.Context) {
 
 // @Summary activate users for admin
 // @ID activate users
-// @Tags Admin
+// @Tags Admin User Management
 // @Security BearerAuth
 // @Produce json
 // @Param        id   query      string  true  "Id of User : "
@@ -193,7 +193,7 @@ func (cr *AdminHandler) ActivateUsers(c *gin.Context) {
 
 // @Summary block users for admin
 // @ID block users
-// @Tags Admin
+// @Tags Admin User Management
 // @Security BearerAuth
 // @Produce json
 // @Param        id   query      string  true  "Id of User : "
@@ -223,7 +223,7 @@ func (cr *AdminHandler) BlockUsers(c *gin.Context) {
 
 // @Summary list all active workers for admin
 // @ID list all active workers
-// @Tags Admin
+// @Tags Admin Worker Management
 // @Security BearerAuth
 // @Produce json
 // @Param        page   query      string  true  "Page : "
@@ -270,7 +270,7 @@ func (cr *AdminHandler) ListAllWorkers(c *gin.Context) {
 
 // @Summary list all new workers for admin
 // @ID list all new workers
-// @Tags Admin
+// @Tags Admin Worker Management
 // @Security BearerAuth
 // @Produce json
 // @Param        page   query      string  true  "Page : "
@@ -317,7 +317,7 @@ func (cr *AdminHandler) ListNewWorkers(c *gin.Context) {
 
 // @Summary list all blocked workers for admin
 // @ID list all blocked workers
-// @Tags Admin
+// @Tags Admin Worker Management
 // @Security BearerAuth
 // @Produce json
 // @Param        page   query      string  true  "Page : "
@@ -365,7 +365,7 @@ func (cr *AdminHandler) ListBlockWorkers(c *gin.Context) {
 
 // @Summary activate workers for admin
 // @ID activate workers
-// @Tags Admin
+// @Tags Admin Worker Management
 // @Security BearerAuth
 // @Produce json
 // @Param        id   query      string  true  "Id of User : "
@@ -395,7 +395,7 @@ func (cr *AdminHandler) ActivateWorkers(c *gin.Context) {
 
 // @Summary block workers for admin
 // @ID block workers
-// @Tags Admin
+// @Tags Admin Worker Management
 // @Security BearerAuth
 // @Produce json
 // @Param        id   query      string  true  "Id of User : "
@@ -425,7 +425,7 @@ func (cr *AdminHandler) BlockWorkers(c *gin.Context) {
 
 // @Summary add job category for admin
 // @ID add category
-// @Tags Admin
+// @Tags Admin Job Management
 // @Security BearerAuth
 // @Produce json
 // @Param       category   query      string  true  "category : "
@@ -457,7 +457,7 @@ func (cr *AdminHandler) AddJobCategory(c *gin.Context) {
 
 // @Summary list all job categories for admin
 // @ID list all job category
-// @Tags Admin
+// @Tags Admin Job Management
 // @Security BearerAuth
 // @Produce json
 // @Param        page   query      string  true  "Page : "
@@ -505,7 +505,7 @@ func (cr *AdminHandler) ListJobCategory(c *gin.Context) {
 
 // @Summary update job category for admin
 // @ID update category
-// @Tags Admin
+// @Tags Admin Job Management
 // @Security BearerAuth
 // @Produce json
 // @Param AdminLogin body domain.Category{} true "admin login"

@@ -28,6 +28,7 @@ func NewServerHTTP(authHandler handler.AuthHandler, adminHandler handler.AdminHa
 
 	admin := engine.Group("admin")
 	{
+		// Authentication
 		admin.POST("/login", authHandler.AdminLogin)
 		admin.POST("/send/verification", authHandler.SendVerificationMailWorker)
 		admin.POST("/verify/account", authHandler.WorkerVerifyAccount)
@@ -36,9 +37,10 @@ func NewServerHTTP(authHandler handler.AuthHandler, adminHandler handler.AdminHa
 		{
 			admin.GET("/account/verifyJWT", authHandler.AdminHome)
 
+			// Refresh Token
 			admin.GET("/refresh-tocken", authHandler.RefreshToken)
 
-			// User management
+			// User Management
 
 			admin.GET("/list-all-users", adminHandler.ListAllUsers)
 			admin.GET("/list-new-users", adminHandler.ListNewUsers)
@@ -46,7 +48,7 @@ func NewServerHTTP(authHandler handler.AuthHandler, adminHandler handler.AdminHa
 			admin.PATCH("/activate-users", adminHandler.ActivateUsers)
 			admin.PATCH("/block-users", adminHandler.BlockUsers)
 
-			// Worker management
+			// Worker Management
 
 			admin.GET("/list-all-workers", adminHandler.ListAllWorkers)
 			admin.GET("/list-new-workers", adminHandler.ListNewWorkers)
@@ -54,7 +56,7 @@ func NewServerHTTP(authHandler handler.AuthHandler, adminHandler handler.AdminHa
 			admin.PATCH("/activate-workers", adminHandler.ActivateWorkers)
 			admin.PATCH("/block-workers", adminHandler.BlockWorkers)
 
-			// Job management
+			// Job Management
 			admin.POST("/add-job-category", adminHandler.AddJobCategory)
 			admin.GET("/list-job-category", adminHandler.ListJobCategory)
 			admin.PATCH("/update-job-category", adminHandler.UpdateJobCategory)
