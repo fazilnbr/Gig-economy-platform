@@ -135,14 +135,14 @@ func (cr *AuthHandler) CallBackFromGoogle(c *gin.Context) {
 			c.Redirect(http.StatusTemporaryRedirect, "/")
 			return
 		}
-		type date struct {
-			id             string
-			email          string
-			verified_email bool
-			picture        string
+		type data struct {
+			Id             string
+			Email          string
+			Verified_email bool
+			Picture        string
 			// data           string
 		}
-		var any date
+		var any data
 		json.Unmarshal(response, &any)
 		fmt.Printf("\n\ndata :%v\n\n", string(response))
 		fmt.Printf("\n\ndata :%v\n\n", any)
