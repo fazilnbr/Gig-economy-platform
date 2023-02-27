@@ -82,7 +82,6 @@ func (c *userRepo) SavePaymentOrderDeatials(payment domain.JobPayment) (int, err
 	time := time.Now()
 	date := fmt.Sprintf("%v/%v/%v", time.Day(), time.Month(), time.Year())
 
-
 	err := c.db.QueryRow(query,
 		payment.RequestId,
 		payment.OrderId,
@@ -695,12 +694,13 @@ func (c *userRepo) FindUser(email string) (domain.UserResponse, error) {
 func (c *userRepo) InsertUser(login domain.User) (int, error) {
 	var id int
 
-	query := `INSERT INTO users (user_name,password,user_type) VALUES ($1,$2,$3) RETURNING id_login;`
+	query := `INSERT INTO users (user_name,password,user_type,verification) VALUES ($1,$2,$3,$4) RETURNING id_login;`
 
 	err := c.db.QueryRow(query,
 		login.UserName,
 		login.Password,
 		"user",
+		login.Verification,
 	).Scan(
 		&id,
 	)

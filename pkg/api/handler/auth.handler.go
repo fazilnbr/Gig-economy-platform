@@ -67,6 +67,24 @@ func (cr *AuthHandler) InitializeOAuthGoogle() {
 	fmt.Printf("\n\n%v\n\n", oauthConfGl)
 }
 
+// @title Go + Gin Workey API
+// @version 1.0
+// @description This is a sample server Job Portal server. You can visit the GitHub repository at https://github.com/fazilnbr/Job_Portal_Project
+
+// @contact.name API Support
+// @contact.url https://fazilnbr.github.io/mypeosolal.web.portfolio/
+// @contact.email fazilkp2000@gmail.com
+
+// @license.name MIT
+// @license.url https://opensource.org/licenses/MIT
+
+// @securityDefinitions.apikey BearerAuth
+// @in header
+// @name Authorization
+// @host localhost:8080
+// @BasePath /
+// @query.collection.format multi
+
 // @Summary Authenticate With Google
 // @ID Authenticate With Google
 // @Tags User Authentication
@@ -94,6 +112,7 @@ func HandileLogin(c *gin.Context, oauthConf *oauth2.Config, oauthStateString str
 	URL.RawQuery = parameters.Encode()
 	url := URL.String()
 	fmt.Printf("\n\nurl : %v\n\n", oauthConf.RedirectURL)
+	log.Fatal("referesh token not valid")
 	c.Redirect(http.StatusTemporaryRedirect, url)
 	return nil
 
@@ -130,25 +149,78 @@ func (cr *AuthHandler) CallBackFromGoogle(c *gin.Context) {
 		}
 		defer resp.Body.Close()
 
-		response, err := ioutil.ReadAll(resp.Body)
+		respons, err := ioutil.ReadAll(resp.Body)
 		if err != nil {
 			c.Redirect(http.StatusTemporaryRedirect, "/")
 			return
 		}
-		type date struct {
-			id             string
-			email          string
-			verified_email bool
-			picture        string
+		type data struct {
+			Id             string
+			Email          string
+			Verified_email bool
+			Picture        string
 			// data           string
 		}
-		var any date
-		json.Unmarshal(response, &any)
-		fmt.Printf("\n\ndata :%v\n\n", string(response))
-		fmt.Printf("\n\ndata :%v\n\n", any)
+		var gdata data
+		json.Unmarshal(respons, &gdata)
+		fmt.Printf("\n\ndata :%v\n\n", string(respons))
+		fmt.Printf("\n\ndata :%v\n\n", gdata)
+
+		if !gdata.Verified_email {
+			response := response.ErrorResponse("Failed to Login ", "Your email is not varified by google ", nil)
+			c.Writer.Header().Add("Content-Type", "application/json")
+			c.Writer.WriteHeader(http.StatusUnauthorized)
+			utils.ResponseJSON(*c, response)
+			return
+		}
+		var newUser domain.User
+
+		newUser.UserName, newUser.Verification = gdata.Email, gdata.Verified_email
+
+		err = cr.userUseCase.CreateUser(newUser)
+		fmt.Printf("\n\nerrrrorr  :  %v\n\n", err)
+
+		if err == nil || err.Error() == "Username already exists" {
+			user, err := cr.userUseCase.FindUser(newUser.UserName)
+			fmt.Printf("\n\n\n%v\n%v\n\n", user.ID, err)
+
+			token, err := cr.jwtUseCase.GenerateAccessToken(user.ID, user.UserName, "admin")
+			if err != nil {
+				response := response.ErrorResponse("Failed to generate access token", err.Error(), nil)
+				c.Writer.Header().Add("Content-Type", "application/json")
+				c.Writer.WriteHeader(http.StatusUnauthorized)
+				utils.ResponseJSON(*c, response)
+				return
+			}
+			user.AccessToken = token
+
+			token, err = cr.jwtUseCase.GenerateRefreshToken(user.ID, user.UserName, "admin")
+
+			if err != nil {
+				response := response.ErrorResponse("Failed to generate refresh token please login again", err.Error(), nil)
+				c.Writer.Header().Add("Content-Type", "application/json")
+				c.Writer.WriteHeader(http.StatusUnauthorized)
+				utils.ResponseJSON(*c, response)
+				return
+			}
+			user.RefreshToken = token
+
+			user.Password = ""
+			response := response.SuccessResponse(true, "SUCCESS", user)
+			c.Writer.Header().Set("Content-Type", "application/json")
+			c.Writer.WriteHeader(http.StatusOK)
+			utils.ResponseJSON(*c, response)
+
+		} else {
+			response := response.ErrorResponse("Failed to Login please login again", err.Error(), nil)
+			c.Writer.Header().Add("Content-Type", "application/json")
+			c.Writer.WriteHeader(http.StatusUnauthorized)
+			utils.ResponseJSON(*c, response)
+			return
+		}
 
 		c.JSON(http.StatusOK, "Hello, I'm protected\n")
-		c.JSON(http.StatusOK, string(response))
+		c.JSON(http.StatusOK, string(respons))
 		return
 	}
 }
@@ -160,17 +232,28 @@ func (cr *AuthHandler) CallBackFromGoogle(c *gin.Context) {
 // @Produce json
 // @Success 200 {object} response.Response{}
 // @Failure 422 {object} response.Response{}
-// @Router /admin/refresh-tocken [get]
+// @Router /refresh-tocken [get]
 func (cr *AuthHandler) RefreshToken(c *gin.Context) {
 
 	autheader := c.Request.Header["Authorization"]
 	auth := strings.Join(autheader, " ")
 	bearerToken := strings.Split(auth, " ")
+	if autheader == nil || len(bearerToken)<2 {
+		response := response.ErrorResponse("Request does't condain Refresh token", "", nil)
+		c.Writer.Header().Add("Content-Type", "application/json")
+		c.Writer.WriteHeader(http.StatusUnprocessableEntity)
+		utils.ResponseJSON(*c, response)
+		return
+	}
 	fmt.Printf("\n\ntocen : %v\n\n", autheader)
 	token := bearerToken[1]
 	ok, claims := cr.jwtUseCase.VerifyToken(token)
 	if !ok {
-		log.Fatal("referesh token not valid")
+		response := response.ErrorResponse("Your Refresh token is not valid Login again", "", nil)
+		c.Writer.Header().Add("Content-Type", "application/json")
+		c.Writer.WriteHeader(http.StatusUnprocessableEntity)
+		utils.ResponseJSON(*c, response)
+		return
 	}
 
 	fmt.Println("//////////////////////////////////", claims.UserName)

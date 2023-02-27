@@ -9,7 +9,15 @@ const docTemplate = `{
     "info": {
         "description": "{{escape .Description}}",
         "title": "{{.Title}}",
-        "contact": {},
+        "contact": {
+            "name": "API Support",
+            "url": "https://fazilnbr.github.io/mypeosolal.web.portfolio/",
+            "email": "fazilkp2000@gmail.com"
+        },
+        "license": {
+            "name": "MIT",
+            "url": "https://opensource.org/licenses/MIT"
+        },
         "version": "{{.Version}}"
     },
     "host": "{{.Host}}",
@@ -634,37 +642,6 @@ const docTemplate = `{
                 }
             }
         },
-        "/admin/refresh-tocken": {
-            "get": {
-                "security": [
-                    {
-                        "BearerAuth": []
-                    }
-                ],
-                "produces": [
-                    "application/json"
-                ],
-                "tags": [
-                    "Refresh Token"
-                ],
-                "summary": "Refresh The Access Token",
-                "operationId": "Refresh access token",
-                "responses": {
-                    "200": {
-                        "description": "OK",
-                        "schema": {
-                            "$ref": "#/definitions/github_com_fazilnbr_project-workey_pkg_common_response.Response"
-                        }
-                    },
-                    "422": {
-                        "description": "Unprocessable Entity",
-                        "schema": {
-                            "$ref": "#/definitions/github_com_fazilnbr_project-workey_pkg_common_response.Response"
-                        }
-                    }
-                }
-            }
-        },
         "/admin/update-job-category": {
             "patch": {
                 "security": [
@@ -691,6 +668,37 @@ const docTemplate = `{
                         }
                     }
                 ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/github_com_fazilnbr_project-workey_pkg_common_response.Response"
+                        }
+                    },
+                    "422": {
+                        "description": "Unprocessable Entity",
+                        "schema": {
+                            "$ref": "#/definitions/github_com_fazilnbr_project-workey_pkg_common_response.Response"
+                        }
+                    }
+                }
+            }
+        },
+        "/refresh-tocken": {
+            "get": {
+                "security": [
+                    {
+                        "BearerAuth": []
+                    }
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Refresh Token"
+                ],
+                "summary": "Refresh The Access Token",
+                "operationId": "Refresh access token",
                 "responses": {
                     "200": {
                         "description": "OK",
@@ -2482,17 +2490,24 @@ const docTemplate = `{
                 }
             }
         }
+    },
+    "securityDefinitions": {
+        "BearerAuth": {
+            "type": "apiKey",
+            "name": "Authorization",
+            "in": "header"
+        }
     }
 }`
 
 // SwaggerInfo holds exported Swagger Info so clients can modify it
 var SwaggerInfo = &swag.Spec{
-	Version:          "",
+	Version:          "1.0",
 	Host:             "",
 	BasePath:         "",
 	Schemes:          []string{},
-	Title:            "",
-	Description:      "",
+	Title:            "Go + Gin Workey API",
+	Description:      "This is a sample server Job Portal server. You can visit the GitHub repository at https://github.com/fazilnbr/Job_Portal_Project",
 	InfoInstanceName: "swagger",
 	SwaggerTemplate:  docTemplate,
 }

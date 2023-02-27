@@ -6,3 +6,4 @@ DROP TABLE profiles;
 DROP TABLE users;         
 DROP TABLE requests;      
 DROP TABLE verifications; 
+DROP TABLE job_payments; 

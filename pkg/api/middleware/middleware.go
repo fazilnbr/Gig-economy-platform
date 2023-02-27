@@ -48,8 +48,9 @@ func (cr *middlewar) AthoriseJWT(c *gin.Context) {
 	source := fmt.Sprint(claims.Source)
 
 	fmt.Printf("\n\nok : %v\n\n", time.Now().Unix()-claims.ExpiresAt)
+	fmt.Printf("\n\nsorce : %v\n\n", source)
 
-	if !ok && source == "accesstoken" {
+	if !ok {
 		err := errors.New("your access token is not valid")
 		response := response.ErrorResponse("Error", err.Error(), source)
 		c.Writer.Header().Add("Content-Type", "application/json")
@@ -57,8 +58,10 @@ func (cr *middlewar) AthoriseJWT(c *gin.Context) {
 		utils.ResponseJSON(*c, response)
 		c.Abort()
 		return
-	} else if !ok && source == "refreshtoken" {
-		err := errors.New("your refresh token is not valid please login again")
+	}
+
+	if source != "accesstoken" {
+		err := errors.New("The token not an access token")
 		response := response.ErrorResponse("Error", err.Error(), source)
 		c.Writer.Header().Add("Content-Type", "application/json")
 		c.Writer.WriteHeader(http.StatusUnauthorized)
