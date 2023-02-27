@@ -754,7 +754,7 @@
                     "application/json"
                 ],
                 "tags": [
-                    "User"
+                    "User Address Management"
                 ],
                 "summary": "Add address for User",
                 "operationId": "user add address",
@@ -796,7 +796,7 @@
                     "application/json"
                 ],
                 "tags": [
-                    "User"
+                    "User Profile Management"
                 ],
                 "summary": "Add profile for User",
                 "operationId": "user add profile",
@@ -838,7 +838,7 @@
                     "application/json"
                 ],
                 "tags": [
-                    "User"
+                    "User Favorite"
                 ],
                 "summary": "user could add to favoroite list of worker",
                 "operationId": "user add to favorite list",
@@ -880,7 +880,7 @@
                     "application/json"
                 ],
                 "tags": [
-                    "User"
+                    "User Job Request"
                 ],
                 "summary": "Cancel request for user",
                 "operationId": "user cancel request",
@@ -920,7 +920,7 @@
                     "application/json"
                 ],
                 "tags": [
-                    "User"
+                    "User Profile Management"
                 ],
                 "summary": "Change Password for User",
                 "operationId": "user change password",
@@ -962,7 +962,7 @@
                     "application/json"
                 ],
                 "tags": [
-                    "User"
+                    "User Address Management"
                 ],
                 "summary": "Delete address for user",
                 "operationId": "user delete address",
@@ -1002,7 +1002,7 @@
                     "application/json"
                 ],
                 "tags": [
-                    "User"
+                    "User Profile Management"
                 ],
                 "summary": "Edit profile for User",
                 "operationId": "user edit profile",
@@ -1044,7 +1044,7 @@
                     "application/json"
                 ],
                 "tags": [
-                    "User"
+                    "User Address Management"
                 ],
                 "summary": "List address for User",
                 "operationId": "user list address",
@@ -1075,7 +1075,7 @@
                     "application/json"
                 ],
                 "tags": [
-                    "User"
+                    "User Favorite"
                 ],
                 "summary": "list favorite list of workers for users",
                 "operationId": "list favorite list of workers for users",
@@ -1122,7 +1122,7 @@
                     "application/json"
                 ],
                 "tags": [
-                    "User"
+                    "User Job Request"
                 ],
                 "summary": "list send job request for users",
                 "operationId": "list send job request for users",
@@ -1169,7 +1169,7 @@
                     "application/json"
                 ],
                 "tags": [
-                    "User"
+                    "User List Worker"
                 ],
                 "summary": "list all job with workers for users",
                 "operationId": "list all job with workers for users",
@@ -1211,7 +1211,7 @@
                     "application/json"
                 ],
                 "tags": [
-                    "User"
+                    "User Authentication"
                 ],
                 "summary": "Login for users",
                 "operationId": "login authentication",
@@ -1268,7 +1268,7 @@
                     "application/json"
                 ],
                 "tags": [
-                    "User"
+                    "User Authentication"
                 ],
                 "summary": "Authenticate With Google",
                 "operationId": "Authenticate With Google",
@@ -1299,7 +1299,7 @@
                     "application/json"
                 ],
                 "tags": [
-                    "User"
+                    "User Job Payment"
                 ],
                 "summary": "To Open Home Page To Razor-Pay Payment",
                 "operationId": "To open home page to razor-pay payment",
@@ -1328,37 +1328,6 @@
                 }
             }
         },
-        "/user/razor-pay-payment-success": {
-            "get": {
-                "security": [
-                    {
-                        "BearerAuth": []
-                    }
-                ],
-                "produces": [
-                    "application/json"
-                ],
-                "tags": [
-                    "User"
-                ],
-                "summary": "To Open Succes Page To Razor-Pay Payment If Success",
-                "operationId": "To open Success page to razor-pay payment if success",
-                "responses": {
-                    "200": {
-                        "description": "OK",
-                        "schema": {
-                            "$ref": "#/definitions/github_com_fazilnbr_project-workey_pkg_common_response.Response"
-                        }
-                    },
-                    "422": {
-                        "description": "Unprocessable Entity",
-                        "schema": {
-                            "$ref": "#/definitions/github_com_fazilnbr_project-workey_pkg_common_response.Response"
-                        }
-                    }
-                }
-            }
-        },
         "/user/search-workers-with-job": {
             "get": {
                 "security": [
@@ -1370,7 +1339,7 @@
                     "application/json"
                 ],
                 "tags": [
-                    "User"
+                    "User List Worker"
                 ],
                 "summary": "search job with workers for users",
                 "operationId": "search job with workers for users",
@@ -1424,7 +1393,7 @@
                     "application/json"
                 ],
                 "tags": [
-                    "User"
+                    "User Job Request"
                 ],
                 "summary": "user could send job request to worker",
                 "operationId": "user send job request to worker",
@@ -1461,7 +1430,7 @@
                     "application/json"
                 ],
                 "tags": [
-                    "User"
+                    "User Authentication"
                 ],
                 "summary": "Send OTP varification mail to users",
                 "operationId": "SendVerificationMail authentication",
@@ -1496,8 +1465,8 @@
                     "application/json"
                 ],
                 "tags": [
-                    "User",
-                    "User"
+                    "User Authentication",
+                    "User Authentication"
                 ],
                 "summary": "SignUp for users",
                 "operationId": "SignUp authentication",
@@ -1554,7 +1523,7 @@
                     "application/json"
                 ],
                 "tags": [
-                    "User"
+                    "User Job Request"
                 ],
                 "summary": "Update Job Complition",
                 "operationId": "update job complition",
@@ -1589,7 +1558,7 @@
                     "application/json"
                 ],
                 "tags": [
-                    "User"
+                    "User Authentication"
                 ],
                 "summary": "Varify OTP of users",
                 "operationId": "Varify OTP authentication",
@@ -1636,7 +1605,7 @@
                     "application/json"
                 ],
                 "tags": [
-                    "User"
+                    "User Job Request"
                 ],
                 "summary": "View One Job Request",
                 "operationId": "user view one job request",

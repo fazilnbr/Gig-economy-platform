@@ -765,7 +765,7 @@ const docTemplate = `{
                     "application/json"
                 ],
                 "tags": [
-                    "User"
+                    "User Address Management"
                 ],
                 "summary": "Add address for User",
                 "operationId": "user add address",
@@ -807,7 +807,7 @@ const docTemplate = `{
                     "application/json"
                 ],
                 "tags": [
-                    "User"
+                    "User Profile Management"
                 ],
                 "summary": "Add profile for User",
                 "operationId": "user add profile",
@@ -849,7 +849,7 @@ const docTemplate = `{
                     "application/json"
                 ],
                 "tags": [
-                    "User"
+                    "User Favorite"
                 ],
                 "summary": "user could add to favoroite list of worker",
                 "operationId": "user add to favorite list",
@@ -891,7 +891,7 @@ const docTemplate = `{
                     "application/json"
                 ],
                 "tags": [
-                    "User"
+                    "User Job Request"
                 ],
                 "summary": "Cancel request for user",
                 "operationId": "user cancel request",
@@ -931,7 +931,7 @@ const docTemplate = `{
                     "application/json"
                 ],
                 "tags": [
-                    "User"
+                    "User Profile Management"
                 ],
                 "summary": "Change Password for User",
                 "operationId": "user change password",
@@ -973,7 +973,7 @@ const docTemplate = `{
                     "application/json"
                 ],
                 "tags": [
-                    "User"
+                    "User Address Management"
                 ],
                 "summary": "Delete address for user",
                 "operationId": "user delete address",
@@ -1013,7 +1013,7 @@ const docTemplate = `{
                     "application/json"
                 ],
                 "tags": [
-                    "User"
+                    "User Profile Management"
                 ],
                 "summary": "Edit profile for User",
                 "operationId": "user edit profile",
@@ -1055,7 +1055,7 @@ const docTemplate = `{
                     "application/json"
                 ],
                 "tags": [
-                    "User"
+                    "User Address Management"
                 ],
                 "summary": "List address for User",
                 "operationId": "user list address",
@@ -1086,7 +1086,7 @@ const docTemplate = `{
                     "application/json"
                 ],
                 "tags": [
-                    "User"
+                    "User Favorite"
                 ],
                 "summary": "list favorite list of workers for users",
                 "operationId": "list favorite list of workers for users",
@@ -1133,7 +1133,7 @@ const docTemplate = `{
                     "application/json"
                 ],
                 "tags": [
-                    "User"
+                    "User Job Request"
                 ],
                 "summary": "list send job request for users",
                 "operationId": "list send job request for users",
@@ -1180,7 +1180,7 @@ const docTemplate = `{
                     "application/json"
                 ],
                 "tags": [
-                    "User"
+                    "User List Worker"
                 ],
                 "summary": "list all job with workers for users",
                 "operationId": "list all job with workers for users",
@@ -1222,7 +1222,7 @@ const docTemplate = `{
                     "application/json"
                 ],
                 "tags": [
-                    "User"
+                    "User Authentication"
                 ],
                 "summary": "Login for users",
                 "operationId": "login authentication",
@@ -1279,7 +1279,7 @@ const docTemplate = `{
                     "application/json"
                 ],
                 "tags": [
-                    "User"
+                    "User Authentication"
                 ],
                 "summary": "Authenticate With Google",
                 "operationId": "Authenticate With Google",
@@ -1310,7 +1310,7 @@ const docTemplate = `{
                     "application/json"
                 ],
                 "tags": [
-                    "User"
+                    "User Job Payment"
                 ],
                 "summary": "To Open Home Page To Razor-Pay Payment",
                 "operationId": "To open home page to razor-pay payment",
@@ -1339,37 +1339,6 @@ const docTemplate = `{
                 }
             }
         },
-        "/user/razor-pay-payment-success": {
-            "get": {
-                "security": [
-                    {
-                        "BearerAuth": []
-                    }
-                ],
-                "produces": [
-                    "application/json"
-                ],
-                "tags": [
-                    "User"
-                ],
-                "summary": "To Open Succes Page To Razor-Pay Payment If Success",
-                "operationId": "To open Success page to razor-pay payment if success",
-                "responses": {
-                    "200": {
-                        "description": "OK",
-                        "schema": {
-                            "$ref": "#/definitions/github_com_fazilnbr_project-workey_pkg_common_response.Response"
-                        }
-                    },
-                    "422": {
-                        "description": "Unprocessable Entity",
-                        "schema": {
-                            "$ref": "#/definitions/github_com_fazilnbr_project-workey_pkg_common_response.Response"
-                        }
-                    }
-                }
-            }
-        },
         "/user/search-workers-with-job": {
             "get": {
                 "security": [
@@ -1381,7 +1350,7 @@ const docTemplate = `{
                     "application/json"
                 ],
                 "tags": [
-                    "User"
+                    "User List Worker"
                 ],
                 "summary": "search job with workers for users",
                 "operationId": "search job with workers for users",
@@ -1435,7 +1404,7 @@ const docTemplate = `{
                     "application/json"
                 ],
                 "tags": [
-                    "User"
+                    "User Job Request"
                 ],
                 "summary": "user could send job request to worker",
                 "operationId": "user send job request to worker",
@@ -1472,7 +1441,7 @@ const docTemplate = `{
                     "application/json"
                 ],
                 "tags": [
-                    "User"
+                    "User Authentication"
                 ],
                 "summary": "Send OTP varification mail to users",
                 "operationId": "SendVerificationMail authentication",
@@ -1507,8 +1476,8 @@ const docTemplate = `{
                     "application/json"
                 ],
                 "tags": [
-                    "User",
-                    "User"
+                    "User Authentication",
+                    "User Authentication"
                 ],
                 "summary": "SignUp for users",
                 "operationId": "SignUp authentication",
@@ -1565,7 +1534,7 @@ const docTemplate = `{
                     "application/json"
                 ],
                 "tags": [
-                    "User"
+                    "User Job Request"
                 ],
                 "summary": "Update Job Complition",
                 "operationId": "update job complition",
@@ -1600,7 +1569,7 @@ const docTemplate = `{
                     "application/json"
                 ],
                 "tags": [
-                    "User"
+                    "User Authentication"
                 ],
                 "summary": "Varify OTP of users",
                 "operationId": "Varify OTP authentication",
@@ -1647,7 +1616,7 @@ const docTemplate = `{
                     "application/json"
                 ],
                 "tags": [
-                    "User"
+                    "User Job Request"
                 ],
                 "summary": "View One Job Request",
                 "operationId": "user view one job request",

@@ -27,7 +27,7 @@ func NewUserHandler(userService services.UserUseCase) UserHandler {
 
 // @Summary Add profile for User
 // @ID user add profile
-// @Tags User
+// @Tags User Profile Management
 // @Security BearerAuth
 // @Produce json
 // @Param UserAddProfile body domain.Profile{} true "User Add Profile"
@@ -61,7 +61,7 @@ func (cr *UserHandler) UserAddProfile(c *gin.Context) {
 
 // @Summary Edit profile for User
 // @ID user edit profile
-// @Tags User
+// @Tags User Profile Management
 // @Security BearerAuth
 // @Produce json
 // @Param UserEditProfile body domain.Profile{} true "User Edit Profile"
@@ -95,7 +95,7 @@ func (cr *UserHandler) UserEditProfile(c *gin.Context) {
 
 // @Summary Change Password for User
 // @ID user change password
-// @Tags User
+// @Tags User Profile Management
 // @Security BearerAuth
 // @Produce json
 // @Param UserChangePassword body domain.ChangePassword{} true "User Change Password"
@@ -145,7 +145,7 @@ func (cr *UserHandler) UserChangePassword(c *gin.Context) {
 
 // @Summary list all job with workers for users
 // @ID list all job with workers for users
-// @Tags User
+// @Tags User List Worker
 // @Security BearerAuth
 // @Produce json
 // @Param        page   query      string  true  "Page : "
@@ -192,7 +192,7 @@ func (cr *UserHandler) ListWorkersWithJob(c *gin.Context) {
 
 // @Summary search job with workers for users
 // @ID search job with workers for users
-// @Tags User
+// @Tags User List Worker
 // @Security BearerAuth
 // @Produce json
 // @Param        search   query      string  true  "search : "
@@ -241,7 +241,7 @@ func (cr *UserHandler) SearchWorkersWithJob(c *gin.Context) {
 
 // @Summary user could add to favoroite list of worker
 // @ID user add to favorite list
-// @Tags User
+// @Tags User Favorite
 // @Security BearerAuth
 // @Produce json
 // @Param addtofavotite body domain.Favorite{} true "User Add To Favorite"
@@ -276,7 +276,7 @@ func (cr *UserHandler) UserAddToFavorite(c *gin.Context) {
 
 // @Summary list favorite list of workers for users
 // @ID list favorite list of workers for users
-// @Tags User
+// @Tags User Favorite
 // @Security BearerAuth
 // @Produce json
 // @Param        page   query      string  true  "Page : "
@@ -324,7 +324,7 @@ func (cr *UserHandler) ListFavorite(c *gin.Context) {
 
 // @Summary Add address for User
 // @ID user add address
-// @Tags User
+// @Tags User Address Management
 // @Security BearerAuth
 // @Produce json
 // @Param UserAddProfile body domain.Address{} true "User Add Profile"
@@ -358,7 +358,7 @@ func (cr *UserHandler) UserAddAddress(c *gin.Context) {
 
 // @Summary List address for User
 // @ID user list address
-// @Tags User
+// @Tags User Address Management
 // @Security BearerAuth
 // @Produce json
 // @Success 200 {object} response.Response{}
@@ -386,7 +386,7 @@ func (cr *UserHandler) UserListAddress(c *gin.Context) {
 
 // @Summary Delete address for user
 // @ID user delete address
-// @Tags User
+// @Tags User Address Management
 // @Security BearerAuth
 // @Produce json
 // @Param        addressid   query      string  true  "Job Id : "
@@ -420,7 +420,7 @@ func (cr *UserHandler) DeleteAddress(c *gin.Context) {
 
 // @Summary user could send job request to worker
 // @ID user send job request to worker
-// @Tags User
+// @Tags User Job Request
 // @Security BearerAuth
 // @Produce json
 // @Param addtofavotite body domain.Request{} true "User Add To Favorite"
@@ -455,7 +455,7 @@ func (cr *UserHandler) UserSendJobRequest(c *gin.Context) {
 
 // @Summary Cancel request for user
 // @ID user cancel request
-// @Tags User
+// @Tags User Job Request
 // @Security BearerAuth
 // @Produce json
 // @Param        requestId   query      string  true  "Request Id : "
@@ -489,7 +489,7 @@ func (cr *UserHandler) DeleteJobRequest(c *gin.Context) {
 
 // @Summary list send job request for users
 // @ID list send job request for users
-// @Tags User
+// @Tags User Job Request
 // @Security BearerAuth
 // @Produce json
 // @Param        page   query      string  true  "Page : "
@@ -537,7 +537,7 @@ func (cr *UserHandler) ListSendRequests(c *gin.Context) {
 
 // @Summary View One Job Request
 // @ID user view one job request
-// @Tags User
+// @Tags User Job Request
 // @Security BearerAuth
 // @Produce json
 // @Param        requestid   query      string  true  "Request Id : "
@@ -570,7 +570,7 @@ func (cr *UserHandler) ViewSendOneRequest(c *gin.Context) {
 
 // @Summary Update Job Complition
 // @ID update job complition
-// @Tags User
+// @Tags User Job Request
 // @Security BearerAuth
 // @Produce json
 // @Param        requestid   query      string  true  "Request Id : "
@@ -603,7 +603,7 @@ func (cr *UserHandler) UpdateJobComplition(c *gin.Context) {
 
 // @Summary To Open Home Page To Razor-Pay Payment
 // @ID To open home page to razor-pay payment
-// @Tags User
+// @Tags User Job Payment
 // @Security BearerAuth
 // @Produce json
 // @Param        requestid   query      string  true  "Request Id : "
@@ -683,14 +683,7 @@ func (cr *UserHandler) RazorPayHome(c *gin.Context) {
 
 }
 
-// @Summary To Open Succes Page To Razor-Pay Payment If Success
-// @ID To open Success page to razor-pay payment if success
-// @Tags User
-// @Security BearerAuth
-// @Produce json
-// @Success 200 {object} response.Response{}
-// @Failure 422 {object} response.Response{}
-// @Router /user/razor-pay-payment-success [get]
+
 func (cr *UserHandler) RazorPaySuccess(c *gin.Context) {
 	// userId, _ := strconv.Atoi(c.Writer.Header().Get("id"))
 	userId := 5

@@ -86,7 +86,7 @@ func NewServerHTTP(authHandler handler.AuthHandler, adminHandler handler.AdminHa
 			{
 				user.GET("/account/verifyJWT", authHandler.UserHome)
 
-				// User Profile
+				// User Profile Management
 				user.POST("/add-profile", UserHandler.UserAddProfile)
 				user.PATCH("/edit-profile", UserHandler.UserEditProfile)
 				user.PATCH("/change-password", UserHandler.UserChangePassword)
@@ -99,7 +99,7 @@ func NewServerHTTP(authHandler handler.AuthHandler, adminHandler handler.AdminHa
 				user.POST("/add-to-favorite", UserHandler.UserAddToFavorite)
 				user.GET("/list-favorite-list", UserHandler.ListFavorite)
 
-				// User Address
+				// User Address Management
 				user.POST("add-address", UserHandler.UserAddAddress)
 				user.GET("/list-address", UserHandler.UserListAddress)
 				user.DELETE("/delete-address", UserHandler.DeleteAddress)

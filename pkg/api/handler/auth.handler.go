@@ -69,7 +69,7 @@ func (cr *AuthHandler) InitializeOAuthGoogle() {
 
 // @Summary Authenticate With Google
 // @ID Authenticate With Google
-// @Tags User
+// @Tags User Authentication
 // @Security BearerAuth
 // @Produce json
 // @Success 200 {object} response.Response{}
@@ -251,9 +251,9 @@ func (cr *AuthHandler) AdminLogin(c *gin.Context) {
 
 // @Summary SignUp for users
 // @ID SignUp authentication
-// @Tags User
+// @Tags User Authentication
 // @Produce json
-// @Tags User
+// @Tags User Authentication
 // @Param WorkerLogin body domain.User{username=string,password=string} true "Worker Login"
 // @Success 200 {object} response.Response{}
 // @Failure 422 {object} response.Response{}
@@ -291,7 +291,7 @@ func (cr *AuthHandler) UserSignUp(c *gin.Context) {
 
 // @Summary Login for users
 // @ID login authentication
-// @Tags User
+// @Tags User Authentication
 // @Produce json
 // @Param WorkerLogin body domain.User{username=string,password=string} true "Worker Login"
 // @Success 200 {object} response.Response{}
@@ -438,7 +438,7 @@ func (cr *AuthHandler) WorkerLogin(c *gin.Context) {
 
 // @Summary Send OTP varification mail to users
 // @ID SendVerificationMail authentication
-// @Tags User
+// @Tags User Authentication
 // @Produce json
 // @Param        email   query      string  true  "Email : "
 // @Success 200 {object} response.Response{}
@@ -496,7 +496,7 @@ func (cr *AuthHandler) SendVerificationMailUser(c *gin.Context) {
 
 // @Summary Varify OTP of users
 // @ID Varify OTP authentication
-// @Tags User
+// @Tags User Authentication
 // @Produce json
 // @Param        email   query      string  true  "Email : "
 // @Param        code   query      string  true  "OTP : "

@@ -594,7 +594,7 @@ paths:
       - BearerAuth: []
       summary: Add address for User
       tags:
-      - User
+      - User Address Management
   /user/add-profile:
     post:
       operationId: user add profile
@@ -620,7 +620,7 @@ paths:
       - BearerAuth: []
       summary: Add profile for User
       tags:
-      - User
+      - User Profile Management
   /user/add-to-favorite:
     post:
       operationId: user add to favorite list
@@ -646,7 +646,7 @@ paths:
       - BearerAuth: []
       summary: user could add to favoroite list of worker
       tags:
-      - User
+      - User Favorite
   /user/cancel-job-request:
     delete:
       operationId: user cancel request
@@ -671,7 +671,7 @@ paths:
       - BearerAuth: []
       summary: Cancel request for user
       tags:
-      - User
+      - User Job Request
   /user/change-password:
     patch:
       operationId: user change password
@@ -697,7 +697,7 @@ paths:
       - BearerAuth: []
       summary: Change Password for User
       tags:
-      - User
+      - User Profile Management
   /user/delete-address:
     delete:
       operationId: user delete address
@@ -722,7 +722,7 @@ paths:
       - BearerAuth: []
       summary: Delete address for user
       tags:
-      - User
+      - User Address Management
   /user/edit-profile:
     patch:
       operationId: user edit profile
@@ -748,7 +748,7 @@ paths:
       - BearerAuth: []
       summary: Edit profile for User
       tags:
-      - User
+      - User Profile Management
   /user/list-address:
     get:
       operationId: user list address
@@ -767,7 +767,7 @@ paths:
       - BearerAuth: []
       summary: List address for User
       tags:
-      - User
+      - User Address Management
   /user/list-favorite-list:
     get:
       operationId: list favorite list of workers for users
@@ -797,7 +797,7 @@ paths:
       - BearerAuth: []
       summary: list favorite list of workers for users
       tags:
-      - User
+      - User Favorite
   /user/list-job-request:
     get:
       operationId: list send job request for users
@@ -827,7 +827,7 @@ paths:
       - BearerAuth: []
       summary: list send job request for users
       tags:
-      - User
+      - User Job Request
   /user/list-workers-with-job:
     get:
       operationId: list all job with workers for users
@@ -857,7 +857,7 @@ paths:
       - BearerAuth: []
       summary: list all job with workers for users
       tags:
-      - User
+      - User List Worker
   /user/login:
     post:
       operationId: login authentication
@@ -888,7 +888,7 @@ paths:
             $ref: '#/definitions/github_com_fazilnbr_project-workey_pkg_common_response.Response'
       summary: Login for users
       tags:
-      - User
+      - User Authentication
   /user/login-gl:
     get:
       operationId: Authenticate With Google
@@ -907,7 +907,7 @@ paths:
       - BearerAuth: []
       summary: Authenticate With Google
       tags:
-      - User
+      - User Authentication
   /user/razor-pay-home:
     get:
       operationId: To open home page to razor-pay payment
@@ -932,26 +932,7 @@ paths:
       - BearerAuth: []
       summary: To Open Home Page To Razor-Pay Payment
       tags:
-      - User
-  /user/razor-pay-payment-success:
-    get:
-      operationId: To open Success page to razor-pay payment if success
-      produces:
-      - application/json
-      responses:
-        "200":
-          description: OK
-          schema:
-            $ref: '#/definitions/github_com_fazilnbr_project-workey_pkg_common_response.Response'
-        "422":
-          description: Unprocessable Entity
-          schema:
-            $ref: '#/definitions/github_com_fazilnbr_project-workey_pkg_common_response.Response'
-      security:
-      - BearerAuth: []
-      summary: To Open Succes Page To Razor-Pay Payment If Success
-      tags:
-      - User
+      - User Job Payment
   /user/search-workers-with-job:
     get:
       operationId: search job with workers for users
@@ -986,7 +967,7 @@ paths:
       - BearerAuth: []
       summary: search job with workers for users
       tags:
-      - User
+      - User List Worker
   /user/send-job-request:
     post:
       operationId: user send job request to worker
@@ -1012,7 +993,7 @@ paths:
       - BearerAuth: []
       summary: user could send job request to worker
       tags:
-      - User
+      - User Job Request
   /user/send/verification:
     post:
       operationId: SendVerificationMail authentication
@@ -1035,7 +1016,7 @@ paths:
             $ref: '#/definitions/github_com_fazilnbr_project-workey_pkg_common_response.Response'
       summary: Send OTP varification mail to users
       tags:
-      - User
+      - User Authentication
   /user/signup:
     post:
       operationId: SignUp authentication
@@ -1066,8 +1047,8 @@ paths:
             $ref: '#/definitions/github_com_fazilnbr_project-workey_pkg_common_response.Response'
       summary: SignUp for users
       tags:
-      - User
-      - User
+      - User Authentication
+      - User Authentication
   /user/update-job-complition-status:
     patch:
       operationId: update job complition
@@ -1092,7 +1073,7 @@ paths:
       - BearerAuth: []
       summary: Update Job Complition
       tags:
-      - User
+      - User Job Request
   /user/verify/account:
     post:
       operationId: Varify OTP authentication
@@ -1120,7 +1101,7 @@ paths:
             $ref: '#/definitions/github_com_fazilnbr_project-workey_pkg_common_response.Response'
       summary: Varify OTP of users
       tags:
-      - User
+      - User Authentication
   /user/view-one-job-request:
     get:
       operationId: user view one job request
@@ -1145,7 +1126,7 @@ paths:
       - BearerAuth: []
       summary: View One Job Request
       tags:
-      - User
+      - User Job Request
   /worker/accept-job-request:
     patch:
       operationId: worker accept job request from user
