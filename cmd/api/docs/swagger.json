@@ -1,18 +1,7 @@
 {
     "swagger": "2.0",
     "info": {
-        "description": "This is a sample server Job Portal server. You can visit the GitHub repository at https://github.com/fazilnbr/Job_Portal_Project",
-        "title": "Go + Gin Workey API",
-        "contact": {
-            "name": "API Support",
-            "url": "https://fazilnbr.github.io/mypeosolal.web.portfolio/",
-            "email": "fazilkp2000@gmail.com"
-        },
-        "license": {
-            "name": "MIT",
-            "url": "https://opensource.org/licenses/MIT"
-        },
-        "version": "1.0"
+        "contact": {}
     },
     "paths": {
         "/admin/account/verifyJWT": {
@@ -38,13 +27,13 @@
                     "200": {
                         "description": "OK",
                         "schema": {
-                            "$ref": "#/definitions/response.Response"
+                            "$ref": "#/definitions/github_com_fazilnbr_project-workey_pkg_common_response.Response"
                         }
                     },
                     "422": {
                         "description": "Unprocessable Entity",
                         "schema": {
-                            "$ref": "#/definitions/response.Response"
+                            "$ref": "#/definitions/github_com_fazilnbr_project-workey_pkg_common_response.Response"
                         }
                     }
                 }
@@ -61,7 +50,7 @@
                     "application/json"
                 ],
                 "tags": [
-                    "Admin"
+                    "Admin User Management"
                 ],
                 "summary": "activate users for admin",
                 "operationId": "activate users",
@@ -78,13 +67,13 @@
                     "200": {
                         "description": "OK",
                         "schema": {
-                            "$ref": "#/definitions/response.Response"
+                            "$ref": "#/definitions/github_com_fazilnbr_project-workey_pkg_common_response.Response"
                         }
                     },
                     "422": {
                         "description": "Unprocessable Entity",
                         "schema": {
-                            "$ref": "#/definitions/response.Response"
+                            "$ref": "#/definitions/github_com_fazilnbr_project-workey_pkg_common_response.Response"
                         }
                     }
                 }
@@ -101,7 +90,7 @@
                     "application/json"
                 ],
                 "tags": [
-                    "Admin"
+                    "Admin Worker Management"
                 ],
                 "summary": "activate workers for admin",
                 "operationId": "activate workers",
@@ -118,13 +107,13 @@
                     "200": {
                         "description": "OK",
                         "schema": {
-                            "$ref": "#/definitions/response.Response"
+                            "$ref": "#/definitions/github_com_fazilnbr_project-workey_pkg_common_response.Response"
                         }
                     },
                     "422": {
                         "description": "Unprocessable Entity",
                         "schema": {
-                            "$ref": "#/definitions/response.Response"
+                            "$ref": "#/definitions/github_com_fazilnbr_project-workey_pkg_common_response.Response"
                         }
                     }
                 }
@@ -141,7 +130,7 @@
                     "application/json"
                 ],
                 "tags": [
-                    "Admin"
+                    "Admin Job Management"
                 ],
                 "summary": "add job category for admin",
                 "operationId": "add category",
@@ -158,13 +147,13 @@
                     "200": {
                         "description": "OK",
                         "schema": {
-                            "$ref": "#/definitions/response.Response"
+                            "$ref": "#/definitions/github_com_fazilnbr_project-workey_pkg_common_response.Response"
                         }
                     },
                     "422": {
                         "description": "Unprocessable Entity",
                         "schema": {
-                            "$ref": "#/definitions/response.Response"
+                            "$ref": "#/definitions/github_com_fazilnbr_project-workey_pkg_common_response.Response"
                         }
                     }
                 }
@@ -181,7 +170,7 @@
                     "application/json"
                 ],
                 "tags": [
-                    "Admin"
+                    "Admin User Management"
                 ],
                 "summary": "block users for admin",
                 "operationId": "block users",
@@ -198,13 +187,13 @@
                     "200": {
                         "description": "OK",
                         "schema": {
-                            "$ref": "#/definitions/response.Response"
+                            "$ref": "#/definitions/github_com_fazilnbr_project-workey_pkg_common_response.Response"
                         }
                     },
                     "422": {
                         "description": "Unprocessable Entity",
                         "schema": {
-                            "$ref": "#/definitions/response.Response"
+                            "$ref": "#/definitions/github_com_fazilnbr_project-workey_pkg_common_response.Response"
                         }
                     }
                 }
@@ -221,7 +210,7 @@
                     "application/json"
                 ],
                 "tags": [
-                    "Admin"
+                    "Admin Worker Management"
                 ],
                 "summary": "block workers for admin",
                 "operationId": "block workers",
@@ -238,13 +227,13 @@
                     "200": {
                         "description": "OK",
                         "schema": {
-                            "$ref": "#/definitions/response.Response"
+                            "$ref": "#/definitions/github_com_fazilnbr_project-workey_pkg_common_response.Response"
                         }
                     },
                     "422": {
                         "description": "Unprocessable Entity",
                         "schema": {
-                            "$ref": "#/definitions/response.Response"
+                            "$ref": "#/definitions/github_com_fazilnbr_project-workey_pkg_common_response.Response"
                         }
                     }
                 }
@@ -261,7 +250,7 @@
                     "application/json"
                 ],
                 "tags": [
-                    "Admin"
+                    "Admin User Management"
                 ],
                 "summary": "list all active users for admin",
                 "operationId": "list all active users",
@@ -285,13 +274,13 @@
                     "200": {
                         "description": "OK",
                         "schema": {
-                            "$ref": "#/definitions/response.Response"
+                            "$ref": "#/definitions/github_com_fazilnbr_project-workey_pkg_common_response.Response"
                         }
                     },
                     "422": {
                         "description": "Unprocessable Entity",
                         "schema": {
-                            "$ref": "#/definitions/response.Response"
+                            "$ref": "#/definitions/github_com_fazilnbr_project-workey_pkg_common_response.Response"
                         }
                     }
                 }
@@ -308,7 +297,7 @@
                     "application/json"
                 ],
                 "tags": [
-                    "Admin"
+                    "Admin Worker Management"
                 ],
                 "summary": "list all active workers for admin",
                 "operationId": "list all active workers",
@@ -332,13 +321,13 @@
                     "200": {
                         "description": "OK",
                         "schema": {
-                            "$ref": "#/definitions/response.Response"
+                            "$ref": "#/definitions/github_com_fazilnbr_project-workey_pkg_common_response.Response"
                         }
                     },
                     "422": {
                         "description": "Unprocessable Entity",
                         "schema": {
-                            "$ref": "#/definitions/response.Response"
+                            "$ref": "#/definitions/github_com_fazilnbr_project-workey_pkg_common_response.Response"
                         }
                     }
                 }
@@ -355,7 +344,7 @@
                     "application/json"
                 ],
                 "tags": [
-                    "Admin"
+                    "Admin User Management"
                 ],
                 "summary": "list all blocked users for admin",
                 "operationId": "list all blocked users",
@@ -379,13 +368,13 @@
                     "200": {
                         "description": "OK",
                         "schema": {
-                            "$ref": "#/definitions/response.Response"
+                            "$ref": "#/definitions/github_com_fazilnbr_project-workey_pkg_common_response.Response"
                         }
                     },
                     "422": {
                         "description": "Unprocessable Entity",
                         "schema": {
-                            "$ref": "#/definitions/response.Response"
+                            "$ref": "#/definitions/github_com_fazilnbr_project-workey_pkg_common_response.Response"
                         }
                     }
                 }
@@ -402,7 +391,7 @@
                     "application/json"
                 ],
                 "tags": [
-                    "Admin"
+                    "Admin Worker Management"
                 ],
                 "summary": "list all blocked workers for admin",
                 "operationId": "list all blocked workers",
@@ -426,13 +415,13 @@
                     "200": {
                         "description": "OK",
                         "schema": {
-                            "$ref": "#/definitions/response.Response"
+                            "$ref": "#/definitions/github_com_fazilnbr_project-workey_pkg_common_response.Response"
                         }
                     },
                     "422": {
                         "description": "Unprocessable Entity",
                         "schema": {
-                            "$ref": "#/definitions/response.Response"
+                            "$ref": "#/definitions/github_com_fazilnbr_project-workey_pkg_common_response.Response"
                         }
                     }
                 }
@@ -449,7 +438,7 @@
                     "application/json"
                 ],
                 "tags": [
-                    "Admin"
+                    "Admin Job Management"
                 ],
                 "summary": "list all job categories for admin",
                 "operationId": "list all job category",
@@ -473,13 +462,13 @@
                     "200": {
                         "description": "OK",
                         "schema": {
-                            "$ref": "#/definitions/response.Response"
+                            "$ref": "#/definitions/github_com_fazilnbr_project-workey_pkg_common_response.Response"
                         }
                     },
                     "422": {
                         "description": "Unprocessable Entity",
                         "schema": {
-                            "$ref": "#/definitions/response.Response"
+                            "$ref": "#/definitions/github_com_fazilnbr_project-workey_pkg_common_response.Response"
                         }
                     }
                 }
@@ -496,7 +485,7 @@
                     "application/json"
                 ],
                 "tags": [
-                    "Admin"
+                    "Admin User Management"
                 ],
                 "summary": "list all new users for admin",
                 "operationId": "list all new users",
@@ -520,13 +509,13 @@
                     "200": {
                         "description": "OK",
                         "schema": {
-                            "$ref": "#/definitions/response.Response"
+                            "$ref": "#/definitions/github_com_fazilnbr_project-workey_pkg_common_response.Response"
                         }
                     },
                     "422": {
                         "description": "Unprocessable Entity",
                         "schema": {
-                            "$ref": "#/definitions/response.Response"
+                            "$ref": "#/definitions/github_com_fazilnbr_project-workey_pkg_common_response.Response"
                         }
                     }
                 }
@@ -543,7 +532,7 @@
                     "application/json"
                 ],
                 "tags": [
-                    "Admin"
+                    "Admin Worker Management"
                 ],
                 "summary": "list all new workers for admin",
                 "operationId": "list all new workers",
@@ -567,13 +556,13 @@
                     "200": {
                         "description": "OK",
                         "schema": {
-                            "$ref": "#/definitions/response.Response"
+                            "$ref": "#/definitions/github_com_fazilnbr_project-workey_pkg_common_response.Response"
                         }
                     },
                     "422": {
                         "description": "Unprocessable Entity",
                         "schema": {
-                            "$ref": "#/definitions/response.Response"
+                            "$ref": "#/definitions/github_com_fazilnbr_project-workey_pkg_common_response.Response"
                         }
                     }
                 }
@@ -588,7 +577,7 @@
                     "application/json"
                 ],
                 "tags": [
-                    "Admin"
+                    "Admin Authentication"
                 ],
                 "summary": "Login for admin",
                 "operationId": "admin login authentication",
@@ -601,7 +590,7 @@
                         "schema": {
                             "allOf": [
                                 {
-                                    "$ref": "#/definitions/domain.User"
+                                    "$ref": "#/definitions/github_com_fazilnbr_project-workey_pkg_domain.User"
                                 },
                                 {
                                     "type": "object",
@@ -622,13 +611,13 @@
                     "200": {
                         "description": "OK",
                         "schema": {
-                            "$ref": "#/definitions/response.Response"
+                            "$ref": "#/definitions/github_com_fazilnbr_project-workey_pkg_common_response.Response"
                         }
                     },
                     "422": {
                         "description": "Unprocessable Entity",
                         "schema": {
-                            "$ref": "#/definitions/response.Response"
+                            "$ref": "#/definitions/github_com_fazilnbr_project-workey_pkg_common_response.Response"
                         }
                     }
                 }
@@ -644,19 +633,22 @@
                 "produces": [
                     "application/json"
                 ],
+                "tags": [
+                    "Refresh Token"
+                ],
                 "summary": "Refresh The Access Token",
                 "operationId": "Refresh access token",
                 "responses": {
                     "200": {
                         "description": "OK",
                         "schema": {
-                            "$ref": "#/definitions/response.Response"
+                            "$ref": "#/definitions/github_com_fazilnbr_project-workey_pkg_common_response.Response"
                         }
                     },
                     "422": {
                         "description": "Unprocessable Entity",
                         "schema": {
-                            "$ref": "#/definitions/response.Response"
+                            "$ref": "#/definitions/github_com_fazilnbr_project-workey_pkg_common_response.Response"
                         }
                     }
                 }
@@ -673,7 +665,7 @@
                     "application/json"
                 ],
                 "tags": [
-                    "Admin"
+                    "Admin Job Management"
                 ],
                 "summary": "update job category for admin",
                 "operationId": "update category",
@@ -684,7 +676,7 @@
                         "in": "body",
                         "required": true,
                         "schema": {
-                            "$ref": "#/definitions/domain.Category"
+                            "$ref": "#/definitions/github_com_fazilnbr_project-workey_pkg_domain.Category"
                         }
                     }
                 ],
@@ -692,13 +684,13 @@
                     "200": {
                         "description": "OK",
                         "schema": {
-                            "$ref": "#/definitions/response.Response"
+                            "$ref": "#/definitions/github_com_fazilnbr_project-workey_pkg_common_response.Response"
                         }
                     },
                     "422": {
                         "description": "Unprocessable Entity",
                         "schema": {
-                            "$ref": "#/definitions/response.Response"
+                            "$ref": "#/definitions/github_com_fazilnbr_project-workey_pkg_common_response.Response"
                         }
                     }
                 }
@@ -739,13 +731,13 @@
                     "200": {
                         "description": "OK",
                         "schema": {
-                            "$ref": "#/definitions/response.Response"
+                            "$ref": "#/definitions/github_com_fazilnbr_project-workey_pkg_common_response.Response"
                         }
                     },
                     "422": {
                         "description": "Unprocessable Entity",
                         "schema": {
-                            "$ref": "#/definitions/response.Response"
+                            "$ref": "#/definitions/github_com_fazilnbr_project-workey_pkg_common_response.Response"
                         }
                     }
                 }
@@ -762,7 +754,7 @@
                     "application/json"
                 ],
                 "tags": [
-                    "User"
+                    "User Address Management"
                 ],
                 "summary": "Add address for User",
                 "operationId": "user add address",
@@ -773,7 +765,7 @@
                         "in": "body",
                         "required": true,
                         "schema": {
-                            "$ref": "#/definitions/domain.Address"
+                            "$ref": "#/definitions/github_com_fazilnbr_project-workey_pkg_domain.Address"
                         }
                     }
                 ],
@@ -781,13 +773,13 @@
                     "200": {
                         "description": "OK",
                         "schema": {
-                            "$ref": "#/definitions/response.Response"
+                            "$ref": "#/definitions/github_com_fazilnbr_project-workey_pkg_common_response.Response"
                         }
                     },
                     "422": {
                         "description": "Unprocessable Entity",
                         "schema": {
-                            "$ref": "#/definitions/response.Response"
+                            "$ref": "#/definitions/github_com_fazilnbr_project-workey_pkg_common_response.Response"
                         }
                     }
                 }
@@ -804,7 +796,7 @@
                     "application/json"
                 ],
                 "tags": [
-                    "User"
+                    "User Profile Management"
                 ],
                 "summary": "Add profile for User",
                 "operationId": "user add profile",
@@ -815,7 +807,7 @@
                         "in": "body",
                         "required": true,
                         "schema": {
-                            "$ref": "#/definitions/domain.Profile"
+                            "$ref": "#/definitions/github_com_fazilnbr_project-workey_pkg_domain.Profile"
                         }
                     }
                 ],
@@ -823,13 +815,13 @@
                     "200": {
                         "description": "OK",
                         "schema": {
-                            "$ref": "#/definitions/response.Response"
+                            "$ref": "#/definitions/github_com_fazilnbr_project-workey_pkg_common_response.Response"
                         }
                     },
                     "422": {
                         "description": "Unprocessable Entity",
                         "schema": {
-                            "$ref": "#/definitions/response.Response"
+                            "$ref": "#/definitions/github_com_fazilnbr_project-workey_pkg_common_response.Response"
                         }
                     }
                 }
@@ -846,7 +838,7 @@
                     "application/json"
                 ],
                 "tags": [
-                    "User"
+                    "User Favorite"
                 ],
                 "summary": "user could add to favoroite list of worker",
                 "operationId": "user add to favorite list",
@@ -857,7 +849,7 @@
                         "in": "body",
                         "required": true,
                         "schema": {
-                            "$ref": "#/definitions/domain.Favorite"
+                            "$ref": "#/definitions/github_com_fazilnbr_project-workey_pkg_domain.Favorite"
                         }
                     }
                 ],
@@ -865,13 +857,53 @@
                     "200": {
                         "description": "OK",
                         "schema": {
-                            "$ref": "#/definitions/response.Response"
+                            "$ref": "#/definitions/github_com_fazilnbr_project-workey_pkg_common_response.Response"
                         }
                     },
                     "422": {
                         "description": "Unprocessable Entity",
                         "schema": {
-                            "$ref": "#/definitions/response.Response"
+                            "$ref": "#/definitions/github_com_fazilnbr_project-workey_pkg_common_response.Response"
+                        }
+                    }
+                }
+            }
+        },
+        "/user/cancel-job-request": {
+            "delete": {
+                "security": [
+                    {
+                        "BearerAuth": []
+                    }
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "User Job Request"
+                ],
+                "summary": "Cancel request for user",
+                "operationId": "user cancel request",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "Request Id : ",
+                        "name": "requestId",
+                        "in": "query",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/github_com_fazilnbr_project-workey_pkg_common_response.Response"
+                        }
+                    },
+                    "422": {
+                        "description": "Unprocessable Entity",
+                        "schema": {
+                            "$ref": "#/definitions/github_com_fazilnbr_project-workey_pkg_common_response.Response"
                         }
                     }
                 }
@@ -888,7 +920,7 @@
                     "application/json"
                 ],
                 "tags": [
-                    "User"
+                    "User Profile Management"
                 ],
                 "summary": "Change Password for User",
                 "operationId": "user change password",
@@ -899,7 +931,7 @@
                         "in": "body",
                         "required": true,
                         "schema": {
-                            "$ref": "#/definitions/domain.ChangePassword"
+                            "$ref": "#/definitions/github_com_fazilnbr_project-workey_pkg_domain.ChangePassword"
                         }
                     }
                 ],
@@ -907,13 +939,13 @@
                     "200": {
                         "description": "OK",
                         "schema": {
-                            "$ref": "#/definitions/response.Response"
+                            "$ref": "#/definitions/github_com_fazilnbr_project-workey_pkg_common_response.Response"
                         }
                     },
                     "422": {
                         "description": "Unprocessable Entity",
                         "schema": {
-                            "$ref": "#/definitions/response.Response"
+                            "$ref": "#/definitions/github_com_fazilnbr_project-workey_pkg_common_response.Response"
                         }
                     }
                 }
@@ -930,7 +962,7 @@
                     "application/json"
                 ],
                 "tags": [
-                    "User"
+                    "User Address Management"
                 ],
                 "summary": "Delete address for user",
                 "operationId": "user delete address",
@@ -947,13 +979,13 @@
                     "200": {
                         "description": "OK",
                         "schema": {
-                            "$ref": "#/definitions/response.Response"
+                            "$ref": "#/definitions/github_com_fazilnbr_project-workey_pkg_common_response.Response"
                         }
                     },
                     "422": {
                         "description": "Unprocessable Entity",
                         "schema": {
-                            "$ref": "#/definitions/response.Response"
+                            "$ref": "#/definitions/github_com_fazilnbr_project-workey_pkg_common_response.Response"
                         }
                     }
                 }
@@ -970,7 +1002,7 @@
                     "application/json"
                 ],
                 "tags": [
-                    "User"
+                    "User Profile Management"
                 ],
                 "summary": "Edit profile for User",
                 "operationId": "user edit profile",
@@ -981,7 +1013,7 @@
                         "in": "body",
                         "required": true,
                         "schema": {
-                            "$ref": "#/definitions/domain.Profile"
+                            "$ref": "#/definitions/github_com_fazilnbr_project-workey_pkg_domain.Profile"
                         }
                     }
                 ],
@@ -989,13 +1021,13 @@
                     "200": {
                         "description": "OK",
                         "schema": {
-                            "$ref": "#/definitions/response.Response"
+                            "$ref": "#/definitions/github_com_fazilnbr_project-workey_pkg_common_response.Response"
                         }
                     },
                     "422": {
                         "description": "Unprocessable Entity",
                         "schema": {
-                            "$ref": "#/definitions/response.Response"
+                            "$ref": "#/definitions/github_com_fazilnbr_project-workey_pkg_common_response.Response"
                         }
                     }
                 }
@@ -1012,7 +1044,7 @@
                     "application/json"
                 ],
                 "tags": [
-                    "User"
+                    "User Address Management"
                 ],
                 "summary": "List address for User",
                 "operationId": "user list address",
@@ -1020,13 +1052,13 @@
                     "200": {
                         "description": "OK",
                         "schema": {
-                            "$ref": "#/definitions/response.Response"
+                            "$ref": "#/definitions/github_com_fazilnbr_project-workey_pkg_common_response.Response"
                         }
                     },
                     "422": {
                         "description": "Unprocessable Entity",
                         "schema": {
-                            "$ref": "#/definitions/response.Response"
+                            "$ref": "#/definitions/github_com_fazilnbr_project-workey_pkg_common_response.Response"
                         }
                     }
                 }
@@ -1043,7 +1075,7 @@
                     "application/json"
                 ],
                 "tags": [
-                    "User"
+                    "User Favorite"
                 ],
                 "summary": "list favorite list of workers for users",
                 "operationId": "list favorite list of workers for users",
@@ -1067,13 +1099,60 @@
                     "200": {
                         "description": "OK",
                         "schema": {
-                            "$ref": "#/definitions/response.Response"
+                            "$ref": "#/definitions/github_com_fazilnbr_project-workey_pkg_common_response.Response"
                         }
                     },
                     "422": {
                         "description": "Unprocessable Entity",
                         "schema": {
-                            "$ref": "#/definitions/response.Response"
+                            "$ref": "#/definitions/github_com_fazilnbr_project-workey_pkg_common_response.Response"
+                        }
+                    }
+                }
+            }
+        },
+        "/user/list-job-request": {
+            "get": {
+                "security": [
+                    {
+                        "BearerAuth": []
+                    }
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "User Job Request"
+                ],
+                "summary": "list send job request for users",
+                "operationId": "list send job request for users",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "Page : ",
+                        "name": "page",
+                        "in": "query",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": "Pagesize : ",
+                        "name": "pagesize",
+                        "in": "query",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/github_com_fazilnbr_project-workey_pkg_common_response.Response"
+                        }
+                    },
+                    "422": {
+                        "description": "Unprocessable Entity",
+                        "schema": {
+                            "$ref": "#/definitions/github_com_fazilnbr_project-workey_pkg_common_response.Response"
                         }
                     }
                 }
@@ -1090,7 +1169,7 @@
                     "application/json"
                 ],
                 "tags": [
-                    "User"
+                    "User List Worker"
                 ],
                 "summary": "list all job with workers for users",
                 "operationId": "list all job with workers for users",
@@ -1114,13 +1193,13 @@
                     "200": {
                         "description": "OK",
                         "schema": {
-                            "$ref": "#/definitions/response.Response"
+                            "$ref": "#/definitions/github_com_fazilnbr_project-workey_pkg_common_response.Response"
                         }
                     },
                     "422": {
                         "description": "Unprocessable Entity",
                         "schema": {
-                            "$ref": "#/definitions/response.Response"
+                            "$ref": "#/definitions/github_com_fazilnbr_project-workey_pkg_common_response.Response"
                         }
                     }
                 }
@@ -1132,7 +1211,7 @@
                     "application/json"
                 ],
                 "tags": [
-                    "User"
+                    "User Authentication"
                 ],
                 "summary": "Login for users",
                 "operationId": "login authentication",
@@ -1145,7 +1224,7 @@
                         "schema": {
                             "allOf": [
                                 {
-                                    "$ref": "#/definitions/domain.User"
+                                    "$ref": "#/definitions/github_com_fazilnbr_project-workey_pkg_domain.User"
                                 },
                                 {
                                     "type": "object",
@@ -1166,13 +1245,84 @@
                     "200": {
                         "description": "OK",
                         "schema": {
-                            "$ref": "#/definitions/response.Response"
+                            "$ref": "#/definitions/github_com_fazilnbr_project-workey_pkg_common_response.Response"
                         }
                     },
                     "422": {
                         "description": "Unprocessable Entity",
                         "schema": {
-                            "$ref": "#/definitions/response.Response"
+                            "$ref": "#/definitions/github_com_fazilnbr_project-workey_pkg_common_response.Response"
+                        }
+                    }
+                }
+            }
+        },
+        "/user/login-gl": {
+            "get": {
+                "security": [
+                    {
+                        "BearerAuth": []
+                    }
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "User Authentication"
+                ],
+                "summary": "Authenticate With Google",
+                "operationId": "Authenticate With Google",
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/github_com_fazilnbr_project-workey_pkg_common_response.Response"
+                        }
+                    },
+                    "422": {
+                        "description": "Unprocessable Entity",
+                        "schema": {
+                            "$ref": "#/definitions/github_com_fazilnbr_project-workey_pkg_common_response.Response"
+                        }
+                    }
+                }
+            }
+        },
+        "/user/razor-pay-home": {
+            "get": {
+                "security": [
+                    {
+                        "BearerAuth": []
+                    }
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "User Job Payment"
+                ],
+                "summary": "To Open Home Page To Razor-Pay Payment",
+                "operationId": "To open home page to razor-pay payment",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "Request Id : ",
+                        "name": "requestid",
+                        "in": "query",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/github_com_fazilnbr_project-workey_pkg_common_response.Response"
+                        }
+                    },
+                    "422": {
+                        "description": "Unprocessable Entity",
+                        "schema": {
+                            "$ref": "#/definitions/github_com_fazilnbr_project-workey_pkg_common_response.Response"
                         }
                     }
                 }
@@ -1189,7 +1339,7 @@
                     "application/json"
                 ],
                 "tags": [
-                    "User"
+                    "User List Worker"
                 ],
                 "summary": "search job with workers for users",
                 "operationId": "search job with workers for users",
@@ -1220,13 +1370,13 @@
                     "200": {
                         "description": "OK",
                         "schema": {
-                            "$ref": "#/definitions/response.Response"
+                            "$ref": "#/definitions/github_com_fazilnbr_project-workey_pkg_common_response.Response"
                         }
                     },
                     "422": {
                         "description": "Unprocessable Entity",
                         "schema": {
-                            "$ref": "#/definitions/response.Response"
+                            "$ref": "#/definitions/github_com_fazilnbr_project-workey_pkg_common_response.Response"
                         }
                     }
                 }
@@ -1243,7 +1393,7 @@
                     "application/json"
                 ],
                 "tags": [
-                    "User"
+                    "User Job Request"
                 ],
                 "summary": "user could send job request to worker",
                 "operationId": "user send job request to worker",
@@ -1254,7 +1404,7 @@
                         "in": "body",
                         "required": true,
                         "schema": {
-                            "$ref": "#/definitions/domain.Request"
+                            "$ref": "#/definitions/github_com_fazilnbr_project-workey_pkg_domain.Request"
                         }
                     }
                 ],
@@ -1262,13 +1412,13 @@
                     "200": {
                         "description": "OK",
                         "schema": {
-                            "$ref": "#/definitions/response.Response"
+                            "$ref": "#/definitions/github_com_fazilnbr_project-workey_pkg_common_response.Response"
                         }
                     },
                     "422": {
                         "description": "Unprocessable Entity",
                         "schema": {
-                            "$ref": "#/definitions/response.Response"
+                            "$ref": "#/definitions/github_com_fazilnbr_project-workey_pkg_common_response.Response"
                         }
                     }
                 }
@@ -1280,7 +1430,7 @@
                     "application/json"
                 ],
                 "tags": [
-                    "User"
+                    "User Authentication"
                 ],
                 "summary": "Send OTP varification mail to users",
                 "operationId": "SendVerificationMail authentication",
@@ -1297,13 +1447,13 @@
                     "200": {
                         "description": "OK",
                         "schema": {
-                            "$ref": "#/definitions/response.Response"
+                            "$ref": "#/definitions/github_com_fazilnbr_project-workey_pkg_common_response.Response"
                         }
                     },
                     "422": {
                         "description": "Unprocessable Entity",
                         "schema": {
-                            "$ref": "#/definitions/response.Response"
+                            "$ref": "#/definitions/github_com_fazilnbr_project-workey_pkg_common_response.Response"
                         }
                     }
                 }
@@ -1315,8 +1465,8 @@
                     "application/json"
                 ],
                 "tags": [
-                    "User",
-                    "User"
+                    "User Authentication",
+                    "User Authentication"
                 ],
                 "summary": "SignUp for users",
                 "operationId": "SignUp authentication",
@@ -1329,7 +1479,7 @@
                         "schema": {
                             "allOf": [
                                 {
-                                    "$ref": "#/definitions/domain.User"
+                                    "$ref": "#/definitions/github_com_fazilnbr_project-workey_pkg_domain.User"
                                 },
                                 {
                                     "type": "object",
@@ -1350,13 +1500,53 @@
                     "200": {
                         "description": "OK",
                         "schema": {
-                            "$ref": "#/definitions/response.Response"
+                            "$ref": "#/definitions/github_com_fazilnbr_project-workey_pkg_common_response.Response"
                         }
                     },
                     "422": {
                         "description": "Unprocessable Entity",
                         "schema": {
-                            "$ref": "#/definitions/response.Response"
+                            "$ref": "#/definitions/github_com_fazilnbr_project-workey_pkg_common_response.Response"
+                        }
+                    }
+                }
+            }
+        },
+        "/user/update-job-complition-status": {
+            "patch": {
+                "security": [
+                    {
+                        "BearerAuth": []
+                    }
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "User Job Request"
+                ],
+                "summary": "Update Job Complition",
+                "operationId": "update job complition",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "Request Id : ",
+                        "name": "requestid",
+                        "in": "query",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/github_com_fazilnbr_project-workey_pkg_common_response.Response"
+                        }
+                    },
+                    "422": {
+                        "description": "Unprocessable Entity",
+                        "schema": {
+                            "$ref": "#/definitions/github_com_fazilnbr_project-workey_pkg_common_response.Response"
                         }
                     }
                 }
@@ -1368,7 +1558,7 @@
                     "application/json"
                 ],
                 "tags": [
-                    "User"
+                    "User Authentication"
                 ],
                 "summary": "Varify OTP of users",
                 "operationId": "Varify OTP authentication",
@@ -1392,13 +1582,93 @@
                     "200": {
                         "description": "OK",
                         "schema": {
-                            "$ref": "#/definitions/response.Response"
+                            "$ref": "#/definitions/github_com_fazilnbr_project-workey_pkg_common_response.Response"
                         }
                     },
                     "422": {
                         "description": "Unprocessable Entity",
                         "schema": {
-                            "$ref": "#/definitions/response.Response"
+                            "$ref": "#/definitions/github_com_fazilnbr_project-workey_pkg_common_response.Response"
+                        }
+                    }
+                }
+            }
+        },
+        "/user/view-one-job-request": {
+            "get": {
+                "security": [
+                    {
+                        "BearerAuth": []
+                    }
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "User Job Request"
+                ],
+                "summary": "View One Job Request",
+                "operationId": "user view one job request",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "Request Id : ",
+                        "name": "requestid",
+                        "in": "query",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/github_com_fazilnbr_project-workey_pkg_common_response.Response"
+                        }
+                    },
+                    "422": {
+                        "description": "Unprocessable Entity",
+                        "schema": {
+                            "$ref": "#/definitions/github_com_fazilnbr_project-workey_pkg_common_response.Response"
+                        }
+                    }
+                }
+            }
+        },
+        "/worker/accept-job-request": {
+            "patch": {
+                "security": [
+                    {
+                        "BearerAuth": []
+                    }
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Worker User Job Request"
+                ],
+                "summary": "accept job request from user",
+                "operationId": "worker accept job request from user",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "RequestId : ",
+                        "name": "requestId",
+                        "in": "query",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/github_com_fazilnbr_project-workey_pkg_common_response.Response"
+                        }
+                    },
+                    "422": {
+                        "description": "Unprocessable Entity",
+                        "schema": {
+                            "$ref": "#/definitions/github_com_fazilnbr_project-workey_pkg_common_response.Response"
                         }
                     }
                 }
@@ -1432,13 +1702,13 @@
                     "200": {
                         "description": "OK",
                         "schema": {
-                            "$ref": "#/definitions/response.Response"
+                            "$ref": "#/definitions/github_com_fazilnbr_project-workey_pkg_common_response.Response"
                         }
                     },
                     "422": {
                         "description": "Unprocessable Entity",
                         "schema": {
-                            "$ref": "#/definitions/response.Response"
+                            "$ref": "#/definitions/github_com_fazilnbr_project-workey_pkg_common_response.Response"
                         }
                     }
                 }
@@ -1455,7 +1725,7 @@
                     "application/json"
                 ],
                 "tags": [
-                    "Worker"
+                    "Worker Job Management"
                 ],
                 "summary": "Add job for Worker",
                 "operationId": "worker add job",
@@ -1466,7 +1736,7 @@
                         "in": "body",
                         "required": true,
                         "schema": {
-                            "$ref": "#/definitions/domain.Job"
+                            "$ref": "#/definitions/github_com_fazilnbr_project-workey_pkg_domain.Job"
                         }
                     }
                 ],
@@ -1474,13 +1744,13 @@
                     "200": {
                         "description": "OK",
                         "schema": {
-                            "$ref": "#/definitions/response.Response"
+                            "$ref": "#/definitions/github_com_fazilnbr_project-workey_pkg_common_response.Response"
                         }
                     },
                     "422": {
                         "description": "Unprocessable Entity",
                         "schema": {
-                            "$ref": "#/definitions/response.Response"
+                            "$ref": "#/definitions/github_com_fazilnbr_project-workey_pkg_common_response.Response"
                         }
                     }
                 }
@@ -1497,7 +1767,7 @@
                     "application/json"
                 ],
                 "tags": [
-                    "Worker"
+                    "Worker Profile Management"
                 ],
                 "summary": "Add profile for Worker",
                 "operationId": "worker add profile",
@@ -1508,7 +1778,7 @@
                         "in": "body",
                         "required": true,
                         "schema": {
-                            "$ref": "#/definitions/domain.Profile"
+                            "$ref": "#/definitions/github_com_fazilnbr_project-workey_pkg_domain.Profile"
                         }
                     }
                 ],
@@ -1516,13 +1786,13 @@
                     "200": {
                         "description": "OK",
                         "schema": {
-                            "$ref": "#/definitions/response.Response"
+                            "$ref": "#/definitions/github_com_fazilnbr_project-workey_pkg_common_response.Response"
                         }
                     },
                     "422": {
                         "description": "Unprocessable Entity",
                         "schema": {
-                            "$ref": "#/definitions/response.Response"
+                            "$ref": "#/definitions/github_com_fazilnbr_project-workey_pkg_common_response.Response"
                         }
                     }
                 }
@@ -1539,7 +1809,7 @@
                     "application/json"
                 ],
                 "tags": [
-                    "Worker"
+                    "Worker Profile Management"
                 ],
                 "summary": "Change Password for worker",
                 "operationId": "worker change password",
@@ -1550,7 +1820,7 @@
                         "in": "body",
                         "required": true,
                         "schema": {
-                            "$ref": "#/definitions/domain.ChangePassword"
+                            "$ref": "#/definitions/github_com_fazilnbr_project-workey_pkg_domain.ChangePassword"
                         }
                     }
                 ],
@@ -1558,13 +1828,13 @@
                     "200": {
                         "description": "OK",
                         "schema": {
-                            "$ref": "#/definitions/response.Response"
+                            "$ref": "#/definitions/github_com_fazilnbr_project-workey_pkg_common_response.Response"
                         }
                     },
                     "422": {
                         "description": "Unprocessable Entity",
                         "schema": {
-                            "$ref": "#/definitions/response.Response"
+                            "$ref": "#/definitions/github_com_fazilnbr_project-workey_pkg_common_response.Response"
                         }
                     }
                 }
@@ -1581,7 +1851,7 @@
                     "application/json"
                 ],
                 "tags": [
-                    "Worker"
+                    "Worker Job Management"
                 ],
                 "summary": "Delete for Worker",
                 "operationId": "worker delete job",
@@ -1598,13 +1868,13 @@
                     "200": {
                         "description": "OK",
                         "schema": {
-                            "$ref": "#/definitions/response.Response"
+                            "$ref": "#/definitions/github_com_fazilnbr_project-workey_pkg_common_response.Response"
                         }
                     },
                     "422": {
                         "description": "Unprocessable Entity",
                         "schema": {
-                            "$ref": "#/definitions/response.Response"
+                            "$ref": "#/definitions/github_com_fazilnbr_project-workey_pkg_common_response.Response"
                         }
                     }
                 }
@@ -1621,7 +1891,7 @@
                     "application/json"
                 ],
                 "tags": [
-                    "Worker"
+                    "Worker Profile Management"
                 ],
                 "summary": "Edit profile for Worker",
                 "operationId": "worker edit profile",
@@ -1632,7 +1902,7 @@
                         "in": "body",
                         "required": true,
                         "schema": {
-                            "$ref": "#/definitions/domain.Profile"
+                            "$ref": "#/definitions/github_com_fazilnbr_project-workey_pkg_domain.Profile"
                         }
                     }
                 ],
@@ -1640,13 +1910,13 @@
                     "200": {
                         "description": "OK",
                         "schema": {
-                            "$ref": "#/definitions/response.Response"
+                            "$ref": "#/definitions/github_com_fazilnbr_project-workey_pkg_common_response.Response"
                         }
                     },
                     "422": {
                         "description": "Unprocessable Entity",
                         "schema": {
-                            "$ref": "#/definitions/response.Response"
+                            "$ref": "#/definitions/github_com_fazilnbr_project-workey_pkg_common_response.Response"
                         }
                     }
                 }
@@ -1663,7 +1933,7 @@
                     "application/json"
                 ],
                 "tags": [
-                    "Worker"
+                    "Worker Job Management"
                 ],
                 "summary": "list all job categories for Worker",
                 "operationId": "list all job category for worker",
@@ -1687,13 +1957,107 @@
                     "200": {
                         "description": "OK",
                         "schema": {
-                            "$ref": "#/definitions/response.Response"
+                            "$ref": "#/definitions/github_com_fazilnbr_project-workey_pkg_common_response.Response"
                         }
                     },
                     "422": {
                         "description": "Unprocessable Entity",
                         "schema": {
-                            "$ref": "#/definitions/response.Response"
+                            "$ref": "#/definitions/github_com_fazilnbr_project-workey_pkg_common_response.Response"
+                        }
+                    }
+                }
+            }
+        },
+        "/worker/list-user-accepted-job-request": {
+            "get": {
+                "security": [
+                    {
+                        "BearerAuth": []
+                    }
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Worker User Job Request"
+                ],
+                "summary": "list all accepted job requset from user for Worker",
+                "operationId": "list all accepted job requset from user for worker",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "Page : ",
+                        "name": "page",
+                        "in": "query",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": "Pagesize : ",
+                        "name": "pagesize",
+                        "in": "query",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/github_com_fazilnbr_project-workey_pkg_common_response.Response"
+                        }
+                    },
+                    "422": {
+                        "description": "Unprocessable Entity",
+                        "schema": {
+                            "$ref": "#/definitions/github_com_fazilnbr_project-workey_pkg_common_response.Response"
+                        }
+                    }
+                }
+            }
+        },
+        "/worker/list-user-pending-job-request": {
+            "get": {
+                "security": [
+                    {
+                        "BearerAuth": []
+                    }
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Worker User Job Request"
+                ],
+                "summary": "list all pending job requset from user for Worker",
+                "operationId": "list all pending job requset from user for worker",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "Page : ",
+                        "name": "page",
+                        "in": "query",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": "Pagesize : ",
+                        "name": "pagesize",
+                        "in": "query",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/github_com_fazilnbr_project-workey_pkg_common_response.Response"
+                        }
+                    },
+                    "422": {
+                        "description": "Unprocessable Entity",
+                        "schema": {
+                            "$ref": "#/definitions/github_com_fazilnbr_project-workey_pkg_common_response.Response"
                         }
                     }
                 }
@@ -1705,7 +2069,7 @@
                     "application/json"
                 ],
                 "tags": [
-                    "Worker"
+                    "Worker Authentication"
                 ],
                 "summary": "Login for worker",
                 "operationId": "worker login authentication",
@@ -1718,7 +2082,7 @@
                         "schema": {
                             "allOf": [
                                 {
-                                    "$ref": "#/definitions/domain.User"
+                                    "$ref": "#/definitions/github_com_fazilnbr_project-workey_pkg_domain.User"
                                 },
                                 {
                                     "type": "object",
@@ -1739,13 +2103,53 @@
                     "200": {
                         "description": "OK",
                         "schema": {
-                            "$ref": "#/definitions/response.Response"
+                            "$ref": "#/definitions/github_com_fazilnbr_project-workey_pkg_common_response.Response"
                         }
                     },
                     "422": {
                         "description": "Unprocessable Entity",
                         "schema": {
-                            "$ref": "#/definitions/response.Response"
+                            "$ref": "#/definitions/github_com_fazilnbr_project-workey_pkg_common_response.Response"
+                        }
+                    }
+                }
+            }
+        },
+        "/worker/reject-job-request": {
+            "patch": {
+                "security": [
+                    {
+                        "BearerAuth": []
+                    }
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Worker User Job Request"
+                ],
+                "summary": "reject job request from user",
+                "operationId": "worker reject job request from user",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "RequestId : ",
+                        "name": "requestId",
+                        "in": "query",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/github_com_fazilnbr_project-workey_pkg_common_response.Response"
+                        }
+                    },
+                    "422": {
+                        "description": "Unprocessable Entity",
+                        "schema": {
+                            "$ref": "#/definitions/github_com_fazilnbr_project-workey_pkg_common_response.Response"
                         }
                     }
                 }
@@ -1757,7 +2161,7 @@
                     "application/json"
                 ],
                 "tags": [
-                    "Worker"
+                    "Worker Authentication"
                 ],
                 "summary": "Send OTP varification mail to worker",
                 "operationId": "Worker SendVerificationMail authentication",
@@ -1774,13 +2178,13 @@
                     "200": {
                         "description": "OK",
                         "schema": {
-                            "$ref": "#/definitions/response.Response"
+                            "$ref": "#/definitions/github_com_fazilnbr_project-workey_pkg_common_response.Response"
                         }
                     },
                     "422": {
                         "description": "Unprocessable Entity",
                         "schema": {
-                            "$ref": "#/definitions/response.Response"
+                            "$ref": "#/definitions/github_com_fazilnbr_project-workey_pkg_common_response.Response"
                         }
                     }
                 }
@@ -1792,7 +2196,7 @@
                     "application/json"
                 ],
                 "tags": [
-                    "Worker"
+                    "Worker Authentication"
                 ],
                 "summary": "SignUp for Workers",
                 "operationId": "Worker SignUp authentication",
@@ -1805,7 +2209,7 @@
                         "schema": {
                             "allOf": [
                                 {
-                                    "$ref": "#/definitions/domain.User"
+                                    "$ref": "#/definitions/github_com_fazilnbr_project-workey_pkg_domain.User"
                                 },
                                 {
                                     "type": "object",
@@ -1826,13 +2230,13 @@
                     "200": {
                         "description": "OK",
                         "schema": {
-                            "$ref": "#/definitions/response.Response"
+                            "$ref": "#/definitions/github_com_fazilnbr_project-workey_pkg_common_response.Response"
                         }
                     },
                     "422": {
                         "description": "Unprocessable Entity",
                         "schema": {
-                            "$ref": "#/definitions/response.Response"
+                            "$ref": "#/definitions/github_com_fazilnbr_project-workey_pkg_common_response.Response"
                         }
                     }
                 }
@@ -1844,7 +2248,7 @@
                     "application/json"
                 ],
                 "tags": [
-                    "Worker"
+                    "Worker Authentication"
                 ],
                 "summary": "Varify OTP of users",
                 "operationId": "Varify worker OTP authentication",
@@ -1868,13 +2272,13 @@
                     "200": {
                         "description": "OK",
                         "schema": {
-                            "$ref": "#/definitions/response.Response"
+                            "$ref": "#/definitions/github_com_fazilnbr_project-workey_pkg_common_response.Response"
                         }
                     },
                     "422": {
                         "description": "Unprocessable Entity",
                         "schema": {
-                            "$ref": "#/definitions/response.Response"
+                            "$ref": "#/definitions/github_com_fazilnbr_project-workey_pkg_common_response.Response"
                         }
                     }
                 }
@@ -1891,7 +2295,7 @@
                     "application/json"
                 ],
                 "tags": [
-                    "Worker"
+                    "Worker Job Management"
                 ],
                 "summary": "list all jobs for worker",
                 "operationId": "list all job jobs for worker",
@@ -1899,13 +2303,13 @@
                     "200": {
                         "description": "OK",
                         "schema": {
-                            "$ref": "#/definitions/response.Response"
+                            "$ref": "#/definitions/github_com_fazilnbr_project-workey_pkg_common_response.Response"
                         }
                     },
                     "422": {
                         "description": "Unprocessable Entity",
                         "schema": {
-                            "$ref": "#/definitions/response.Response"
+                            "$ref": "#/definitions/github_com_fazilnbr_project-workey_pkg_common_response.Response"
                         }
                     }
                 }
@@ -1913,7 +2317,20 @@
         }
     },
     "definitions": {
-        "domain.Address": {
+        "github_com_fazilnbr_project-workey_pkg_common_response.Response": {
+            "type": "object",
+            "properties": {
+                "data": {},
+                "errors": {},
+                "message": {
+                    "type": "string"
+                },
+                "status": {
+                    "type": "boolean"
+                }
+            }
+        },
+        "github_com_fazilnbr_project-workey_pkg_domain.Address": {
             "type": "object",
             "properties": {
                 "city": {
@@ -1942,7 +2359,7 @@
                 }
             }
         },
-        "domain.Category": {
+        "github_com_fazilnbr_project-workey_pkg_domain.Category": {
             "type": "object",
             "properties": {
                 "category": {
@@ -1950,7 +2367,7 @@
                 }
             }
         },
-        "domain.ChangePassword": {
+        "github_com_fazilnbr_project-workey_pkg_domain.ChangePassword": {
             "type": "object",
             "required": [
                 "email",
@@ -1969,7 +2386,7 @@
                 }
             }
         },
-        "domain.Favorite": {
+        "github_com_fazilnbr_project-workey_pkg_domain.Favorite": {
             "type": "object",
             "properties": {
                 "jobid": {
@@ -1977,7 +2394,7 @@
                 }
             }
         },
-        "domain.Job": {
+        "github_com_fazilnbr_project-workey_pkg_domain.Job": {
             "type": "object",
             "properties": {
                 "categoryid": {
@@ -1991,7 +2408,7 @@
                 }
             }
         },
-        "domain.Profile": {
+        "github_com_fazilnbr_project-workey_pkg_domain.Profile": {
             "type": "object",
             "properties": {
                 "contactnumber": {
@@ -2026,7 +2443,7 @@
                 }
             }
         },
-        "domain.Request": {
+        "github_com_fazilnbr_project-workey_pkg_domain.Request": {
             "type": "object",
             "properties": {
                 "addressId": {
@@ -2043,7 +2460,7 @@
                 }
             }
         },
-        "domain.User": {
+        "github_com_fazilnbr_project-workey_pkg_domain.User": {
             "type": "object",
             "properties": {
                 "password": {
@@ -2053,26 +2470,6 @@
                     "type": "string"
                 }
             }
-        },
-        "response.Response": {
-            "type": "object",
-            "properties": {
-                "data": {},
-                "errors": {},
-                "message": {
-                    "type": "string"
-                },
-                "status": {
-                    "type": "boolean"
-                }
-            }
-        }
-    },
-    "securityDefinitions": {
-        "BearerAuth": {
-            "type": "apiKey",
-            "name": "Authorization",
-            "in": "header"
         }
     }
 }

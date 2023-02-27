@@ -69,7 +69,7 @@ func (cr *AuthHandler) InitializeOAuthGoogle() {
 
 // @Summary Authenticate With Google
 // @ID Authenticate With Google
-// @Tags User
+// @Tags User Authentication
 // @Security BearerAuth
 // @Produce json
 // @Success 200 {object} response.Response{}
@@ -155,6 +155,7 @@ func (cr *AuthHandler) CallBackFromGoogle(c *gin.Context) {
 
 // @Summary Refresh The Access Token
 // @ID Refresh access token
+// @Tags Refresh Token
 // @Security BearerAuth
 // @Produce json
 // @Success 200 {object} response.Response{}
@@ -192,7 +193,7 @@ func (cr *AuthHandler) RefreshToken(c *gin.Context) {
 
 // @Summary Login for admin
 // @ID admin login authentication
-// @Tags Admin
+// @Tags Admin Authentication
 // @accept json
 // @Produce json
 // @Param AdminLogin body domain.User{username=string,password=string} true "admin login"
@@ -250,9 +251,9 @@ func (cr *AuthHandler) AdminLogin(c *gin.Context) {
 
 // @Summary SignUp for users
 // @ID SignUp authentication
-// @Tags User
+// @Tags User Authentication
 // @Produce json
-// @Tags User
+// @Tags User Authentication
 // @Param WorkerLogin body domain.User{username=string,password=string} true "Worker Login"
 // @Success 200 {object} response.Response{}
 // @Failure 422 {object} response.Response{}
@@ -290,7 +291,7 @@ func (cr *AuthHandler) UserSignUp(c *gin.Context) {
 
 // @Summary Login for users
 // @ID login authentication
-// @Tags User
+// @Tags User Authentication
 // @Produce json
 // @Param WorkerLogin body domain.User{username=string,password=string} true "Worker Login"
 // @Success 200 {object} response.Response{}
@@ -346,7 +347,7 @@ func (cr *AuthHandler) UserLogin(c *gin.Context) {
 
 // @Summary SignUp for Workers
 // @ID Worker SignUp authentication
-// @Tags Worker
+// @Tags Worker Authentication
 // @Produce json
 // @Param WorkerSignup body domain.User{username=string,password=string} true "Worker Signup"
 // @Success 200 {object} response.Response{}
@@ -381,7 +382,7 @@ func (cr *AuthHandler) WorkerSignUp(c *gin.Context) {
 
 // @Summary Login for worker
 // @ID worker login authentication
-// @Tags Worker
+// @Tags Worker Authentication
 // @Produce json
 // @Param WorkerLogin body domain.User{username=string,password=string} true "Worker Login"
 // @Success 200 {object} response.Response{}
@@ -437,7 +438,7 @@ func (cr *AuthHandler) WorkerLogin(c *gin.Context) {
 
 // @Summary Send OTP varification mail to users
 // @ID SendVerificationMail authentication
-// @Tags User
+// @Tags User Authentication
 // @Produce json
 // @Param        email   query      string  true  "Email : "
 // @Success 200 {object} response.Response{}
@@ -495,7 +496,7 @@ func (cr *AuthHandler) SendVerificationMailUser(c *gin.Context) {
 
 // @Summary Varify OTP of users
 // @ID Varify OTP authentication
-// @Tags User
+// @Tags User Authentication
 // @Produce json
 // @Param        email   query      string  true  "Email : "
 // @Param        code   query      string  true  "OTP : "
@@ -545,7 +546,7 @@ func (cr *AuthHandler) UserVerifyAccount(c *gin.Context) {
 
 // @Summary Send OTP varification mail to worker
 // @ID Worker SendVerificationMail authentication
-// @Tags Worker
+// @Tags Worker Authentication
 // @Produce json
 // @Param        email   query      string  true  "Email : "
 // @Success 200 {object} response.Response{}
@@ -603,7 +604,7 @@ func (cr *AuthHandler) SendVerificationMailWorker(c *gin.Context) {
 
 // @Summary Varify OTP of users
 // @ID Varify worker OTP authentication
-// @Tags Worker
+// @Tags Worker Authentication
 // @Produce json
 // @Param        email   query      string  true  "Email : "
 // @Param        code   query      string  true  "OTP : "
