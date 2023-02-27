@@ -568,8 +568,8 @@ func (cr *UserHandler) ViewSendOneRequest(c *gin.Context) {
 	utils.ResponseJSON(*c, response)
 }
 
-// @Summary View One Job Request
-// @ID user view one job request
+// @Summary Update Job Complition
+// @ID update job complition
 // @Tags User
 // @Security BearerAuth
 // @Produce json
@@ -690,7 +690,7 @@ func (cr *UserHandler) RazorPayHome(c *gin.Context) {
 // @Produce json
 // @Success 200 {object} response.Response{}
 // @Failure 422 {object} response.Response{}
-// @Router /user/razor-pay-home [get]
+// @Router /user/razor-pay-payment-success [get]
 func (cr *UserHandler) RazorPaySuccess(c *gin.Context) {
 	// userId, _ := strconv.Atoi(c.Writer.Header().Get("id"))
 	userId := 5

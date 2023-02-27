@@ -1554,7 +1554,7 @@
                     "User"
                 ],
                 "summary": "Update Job Complition",
-                "operationId": "update job complition",
+                "operationId": "Update job complition",
                 "parameters": [
                     {
                         "type": "string",
