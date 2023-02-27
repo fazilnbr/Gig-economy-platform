@@ -130,7 +130,7 @@ func (cr *AuthHandler) CallBackFromGoogle(c *gin.Context) {
 		}
 		defer resp.Body.Close()
 
-		response, err := ioutil.ReadAll(resp.Body)
+		respons, err := ioutil.ReadAll(resp.Body)
 		if err != nil {
 			c.Redirect(http.StatusTemporaryRedirect, "/")
 			return
@@ -142,13 +142,66 @@ func (cr *AuthHandler) CallBackFromGoogle(c *gin.Context) {
 			Picture        string
 			// data           string
 		}
-		var any data
-		json.Unmarshal(response, &any)
-		fmt.Printf("\n\ndata :%v\n\n", string(response))
-		fmt.Printf("\n\ndata :%v\n\n", any)
+		var gdata data
+		json.Unmarshal(respons, &gdata)
+		fmt.Printf("\n\ndata :%v\n\n", string(respons))
+		fmt.Printf("\n\ndata :%v\n\n", gdata)
+
+		if !gdata.Verified_email {
+			response := response.ErrorResponse("Failed to Login ", "Your email is not varified by google ", nil)
+			c.Writer.Header().Add("Content-Type", "application/json")
+			c.Writer.WriteHeader(http.StatusUnauthorized)
+			utils.ResponseJSON(*c, response)
+			return
+		}
+		var newUser domain.User
+
+		newUser.UserName, newUser.Verification = gdata.Email, gdata.Verified_email
+
+		err = cr.userUseCase.CreateUser(newUser)
+		fmt.Printf("\n\nerrrrorr  :  %v\n\n", err)
+
+		if err == nil || err.Error() == "Username already exists" {
+			user, err := cr.userUseCase.FindUser(newUser.UserName)
+			fmt.Printf("\n\n\n%v\n%v\n\n", user.ID, err)
+
+			token, err := cr.jwtUseCase.GenerateAccessToken(user.ID, user.UserName, "admin")
+			if err != nil {
+				response := response.ErrorResponse("Failed to generate access token", err.Error(), nil)
+				c.Writer.Header().Add("Content-Type", "application/json")
+				c.Writer.WriteHeader(http.StatusUnauthorized)
+				utils.ResponseJSON(*c, response)
+				return
+			}
+			user.AccessToken = token
+
+			token, err = cr.jwtUseCase.GenerateRefreshToken(user.ID, user.UserName, "admin")
+
+			if err != nil {
+				response := response.ErrorResponse("Failed to generate refresh token please login again", err.Error(), nil)
+				c.Writer.Header().Add("Content-Type", "application/json")
+				c.Writer.WriteHeader(http.StatusUnauthorized)
+				utils.ResponseJSON(*c, response)
+				return
+			}
+			user.RefreshToken = token
+
+			user.Password = ""
+			response := response.SuccessResponse(true, "SUCCESS", user)
+			c.Writer.Header().Set("Content-Type", "application/json")
+			c.Writer.WriteHeader(http.StatusOK)
+			utils.ResponseJSON(*c, response)
+
+		} else {
+			response := response.ErrorResponse("Failed to Login please login again", err.Error(), nil)
+			c.Writer.Header().Add("Content-Type", "application/json")
+			c.Writer.WriteHeader(http.StatusUnauthorized)
+			utils.ResponseJSON(*c, response)
+			return
+		}
 
 		c.JSON(http.StatusOK, "Hello, I'm protected\n")
-		c.JSON(http.StatusOK, string(response))
+		c.JSON(http.StatusOK, string(respons))
 		return
 	}
 }

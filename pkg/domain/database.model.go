@@ -10,7 +10,7 @@ type User struct {
 	UserName     string `json:"username" gorm:"not null;unique"`
 	Password     string `json:"password"`
 	UserType     string `json:"-" postgres:"type:ENUM('admin', 'worker', 'user')" gorm:"not null"`
-	Verification string `json:"-" gorm:"default:false"`
+	Verification bool `json:"-" gorm:"default:false"`
 	Status       string `json:"-" gorm:"default:newuser"`
 }
 type Profile struct {
