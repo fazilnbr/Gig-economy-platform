@@ -347,7 +347,7 @@ func (cr *AuthHandler) UserLogin(c *gin.Context) {
 
 // @Summary SignUp for Workers
 // @ID Worker SignUp authentication
-// @Tags Worker
+// @Tags Worker Authentication
 // @Produce json
 // @Param WorkerSignup body domain.User{username=string,password=string} true "Worker Signup"
 // @Success 200 {object} response.Response{}
@@ -382,7 +382,7 @@ func (cr *AuthHandler) WorkerSignUp(c *gin.Context) {
 
 // @Summary Login for worker
 // @ID worker login authentication
-// @Tags Worker
+// @Tags Worker Authentication
 // @Produce json
 // @Param WorkerLogin body domain.User{username=string,password=string} true "Worker Login"
 // @Success 200 {object} response.Response{}
@@ -546,7 +546,7 @@ func (cr *AuthHandler) UserVerifyAccount(c *gin.Context) {
 
 // @Summary Send OTP varification mail to worker
 // @ID Worker SendVerificationMail authentication
-// @Tags Worker
+// @Tags Worker Authentication
 // @Produce json
 // @Param        email   query      string  true  "Email : "
 // @Success 200 {object} response.Response{}
@@ -604,7 +604,7 @@ func (cr *AuthHandler) SendVerificationMailWorker(c *gin.Context) {
 
 // @Summary Varify OTP of users
 // @ID Varify worker OTP authentication
-// @Tags Worker
+// @Tags Worker Authentication
 // @Produce json
 // @Param        email   query      string  true  "Email : "
 // @Param        code   query      string  true  "OTP : "

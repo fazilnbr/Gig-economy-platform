@@ -1151,7 +1151,7 @@ paths:
       - BearerAuth: []
       summary: accept job request from user
       tags:
-      - Worker
+      - Worker User Job Request
   /worker/account/verifyJWT:
     get:
       operationId: Varify worker JWT authentication
@@ -1202,7 +1202,7 @@ paths:
       - BearerAuth: []
       summary: Add job for Worker
       tags:
-      - Worker
+      - Worker Job Management
   /worker/add-profile:
     post:
       operationId: worker add profile
@@ -1228,7 +1228,7 @@ paths:
       - BearerAuth: []
       summary: Add profile for Worker
       tags:
-      - Worker
+      - Worker Profile Management
   /worker/change-password:
     patch:
       operationId: worker change password
@@ -1254,7 +1254,7 @@ paths:
       - BearerAuth: []
       summary: Change Password for worker
       tags:
-      - Worker
+      - Worker Profile Management
   /worker/delete-job:
     delete:
       operationId: worker delete job
@@ -1279,7 +1279,7 @@ paths:
       - BearerAuth: []
       summary: Delete for Worker
       tags:
-      - Worker
+      - Worker Job Management
   /worker/edit-profile:
     patch:
       operationId: worker edit profile
@@ -1305,7 +1305,7 @@ paths:
       - BearerAuth: []
       summary: Edit profile for Worker
       tags:
-      - Worker
+      - Worker Profile Management
   /worker/list-job-category:
     get:
       operationId: list all job category for worker
@@ -1335,7 +1335,7 @@ paths:
       - BearerAuth: []
       summary: list all job categories for Worker
       tags:
-      - Worker
+      - Worker Job Management
   /worker/list-user-accepted-job-request:
     get:
       operationId: list all accepted job requset from user for worker
@@ -1365,7 +1365,7 @@ paths:
       - BearerAuth: []
       summary: list all accepted job requset from user for Worker
       tags:
-      - Worker
+      - Worker User Job Request
   /worker/list-user-pending-job-request:
     get:
       operationId: list all pending job requset from user for worker
@@ -1395,7 +1395,7 @@ paths:
       - BearerAuth: []
       summary: list all pending job requset from user for Worker
       tags:
-      - Worker
+      - Worker User Job Request
   /worker/login:
     post:
       operationId: worker login authentication
@@ -1426,7 +1426,7 @@ paths:
             $ref: '#/definitions/github_com_fazilnbr_project-workey_pkg_common_response.Response'
       summary: Login for worker
       tags:
-      - Worker
+      - Worker Authentication
   /worker/reject-job-request:
     patch:
       operationId: worker reject job request from user
@@ -1451,7 +1451,7 @@ paths:
       - BearerAuth: []
       summary: reject job request from user
       tags:
-      - Worker
+      - Worker User Job Request
   /worker/send/verification:
     post:
       operationId: Worker SendVerificationMail authentication
@@ -1474,7 +1474,7 @@ paths:
             $ref: '#/definitions/github_com_fazilnbr_project-workey_pkg_common_response.Response'
       summary: Send OTP varification mail to worker
       tags:
-      - Worker
+      - Worker Authentication
   /worker/signup:
     post:
       operationId: Worker SignUp authentication
@@ -1505,7 +1505,7 @@ paths:
             $ref: '#/definitions/github_com_fazilnbr_project-workey_pkg_common_response.Response'
       summary: SignUp for Workers
       tags:
-      - Worker
+      - Worker Authentication
   /worker/verify/account:
     post:
       operationId: Varify worker OTP authentication
@@ -1533,7 +1533,7 @@ paths:
             $ref: '#/definitions/github_com_fazilnbr_project-workey_pkg_common_response.Response'
       summary: Varify OTP of users
       tags:
-      - Worker
+      - Worker Authentication
   /worker/view-job:
     get:
       operationId: list all job jobs for worker
@@ -1552,5 +1552,5 @@ paths:
       - BearerAuth: []
       summary: list all jobs for worker
       tags:
-      - Worker
+      - Worker Job Management
 swagger: "2.0"

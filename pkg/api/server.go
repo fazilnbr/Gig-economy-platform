@@ -129,12 +129,12 @@ func NewServerHTTP(authHandler handler.AuthHandler, adminHandler handler.AdminHa
 			{
 				worker.GET("/account/verifyJWT", authHandler.WorkerHome)
 
-				// Worker Profile
+				// Worker Profile Management
 				worker.POST("/add-profile", WorkerHandler.WorkerAddProfile)
 				worker.PATCH("/edit-profile", WorkerHandler.WorkerEditProfile)
 				worker.PATCH("/change-password", WorkerHandler.WorkerChangePassword)
 
-				// job management
+				// Job Management
 				worker.GET("/list-job-category", WorkerHandler.ListJobCategoryUser)
 				worker.POST("/add-job", WorkerHandler.AddJob)
 				worker.GET("/view-job", WorkerHandler.ViewJob)

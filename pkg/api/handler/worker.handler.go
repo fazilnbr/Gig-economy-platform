@@ -25,7 +25,7 @@ func NewWorkerHandler(workerService services.WorkerUseCase) WorkerHandler {
 
 // @Summary Add profile for Worker
 // @ID worker add profile
-// @Tags Worker
+// @Tags Worker Profile Management
 // @Security BearerAuth
 // @Produce json
 // @Param WorkerAddProfile body domain.Profile{} true "Worker Add Profile"
@@ -59,7 +59,7 @@ func (cr *WorkerHandler) WorkerAddProfile(c *gin.Context) {
 
 // @Summary Edit profile for Worker
 // @ID worker edit profile
-// @Tags Worker
+// @Tags Worker Profile Management
 // @Security BearerAuth
 // @Produce json
 // @Param WorkerEditProfile body domain.Profile{} true "Worker Edit Profile"
@@ -94,7 +94,7 @@ func (cr *WorkerHandler) WorkerEditProfile(c *gin.Context) {
 
 // @Summary Change Password for worker
 // @ID worker change password
-// @Tags Worker
+// @Tags Worker Profile Management
 // @Security BearerAuth
 // @Produce json
 // @Param WorekerChangePassword body domain.ChangePassword{} true "Woreker Change Password"
@@ -144,7 +144,7 @@ func (cr *WorkerHandler) WorkerChangePassword(c *gin.Context) {
 
 // @Summary list all job categories for Worker
 // @ID list all job category for worker
-// @Tags Worker
+// @Tags Worker Job Management
 // @Security BearerAuth
 // @Produce json
 // @Param        page   query      string  true  "Page : "
@@ -193,7 +193,7 @@ func (cr *WorkerHandler) ListJobCategoryUser(c *gin.Context) {
 
 // @Summary Add job for Worker
 // @ID worker add job
-// @Tags Worker
+// @Tags Worker Job Management
 // @Security BearerAuth
 // @Produce json
 // @Param WorkerAddJob body domain.Job{} true "Worker Add job"
@@ -229,7 +229,7 @@ func (cr *WorkerHandler) AddJob(c *gin.Context) {
 
 // @Summary list all jobs for worker
 // @ID list all job jobs for worker
-// @Tags Worker
+// @Tags Worker Job Management
 // @Security BearerAuth
 // @Produce json
 // @Success 200 {object} response.Response{}
@@ -276,7 +276,7 @@ func (cr *WorkerHandler) ViewJob(c *gin.Context) {
 
 // @Summary Delete for Worker
 // @ID worker delete job
-// @Tags Worker
+// @Tags Worker Job Management
 // @Security BearerAuth
 // @Produce json
 // @Param        jobid   query      string  true  "Job Id : "
@@ -310,7 +310,7 @@ func (cr *WorkerHandler) DeleteJob(c *gin.Context) {
 
 // @Summary list all pending job requset from user for Worker
 // @ID list all pending job requset from user for worker
-// @Tags Worker
+// @Tags Worker User Job Request
 // @Security BearerAuth
 // @Produce json
 // @Param        page   query      string  true  "Page : "
@@ -362,7 +362,7 @@ func (cr *WorkerHandler) ListPendingJobRequsetFromUser(c *gin.Context) {
 
 // @Summary list all accepted job requset from user for Worker
 // @ID list all accepted job requset from user for worker
-// @Tags Worker
+// @Tags Worker User Job Request
 // @Security BearerAuth
 // @Produce json
 // @Param        page   query      string  true  "Page : "
@@ -414,7 +414,7 @@ func (cr *WorkerHandler) ListAcceptedJobRequsetFromUser(c *gin.Context) {
 
 // @Summary accept job request from user
 // @ID worker accept job request from user
-// @Tags Worker
+// @Tags Worker User Job Request
 // @Security BearerAuth
 // @Produce json
 // @Param        requestId   query      string  true  "RequestId : "
@@ -444,10 +444,9 @@ func (cr *WorkerHandler) AcceptJobRequest(c *gin.Context) {
 	utils.ResponseJSON(*c, response)
 }
 
-
 // @Summary reject job request from user
 // @ID worker reject job request from user
-// @Tags Worker
+// @Tags Worker User Job Request
 // @Security BearerAuth
 // @Produce json
 // @Param        requestId   query      string  true  "RequestId : "
