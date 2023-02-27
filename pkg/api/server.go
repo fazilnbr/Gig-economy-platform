@@ -25,6 +25,8 @@ func NewServerHTTP(authHandler handler.AuthHandler, adminHandler handler.AdminHa
 
 	// Swagger docs
 	engine.GET("/swagger/*any", ginSwagger.WrapHandler(swaggerfiles.Handler))
+	// Refresh Token
+	engine.GET("/refresh-tocken", authHandler.RefreshToken)
 
 	admin := engine.Group("admin")
 	{
@@ -33,12 +35,13 @@ func NewServerHTTP(authHandler handler.AuthHandler, adminHandler handler.AdminHa
 		admin.POST("/send/verification", authHandler.SendVerificationMailWorker)
 		admin.POST("/verify/account", authHandler.WorkerVerifyAccount)
 
+		
 		admin.Use(middleware.AthoriseJWT)
 		{
 			admin.GET("/account/verifyJWT", authHandler.AdminHome)
 
-			// Refresh Token
-			admin.GET("/refresh-tocken", authHandler.RefreshToken)
+			// // Refresh Token
+			// admin.GET("/refresh-tocken", authHandler.RefreshToken)
 
 			// User Management
 

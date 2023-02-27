@@ -101,7 +101,17 @@ definitions:
         type: string
     type: object
 info:
-  contact: {}
+  contact:
+    email: fazilkp2000@gmail.com
+    name: API Support
+    url: https://fazilnbr.github.io/mypeosolal.web.portfolio/
+  description: This is a sample server Job Portal server. You can visit the GitHub
+    repository at https://github.com/fazilnbr/Job_Portal_Project
+  license:
+    name: MIT
+    url: https://opensource.org/licenses/MIT
+  title: Go + Gin Workey API
+  version: "1.0"
 paths:
   /admin/account/verifyJWT:
     get:
@@ -494,25 +504,6 @@ paths:
       summary: Login for admin
       tags:
       - Admin Authentication
-  /admin/refresh-tocken:
-    get:
-      operationId: Refresh access token
-      produces:
-      - application/json
-      responses:
-        "200":
-          description: OK
-          schema:
-            $ref: '#/definitions/github_com_fazilnbr_project-workey_pkg_common_response.Response'
-        "422":
-          description: Unprocessable Entity
-          schema:
-            $ref: '#/definitions/github_com_fazilnbr_project-workey_pkg_common_response.Response'
-      security:
-      - BearerAuth: []
-      summary: Refresh The Access Token
-      tags:
-      - Refresh Token
   /admin/update-job-category:
     patch:
       operationId: update category
@@ -539,6 +530,25 @@ paths:
       summary: update job category for admin
       tags:
       - Admin Job Management
+  /refresh-tocken:
+    get:
+      operationId: Refresh access token
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/github_com_fazilnbr_project-workey_pkg_common_response.Response'
+        "422":
+          description: Unprocessable Entity
+          schema:
+            $ref: '#/definitions/github_com_fazilnbr_project-workey_pkg_common_response.Response'
+      security:
+      - BearerAuth: []
+      summary: Refresh The Access Token
+      tags:
+      - Refresh Token
   /user/account/verifyJWT:
     get:
       operationId: Varify JWT authentication
@@ -1553,4 +1563,9 @@ paths:
       summary: list all jobs for worker
       tags:
       - Worker Job Management
+securityDefinitions:
+  BearerAuth:
+    in: header
+    name: Authorization
+    type: apiKey
 swagger: "2.0"

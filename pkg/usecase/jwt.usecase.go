@@ -78,7 +78,11 @@ func (j *JWTUseCase) GetTokenFromString(signedToken string, claims *model.Signed
 // VerifyToken implements interfaces.JWTUseCase
 func (j *JWTUseCase) VerifyToken(signedToken string) (bool, *model.SignedDetails) {
 	claims := &model.SignedDetails{}
-	token, _ := j.GetTokenFromString(signedToken, claims)
+	token, err := j.GetTokenFromString(signedToken, claims)
+
+	if err != nil {
+		return false, claims
+	}
 
 	if token.Valid {
 		if e := claims.Valid(); e == nil {

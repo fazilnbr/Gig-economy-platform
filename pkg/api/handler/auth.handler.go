@@ -67,6 +67,24 @@ func (cr *AuthHandler) InitializeOAuthGoogle() {
 	fmt.Printf("\n\n%v\n\n", oauthConfGl)
 }
 
+// @title Go + Gin Workey API
+// @version 1.0
+// @description This is a sample server Job Portal server. You can visit the GitHub repository at https://github.com/fazilnbr/Job_Portal_Project
+
+// @contact.name API Support
+// @contact.url https://fazilnbr.github.io/mypeosolal.web.portfolio/
+// @contact.email fazilkp2000@gmail.com
+
+// @license.name MIT
+// @license.url https://opensource.org/licenses/MIT
+
+// @securityDefinitions.apikey BearerAuth
+// @in header
+// @name Authorization
+// @host localhost:8080
+// @BasePath /
+// @query.collection.format multi
+
 // @Summary Authenticate With Google
 // @ID Authenticate With Google
 // @Tags User Authentication
@@ -94,6 +112,7 @@ func HandileLogin(c *gin.Context, oauthConf *oauth2.Config, oauthStateString str
 	URL.RawQuery = parameters.Encode()
 	url := URL.String()
 	fmt.Printf("\n\nurl : %v\n\n", oauthConf.RedirectURL)
+	log.Fatal("referesh token not valid")
 	c.Redirect(http.StatusTemporaryRedirect, url)
 	return nil
 
@@ -213,17 +232,28 @@ func (cr *AuthHandler) CallBackFromGoogle(c *gin.Context) {
 // @Produce json
 // @Success 200 {object} response.Response{}
 // @Failure 422 {object} response.Response{}
-// @Router /admin/refresh-tocken [get]
+// @Router /refresh-tocken [get]
 func (cr *AuthHandler) RefreshToken(c *gin.Context) {
 
 	autheader := c.Request.Header["Authorization"]
 	auth := strings.Join(autheader, " ")
 	bearerToken := strings.Split(auth, " ")
+	if autheader == nil || len(bearerToken)<2 {
+		response := response.ErrorResponse("Request does't condain Refresh token", "", nil)
+		c.Writer.Header().Add("Content-Type", "application/json")
+		c.Writer.WriteHeader(http.StatusUnprocessableEntity)
+		utils.ResponseJSON(*c, response)
+		return
+	}
 	fmt.Printf("\n\ntocen : %v\n\n", autheader)
 	token := bearerToken[1]
 	ok, claims := cr.jwtUseCase.VerifyToken(token)
 	if !ok {
-		log.Fatal("referesh token not valid")
+		response := response.ErrorResponse("Your Refresh token is not valid Login again", "", nil)
+		c.Writer.Header().Add("Content-Type", "application/json")
+		c.Writer.WriteHeader(http.StatusUnprocessableEntity)
+		utils.ResponseJSON(*c, response)
+		return
 	}
 
 	fmt.Println("//////////////////////////////////", claims.UserName)
