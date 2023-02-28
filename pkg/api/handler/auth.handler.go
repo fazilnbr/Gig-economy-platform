@@ -238,7 +238,7 @@ func (cr *AuthHandler) RefreshToken(c *gin.Context) {
 	autheader := c.Request.Header["Authorization"]
 	auth := strings.Join(autheader, " ")
 	bearerToken := strings.Split(auth, " ")
-	if autheader == nil || len(bearerToken)<2 {
+	if autheader == nil || len(bearerToken) < 2 {
 		response := response.ErrorResponse("Request does't condain Refresh token", "", nil)
 		c.Writer.Header().Add("Content-Type", "application/json")
 		c.Writer.WriteHeader(http.StatusUnprocessableEntity)
@@ -267,7 +267,8 @@ func (cr *AuthHandler) RefreshToken(c *gin.Context) {
 		return
 	}
 
-	response := response.SuccessResponse(true, "SUCCESS", accesstoken)
+	c.Writer.Header().Set("access-token", accesstoken)
+	response := response.SuccessResponse(true, "SUCCESS", nil)
 	c.Writer.Header().Add("Content-Type", "application/json")
 	c.Writer.WriteHeader(http.StatusOK)
 	utils.ResponseJSON(*c, response)
@@ -422,7 +423,10 @@ func (cr *AuthHandler) UserLogin(c *gin.Context) {
 	user.RefreshToken = token
 
 	user.Password = ""
-	response := response.SuccessResponse(true, "SUCCESS", user)
+
+	c.Writer.Header().Set("access-token", user.AccessToken)
+	c.Writer.Header().Set("refresh-token", user.RefreshToken)
+	response := response.SuccessResponse(true, "SUCCESS", nil)
 	c.Writer.Header().Set("Content-Type", "application/json")
 	c.Writer.WriteHeader(http.StatusOK)
 	utils.ResponseJSON(*c, response)
