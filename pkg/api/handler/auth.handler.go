@@ -327,7 +327,11 @@ func (cr *AuthHandler) AdminLogin(c *gin.Context) {
 	user.RefreshToken = token
 
 	user.Password = ""
-	response := response.SuccessResponse(true, "SUCCESS", user)
+
+	c.Writer.Header().Set("access-token", user.AccessToken)
+	c.Writer.Header().Set("refresh-token", user.RefreshToken)
+
+	response := response.SuccessResponse(true, "SUCCESS", nil)
 	c.Writer.Header().Set("Content-Type", "application/json")
 	c.Writer.WriteHeader(http.StatusOK)
 	utils.ResponseJSON(*c, response)
@@ -364,7 +368,7 @@ func (cr *AuthHandler) UserSignUp(c *gin.Context) {
 	}
 
 	user, err := cr.userUseCase.FindUser(newUser.UserName)
-	
+
 	user.Password = ""
 	response := response.SuccessResponse(true, "SUCCESS", user)
 	c.Writer.Header().Set("Content-Type", "application/json")
@@ -442,7 +446,7 @@ func (cr *AuthHandler) UserLogin(c *gin.Context) {
 func (cr *AuthHandler) WorkerSignUp(c *gin.Context) {
 	var newUser domain.User
 
-	err:=c.Bind(&newUser)
+	err := c.Bind(&newUser)
 
 	if err != nil {
 		response := response.ErrorResponse("Failed to create worker", "Please check your inputs", nil)
