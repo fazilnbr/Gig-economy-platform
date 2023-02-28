@@ -267,7 +267,8 @@ func (cr *AuthHandler) RefreshToken(c *gin.Context) {
 		return
 	}
 
-	response := response.SuccessResponse(true, "SUCCESS", accesstoken)
+	c.Writer.Header().Set("access-token", accesstoken)
+	response := response.SuccessResponse(true, "SUCCESS", nil)
 	c.Writer.Header().Add("Content-Type", "application/json")
 	c.Writer.WriteHeader(http.StatusOK)
 	utils.ResponseJSON(*c, response)
