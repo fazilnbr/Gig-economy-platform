@@ -344,28 +344,27 @@ func (cr *AuthHandler) AdminLogin(c *gin.Context) {
 // @Router /user/signup [post]
 func (cr *AuthHandler) UserSignUp(c *gin.Context) {
 	var newUser domain.User
-	fmt.Printf("\n\nerrrrrrr : %v\n\n", c.Bind(&newUser))
 
 	err := c.Bind(&newUser)
 	if err != nil {
-		fmt.Printf("\n\nerr : %v\n\n", err)
+		response := response.ErrorResponse("Failed to create user", "Please check your inputs", nil)
+		c.Writer.Header().Set("Content-Type", "application/json")
+		c.Writer.WriteHeader(http.StatusBadRequest)
+		utils.ResponseJSON(*c, response)
+		return
 	}
-	fmt.Printf("\n\nname ; %v  %v\n\n", newUser, err)
 	err = cr.userUseCase.CreateUser(newUser)
 
 	if err != nil {
 		response := response.ErrorResponse("Failed to create user", err.Error(), nil)
 		c.Writer.Header().Set("Content-Type", "application/json")
 		c.Writer.WriteHeader(http.StatusUnprocessableEntity)
-
 		utils.ResponseJSON(*c, response)
 		return
 	}
 
 	user, err := cr.userUseCase.FindUser(newUser.UserName)
-	fmt.Printf("\n\n\n%v\n%v\n\n", user, err)
-	fmt.Printf("\n\n user : %v\n\n", user)
-
+	
 	user.Password = ""
 	response := response.SuccessResponse(true, "SUCCESS", user)
 	c.Writer.Header().Set("Content-Type", "application/json")
