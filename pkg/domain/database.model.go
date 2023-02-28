@@ -17,16 +17,16 @@ type Profile struct {
 	IdUser        int    `json:"-" gorm:"primaryKey;autoIncrement:true;unique"`
 	LoginId       int    `json:"-" gorm:"unique"`
 	Login         User   `json:"-" gorm:"foreignKey:LoginId;references:IdLogin"`
-	Name          string `json:"name"`
-	Gender        string `json:"gender"`
-	DateOfBirth   string `json:"dateofbirth"`
-	HouseName     string `json:"housename"`
-	Place         string `json:"place"`
-	Post          string `json:"post"`
-	Pin           string `json:"pin"`
-	ContactNumber string `gorm:"unique" json:"contactnumber"`
-	EmailID       string `gorm:"unique" json:"emailid"`
-	Photo         string `json:"photo"`
+	Name          string `json:"name" binding:"required"`
+	Gender        string `json:"gender" binding:"required"`
+	DateOfBirth   string `json:"dateofbirth" binding:"required"`
+	HouseName     string `json:"housename" binding:"required"`
+	Place         string `json:"place" binding:"required"`
+	Post          string `json:"post" binding:"required"`
+	Pin           string `json:"pin" binding:"required"`
+	ContactNumber string `gorm:"unique" json:"contactnumber" binding:"required,len=10"`
+	EmailID       string `gorm:"unique" json:"emailid" binding:"required"`
+	Photo         string `json:"photo" binding:"required"`
 }
 
 //to store mail verification details
@@ -39,7 +39,7 @@ type Verification struct {
 
 type Category struct {
 	IdCategory int    `json:"-" gorm:"primaryKey;autoIncrement:true;unique"`
-	Category   string `gorm:"unique" json:"category"`
+	Category   string `gorm:"unique" json:"category" binding:"required"`
 }
 
 type Job struct {
@@ -48,28 +48,28 @@ type Job struct {
 	Category    Category `json:"-" gorm:"foreignKey:CategoryId;references:IdCategory"`
 	IdWorker    int      `json:"-" gorm:"not null"`
 	Login       User     `json:"-" gorm:"foreignKey:IdWorker;references:IdLogin"`
-	Wage        int      `json:"wage" gorm:"not null"`
-	Description string   `json:"desctription"`
+	Wage        int      `json:"wage" gorm:"not null" binding:"required"`
+	Description string   `json:"desctription" binding:"required"`
 }
 
 type Favorite struct {
 	IdFavorite int  `json:"-" gorm:"primaryKey;autoIncrement:true;unique"`
 	UserId     int  `json:"-"`
 	User       User `json:"-" gorm:"foreignKey:UserId;references:IdLogin"`
-	JobId      int  `json:"jobid" `
+	JobId      int  `json:"jobid" binding:"required"`
 	job        Job  `json:"-" gorm:"foreignKey:JobId;references:IdJob;unique"`
 }
 
 type Address struct {
 	IdAddress int `gorm:"primaryKey;autoIncrement:true;unique"`
 	UserId    int
-	User      User `json:"-" gorm:"foreignKey:UserId;references:IdLogin"`
-	HouseName string
-	Place     string
-	City      string
-	Post      string
-	Pin       string
-	Phone     string
+	User      User   `json:"-" gorm:"foreignKey:UserId;references:IdLogin"`
+	HouseName string `binding:"required"`
+	Place     string `binding:"required"`
+	City      string `binding:"required"`
+	Post      string `binding:"required"`
+	Pin       string `binding:"required"`
+	Phone     string `binding:"required,len=10"`
 }
 
 type Request struct {
@@ -78,7 +78,7 @@ type Request struct {
 	User      User `json:"-" gorm:"foreignKey:UserId;references:IdLogin"`
 	JobId     int
 	Job       Job `json:"-" gorm:"foreignKey:JobId;references:IdJob"`
-	AddressId int
+	AddressId int  `binding:"required"`
 	Address   Address `json:"-" gorm:"foreignKey:AddressId;references:IdAddress"`
 	Status    string  `json:"-" gorm:"default:pending"`
 	Date      string  `jsom:"-"`
