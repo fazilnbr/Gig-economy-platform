@@ -60,15 +60,15 @@ func (cr *middlewar) AthoriseJWT(c *gin.Context) {
 		return
 	}
 
-	if source != "accesstoken" {
-		err := errors.New("The token not an access token")
-		response := response.ErrorResponse("Error", err.Error(), source)
-		c.Writer.Header().Add("Content-Type", "application/json")
-		c.Writer.WriteHeader(http.StatusUnauthorized)
-		utils.ResponseJSON(*c, response)
-		c.Abort()
-		return
-	}
+	// if source != "accesstoken" {
+	// 	err := errors.New("The token not an access token")
+	// 	response := response.ErrorResponse("Error", err.Error(), source)
+	// 	c.Writer.Header().Add("Content-Type", "application/json")
+	// 	c.Writer.WriteHeader(http.StatusUnauthorized)
+	// 	utils.ResponseJSON(*c, response)
+	// 	c.Abort()
+	// 	return
+	// }
 
 	user_email := fmt.Sprint(claims.UserName)
 	id := fmt.Sprint(claims.UserId)

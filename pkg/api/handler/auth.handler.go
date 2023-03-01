@@ -289,9 +289,9 @@ func (cr *AuthHandler) AdminLogin(c *gin.Context) {
 
 	fmt.Print("\n\nhi\n\n")
 	err:=c.Bind(&loginAdmin)
+	
 	if err != nil {
-		fmt.Println(err)
-		response := response.ErrorResponse("Failed to create user", "Please check your inputs", nil)
+		response := response.ErrorResponse("Failed to create user", err.Error(), nil)
 		c.Writer.Header().Set("Content-Type", "application/json")
 		c.Writer.WriteHeader(http.StatusBadRequest)
 		utils.ResponseJSON(*c, response)
@@ -359,7 +359,7 @@ func (cr *AuthHandler) UserSignUp(c *gin.Context) {
 
 	err := c.Bind(&newUser)
 	if err != nil {
-		response := response.ErrorResponse("Failed to create user", "Please check your inputs", nil)
+		response := response.ErrorResponse("Failed to create user", err.Error(), nil)
 		c.Writer.Header().Set("Content-Type", "application/json")
 		c.Writer.WriteHeader(http.StatusBadRequest)
 		utils.ResponseJSON(*c, response)
@@ -395,10 +395,18 @@ func (cr *AuthHandler) UserSignUp(c *gin.Context) {
 func (cr *AuthHandler) UserLogin(c *gin.Context) {
 	var loginUser domain.User
 
-	c.Bind(&loginUser)
+	err:=c.Bind(&loginUser)
+
+	if err != nil {
+		response := response.ErrorResponse("Failed to create user", err.Error(), nil)
+		c.Writer.Header().Set("Content-Type", "application/json")
+		c.Writer.WriteHeader(http.StatusBadRequest)
+		utils.ResponseJSON(*c, response)
+		return
+	}
 
 	//verify User details
-	err := cr.authUseCase.VerifyUser(loginUser.UserName, loginUser.Password)
+	err = cr.authUseCase.VerifyUser(loginUser.UserName, loginUser.Password)
 
 	if err != nil {
 		response := response.ErrorResponse("Failed to login", err.Error(), nil)
@@ -457,10 +465,9 @@ func (cr *AuthHandler) WorkerSignUp(c *gin.Context) {
 	err := c.Bind(&newUser)
 
 	if err != nil {
-		response := response.ErrorResponse("Failed to create worker", "Please check your inputs", nil)
+		response := response.ErrorResponse("Failed to create user", err.Error(), nil)
 		c.Writer.Header().Set("Content-Type", "application/json")
 		c.Writer.WriteHeader(http.StatusBadRequest)
-
 		utils.ResponseJSON(*c, response)
 		return
 	}
@@ -498,10 +505,16 @@ func (cr *AuthHandler) WorkerSignUp(c *gin.Context) {
 func (cr *AuthHandler) WorkerLogin(c *gin.Context) {
 	var loginWorker domain.User
 
-	c.Bind(&loginWorker)
-
+	err:=c.Bind(&loginWorker)
+	if err != nil {
+		response := response.ErrorResponse("Failed to create user", err.Error(), nil)
+		c.Writer.Header().Set("Content-Type", "application/json")
+		c.Writer.WriteHeader(http.StatusBadRequest)
+		utils.ResponseJSON(*c, response)
+		return
+	}
 	//verify User details
-	err := cr.authUseCase.VerifyWorker(loginWorker.UserName, loginWorker.Password)
+	err = cr.authUseCase.VerifyWorker(loginWorker.UserName, loginWorker.Password)
 
 	if err != nil {
 		response := response.ErrorResponse("Failed to login", err.Error(), nil)

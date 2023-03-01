@@ -26,11 +26,22 @@ definitions:
         type: string
       userId:
         type: integer
+    required:
+    - city
+    - houseName
+    - phone
+    - pin
+    - place
+    - post
     type: object
   github_com_fazilnbr_project-workey_pkg_domain.Category:
     properties:
       category:
         type: string
+      id_category:
+        type: integer
+    required:
+    - category
     type: object
   github_com_fazilnbr_project-workey_pkg_domain.ChangePassword:
     properties:
@@ -49,6 +60,8 @@ definitions:
     properties:
       jobid:
         type: integer
+    required:
+    - jobid
     type: object
   github_com_fazilnbr_project-workey_pkg_domain.Job:
     properties:
@@ -58,6 +71,9 @@ definitions:
         type: string
       wage:
         type: integer
+    required:
+    - desctription
+    - wage
     type: object
   github_com_fazilnbr_project-workey_pkg_domain.Profile:
     properties:
@@ -81,6 +97,17 @@ definitions:
         type: string
       post:
         type: string
+    required:
+    - contactnumber
+    - dateofbirth
+    - emailid
+    - gender
+    - housename
+    - name
+    - photo
+    - pin
+    - place
+    - post
     type: object
   github_com_fazilnbr_project-workey_pkg_domain.Request:
     properties:
@@ -92,6 +119,8 @@ definitions:
         type: integer
       userId:
         type: integer
+    required:
+    - addressId
     type: object
   github_com_fazilnbr_project-workey_pkg_domain.User:
     properties:
@@ -99,6 +128,9 @@ definitions:
         type: string
       username:
         type: string
+    required:
+    - password
+    - username
     type: object
 info:
   contact:

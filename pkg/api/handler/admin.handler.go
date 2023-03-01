@@ -518,11 +518,18 @@ func (cr *AdminHandler) UpdateJobCategory(c *gin.Context) {
 	// category := c.Param("category")
 	var category domain.Category
 
-	c.Bind(&category)
+	err:=c.Bind(&category)
+	if err != nil {
+		response := response.ErrorResponse("Failed to create user", err.Error(), nil)
+		c.Writer.Header().Set("Content-Type", "application/json")
+		c.Writer.WriteHeader(http.StatusBadRequest)
+		utils.ResponseJSON(*c, response)
+		return
+	}
 
 	// fmt.Printf("\n\ncat : %v\n\n", category)
 
-	_, err := cr.adminService.UpdateJobCategory(category)
+	_, err = cr.adminService.UpdateJobCategory(category)
 
 	if err != nil {
 		response := response.ErrorResponse("Failed to update job category", err.Error(), nil)

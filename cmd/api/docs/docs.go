@@ -2351,6 +2351,14 @@ const docTemplate = `{
         },
         "github_com_fazilnbr_project-workey_pkg_domain.Address": {
             "type": "object",
+            "required": [
+                "city",
+                "houseName",
+                "phone",
+                "pin",
+                "place",
+                "post"
+            ],
             "properties": {
                 "city": {
                     "type": "string"
@@ -2380,9 +2388,15 @@ const docTemplate = `{
         },
         "github_com_fazilnbr_project-workey_pkg_domain.Category": {
             "type": "object",
+            "required": [
+                "category"
+            ],
             "properties": {
                 "category": {
                     "type": "string"
+                },
+                "id_category": {
+                    "type": "integer"
                 }
             }
         },
@@ -2407,6 +2421,9 @@ const docTemplate = `{
         },
         "github_com_fazilnbr_project-workey_pkg_domain.Favorite": {
             "type": "object",
+            "required": [
+                "jobid"
+            ],
             "properties": {
                 "jobid": {
                     "type": "integer"
@@ -2415,6 +2432,10 @@ const docTemplate = `{
         },
         "github_com_fazilnbr_project-workey_pkg_domain.Job": {
             "type": "object",
+            "required": [
+                "desctription",
+                "wage"
+            ],
             "properties": {
                 "categoryid": {
                     "type": "integer"
@@ -2429,6 +2450,18 @@ const docTemplate = `{
         },
         "github_com_fazilnbr_project-workey_pkg_domain.Profile": {
             "type": "object",
+            "required": [
+                "contactnumber",
+                "dateofbirth",
+                "emailid",
+                "gender",
+                "housename",
+                "name",
+                "photo",
+                "pin",
+                "place",
+                "post"
+            ],
             "properties": {
                 "contactnumber": {
                     "type": "string"
@@ -2464,6 +2497,9 @@ const docTemplate = `{
         },
         "github_com_fazilnbr_project-workey_pkg_domain.Request": {
             "type": "object",
+            "required": [
+                "addressId"
+            ],
             "properties": {
                 "addressId": {
                     "type": "integer"
@@ -2481,6 +2517,10 @@ const docTemplate = `{
         },
         "github_com_fazilnbr_project-workey_pkg_domain.User": {
             "type": "object",
+            "required": [
+                "password",
+                "username"
+            ],
             "properties": {
                 "password": {
                     "type": "string"
