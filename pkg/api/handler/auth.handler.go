@@ -288,10 +288,18 @@ func (cr *AuthHandler) AdminLogin(c *gin.Context) {
 	var loginAdmin domain.User
 
 	fmt.Print("\n\nhi\n\n")
-	c.Bind(&loginAdmin)
+	err:=c.Bind(&loginAdmin)
+	if err != nil {
+		fmt.Println(err)
+		response := response.ErrorResponse("Failed to create user", "Please check your inputs", nil)
+		c.Writer.Header().Set("Content-Type", "application/json")
+		c.Writer.WriteHeader(http.StatusBadRequest)
+		utils.ResponseJSON(*c, response)
+		return
+	}
 
 	//verify User details
-	err := cr.authUseCase.VerifyAdmin(loginAdmin.UserName, loginAdmin.Password)
+	err = cr.authUseCase.VerifyAdmin(loginAdmin.UserName, loginAdmin.Password)
 
 	if err != nil {
 		response := response.ErrorResponse("Failed to varifing Admin", err.Error(), nil)
