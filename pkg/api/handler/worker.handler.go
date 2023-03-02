@@ -194,15 +194,16 @@ func (cr *WorkerHandler) ListJobCategoryUser(c *gin.Context) {
 		return
 	}
 
-	result := struct {
-		jobcategory *[]domain.Category
-		Meta        *utils.Metadata
-	}{
-		jobcategory: categories,
-		Meta:        &metadata,
-	}
+	// result := struct {
+	// 	jobcategory *[]domain.Category
+	// 	Meta        *utils.Metadata
+	// }{
+	// 	jobcategory: categories,
+	// 	Meta:        &metadata,
+	// }
+	result2 := []interface{}{categories, metadata}
 
-	response := response.SuccessResponse(true, "SUCCESS", result)
+	response := response.SuccessResponse(true, "SUCCESS", result2)
 	fmt.Println(response)
 	c.Writer.Header().Set("Content-Type", "application/json")
 	c.Writer.WriteHeader(http.StatusOK)
@@ -224,7 +225,8 @@ func (cr *WorkerHandler) AddJob(c *gin.Context) {
 	fmt.Printf("\n\nidea : %v\n\n", id)
 	var workerjob domain.Job
 
-	err:=c.Bind(&workerjob)
+	// err:=c.Bind(&workerjob)
+	err:=c.ShouldBind(&workerjob)
 	if err != nil {
 		response := response.ErrorResponse("Failed to create user", err.Error(), nil)
 		c.Writer.Header().Set("Content-Type", "application/json")
