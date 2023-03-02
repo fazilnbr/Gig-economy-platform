@@ -38,7 +38,7 @@ type Verification struct {
 }
 
 type Category struct {
-	IdCategory int    `json:"-" gorm:"primaryKey;autoIncrement:true;unique"`
+	IdCategory int    `json:"id_category" gorm:"primaryKey;autoIncrement:true;unique"`
 	Category   string `gorm:"unique" json:"category" binding:"required"`
 }
 

@@ -40,9 +40,17 @@ func (cr *UserHandler) UserAddProfile(c *gin.Context) {
 	fmt.Printf("\n\nidea : %v\n\n", id)
 	var userprofile domain.Profile
 
-	c.Bind(&userprofile)
+	err:=c.Bind(&userprofile)
 
-	err := cr.userService.AddProfile(userprofile, id)
+	if err != nil {
+		response := response.ErrorResponse("Failed to create user", err.Error(), nil)
+		c.Writer.Header().Set("Content-Type", "application/json")
+		c.Writer.WriteHeader(http.StatusBadRequest)
+		utils.ResponseJSON(*c, response)
+		return
+	}
+
+	err = cr.userService.AddProfile(userprofile, id)
 
 	if err != nil {
 		response := response.ErrorResponse("Error while adding profile", err.Error(), nil)
@@ -72,11 +80,18 @@ func (cr *UserHandler) UserEditProfile(c *gin.Context) {
 	id, _ := strconv.Atoi(c.Writer.Header().Get("id"))
 	var userprofile domain.Profile
 
-	c.Bind(&userprofile)
+	err:=c.Bind(&userprofile)
+	if err != nil {
+		response := response.ErrorResponse("Failed to create user", err.Error(), nil)
+		c.Writer.Header().Set("Content-Type", "application/json")
+		c.Writer.WriteHeader(http.StatusBadRequest)
+		utils.ResponseJSON(*c, response)
+		return
+	}
 
 	fmt.Printf("\n\nuser Profile : \n%v\n\n%v\n\n", userprofile, id)
 
-	err := cr.userService.UserEditProfile(userprofile, id)
+	err = cr.userService.UserEditProfile(userprofile, id)
 
 	if err != nil {
 		response := response.ErrorResponse("Error while editing profile", err.Error(), nil)
@@ -111,7 +126,11 @@ func (cr *UserHandler) UserChangePassword(c *gin.Context) {
 
 	err := c.Bind(&changepassword)
 	if err != nil {
-		fmt.Println("pooooo : ", err)
+		response := response.ErrorResponse("Failed to create user", err.Error(), nil)
+		c.Writer.Header().Set("Content-Type", "application/json")
+		c.Writer.WriteHeader(http.StatusBadRequest)
+		utils.ResponseJSON(*c, response)
+		return
 	}
 
 	err = cr.userService.UserVerifyPassword(changepassword, id)
@@ -252,12 +271,19 @@ func (cr *UserHandler) UserAddToFavorite(c *gin.Context) {
 	id, _ := strconv.Atoi(c.Writer.Header().Get("id"))
 	var favorite domain.Favorite
 
-	c.Bind(&favorite)
+	err:=c.Bind(&favorite)
+	if err != nil {
+		response := response.ErrorResponse("Failed to create user", err.Error(), nil)
+		c.Writer.Header().Set("Content-Type", "application/json")
+		c.Writer.WriteHeader(http.StatusBadRequest)
+		utils.ResponseJSON(*c, response)
+		return
+	}
 	favorite.UserId = id
 
 	fmt.Printf("\n\nuser Profile : \n%v\n\n%v\n\n", favorite, id)
 
-	_, err := cr.userService.AddToFavorite(favorite)
+	_, err = cr.userService.AddToFavorite(favorite)
 
 	if err != nil {
 		response := response.ErrorResponse("Error while add to favorite worker", err.Error(), nil)
@@ -337,9 +363,18 @@ func (cr *UserHandler) UserAddAddress(c *gin.Context) {
 	fmt.Printf("\n\nidea : %v\n\n", id)
 	var address domain.Address
 
-	c.Bind(&address)
+	err:=c.Bind(&address)
+
+	if err != nil {
+		response := response.ErrorResponse("Failed to create user", err.Error(), nil)
+		c.Writer.Header().Set("Content-Type", "application/json")
+		c.Writer.WriteHeader(http.StatusBadRequest)
+		utils.ResponseJSON(*c, response)
+		return
+	}
+
 	address.UserId = id
-	_, err := cr.userService.AddAddress(address)
+	_, err = cr.userService.AddAddress(address)
 
 	if err != nil {
 		response := response.ErrorResponse("Error while adding user address", err.Error(), nil)
@@ -431,12 +466,19 @@ func (cr *UserHandler) UserSendJobRequest(c *gin.Context) {
 	id, _ := strconv.Atoi(c.Writer.Header().Get("id"))
 	var request domain.Request
 
-	c.Bind(&request)
+	err:=c.Bind(&request)
+	if err != nil {
+		response := response.ErrorResponse("Failed to create user", err.Error(), nil)
+		c.Writer.Header().Set("Content-Type", "application/json")
+		c.Writer.WriteHeader(http.StatusBadRequest)
+		utils.ResponseJSON(*c, response)
+		return
+	}
 	request.UserId = id
 
 	fmt.Printf("\n\nuser Profile : \n%v\n\n%v\n\n", request, id)
 
-	_, err := cr.userService.SendJobRequest(request)
+	_, err = cr.userService.SendJobRequest(request)
 
 	if err != nil {
 		response := response.ErrorResponse("Error while sending job request ", err.Error(), nil)

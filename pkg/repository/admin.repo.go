@@ -421,7 +421,7 @@ func (c *adminRepo) ListUsers(pagenation utils.Filter) ([]domain.UserResponse, u
 			  id_login,
 			  user_name,
 			  password 		
-			  FROM users 
+			  FROM users UpdateJobCategory
 			  WHERE user_type='user' 
 			  AND verification='true' 
 			  AND status='unblocked'

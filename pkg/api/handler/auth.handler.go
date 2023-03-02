@@ -288,10 +288,18 @@ func (cr *AuthHandler) AdminLogin(c *gin.Context) {
 	var loginAdmin domain.User
 
 	fmt.Print("\n\nhi\n\n")
-	c.Bind(&loginAdmin)
+	err:=c.Bind(&loginAdmin)
+	
+	if err != nil {
+		response := response.ErrorResponse("Failed to create user", err.Error(), nil)
+		c.Writer.Header().Set("Content-Type", "application/json")
+		c.Writer.WriteHeader(http.StatusBadRequest)
+		utils.ResponseJSON(*c, response)
+		return
+	}
 
 	//verify User details
-	err := cr.authUseCase.VerifyAdmin(loginAdmin.UserName, loginAdmin.Password)
+	err = cr.authUseCase.VerifyAdmin(loginAdmin.UserName, loginAdmin.Password)
 
 	if err != nil {
 		response := response.ErrorResponse("Failed to varifing Admin", err.Error(), nil)
@@ -327,7 +335,11 @@ func (cr *AuthHandler) AdminLogin(c *gin.Context) {
 	user.RefreshToken = token
 
 	user.Password = ""
-	response := response.SuccessResponse(true, "SUCCESS", user)
+
+	c.Writer.Header().Set("access-token", user.AccessToken)
+	c.Writer.Header().Set("refresh-token", user.RefreshToken)
+
+	response := response.SuccessResponse(true, "SUCCESS", nil)
 	c.Writer.Header().Set("Content-Type", "application/json")
 	c.Writer.WriteHeader(http.StatusOK)
 	utils.ResponseJSON(*c, response)
@@ -347,7 +359,7 @@ func (cr *AuthHandler) UserSignUp(c *gin.Context) {
 
 	err := c.Bind(&newUser)
 	if err != nil {
-		response := response.ErrorResponse("Failed to create user", "Please check your inputs", nil)
+		response := response.ErrorResponse("Failed to create user", err.Error(), nil)
 		c.Writer.Header().Set("Content-Type", "application/json")
 		c.Writer.WriteHeader(http.StatusBadRequest)
 		utils.ResponseJSON(*c, response)
@@ -364,7 +376,7 @@ func (cr *AuthHandler) UserSignUp(c *gin.Context) {
 	}
 
 	user, err := cr.userUseCase.FindUser(newUser.UserName)
-	
+
 	user.Password = ""
 	response := response.SuccessResponse(true, "SUCCESS", user)
 	c.Writer.Header().Set("Content-Type", "application/json")
@@ -383,10 +395,18 @@ func (cr *AuthHandler) UserSignUp(c *gin.Context) {
 func (cr *AuthHandler) UserLogin(c *gin.Context) {
 	var loginUser domain.User
 
-	c.Bind(&loginUser)
+	err:=c.Bind(&loginUser)
+
+	if err != nil {
+		response := response.ErrorResponse("Failed to create user", err.Error(), nil)
+		c.Writer.Header().Set("Content-Type", "application/json")
+		c.Writer.WriteHeader(http.StatusBadRequest)
+		utils.ResponseJSON(*c, response)
+		return
+	}
 
 	//verify User details
-	err := cr.authUseCase.VerifyUser(loginUser.UserName, loginUser.Password)
+	err = cr.authUseCase.VerifyUser(loginUser.UserName, loginUser.Password)
 
 	if err != nil {
 		response := response.ErrorResponse("Failed to login", err.Error(), nil)
@@ -442,9 +462,17 @@ func (cr *AuthHandler) UserLogin(c *gin.Context) {
 func (cr *AuthHandler) WorkerSignUp(c *gin.Context) {
 	var newUser domain.User
 
-	c.Bind(&newUser)
+	err := c.Bind(&newUser)
 
-	err := cr.workerUseCase.CreateUser(newUser)
+	if err != nil {
+		response := response.ErrorResponse("Failed to create user", err.Error(), nil)
+		c.Writer.Header().Set("Content-Type", "application/json")
+		c.Writer.WriteHeader(http.StatusBadRequest)
+		utils.ResponseJSON(*c, response)
+		return
+	}
+
+	err = cr.workerUseCase.CreateUser(newUser)
 
 	if err != nil {
 		response := response.ErrorResponse("Failed to create worker", err.Error(), nil)
@@ -477,10 +505,16 @@ func (cr *AuthHandler) WorkerSignUp(c *gin.Context) {
 func (cr *AuthHandler) WorkerLogin(c *gin.Context) {
 	var loginWorker domain.User
 
-	c.Bind(&loginWorker)
-
+	err:=c.Bind(&loginWorker)
+	if err != nil {
+		response := response.ErrorResponse("Failed to create user", err.Error(), nil)
+		c.Writer.Header().Set("Content-Type", "application/json")
+		c.Writer.WriteHeader(http.StatusBadRequest)
+		utils.ResponseJSON(*c, response)
+		return
+	}
 	//verify User details
-	err := cr.authUseCase.VerifyWorker(loginWorker.UserName, loginWorker.Password)
+	err = cr.authUseCase.VerifyWorker(loginWorker.UserName, loginWorker.Password)
 
 	if err != nil {
 		response := response.ErrorResponse("Failed to login", err.Error(), nil)
@@ -516,7 +550,11 @@ func (cr *AuthHandler) WorkerLogin(c *gin.Context) {
 	user.RefreshToken = token
 
 	user.Password = ""
-	response := response.SuccessResponse(true, "SUCCESS", user)
+
+	c.Writer.Header().Set("access-token", user.AccessToken)
+	c.Writer.Header().Set("refresh-token", user.RefreshToken)
+
+	response := response.SuccessResponse(true, "SUCCESS", nil)
 	c.Writer.Header().Set("Content-Type", "application/json")
 	c.Writer.WriteHeader(http.StatusOK)
 	utils.ResponseJSON(*c, response)

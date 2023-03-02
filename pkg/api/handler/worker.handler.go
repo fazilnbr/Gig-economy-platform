@@ -38,9 +38,16 @@ func (cr *WorkerHandler) WorkerAddProfile(c *gin.Context) {
 	fmt.Printf("\n\nidea : %v\n\n", id)
 	var userprofile domain.Profile
 
-	c.Bind(&userprofile)
+	err:=c.Bind(&userprofile)
+	if err != nil {
+		response := response.ErrorResponse("Failed to create user", err.Error(), nil)
+		c.Writer.Header().Set("Content-Type", "application/json")
+		c.Writer.WriteHeader(http.StatusBadRequest)
+		utils.ResponseJSON(*c, response)
+		return
+	}
 
-	err := cr.workerService.AddProfile(userprofile, id)
+	err = cr.workerService.AddProfile(userprofile, id)
 
 	if err != nil {
 		response := response.ErrorResponse("Error while adding worker profile", err.Error(), nil)
@@ -71,11 +78,18 @@ func (cr *WorkerHandler) WorkerEditProfile(c *gin.Context) {
 	fmt.Printf("\n\n%v\n\n", id)
 	var userprofile domain.Profile
 
-	c.Bind(&userprofile)
+	err:=c.Bind(&userprofile)
+	if err != nil {
+		response := response.ErrorResponse("Failed to create user", err.Error(), nil)
+		c.Writer.Header().Set("Content-Type", "application/json")
+		c.Writer.WriteHeader(http.StatusBadRequest)
+		utils.ResponseJSON(*c, response)
+		return
+	}
 
 	fmt.Printf("\n\nuser Profile : \n%v\n\n%v\n\n", userprofile, id)
 
-	err := cr.workerService.WorkerEditProfile(userprofile, id)
+	err = cr.workerService.WorkerEditProfile(userprofile, id)
 
 	if err != nil {
 		response := response.ErrorResponse("Error while editing worker profile", err.Error(), nil)
@@ -110,7 +124,11 @@ func (cr *WorkerHandler) WorkerChangePassword(c *gin.Context) {
 
 	err := c.Bind(&changepassword)
 	if err != nil {
-		fmt.Println("pooooo : ", err)
+		response := response.ErrorResponse("Failed to create user", err.Error(), nil)
+		c.Writer.Header().Set("Content-Type", "application/json")
+		c.Writer.WriteHeader(http.StatusBadRequest)
+		utils.ResponseJSON(*c, response)
+		return
 	}
 
 	err = cr.workerService.WorkerVerifyPassword(changepassword, id)
@@ -206,11 +224,18 @@ func (cr *WorkerHandler) AddJob(c *gin.Context) {
 	fmt.Printf("\n\nidea : %v\n\n", id)
 	var workerjob domain.Job
 
-	c.Bind(&workerjob)
+	err:=c.Bind(&workerjob)
+	if err != nil {
+		response := response.ErrorResponse("Failed to create user", err.Error(), nil)
+		c.Writer.Header().Set("Content-Type", "application/json")
+		c.Writer.WriteHeader(http.StatusBadRequest)
+		utils.ResponseJSON(*c, response)
+		return
+	}
 
 	workerjob.IdWorker = id
 
-	_, err := cr.workerService.AddJob(workerjob)
+	_, err = cr.workerService.AddJob(workerjob)
 
 	if err != nil {
 		response := response.ErrorResponse("Error while adding worker job", err.Error(), nil)
