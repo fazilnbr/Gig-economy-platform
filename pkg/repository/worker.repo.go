@@ -175,7 +175,7 @@ func (c *workerRepository) ViewJob(id int) ([]domain.WorkerJob, error) {
 	var jobs []domain.WorkerJob
 
 	query := `SELECT 
-				C.id_category,C.category,J.wage,J.description 
+				J.id_job,C.category,J.wage,J.description 
 				FROM categories AS C 
 				INNER JOIN jobs AS J 
 				ON C.id_category = J.category_id 

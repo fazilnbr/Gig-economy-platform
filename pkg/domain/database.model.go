@@ -16,7 +16,7 @@ type User struct {
 type Profile struct {
 	IdUser        int    `json:"-" gorm:"primaryKey;autoIncrement:true;unique"`
 	LoginId       int    `json:"-" gorm:"unique"`
-	Login         User   `json:"-" gorm:"foreignKey:LoginId;references:IdLogin"`
+	Login         *User  `json:"-" gorm:"foreignKey:LoginId;references:IdLogin"`
 	Name          string `json:"name" binding:"required"`
 	Gender        string `json:"gender" binding:"required"`
 	DateOfBirth   string `json:"dateofbirth" binding:"required"`
@@ -43,27 +43,27 @@ type Category struct {
 }
 
 type Job struct {
-	IdJob       int      `json:"-" gorm:"primaryKey;autoIncrement:true;unique"`
-	CategoryId  int      `json:"categoryid" gorm:"not null"`
-	Category    Category `json:"-" gorm:"foreignKey:CategoryId;references:IdCategory"`
-	IdWorker    int      `json:"-" gorm:"not null"`
-	Login       User     `json:"-" gorm:"foreignKey:IdWorker;references:IdLogin"`
-	Wage        int      `json:"wage" gorm:"not null" binding:"required"`
-	Description string   `json:"desctription" binding:"required"`
+	IdJob       int       `json:"-" gorm:"primaryKey;autoIncrement:true;unique"`
+	CategoryId  int       `json:"categoryid" gorm:"not null"`
+	Category    *Category `json:"-" gorm:"foreignKey:CategoryId;references:IdCategory"`
+	IdWorker    int       `json:"-" gorm:"not null"`
+	Login       *User     `json:"-,omitempty" bson:",omitempty" gorm:"foreignKey:IdWorker;references:IdLogin"`
+	Wage        int       `json:"wage" gorm:"not null" binding:"required"`
+	Description string    `json:"desctription" binding:"required"`
 }
 
 type Favorite struct {
-	IdFavorite int  `json:"-" gorm:"primaryKey;autoIncrement:true;unique"`
-	UserId     int  `json:"-"`
-	User       User `json:"-" gorm:"foreignKey:UserId;references:IdLogin"`
-	JobId      int  `json:"jobid" binding:"required"`
-	job        Job  `json:"-" gorm:"foreignKey:JobId;references:IdJob;unique"`
+	IdFavorite int   `json:"-" gorm:"primaryKey;autoIncrement:true;unique"`
+	UserId     int   `json:"-"`
+	User       *User `json:"-" gorm:"foreignKey:UserId;references:IdLogin"`
+	JobId      int   `json:"jobid" binding:"required"`
+	job        *Job  `json:"-" gorm:"foreignKey:JobId;references:IdJob;unique"`
 }
 
 type Address struct {
 	IdAddress int `gorm:"primaryKey;autoIncrement:true;unique"`
 	UserId    int
-	User      User   `json:"-" gorm:"foreignKey:UserId;references:IdLogin"`
+	User      *User  `json:"-" gorm:"foreignKey:UserId;references:IdLogin"`
 	HouseName string `binding:"required"`
 	Place     string `binding:"required"`
 	City      string `binding:"required"`
@@ -75,23 +75,23 @@ type Address struct {
 type Request struct {
 	IdRequset int `json:"-" gorm:"primaryKey;autoIncrement:true;unique"`
 	UserId    int
-	User      User `json:"-" gorm:"foreignKey:UserId;references:IdLogin"`
+	User      *User `json:"-" gorm:"foreignKey:UserId;references:IdLogin"`
 	JobId     int
-	Job       Job `json:"-" gorm:"foreignKey:JobId;references:IdJob"`
-	AddressId int  `binding:"required"`
-	Address   Address `json:"-" gorm:"foreignKey:AddressId;references:IdAddress"`
-	Status    string  `json:"-" gorm:"default:pending"`
-	Date      string  `jsom:"-"`
+	Job       *Job     `json:"-" gorm:"foreignKey:JobId;references:IdJob"`
+	AddressId int      `binding:"required"`
+	Address   *Address `json:"-" gorm:"foreignKey:AddressId;references:IdAddress"`
+	Status    string   `json:"-" gorm:"default:pending"`
+	Date      string   `jsom:"-"`
 }
 
 type JobPayment struct {
 	IdPayment     int `json:"-" gorm:"primaryKey;autoIncrement:true;unique"`
 	RequestId     int
-	Request       Request `json:"-" gorm:"foreignKey:RequestId;references:IdRequset"`
+	Request       *Request `json:"-" gorm:"foreignKey:RequestId;references:IdRequset"`
 	OrderId       string
 	RazorPaymetId string
 	UserId        int
-	User          User `json:"-" gorm:"foreignKey:UserId;references:IdLogin"`
+	User          *User `json:"-" gorm:"foreignKey:UserId;references:IdLogin"`
 	Amount        int
 	Date          string
 	PaymentStatus string `json:"-" gorm:"default:orderd"`
