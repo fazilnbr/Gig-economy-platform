@@ -9,6 +9,7 @@ type WorkerRepository interface {
 	InsertWorker(newWorker domain.User) (int, error)
 	// AddProfile(workerProfile domain.Profile, id int) (int, error)
 	FindWorker(email string) (domain.WorkerResponse, error)
+	FindWorkerWithId(id int) (domain.WorkerResponse, error)
 	StoreVerificationDetails(email string, code int) error
 	VerifyAccount(email string, code int) error
 	WorkerAddProfile(Profile domain.Profile, id int) (int, error)

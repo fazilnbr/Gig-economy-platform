@@ -45,14 +45,11 @@ definitions:
     type: object
   github_com_fazilnbr_project-workey_pkg_domain.ChangePassword:
     properties:
-      email:
-        type: string
       newpassword:
         type: string
       oldpassword:
         type: string
     required:
-    - email
     - newpassword
     - oldpassword
     type: object

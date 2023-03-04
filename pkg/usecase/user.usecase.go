@@ -15,9 +15,20 @@ type userUseCase struct {
 	userRepo interfaces.UserRepository
 }
 
+// FindUserWithId implements interfaces.UserUseCase
+func (c *userUseCase) FindUserWithId(id int) (*domain.UserResponse, error) {
+	user, err := c.userRepo.FindUserWithId(id)
+
+	if err != nil {
+		return nil, err
+	}
+
+	return &user, nil
+}
+
 // UpdatePaymentId implements interfaces.UserUseCase
 func (c *userUseCase) UpdatePaymentId(razorPaymentId string, idPayment int) error {
-	return c.userRepo.UpdatePaymentId(razorPaymentId,idPayment)
+	return c.userRepo.UpdatePaymentId(razorPaymentId, idPayment)
 }
 
 // CheckOrderId implements interfaces.UserUseCase
@@ -130,7 +141,7 @@ func (c *userUseCase) ListWorkersWithJob(pagenation utils.Filter) (*[]domain.Lis
 
 // VerifyPassword implements interfaces.UserUseCase
 func (c *userUseCase) UserVerifyPassword(changepassword domain.ChangePassword, id int) error {
-	user, err := c.userRepo.FindUser(changepassword.Email)
+	user, err := c.userRepo.FindUserWithId(id)
 	if err != nil {
 		return errors.New("Invalid User")
 	}

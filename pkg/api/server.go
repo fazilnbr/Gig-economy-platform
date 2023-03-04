@@ -72,7 +72,7 @@ func NewServerHTTP(authHandler handler.AuthHandler, adminHandler handler.AdminHa
 			user.POST("/signup", authHandler.UserSignUp)
 			user.POST("/login", authHandler.UserLogin)
 			user.POST("/send/verification", authHandler.SendVerificationMailUser)
-			user.GET("/verify/account", authHandler.UserVerifyAccount)
+			// user.GET("/verify/account", authHandler.UserVerifyAccount)
 
 			// Google authentication
 			user.GET("/login-gl", authHandler.GoogleAuth)
@@ -126,7 +126,7 @@ func NewServerHTTP(authHandler handler.AuthHandler, adminHandler handler.AdminHa
 			worker.POST("/signup", authHandler.WorkerSignUp)
 			worker.POST("/login", authHandler.WorkerLogin)
 			worker.POST("/send/verification", authHandler.SendVerificationMailWorker)
-			worker.POST("/verify/account", authHandler.WorkerVerifyAccount)
+			// worker.POST("/verify/account", authHandler.WorkerVerifyAccount)
 			// authuser := user.Group("/")
 			worker.Use(middleware.AthoriseJWT)
 			{

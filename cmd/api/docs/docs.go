@@ -2403,14 +2403,10 @@ const docTemplate = `{
         "github_com_fazilnbr_project-workey_pkg_domain.ChangePassword": {
             "type": "object",
             "required": [
-                "email",
                 "newpassword",
                 "oldpassword"
             ],
             "properties": {
-                "email": {
-                    "type": "string"
-                },
                 "newpassword": {
                     "type": "string"
                 },
