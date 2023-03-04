@@ -69,7 +69,7 @@ func (c *workerService) ListJobCategoryUser(pagenation utils.Filter) (*[]domain.
 
 // VerifyPassword implements interfaces.UserUseCase
 func (c *workerService) WorkerVerifyPassword(changepassword domain.ChangePassword, id int) error {
-	user, err := c.workerRepo.FindWorker(changepassword.Email)
+	user, err := c.workerRepo.FindWorkerWithId(id)
 	if err != nil {
 		return errors.New("Invalid User")
 	}

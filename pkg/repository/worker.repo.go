@@ -15,6 +15,23 @@ type workerRepository struct {
 	db *sql.DB
 }
 
+// FindWorkerWithId implements interfaces.WorkerRepository
+func (c *workerRepository) FindWorkerWithId(id int) (domain.WorkerResponse, error) {
+	var worker domain.WorkerResponse
+
+	query := `SELECT id_login,user_name,password  FROM users WHERE id_login=$1 AND user_type='worker';`
+
+	err := c.db.QueryRow(query,
+		id).Scan(
+		&worker.ID,
+		&worker.UserName,
+		&worker.Password,
+	)
+	// fmt.Print("\n", email, worker, err)
+
+	return worker, err
+}
+
 // RejectJobRequest implements interfaces.WorkerRepository
 func (c *workerRepository) RejectJobRequest(id int) error {
 	query := `UPDATE requests SET status='rejected' WHERE id_requset=$1 RETURNING id_requset;`

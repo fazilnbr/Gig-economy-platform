@@ -38,7 +38,7 @@ type SignedDetails struct {
 }
 
 type ChangePassword struct {
-	Email       string `json:"email" binding:"required"`
+	UserId       int `json:"-"`
 	OldPassword string `json:"oldpassword" binding:"required"`
 	NewPassword string `json:"newpassword" binding:"required"`
 }

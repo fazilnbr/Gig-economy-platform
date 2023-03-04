@@ -37,6 +37,27 @@ type userRepo struct {
 	db *sql.DB
 }
 
+// FindUserWithId implements interfaces.UserRepository
+func (c *userRepo) FindUserWithId(id int) (domain.UserResponse, error) {
+	var user domain.UserResponse
+
+	query := `SELECT id_login,user_name,password,verification  FROM users WHERE id_login=$1 AND user_type='user' ;`
+
+	err := c.db.QueryRow(query,
+		id).Scan(
+		&user.ID,
+		&user.UserName,
+		&user.Password,
+		&user.Verification,
+	)
+	fmt.Printf("\n\n\nuser : %v\n\n\n", user)
+	if err != nil && err != sql.ErrNoRows {
+		return user, err
+	}
+
+	return user, err
+}
+
 // UpdatePaymentId implements interfaces.UserRepository
 func (c *userRepo) UpdatePaymentId(razorPaymentId string, idPayment int) error {
 	query := `UPDATE job_payments SET razor_paymet_id=$1,payment_status='completed' WHERE id_payment=$2 RETURNING id_payment;`
