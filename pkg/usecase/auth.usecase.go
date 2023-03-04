@@ -94,7 +94,7 @@ func (c *authUseCase) SendVerificationEmail(email string) error {
 			"<table cellspacing=\"0\" cellpadding=\"0\">" +
 			"  	<tr>" +
 			"      	<td class=\"button\" bgcolor=\"#ED2939\">" +
-			"		  <a class=\"buttona\" href=\"http://localhost:8080/user/verify/account?token=" + tokenString + "\" target=\"_blank\">Access Credentials</a>" +
+			"		  <a class=\"buttona\" href=\"https://fazilnbr.online/user/verify/account?token=" + tokenString + "\" target=\"_blank\">Access Credentials</a>" +
 			"      	</td>" +
 			"  	</tr>" +
 			"</table>" +
