@@ -664,7 +664,7 @@ func (c *userRepo) VerifyAccount(email string, code string) error {
 	err := c.db.QueryRow(query, email, code).Scan(&id)
 
 	if err == sql.ErrNoRows {
-		return errors.New("Invalid verification code/Email")
+		return errors.New("varification link alredy userd or expierd try again")
 	}
 
 	if err != nil {
