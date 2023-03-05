@@ -33,9 +33,8 @@ func NewServerHTTP(authHandler handler.AuthHandler, adminHandler handler.AdminHa
 		// Authentication
 		admin.POST("/login", authHandler.AdminLogin)
 		admin.POST("/send/verification", authHandler.SendVerificationMailWorker)
-		admin.POST("/verify/account", authHandler.WorkerVerifyAccount)
+		admin.GET("/verify/account", authHandler.WorkerVerifyAccount)
 
-		
 		admin.Use(middleware.AthoriseJWT)
 		{
 			admin.GET("/account/verifyJWT", authHandler.AdminHome)
@@ -72,7 +71,7 @@ func NewServerHTTP(authHandler handler.AuthHandler, adminHandler handler.AdminHa
 			user.POST("/signup", authHandler.UserSignUp)
 			user.POST("/login", authHandler.UserLogin)
 			user.POST("/send/verification", authHandler.SendVerificationMailUser)
-			// user.GET("/verify/account", authHandler.UserVerifyAccount)
+			user.GET("/verify/account", authHandler.UserVerifyAccount)
 
 			// Google authentication
 			user.GET("/login-gl", authHandler.GoogleAuth)
@@ -80,10 +79,9 @@ func NewServerHTTP(authHandler handler.AuthHandler, adminHandler handler.AdminHa
 			// authuser := user.Group("/")
 
 			// Job Payment test
-				// Razor-pay
-				user.GET("/razor-pay-home", UserHandler.RazorPayHome)
-				user.GET("/razor-pay-payment-success", UserHandler.RazorPaySuccess)
-
+			// Razor-pay
+			user.GET("/razor-pay-home", UserHandler.RazorPayHome)
+			user.GET("/razor-pay-payment-success", UserHandler.RazorPaySuccess)
 
 			user.Use(middleware.AthoriseJWT)
 			{
@@ -126,7 +124,7 @@ func NewServerHTTP(authHandler handler.AuthHandler, adminHandler handler.AdminHa
 			worker.POST("/signup", authHandler.WorkerSignUp)
 			worker.POST("/login", authHandler.WorkerLogin)
 			worker.POST("/send/verification", authHandler.SendVerificationMailWorker)
-			// worker.POST("/verify/account", authHandler.WorkerVerifyAccount)
+			worker.GET("/verify/account", authHandler.WorkerVerifyAccount)
 			// authuser := user.Group("/")
 			worker.Use(middleware.AthoriseJWT)
 			{

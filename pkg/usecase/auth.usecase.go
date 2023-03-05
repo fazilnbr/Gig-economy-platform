@@ -57,7 +57,7 @@ func (c *authUseCase) SendVerificationEmail(email string) error {
 
 	subject := "Account Verification"
 	message :=
-		[]byte("From: Events Radar <job-portal@gmail.com>\r\n" +
+		[]byte("From: Job Portal <job-portal@gmail.com>\r\n" +
 			"To: " + email + "\r\n" +
 			"Subject: " + subject + "\r\n" +
 			"MIME-Version: 1.0\r\n" +
