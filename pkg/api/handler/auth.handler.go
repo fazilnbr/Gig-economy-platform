@@ -218,8 +218,8 @@ func (cr *AuthHandler) CallBackFromGoogle(c *gin.Context) {
 			return
 		}
 
-		c.JSON(http.StatusOK, "Hello, I'm protected\n")
-		c.JSON(http.StatusOK, string(respons))
+		// c.JSON(http.StatusOK, "Hello, I'm protected\n")
+		// c.JSON(http.StatusOK, string(respons))
 		return
 	}
 }
