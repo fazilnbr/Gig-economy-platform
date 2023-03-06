@@ -4,7 +4,6 @@ import (
 	"encoding/json"
 	"fmt"
 	"io/ioutil"
-	"log"
 	"net/http"
 	"net/url"
 	"strconv"
@@ -112,7 +111,7 @@ func HandileLogin(c *gin.Context, oauthConf *oauth2.Config, oauthStateString str
 	URL.RawQuery = parameters.Encode()
 	url := URL.String()
 	fmt.Printf("\n\nurl : %v\n\n", oauthConf.RedirectURL)
-	log.Fatal("referesh token not valid")
+	// log.Fatal("referesh token not valid")
 	c.Redirect(http.StatusTemporaryRedirect, url)
 	return nil
 
@@ -288,8 +287,8 @@ func (cr *AuthHandler) AdminLogin(c *gin.Context) {
 	var loginAdmin domain.User
 
 	fmt.Print("\n\nhi\n\n")
-	err:=c.Bind(&loginAdmin)
-	
+	err := c.Bind(&loginAdmin)
+
 	if err != nil {
 		response := response.ErrorResponse("Failed to create user", err.Error(), nil)
 		c.Writer.Header().Set("Content-Type", "application/json")
@@ -395,7 +394,7 @@ func (cr *AuthHandler) UserSignUp(c *gin.Context) {
 func (cr *AuthHandler) UserLogin(c *gin.Context) {
 	var loginUser domain.User
 
-	err:=c.Bind(&loginUser)
+	err := c.Bind(&loginUser)
 
 	if err != nil {
 		response := response.ErrorResponse("Failed to create user", err.Error(), nil)
@@ -505,7 +504,7 @@ func (cr *AuthHandler) WorkerSignUp(c *gin.Context) {
 func (cr *AuthHandler) WorkerLogin(c *gin.Context) {
 	var loginWorker domain.User
 
-	err:=c.Bind(&loginWorker)
+	err := c.Bind(&loginWorker)
 	if err != nil {
 		response := response.ErrorResponse("Failed to create user", err.Error(), nil)
 		c.Writer.Header().Set("Content-Type", "application/json")
