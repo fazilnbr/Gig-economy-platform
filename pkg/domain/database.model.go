@@ -8,7 +8,7 @@ type User struct {
 
 	IdLogin      int    `json:"-" gorm:"primaryKey;autoIncrement:true;unique"`
 	UserName     string `json:"username" gorm:"not null;unique" binding:"required,email"`
-	Password     string `json:"password"  binding:"required,len>=5"`
+	Password     string `json:"password"  binding:"required,len>4"`
 	UserType     string `json:"-" postgres:"type:ENUM('admin', 'worker', 'user')" gorm:"not null"`
 	Verification bool   `json:"-" gorm:"default:false"`
 	Status       string `json:"-" gorm:"default:newuser"`

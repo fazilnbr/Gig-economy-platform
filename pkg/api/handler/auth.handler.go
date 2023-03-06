@@ -80,7 +80,7 @@ func (cr *AuthHandler) InitializeOAuthGoogle() {
 // @securityDefinitions.apikey BearerAuth
 // @in header
 // @name Authorization
-// @host localhost:8080
+// @host fazilnbr.online
 // @BasePath /
 // @query.collection.format multi
 
