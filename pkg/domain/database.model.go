@@ -8,7 +8,7 @@ type User struct {
 
 	IdLogin      int    `json:"-" gorm:"primaryKey;autoIncrement:true;unique"`
 	UserName     string `json:"username" gorm:"not null;unique" binding:"required,email"`
-	Password     string `json:"password"  binding:"required,len>4"`
+	Password     string `json:"password"  binding:"required,min=5"`
 	UserType     string `json:"-" postgres:"type:ENUM('admin', 'worker', 'user')" gorm:"not null"`
 	Verification bool   `json:"-" gorm:"default:false"`
 	Status       string `json:"-" gorm:"default:newuser"`
@@ -24,7 +24,7 @@ type Profile struct {
 	Place         string `json:"place" binding:"required"`
 	Post          string `json:"post" binding:"required"`
 	Pin           string `json:"pin" binding:"required"`
-	ContactNumber string `gorm:"unique" json:"contactnumber" binding:"required,len>=10"`
+	ContactNumber string `gorm:"unique" json:"contactnumber" binding:"required,min=10"`
 	EmailID       string `gorm:"unique" json:"emailid" binding:"required"`
 	Photo         string `json:"photo" binding:"required"`
 }
@@ -69,7 +69,7 @@ type Address struct {
 	City      string `binding:"required"`
 	Post      string `binding:"required"`
 	Pin       string `binding:"required"`
-	Phone     string `binding:"required,len>=10"`
+	Phone     string `binding:"required,min=10"`
 }
 
 type Request struct {
