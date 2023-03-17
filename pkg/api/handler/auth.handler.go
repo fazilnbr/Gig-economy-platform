@@ -446,7 +446,7 @@ func (cr *AuthHandler) UserLogin(c *gin.Context) {
 
 	c.Writer.Header().Set("access-token", user.AccessToken)
 	c.Writer.Header().Set("refresh-token", user.RefreshToken)
-	response := response.SuccessResponse(true, "SUCCESS", nil)
+	response := response.SuccessResponse(true, "SUCCESS", user.UserType)
 	c.Writer.Header().Set("Content-Type", "application/json")
 	c.Writer.WriteHeader(http.StatusOK)
 	utils.ResponseJSON(*c, response)

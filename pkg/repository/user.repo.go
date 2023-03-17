@@ -694,7 +694,8 @@ func (c *userRepo) VerifyAccount(email string, code string) error {
 func (c *userRepo) FindUser(email string) (domain.UserResponse, error) {
 	var user domain.UserResponse
 
-	query := `SELECT id_login,user_name,password,verification  FROM users WHERE user_name=$1 AND user_type='user' ;`
+	// query := `SELECT id_login,user_name,password,verification  FROM users WHERE user_name=$1 AND user_type='user' ;`
+	query:= `SELECT id_login,user_name,password,verification,user_type  FROM users WHERE user_name=$1;`
 
 	err := c.db.QueryRow(query,
 		email).Scan(
@@ -702,6 +703,7 @@ func (c *userRepo) FindUser(email string) (domain.UserResponse, error) {
 		&user.UserName,
 		&user.Password,
 		&user.Verification,
+		&user.UserType,
 	)
 	fmt.Printf("\n\n\nuser : %v\n\n\n", user)
 	if err != nil && err != sql.ErrNoRows {
