@@ -15,6 +15,7 @@ type UserResponse struct {
 	ID           int    `json:"id"`
 	UserName     string `json:"first_name"`
 	Password     string `json:"password"`
+	UserType     string `json:"user_type"`
 	Verification bool   `json:"verification"`
 	AccessToken  string `json:"accesstoken"`
 	RefreshToken string `json:"refreshtoken"`
@@ -38,7 +39,7 @@ type SignedDetails struct {
 }
 
 type ChangePassword struct {
-	UserId       int `json:"-"`
+	UserId      int    `json:"-"`
 	OldPassword string `json:"oldpassword" binding:"required"`
 	NewPassword string `json:"newpassword" binding:"required"`
 }
