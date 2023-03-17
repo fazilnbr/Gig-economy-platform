@@ -2370,7 +2370,8 @@ const docTemplate = `{
                     "type": "integer"
                 },
                 "phone": {
-                    "type": "string"
+                    "type": "string",
+                    "minLength": 10
                 },
                 "pin": {
                     "type": "string"
@@ -2460,7 +2461,8 @@ const docTemplate = `{
             ],
             "properties": {
                 "contactnumber": {
-                    "type": "string"
+                    "type": "string",
+                    "minLength": 10
                 },
                 "dateofbirth": {
                     "type": "string"
@@ -2519,9 +2521,13 @@ const docTemplate = `{
             ],
             "properties": {
                 "password": {
-                    "type": "string"
+                    "type": "string",
+                    "minLength": 5
                 },
                 "username": {
+                    "type": "string"
+                },
+                "usertype": {
                     "type": "string"
                 }
             }
