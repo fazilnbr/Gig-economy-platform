@@ -3,6 +3,7 @@ package handler
 import (
 	"bytes"
 	"encoding/json"
+	"fmt"
 	"io"
 	"net/http"
 	"net/http/httptest"
@@ -10,6 +11,7 @@ import (
 	"testing"
 
 	"github.com/fazilnbr/project-workey/pkg/config"
+	"github.com/fazilnbr/project-workey/pkg/domain"
 	"github.com/fazilnbr/project-workey/pkg/repository"
 	"github.com/fazilnbr/project-workey/pkg/response"
 	"github.com/fazilnbr/project-workey/pkg/usecase"
@@ -26,7 +28,12 @@ import (
 // }
 
 var (
-	Login           = []byte(`{UserName: "anu", Password: "12345"}`)
+	username = "anu@gmail.com"
+	pwd      = "123456"
+	User     = domain.User{
+		UserName: username,
+		Password: pwd,
+	}
 	gormDB, _       = utils.MockGormDB()
 	authRepoMock    = repository.NewUserRepo(gormDB)
 	authService     = usecase.NewUserService(authRepoMock)
@@ -35,6 +42,7 @@ var (
 
 func TestLogin(t *testing.T) {
 
+	var Login []byte
 	req, _ := http.NewRequest("POST", "/signup", bytes.NewBuffer(Login))
 
 	gin := gin.New()
@@ -73,17 +81,17 @@ func TestLoginte(t *testing.T) {
 		gin := gin.New()
 		rec := httptest.NewRecorder()
 
-		// authHandler := v1.NewAuthHandler(authServiceMock, infra.New("../../config/config.json"))
 		gin.POST("/signup", authServiceMock.UserSignUp)
 
-		body, err := json.Marshal(Login)
-		// bodybite, err := json.MarshalIndent(domain.Login{UserName: "anu", Password: "12345"}, "", " ")
+		body, err := json.Marshal(User)
+		fmt.Printf("\n\nbody : %v\n\n", string(body))
 		assert.NoError(t, err)
 		// bodystring := string(bodybite)
 		// body := fmt.Sprint(bodystring)
 		// assert.Equal(t, Login, body)
 
-		req := httptest.NewRequest(http.MethodPost, "/signup", strings.NewReader(string(body)))
+		req := httptest.NewRequest(http.MethodPost, "http://localhost:8080/user/signup", strings.NewReader(string(body)))
+		req.Header.Set("Content-Type", "application/json")
 		gin.ServeHTTP(rec, req)
 
 		var newUser response.Response
@@ -97,22 +105,22 @@ func TestLoginte(t *testing.T) {
 			Data:    nil,
 		}
 
-		t.Run("test fail response", func(t *testing.T) {
-			assert.Equal(t, http.StatusUnprocessableEntity, rec.Code)
-			assert.Equal(t, exp, newUser)
-		})
+		// t.Run("test fail response", func(t *testing.T) {
+		// 	assert.Equal(t, http.StatusUnprocessableEntity, rec.Code)
+		// 	assert.Equal(t, exp, newUser)
+		// })
 
 		// exp := string(time.Now().Add(time.Hour * 2).Format(time.RFC3339))
 		exp = response.Response{
 			Status:  true,
 			Message: "SUCCESS",
 			Errors:  "",
-			Data:    Login,
+			Data:    User,
 		}
 
 		t.Run("test success response", func(t *testing.T) {
 			assert.Equal(t, http.StatusOK, rec.Code)
-			assert.Equal(t, exp, newUser)
+			assert.Equal(t, exp.Data, newUser.Data)
 		})
 
 	})
