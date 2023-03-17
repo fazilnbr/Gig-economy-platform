@@ -354,6 +354,7 @@ func (cr *AuthHandler) AdminLogin(c *gin.Context) {
 // @Failure 422 {object} response.Response{}
 // @Router /user/signup [post]
 func (cr *AuthHandler) UserSignUp(c *gin.Context) {
+	fmt.Printf("\n\nuser  :  \n\n")
 	var newUser domain.User
 
 	err := c.Bind(&newUser)
@@ -364,6 +365,7 @@ func (cr *AuthHandler) UserSignUp(c *gin.Context) {
 		utils.ResponseJSON(*c, response)
 		return
 	}
+	fmt.Printf("\n\nuser  :  %v\n\n", newUser)
 	err = cr.userUseCase.CreateUser(newUser)
 
 	if err != nil {
