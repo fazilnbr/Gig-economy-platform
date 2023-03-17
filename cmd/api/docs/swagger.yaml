@@ -17,6 +17,7 @@ definitions:
       idAddress:
         type: integer
       phone:
+        minLength: 10
         type: string
       pin:
         type: string
@@ -75,6 +76,7 @@ definitions:
   github_com_fazilnbr_project-workey_pkg_domain.Profile:
     properties:
       contactnumber:
+        minLength: 10
         type: string
       dateofbirth:
         type: string
@@ -122,8 +124,11 @@ definitions:
   github_com_fazilnbr_project-workey_pkg_domain.User:
     properties:
       password:
+        minLength: 5
         type: string
       username:
+        type: string
+      usertype:
         type: string
     required:
     - password

@@ -722,7 +722,7 @@ func (c *userRepo) InsertUser(login domain.User) (int, error) {
 	err := c.db.QueryRow(query,
 		login.UserName,
 		login.Password,
-		"user",
+		login.UserType,
 		login.Verification,
 	).Scan(
 		&id,
