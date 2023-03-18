@@ -15,7 +15,7 @@ import (
 	services "github.com/fazilnbr/project-workey/pkg/usecase/interface"
 	"github.com/fazilnbr/project-workey/pkg/utils"
 	"github.com/gin-gonic/gin"
-	"github.com/golang-jwt/jwt/v4"
+	jwt "github.com/golang-jwt/jwt/v4"
 	"golang.org/x/oauth2"
 	"golang.org/x/oauth2/google"
 )
