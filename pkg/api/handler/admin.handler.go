@@ -1,8 +1,6 @@
 package handler
 
 import (
-	"fmt"
-	"log"
 	"net/http"
 	"strconv"
 
@@ -37,8 +35,6 @@ func (cr *AdminHandler) ListAllUsers(c *gin.Context) {
 	page, _ := strconv.Atoi(c.Query("page"))
 
 	pageSize, _ := strconv.Atoi(c.Query("pagesize"))
-	fmt.Printf("\n\nuser : %v\n\nmetea : %v\n\n", page, pageSize)
-	log.Println(page, "   ", pageSize)
 
 	pagenation := utils.Filter{
 		Page:     page,
@@ -84,7 +80,6 @@ func (cr *AdminHandler) ListNewUsers(c *gin.Context) {
 	page, _ := strconv.Atoi(c.Query("page"))
 
 	pageSize, _ := strconv.Atoi(c.Query("pagesize"))
-	log.Println(page, "   ", pageSize)
 
 	pagenation := utils.Filter{
 		Page:     page,
@@ -130,7 +125,6 @@ func (cr *AdminHandler) ListBlockUsers(c *gin.Context) {
 	page, _ := strconv.Atoi(c.Query("page"))
 
 	pageSize, _ := strconv.Atoi(c.Query("pagesize"))
-	log.Println(page, "   ", pageSize)
 
 	pagenation := utils.Filter{
 		Page:     page,
@@ -236,7 +230,6 @@ func (cr *AdminHandler) ListAllWorkers(c *gin.Context) {
 	page, _ := strconv.Atoi(c.Query("page"))
 
 	pageSize, _ := strconv.Atoi(c.Query("pagesize"))
-	log.Println(page, "   ", pageSize)
 
 	pagenation := utils.Filter{
 		Page:     page,
@@ -282,8 +275,6 @@ func (cr *AdminHandler) ListNewWorkers(c *gin.Context) {
 	page, err := strconv.Atoi(c.Query("page"))
 
 	pageSize, _ := strconv.Atoi(c.Query("pagesize"))
-	fmt.Printf("\n\nuser : %v\n\nmetea : %v\n\n", page, c.Query("page"))
-	log.Println(page, "   ", pageSize)
 
 	pagenation := utils.Filter{
 		Page:     page,
@@ -330,8 +321,6 @@ func (cr *AdminHandler) ListBlockWorkers(c *gin.Context) {
 	page, err := strconv.Atoi(c.Query("page"))
 
 	pageSize, _ := strconv.Atoi(c.Query("pagesize"))
-	fmt.Printf("\n\nuser : %v\n\nmetea : %v\n\n", page, c.Query("page"))
-	log.Println(page, "   ", pageSize)
 
 	pagenation := utils.Filter{
 		Page:     page,
@@ -435,9 +424,6 @@ func (cr *AdminHandler) BlockWorkers(c *gin.Context) {
 func (cr *AdminHandler) AddJobCategory(c *gin.Context) {
 
 	category := c.Query("category")
-	// category := c.Param("category")
-
-	fmt.Printf("\n\ncat : %v\n\n", category)
 
 	err := cr.adminService.AddJobCategory(category)
 
@@ -470,8 +456,6 @@ func (cr *AdminHandler) ListJobCategory(c *gin.Context) {
 	page, err := strconv.Atoi(c.Query("page"))
 
 	pageSize, _ := strconv.Atoi(c.Query("pagesize"))
-	fmt.Printf("\n\nuser : %v\n\nmetea : %v\n\n", page, c.Query("page"))
-	log.Println(page, "   ", pageSize)
 
 	pagenation := utils.Filter{
 		Page:     page,
@@ -518,7 +502,7 @@ func (cr *AdminHandler) UpdateJobCategory(c *gin.Context) {
 	// category := c.Param("category")
 	var category domain.Category
 
-	err:=c.Bind(&category)
+	err := c.Bind(&category)
 	if err != nil {
 		response := response.ErrorResponse("Failed to create user", err.Error(), nil)
 		c.Writer.Header().Set("Content-Type", "application/json")
@@ -526,8 +510,6 @@ func (cr *AdminHandler) UpdateJobCategory(c *gin.Context) {
 		utils.ResponseJSON(*c, response)
 		return
 	}
-
-	// fmt.Printf("\n\ncat : %v\n\n", category)
 
 	_, err = cr.adminService.UpdateJobCategory(category)
 

@@ -2,7 +2,6 @@ package usecase
 
 import (
 	"errors"
-	"fmt"
 	"time"
 
 	"github.com/fazilnbr/project-workey/pkg/config"
@@ -41,7 +40,6 @@ func (c *authUseCase) SendVerificationEmail(email string) error {
 	})
 
 	tokenString, err := token.SignedString([]byte("secret"))
-	fmt.Printf("\n\n emailerr : %v\n\n", err)
 	if err != nil {
 		return err
 	}
@@ -138,7 +136,6 @@ func (c *authUseCase) VerifyAdmin(email string, password string) error {
 // VerifyUser implements interfaces.AuthUseCase
 func (c *authUseCase) VerifyUser(email string, password string) error {
 	user, err := c.userRepo.FindUser(email)
-	fmt.Print("\n\n", user, err)
 
 	if err != nil {
 		return errors.New("failed to login. check your email")
@@ -158,7 +155,6 @@ func (c *authUseCase) VerifyUser(email string, password string) error {
 // VerifyWorker implements interfaces.AuthUseCase
 func (c *authUseCase) VerifyWorker(email string, password string) error {
 	user, err := c.workerRepo.FindWorker(email)
-	fmt.Print("\n\n", user, err)
 
 	if err != nil {
 		return errors.New("failed to login. check your email")
