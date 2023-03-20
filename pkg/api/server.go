@@ -1,7 +1,6 @@
 package api
 
 import (
-	"fmt"
 	"log"
 
 	"github.com/fazilnbr/project-workey/pkg/api/handler"
@@ -155,7 +154,6 @@ func NewServerHTTP(authHandler handler.AuthHandler, adminHandler handler.AdminHa
 }
 
 func (sh *ServerHTTP) Start() {
-	fmt.Print("\n\nddddddddd\n\n")
 	err := sh.engine.Run(":8080")
 	if err != nil {
 		log.Fatalln(err)

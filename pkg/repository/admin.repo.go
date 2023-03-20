@@ -2,8 +2,6 @@ package repository
 
 import (
 	"database/sql"
-	"fmt"
-	"log"
 
 	"github.com/fazilnbr/project-workey/pkg/domain"
 	interfaces "github.com/fazilnbr/project-workey/pkg/repository/interface"
@@ -17,7 +15,6 @@ type adminRepo struct {
 // UpdateJobCategory implements interfaces.AdminRepository
 func (c *adminRepo) UpdateJobCategory(category domain.Category) (int, error) {
 	var Id int
-	fmt.Printf("\n\ncate : %v\n\n", category)
 	query := ` UPDATE categories
 	SET category = $1
 	WHERE id_category = $2
@@ -74,8 +71,6 @@ func (c *adminRepo) ListJobCategory(pagenation utils.Filter) ([]domain.Category,
 	if err := rows.Err(); err != nil {
 		return categories, utils.ComputeMetaData(totalRecords, pagenation.Page, pagenation.PageSize), err
 	}
-	log.Println(categories)
-	log.Println(utils.ComputeMetaData(totalRecords, pagenation.Page, pagenation.PageSize))
 	return categories, utils.ComputeMetaData(totalRecords, pagenation.Page, pagenation.PageSize), nil
 
 }
@@ -83,7 +78,6 @@ func (c *adminRepo) ListJobCategory(pagenation utils.Filter) ([]domain.Category,
 // AddJobCategory implements interfaces.AdminRepository
 func (c *adminRepo) AddJobCategory(category string) error {
 	var id int
-	fmt.Printf("\n\n\ninsert : %v\n\n\n", category)
 
 	query := `INSERT INTO categories (category) VALUES ($1) RETURNING id_category;`
 
@@ -169,8 +163,6 @@ func (c *adminRepo) ListBlockedWorkers(pagenation utils.Filter) ([]domain.UserRe
 	if err := rows.Err(); err != nil {
 		return workers, utils.ComputeMetaData(totalRecords, pagenation.Page, pagenation.PageSize), err
 	}
-	log.Println(workers)
-	log.Println(utils.ComputeMetaData(totalRecords, pagenation.Page, pagenation.PageSize))
 	return workers, utils.ComputeMetaData(totalRecords, pagenation.Page, pagenation.PageSize), nil
 }
 
@@ -217,8 +209,6 @@ func (c *adminRepo) ListNewWorkers(pagenation utils.Filter) ([]domain.UserRespon
 	if err := rows.Err(); err != nil {
 		return workers, utils.ComputeMetaData(totalRecords, pagenation.Page, pagenation.PageSize), err
 	}
-	log.Println(workers)
-	log.Println(utils.ComputeMetaData(totalRecords, pagenation.Page, pagenation.PageSize))
 	return workers, utils.ComputeMetaData(totalRecords, pagenation.Page, pagenation.PageSize), nil
 }
 
@@ -265,8 +255,6 @@ func (c *adminRepo) ListWorkers(pagenation utils.Filter) ([]domain.UserResponse,
 	if err := rows.Err(); err != nil {
 		return workers, utils.ComputeMetaData(totalRecords, pagenation.Page, pagenation.PageSize), err
 	}
-	log.Println(workers)
-	log.Println(utils.ComputeMetaData(totalRecords, pagenation.Page, pagenation.PageSize))
 	return workers, utils.ComputeMetaData(totalRecords, pagenation.Page, pagenation.PageSize), nil
 
 }
@@ -359,8 +347,6 @@ func (c *adminRepo) ListBlockedUsers(pagenation utils.Filter) ([]domain.UserResp
 	if err := rows.Err(); err != nil {
 		return users, utils.ComputeMetaData(totalRecords, pagenation.Page, pagenation.PageSize), err
 	}
-	log.Println(users)
-	log.Println(utils.ComputeMetaData(totalRecords, pagenation.Page, pagenation.PageSize))
 	return users, utils.ComputeMetaData(totalRecords, pagenation.Page, pagenation.PageSize), nil
 }
 
@@ -408,8 +394,6 @@ func (c *adminRepo) ListNewUsers(pagenation utils.Filter) ([]domain.UserResponse
 	if err := rows.Err(); err != nil {
 		return users, utils.ComputeMetaData(totalRecords, pagenation.Page, pagenation.PageSize), err
 	}
-	log.Println(users)
-	log.Println(utils.ComputeMetaData(totalRecords, pagenation.Page, pagenation.PageSize))
 	return users, utils.ComputeMetaData(totalRecords, pagenation.Page, pagenation.PageSize), nil
 }
 
@@ -453,13 +437,10 @@ func (c *adminRepo) ListUsers(pagenation utils.Filter) ([]domain.UserResponse, u
 
 		users = append(users, user)
 	}
-	fmt.Printf("\n\nusers : %v\n\n", users)
 
 	if err := rows.Err(); err != nil {
 		return users, utils.ComputeMetaData(totalRecords, pagenation.Page, pagenation.PageSize), err
 	}
-	log.Println(users)
-	log.Println(utils.ComputeMetaData(totalRecords, pagenation.Page, pagenation.PageSize))
 	return users, utils.ComputeMetaData(totalRecords, pagenation.Page, pagenation.PageSize), nil
 }
 

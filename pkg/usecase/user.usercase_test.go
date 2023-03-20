@@ -30,7 +30,6 @@ func TestCreateUser(t *testing.T) {
 	t.Run("Test exist user case service login", func(t *testing.T) {
 		Login.UserName = "sethu"
 		err := authService.CreateUser(Login)
-		fmt.Println(err)
 		if assert.Error(t, err) {
 			assert.Equal(t, "Username already exists", err.Error())
 		}

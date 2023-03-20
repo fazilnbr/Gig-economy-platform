@@ -4,7 +4,6 @@ import (
 	"database/sql"
 	"errors"
 	"fmt"
-	"log"
 	"strings"
 	"time"
 
@@ -50,7 +49,6 @@ func (c *userRepo) FindUserWithId(id int) (domain.UserResponse, error) {
 		&user.Password,
 		&user.Verification,
 	)
-	fmt.Printf("\n\n\nuser : %v\n\n\n", user)
 	if err != nil && err != sql.ErrNoRows {
 		return user, err
 	}
@@ -81,7 +79,6 @@ func (c *userRepo) CheckOrderId(userId int, orderId string) (int, error) {
 	err := c.db.QueryRow(query, strings.Join(strings.Fields(orderId), ""), userId).Scan(
 		&id,
 	)
-	fmt.Printf("\n\n\nuser : %v\n\nuserid : %v\n\norderid :%v\n\n", id, userId, orderId)
 	if err == sql.ErrNoRows {
 		return id, errors.New("Fake payment order id ")
 	}
@@ -134,7 +131,6 @@ func (c *userRepo) FetchRazorPayDetials(userId int, requestId int) (domain.Razor
 		&razordata.Contact,
 		&razordata.Amount,
 	)
-	fmt.Printf("\n\n\nuser : %v\n\n\n", razordata)
 	if err == sql.ErrNoRows {
 		return razordata, errors.New("There is no job completed to done payment")
 	}
@@ -184,7 +180,6 @@ func (c *userRepo) ViewSendOneRequest(userId int, requestId int) (domain.Request
 		&request.Address.Pin,
 		&request.Address.Phone,
 	)
-	fmt.Printf("\n\n\nuser : %v\n\n\n", request)
 	if err != nil && err != sql.ErrNoRows {
 		return request, err
 	}
@@ -263,7 +258,6 @@ func (c *userRepo) CheckInRequest(request domain.Request) (int, error) {
 		request.JobId,
 		request.AddressId,
 	)
-	fmt.Println("rows : ", rows)
 	if err != nil {
 		return 0, err
 	}
@@ -281,8 +275,6 @@ func (c *userRepo) CheckInRequest(request domain.Request) (int, error) {
 			return 0, err
 		}
 	}
-
-	fmt.Println("id : ", id)
 
 	return id, err
 }
@@ -391,7 +383,6 @@ func (c *userRepo) CheckInFevorite(favorite domain.Favorite) (int, error) {
 		favorite.UserId,
 		favorite.JobId,
 	)
-	fmt.Println("rows : ", rows)
 	if err != nil {
 		return 0, err
 	}
@@ -409,8 +400,6 @@ func (c *userRepo) CheckInFevorite(favorite domain.Favorite) (int, error) {
 			return 0, err
 		}
 	}
-
-	fmt.Println("id : ", id)
 
 	return id, err
 }
@@ -448,13 +437,10 @@ func (c *userRepo) ListFevorite(pagenation utils.Filter, id int) ([]domain.ListF
 
 		favorites = append(favorites, favorite)
 	}
-	fmt.Printf("\n\nusers : %v\n\n", favorites)
 
 	if err := rows.Err(); err != nil {
 		return favorites, utils.ComputeMetaData(totalRecords, pagenation.Page, pagenation.PageSize), err
 	}
-	log.Println(favorites)
-	log.Println(utils.ComputeMetaData(totalRecords, pagenation.Page, pagenation.PageSize))
 	return favorites, utils.ComputeMetaData(totalRecords, pagenation.Page, pagenation.PageSize), nil
 }
 
@@ -503,13 +489,10 @@ func (c *userRepo) SearchWorkersWithJob(pagenation utils.Filter, key string) ([]
 
 		jobs = append(jobs, job)
 	}
-	fmt.Printf("\n\nusers : %v\n\n", jobs)
 
 	if err := rows.Err(); err != nil {
 		return jobs, utils.ComputeMetaData(totalRecords, pagenation.Page, pagenation.PageSize), err
 	}
-	log.Println(jobs)
-	log.Println(utils.ComputeMetaData(totalRecords, pagenation.Page, pagenation.PageSize))
 	return jobs, utils.ComputeMetaData(totalRecords, pagenation.Page, pagenation.PageSize), nil
 }
 
@@ -543,25 +526,16 @@ func (c *userRepo) ListWorkersWithJob(pagenation utils.Filter) ([]domain.ListJob
 
 		jobs = append(jobs, job)
 	}
-	fmt.Printf("\n\nusers : %v\n\n", jobs)
 
 	if err := rows.Err(); err != nil {
 		return jobs, utils.ComputeMetaData(totalRecords, pagenation.Page, pagenation.PageSize), err
 	}
-	log.Println(jobs)
-	log.Println(utils.ComputeMetaData(totalRecords, pagenation.Page, pagenation.PageSize))
 	return jobs, utils.ComputeMetaData(totalRecords, pagenation.Page, pagenation.PageSize), nil
 }
-
-// // verifyPassword implements interfaces.UserRepository
-// func (*userRepo) verifyPassword(changepassword string, id int) (int, error) {
-// 	panic("unimplemented")
-// }
 
 // ChangePassword implements interfaces.UserRepository
 func (c *userRepo) UserChangePassword(changepassword string, id int) (int, error) {
 	var Id int
-	fmt.Println("id", id)
 	query := ` UPDATE users
 	SET password = $1
 	WHERE id_login = $2
@@ -656,7 +630,6 @@ func (c *userRepo) StoreVerificationDetails(email string, code string) error {
 // VerifyAccount implements interfaces.UserRepository
 func (c *userRepo) VerifyAccount(email string, code string) error {
 	var id int
-	fmt.Printf("\n\n%v\n%v\n\n", email, code)
 
 	query := `SELECT id FROM 
 	verifications WHERE 
@@ -677,7 +650,6 @@ func (c *userRepo) VerifyAccount(email string, code string) error {
 				WHERE
 				user_name = $2 ;`
 	err = c.db.QueryRow(query, true, email).Err()
-	log.Println("Updating User verification: ", err)
 	if err != nil {
 		return err
 	}
@@ -695,7 +667,7 @@ func (c *userRepo) FindUser(email string) (domain.UserResponse, error) {
 	var user domain.UserResponse
 
 	// query := `SELECT id_login,user_name,password,verification  FROM users WHERE user_name=$1 AND user_type='user' ;`
-	query:= `SELECT id_login,user_name,password,verification,user_type  FROM users WHERE user_name=$1;`
+	query := `SELECT id_login,user_name,password,verification,user_type  FROM users WHERE user_name=$1;`
 
 	err := c.db.QueryRow(query,
 		email).Scan(
@@ -705,7 +677,6 @@ func (c *userRepo) FindUser(email string) (domain.UserResponse, error) {
 		&user.Verification,
 		&user.UserType,
 	)
-	fmt.Printf("\n\n\nuser : %v\n\n\n", user)
 	if err != nil && err != sql.ErrNoRows {
 		return user, err
 	}

@@ -2,7 +2,6 @@ package handler
 
 import (
 	"encoding/json"
-	"fmt"
 	"io/ioutil"
 	"net/http"
 	"net/url"
@@ -63,7 +62,6 @@ func (cr *AuthHandler) InitializeOAuthGoogle() {
 	oauthConfGl.ClientID = cr.cfg.ClientID
 	oauthConfGl.ClientSecret = cr.cfg.ClientSecret
 	oauthStateStringGl = cr.cfg.OauthStateString
-	fmt.Printf("\n\n%v\n\n", oauthConfGl)
 }
 
 // @title Go + Gin Workey API
@@ -99,7 +97,6 @@ func (cr *AuthHandler) GoogleAuth(c *gin.Context) {
 func HandileLogin(c *gin.Context, oauthConf *oauth2.Config, oauthStateString string) error {
 	URL, err := url.Parse(oauthConf.Endpoint.AuthURL)
 	if err != nil {
-		fmt.Printf("\n\n\nerror in handile login :%v\n\n", err)
 		return err
 	}
 	parameters := url.Values{}
@@ -110,15 +107,12 @@ func HandileLogin(c *gin.Context, oauthConf *oauth2.Config, oauthStateString str
 	parameters.Add("state", oauthStateString)
 	URL.RawQuery = parameters.Encode()
 	url := URL.String()
-	fmt.Printf("\n\nurl : %v\n\n", oauthConf.RedirectURL)
-	// log.Fatal("referesh token not valid")
 	c.Redirect(http.StatusTemporaryRedirect, url)
 	return nil
 
 }
 
 func (cr *AuthHandler) CallBackFromGoogle(c *gin.Context) {
-	fmt.Print("\n\nfuck\n\n")
 	c.Request.ParseForm()
 	state := c.Request.FormValue("state")
 
@@ -162,8 +156,6 @@ func (cr *AuthHandler) CallBackFromGoogle(c *gin.Context) {
 		}
 		var gdata data
 		json.Unmarshal(respons, &gdata)
-		fmt.Printf("\n\ndata :%v\n\n", string(respons))
-		fmt.Printf("\n\ndata :%v\n\n", gdata)
 
 		if !gdata.Verified_email {
 			response := response.ErrorResponse("Failed to Login ", "Your email is not varified by google ", nil)
@@ -177,11 +169,9 @@ func (cr *AuthHandler) CallBackFromGoogle(c *gin.Context) {
 		newUser.UserName, newUser.Verification = gdata.Email, gdata.Verified_email
 
 		err = cr.userUseCase.CreateUser(newUser)
-		fmt.Printf("\n\nerrrrorr  :  %v\n\n", err)
 
 		if err == nil || err.Error() == "Username already exists" {
 			user, err := cr.userUseCase.FindUser(newUser.UserName)
-			fmt.Printf("\n\n\n%v\n%v\n\n", user.ID, err)
 
 			token, err := cr.jwtUseCase.GenerateAccessToken(user.ID, user.UserName, "admin")
 			if err != nil {
@@ -218,8 +208,6 @@ func (cr *AuthHandler) CallBackFromGoogle(c *gin.Context) {
 			return
 		}
 
-		// c.JSON(http.StatusOK, "Hello, I'm protected\n")
-		// c.JSON(http.StatusOK, string(respons))
 		return
 	}
 }
@@ -244,7 +232,6 @@ func (cr *AuthHandler) RefreshToken(c *gin.Context) {
 		utils.ResponseJSON(*c, response)
 		return
 	}
-	fmt.Printf("\n\ntocen : %v\n\n", autheader)
 	token := bearerToken[1]
 	ok, claims := cr.jwtUseCase.VerifyToken(token)
 	if !ok {
@@ -255,7 +242,6 @@ func (cr *AuthHandler) RefreshToken(c *gin.Context) {
 		return
 	}
 
-	fmt.Println("//////////////////////////////////", claims.UserName)
 	accesstoken, err := cr.jwtUseCase.GenerateAccessToken(claims.UserId, claims.UserName, claims.Role)
 
 	if err != nil {
@@ -286,7 +272,6 @@ func (cr *AuthHandler) RefreshToken(c *gin.Context) {
 func (cr *AuthHandler) AdminLogin(c *gin.Context) {
 	var loginAdmin domain.User
 
-	fmt.Print("\n\nhi\n\n")
 	err := c.Bind(&loginAdmin)
 
 	if err != nil {
@@ -310,7 +295,6 @@ func (cr *AuthHandler) AdminLogin(c *gin.Context) {
 	}
 
 	user, err := cr.adminUseCase.FindAdmin(loginAdmin.UserName)
-	// fmt.Printf("\n\n\n%v\n%v\n\n", user, err)
 
 	token, err := cr.jwtUseCase.GenerateAccessToken(user.ID, user.Username, "admin")
 	if err != nil {
@@ -354,7 +338,6 @@ func (cr *AuthHandler) AdminLogin(c *gin.Context) {
 // @Failure 422 {object} response.Response{}
 // @Router /user/signup [post]
 func (cr *AuthHandler) UserSignUp(c *gin.Context) {
-	fmt.Printf("\n\nuser  :  \n\n")
 	var newUser domain.User
 
 	err := c.Bind(&newUser)
@@ -366,7 +349,6 @@ func (cr *AuthHandler) UserSignUp(c *gin.Context) {
 		return
 	}
 	err = cr.userUseCase.CreateUser(newUser)
-	fmt.Printf("\n\nuser  :  %v\nerror : %v\n", newUser, err)
 
 	if err != nil {
 		response := response.ErrorResponse("Failed to create user", err.Error(), nil)
@@ -419,7 +401,6 @@ func (cr *AuthHandler) UserLogin(c *gin.Context) {
 	}
 
 	user, err := cr.userUseCase.FindUser(loginUser.UserName)
-	fmt.Printf("\n\n\n%v\n%v\n\n", user.ID, err)
 
 	token, err := cr.jwtUseCase.GenerateAccessToken(user.ID, user.UserName, "admin")
 	if err != nil {
@@ -485,8 +466,6 @@ func (cr *AuthHandler) WorkerSignUp(c *gin.Context) {
 	}
 
 	user, err := cr.workerUseCase.FindWorker(newUser.UserName)
-	fmt.Printf("\n\n\n%v\n%v\n\n", user, err)
-	fmt.Printf("\n\n user : %v\n\n", user)
 
 	user.Password = ""
 	response := response.SuccessResponse(true, "SUCCESS", user)
@@ -573,7 +552,6 @@ func (cr *AuthHandler) SendVerificationMailUser(c *gin.Context) {
 	email := c.Query("email")
 
 	user, err := cr.userUseCase.FindUser(email)
-	fmt.Printf("\n\n emailvar : %v\n%v\n", email, err)
 
 	if err == nil {
 		err = cr.authUseCase.SendVerificationEmail(email)
@@ -629,12 +607,7 @@ func (cr *AuthHandler) SendVerificationMailUser(c *gin.Context) {
 // @Failure 422 {object} response.Response{}
 // @Router /user/verify/account [post]
 func (cr *AuthHandler) UserVerifyAccount(c *gin.Context) {
-
-	fmt.Println("ggggggghggggggggggggggggggggggggggg")
-	// email := c.Query("email")
 	tokenString := c.Query("token")
-	fmt.Printf("\n\ntoken   :   %v\n\n", tokenString)
-	fmt.Println("varify account from authhandler called , ", tokenString)
 	var email string
 	token, err := jwt.Parse(tokenString, func(token *jwt.Token) (interface{}, error) {
 		return []byte("secret"), nil
@@ -681,7 +654,6 @@ func (cr *AuthHandler) SendVerificationMailWorker(c *gin.Context) {
 	email := c.Query("email")
 
 	user, err := cr.workerUseCase.FindWorker(email)
-	fmt.Printf("\n\n emailvar : %v\n\n", email)
 
 	if err == nil {
 		err = cr.authUseCase.SendVerificationEmail(email)
@@ -697,29 +669,6 @@ func (cr *AuthHandler) SendVerificationMailWorker(c *gin.Context) {
 	}
 
 	user, err = cr.workerUseCase.FindWorker(user.UserName)
-	// fmt.Printf("\n\n\n%v\n%v\n\n", user, err)
-
-	// token, err := cr.jwtUseCase.GenerateAccessToken(user.ID, user.UserName, "admin")
-	// if err != nil {
-	// 	response := response.ErrorResponse("Failed to generate access token", err.Error(), nil)
-	// 	c.Writer.Header().Add("Content-Type", "application/json")
-	// 	c.Writer.WriteHeader(http.StatusUnauthorized)
-	// 	utils.ResponseJSON(*c, response)
-	// 	return
-	// }
-	// user.AccessToken = token
-
-	// token, err = cr.jwtUseCase.GenerateRefreshToken(user.ID, user.UserName, "admin")
-
-	// if err != nil {
-	// 	response := response.ErrorResponse("Failed to generate refresh token", err.Error(), nil)
-	// 	c.Writer.Header().Add("Content-Type", "application/json")
-	// 	c.Writer.WriteHeader(http.StatusUnauthorized)
-	// 	utils.ResponseJSON(*c, response)
-	// 	return
-	// }
-	// user.RefreshToken = token
-
 	user.Password = ""
 	response := response.SuccessResponse(true, "SUCCESS", user)
 	c.Writer.Header().Set("Content-Type", "application/json")

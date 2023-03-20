@@ -1,7 +1,6 @@
 package config
 
 import (
-	"fmt"
 
 	validator "github.com/go-playground/validator/v10"
 	"github.com/spf13/viper"
@@ -29,7 +28,6 @@ var envs = []string{
 
 func LoadConfig() (Config, error) {
 	var config Config
-	fmt.Printf("\n\n\ncfg : %v\n\n\n", config)
 
 	viper.AddConfigPath("./")
 	viper.SetConfigFile(".env")
@@ -48,6 +46,5 @@ func LoadConfig() (Config, error) {
 	if err := validator.New().Struct(&config); err != nil {
 		return config, err
 	}
-	fmt.Printf("\n\nconfig : %v\n\n", config)
 	return config, nil
 }
