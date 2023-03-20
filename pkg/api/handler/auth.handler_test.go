@@ -20,11 +20,6 @@ import (
 	_ "github.com/lib/pq"
 )
 
-// var Login = domain.Login{
-// 	UserName: utils.RandomString(6),
-// 	Password: fmt.Sprint(utils.RandomInt(10000, 99999)),
-// }
-
 var (
 	username = "anu@gmail.com"
 	pwd      = "123456"
