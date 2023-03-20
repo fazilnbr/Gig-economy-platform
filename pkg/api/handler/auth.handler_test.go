@@ -20,7 +20,7 @@ import (
 )
 
 var (
-	gormDB, _       = utils.MockGormDB()
+	gormDB,mock, mockDB  = utils.MockGormDB()
 	authRepoMock    = repository.NewUserRepo(gormDB)
 	authService     = usecase.NewUserService(authRepoMock)
 	authServiceMock = NewAuthHandler(nil, nil, authService, nil, nil, config.Config{})
@@ -59,16 +59,11 @@ func TestLogin(t *testing.T) {
 
 		assert.Equal(t, http.StatusOK, rec.Code)
 		assert.Equal(t, exp.Status, actual.Status)
-		// assert.Equal(t, exp.Data, newUser.Data)
+		assert.Equal(t, exp.Message, actual.Message)
+		// assert.Equal(t, exp.Data, actual.Data)
 	})
 
 	t.Run("test exist email login 2", func(t *testing.T) {
-
-		User := domain.User{
-			UserName: utils.RandomMail(3),
-			Password: utils.RandomString(4),
-		}
-
 		gin := gin.New()
 		rec := httptest.NewRecorder()
 
@@ -87,12 +82,14 @@ func TestLogin(t *testing.T) {
 		exp := response.Response{
 			Status:  false,
 			Message: "Failed to create user",
-			Errors:  []interface{}{"Username already exists"},
-			Data:    nil,
+			// Errors:  []interface{}{"Username already exists"},
+			Errors: "Username already exists",
+			Data:   nil,
 		}
 
 		assert.Equal(t, http.StatusUnprocessableEntity, rec.Code)
 		assert.Equal(t, exp.Status, actual.Status)
+		assert.Equal(t, exp.Message, actual.Message)
 
 	})
 

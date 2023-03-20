@@ -48,8 +48,8 @@ func RandomMail(num int) string {
 	return "Test_" + sb.String() + "@gmail.com"
 }
 
-func MockGormDB() (*sql.DB, sqlmock.Sqlmock) {
-	_, mock, err := sqlmock.New(sqlmock.QueryMatcherOption(sqlmock.QueryMatcherEqual))
+func MockGormDB() (*sql.DB, sqlmock.Sqlmock,*sql.DB) {
+	mockDB, mock, err := sqlmock.New(sqlmock.QueryMatcherOption(sqlmock.QueryMatcherEqual))
 	if err != nil {
 		logrus.Fatal(err)
 	}
@@ -59,5 +59,5 @@ func MockGormDB() (*sql.DB, sqlmock.Sqlmock) {
 		logrus.Fatal(err)
 	}
 
-	return gormDB, mock
+	return gormDB,mock ,mockDB
 }
