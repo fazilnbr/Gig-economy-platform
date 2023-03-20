@@ -35,7 +35,17 @@ func RandomString(num int) string {
 		c := alpabet[rand.Intn(k)]
 		sb.WriteByte(c)
 	}
-	return sb.String()
+	return "Test_" + sb.String()
+}
+
+func RandomMail(num int) string {
+	var sb strings.Builder
+	k := len(alpabet)
+	for i := 0; i < num; i++ {
+		c := alpabet[rand.Intn(k)]
+		sb.WriteByte(c)
+	}
+	return "Test_" + sb.String() + "@gmail.com"
 }
 
 func MockGormDB() (*sql.DB, sqlmock.Sqlmock) {

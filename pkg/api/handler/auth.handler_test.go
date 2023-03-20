@@ -3,7 +3,6 @@ package handler
 import (
 	"bytes"
 	"encoding/json"
-	"fmt"
 	"net/http"
 	"net/http/httptest"
 	"testing"
@@ -21,12 +20,6 @@ import (
 )
 
 var (
-	username = "anu@gmail.com"
-	pwd      = "123456"
-	User     = domain.User{
-		UserName: username,
-		Password: pwd,
-	}
 	gormDB, _       = utils.MockGormDB()
 	authRepoMock    = repository.NewUserRepo(gormDB)
 	authService     = usecase.NewUserService(authRepoMock)
@@ -35,10 +28,10 @@ var (
 
 func TestLogin(t *testing.T) {
 
-	gormDB, _ := utils.MockGormDB()
-	authRepoMock := repository.NewUserRepo(gormDB)
-	authService := usecase.NewUserService(authRepoMock)
-	authServiceMock := NewAuthHandler(nil, nil, authService, nil, nil, config.Config{})
+	User := domain.User{
+		UserName: utils.RandomMail(3),
+		Password: utils.RandomString(4),
+	}
 
 	t.Run("test normal case login 1", func(t *testing.T) {
 
@@ -48,14 +41,47 @@ func TestLogin(t *testing.T) {
 		gin.POST("user/signup", authServiceMock.UserSignUp)
 
 		body, err := json.Marshal(User)
-		fmt.Printf("\n\nbody : %v\n\n", string(body))
 		assert.NoError(t, err)
 		req := httptest.NewRequest("POST", "/user/signup", bytes.NewBuffer(body))
 		req.Header.Set("Content-Type", "application/json")
 		gin.ServeHTTP(rec, req)
 
-		var newUser response.Response
-		err = json.Unmarshal(rec.Body.Bytes(), &newUser)
+		var actual response.Response
+		err = json.Unmarshal(rec.Body.Bytes(), &actual)
+		assert.NoError(t, err)
+
+		exp := response.Response{
+			Status:  true,
+			Message: "SUCCESS",
+			Errors:  "",
+			Data:    User,
+		}
+
+		assert.Equal(t, http.StatusOK, rec.Code)
+		assert.Equal(t, exp.Status, actual.Status)
+		// assert.Equal(t, exp.Data, newUser.Data)
+	})
+
+	t.Run("test exist email login 2", func(t *testing.T) {
+
+		User := domain.User{
+			UserName: utils.RandomMail(3),
+			Password: utils.RandomString(4),
+		}
+
+		gin := gin.New()
+		rec := httptest.NewRecorder()
+
+		gin.POST("user/signup", authServiceMock.UserSignUp)
+
+		body, err := json.Marshal(User)
+		assert.NoError(t, err)
+		req := httptest.NewRequest("POST", "/user/signup", bytes.NewBuffer(body))
+		req.Header.Set("Content-Type", "application/json")
+		gin.ServeHTTP(rec, req)
+
+		var actual response.Response
+		err = json.Unmarshal(rec.Body.Bytes(), &actual)
 		assert.NoError(t, err)
 
 		exp := response.Response{
@@ -65,21 +91,11 @@ func TestLogin(t *testing.T) {
 			Data:    nil,
 		}
 
-		exp = response.Response{
-			Status:  true,
-			Message: "SUCCESS",
-			Errors:  "",
-			Data:    User,
-		}
-
-		t.Run("test success response", func(t *testing.T) {
-			assert.Equal(t, http.StatusOK, rec.Code)
-			assert.Equal(t, exp.Status, newUser.Status)
-			// assert.Equal(t, exp.Data, newUser.Data)
-		})
-
-		_, err = gormDB.Exec("DELETE FROM users WHERE user_name=$1", username)
-		assert.NoError(t, err)
+		assert.Equal(t, http.StatusUnprocessableEntity, rec.Code)
+		assert.Equal(t, exp.Status, actual.Status)
 
 	})
+
+	_, err := gormDB.Exec("DELETE FROM users WHERE user_name=$1", User.UserName)
+	assert.NoError(t, err)
 }
