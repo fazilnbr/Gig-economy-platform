@@ -18,7 +18,7 @@ var Login = domain.User{
 
 func TestCreateUser(t *testing.T) {
 
-	gormDB, _ := utils.MockGormDB()
+	gormDB, _,_ := utils.MockGormDB()
 	authRepoMock := repository.NewUserRepo(gormDB)
 	authService := NewUserService(authRepoMock)
 
