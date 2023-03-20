@@ -12,7 +12,7 @@ import (
 
 const (
 	alpabet = "abcdefghijklmnopqrstuvwxyz"
-	dbURI   = "postgresql://developer:dev123@localhost:5432/workey?sslmode=disable"
+	dbURI   = "postgresql://developer:dev123@localhost:5432/jobportal?sslmode=disable"
 )
 
 func init() {

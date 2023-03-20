@@ -365,8 +365,8 @@ func (cr *AuthHandler) UserSignUp(c *gin.Context) {
 		utils.ResponseJSON(*c, response)
 		return
 	}
-	fmt.Printf("\n\nuser  :  %v\n\n", newUser)
 	err = cr.userUseCase.CreateUser(newUser)
+	fmt.Printf("\n\nuser  :  %v\nerror : %v\n", newUser, err)
 
 	if err != nil {
 		response := response.ErrorResponse("Failed to create user", err.Error(), nil)

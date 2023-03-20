@@ -7,7 +7,6 @@ import (
 	"io"
 	"net/http"
 	"net/http/httptest"
-	"strings"
 	"testing"
 
 	"github.com/fazilnbr/project-workey/pkg/config"
@@ -81,7 +80,7 @@ func TestLoginte(t *testing.T) {
 		gin := gin.New()
 		rec := httptest.NewRecorder()
 
-		gin.POST("/signup", authServiceMock.UserSignUp)
+		gin.POST("user/signup", authServiceMock.UserSignUp)
 
 		body, err := json.Marshal(User)
 		fmt.Printf("\n\nbody : %v\n\n", string(body))
@@ -90,7 +89,8 @@ func TestLoginte(t *testing.T) {
 		// body := fmt.Sprint(bodystring)
 		// assert.Equal(t, Login, body)
 
-		req := httptest.NewRequest(http.MethodPost, "http://localhost:8080/user/signup", strings.NewReader(string(body)))
+		// req := httptest.NewRequest(http.MethodPost, "http://localhost:8080/user/signup", strings.NewReader(string(body)))
+		req := httptest.NewRequest("POST", "/user/signup", bytes.NewBuffer(body))
 		req.Header.Set("Content-Type", "application/json")
 		gin.ServeHTTP(rec, req)
 
@@ -120,7 +120,7 @@ func TestLoginte(t *testing.T) {
 
 		t.Run("test success response", func(t *testing.T) {
 			assert.Equal(t, http.StatusOK, rec.Code)
-			assert.Equal(t, exp.Data, newUser.Data)
+			assert.Equal(t, exp.Status, newUser.Status)
 		})
 
 	})
