@@ -17,15 +17,15 @@ var Login = domain.User{
 
 func TestInsertUser(t *testing.T) {
 
+	_, mock, mockDB := utils.MockGormDB()
 	t.Run("test normal case repo register", func(t *testing.T) {
-		gormDB, mock,_ := utils.MockGormDB()
 
 		query := "INSERT INTO users (user_name,password,user_type) VALUES (?,?,?) RETURNING id_login;"
 		mock.ExpectExec(query).
 			WithArgs(sqlmock.AnyArg(), sqlmock.AnyArg(), Login.UserName, Login.Password, "user").
 			WillReturnResult(sqlmock.NewResult(1, 1))
 
-		authRepo := NewUserRepo(gormDB)
+		authRepo := NewUserRepo(mockDB)
 		id, err := authRepo.InsertUser(Login)
 
 		t.Run("test store data with no error", func(t *testing.T) {
@@ -34,14 +34,13 @@ func TestInsertUser(t *testing.T) {
 
 		})
 	})
-
 }
 
 func TestFindUser(t *testing.T) {
 	hashedPassword := "12345"
 
 	t.Run("test normal case repo login", func(t *testing.T) {
-		gormDB, mock,_ := utils.MockGormDB()
+		gormDB, mock, _ := utils.MockGormDB()
 
 		rows := sqlmock.NewRows([]string{"password"}).AddRow(hashedPassword)
 		mock.ExpectQuery("SELECT * FROM `users` WHERE username = ? ORDER BY `users`.`id` LIMIT 1").
