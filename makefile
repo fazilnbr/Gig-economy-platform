@@ -53,4 +53,4 @@ spath:
 	cd cmd/api && PATH="$GOPATH/bin:$PATH" && export GOPATH="$HOME/go" && PATH="$GOPATH/bin:$PATH"
 
 mockgen:
-	mockgen -source=pkg/repository/interface/user.interface.go -destination=pkg/mock/user.repo-mock.go -package=repository
+	mockgen -source=pkg/repository/interface/user.interface.go -destination=pkg/mock/user.repo-mock.go -package=mock

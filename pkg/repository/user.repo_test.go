@@ -6,13 +6,32 @@ import (
 
 	"github.com/DATA-DOG/go-sqlmock"
 	"github.com/fazilnbr/project-workey/pkg/domain"
+	"github.com/fazilnbr/project-workey/pkg/mock"
 	"github.com/fazilnbr/project-workey/pkg/utils"
+	gomock "github.com/golang/mock/gomock"
 	"github.com/stretchr/testify/assert"
 )
 
-var Login = domain.User{
+var User = domain.User{
+	IdLogin:  1,
 	UserName: utils.RandomString(6),
 	Password: fmt.Sprint(utils.RandomInt(10000, 99999)),
+}
+
+func TestInsertUser0(t *testing.T) {
+
+	ctrl := gomock.NewController(t)
+	mockRep := mock.NewMockUserRepository(ctrl)
+
+	mockRep.EXPECT().InsertUser(User).Times(1).Return(User.IdLogin, nil)
+
+	id, err := mockRep.InsertUser(User)
+
+	t.Run("normal test case", func(t *testing.T) {
+		assert.NoError(t, err, "error found in insert user")
+		assert.Equal(t, User.IdLogin, id, "miss match user id")
+	})
+
 }
 
 func TestInsertUser(t *testing.T) {
@@ -22,11 +41,11 @@ func TestInsertUser(t *testing.T) {
 
 		query := "INSERT INTO users (user_name,password,user_type) VALUES (?,?,?) RETURNING id_login;"
 		mock.ExpectExec(query).
-			WithArgs(sqlmock.AnyArg(), sqlmock.AnyArg(), Login.UserName, Login.Password, "user").
+			WithArgs(sqlmock.AnyArg(), sqlmock.AnyArg(), User.UserName, User.Password, "user").
 			WillReturnResult(sqlmock.NewResult(1, 1))
 
 		authRepo := NewUserRepo(mockDB)
-		id, err := authRepo.InsertUser(Login)
+		id, err := authRepo.InsertUser(User)
 
 		t.Run("test store data with no error", func(t *testing.T) {
 			assert.Equal(t, nil, err)
@@ -47,8 +66,8 @@ func TestFindUser(t *testing.T) {
 			WillReturnRows(rows)
 
 		authRepo := NewUserRepo(gormDB)
-		Login.UserName = "sethu"
-		user, err := authRepo.FindUser(Login.UserName)
+		User.UserName = "sethu"
+		user, err := authRepo.FindUser(User.UserName)
 		assert.NoError(t, err)
 
 		t.Run("test get stored password by username is hashed", func(t *testing.T) {
