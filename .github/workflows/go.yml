@@ -16,7 +16,6 @@ jobs:
       metrix:
         go-version: [1.17,1.18,1.19]
         platform: [ubuntu-latest,macos-latest,windows-latest]
-
     runs-on: ${{ metrix.platform }
     steps:
     - uses: actions/checkout@v3
