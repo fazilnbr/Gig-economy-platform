@@ -17,6 +17,7 @@ require (
 require (
 	github.com/DATA-DOG/go-sqlmock v1.5.0
 	github.com/golang-jwt/jwt/v4 v4.5.0
+	github.com/golang/mock v1.4.4
 	github.com/razorpay/razorpay-go v0.0.0-20230215135222-7e85dffcb7f0
 	github.com/sirupsen/logrus v1.9.0
 	github.com/stretchr/testify v1.8.2
