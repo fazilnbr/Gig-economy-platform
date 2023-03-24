@@ -1,82 +1,80 @@
 package repository
 
 import (
-	"fmt"
 	"testing"
 
+	"github.com/DATA-DOG/go-sqlmock"
 	"github.com/fazilnbr/project-workey/pkg/domain"
-	"github.com/fazilnbr/project-workey/pkg/mock"
-	"github.com/fazilnbr/project-workey/pkg/utils"
-	gomock "github.com/golang/mock/gomock"
 	"github.com/stretchr/testify/assert"
+	// "github.com/fazilnbr/project-workey/pkg/repository"
 )
 
-var User = domain.User{
-	IdLogin:  1,
-	UserName: utils.RandomMail(3),
-	Password: fmt.Sprint(utils.RandomInt(10000, 99999)),
+func TestInsertUser(t *testing.T) {
+	// Create mock DB and mock query
+	db, mock, err := sqlmock.New()
+	if err != nil {
+		t.Fatalf("Error creating mock DB: %v", err)
+	}
+	defer db.Close()
+
+	mockQuery := "INSERT INTO users \\(user_name,password,user_type,verification\\) VALUES \\(\\$1,\\$2,\\$3,\\$4\\) RETURNING id_login"
+
+	// Create test user
+	testUser := domain.User{
+		UserName:     "testuser",
+		Password:     "testpassword",
+		UserType:     "testusertype",
+		Verification: true,
+	}
+
+	// Create expected result
+	expectedID := 1
+
+	// Set up mock query to expect query and return expected result
+	mock.ExpectQuery(mockQuery).WithArgs(testUser.UserName, testUser.Password, testUser.UserType, testUser.Verification).WillReturnRows(sqlmock.NewRows([]string{"id_login"}).AddRow(expectedID))
+
+	// Create user repository with mock DB
+	userRepo := NewUserRepo(db)
+
+	// Call InsertUser method
+	actualID, actualErr := userRepo.InsertUser(testUser)
+
+	assert.NoError(t, actualErr)
+	assert.Equal(t, expectedID, actualID)
 }
 
-func TestInsertUser0(t *testing.T) {
 
-	ctrl := gomock.NewController(t)
-	mockRep := mock.NewMockUserRepository(ctrl)
 
-	// exp_err:="user already exist"
-	mockRep.EXPECT().InsertUser(User).Times(1).Return(User.IdLogin, nil)
-	// mockRep.EXPECT().InsertUser(User).Times(1).Return(User.IdLogin, nil)
+func TestFindUserWithId(t *testing.T) {
+	// define mock data
+	mockUser := domain.UserResponse{
+		ID:           1,
+		UserName:     "test_user",
+		Password:     "test_password",
+		Verification: true,
+	}
 
-	id, err := mockRep.InsertUser(User)
-	t.Run("normal test case", func(t *testing.T) {
-		assert.NoError(t, err, "error found in insert user")
-		assert.Equal(t, User.IdLogin, id, "miss match user id")
-	})
+	// initialize mock DB
+	db, mock, err := sqlmock.New()
+	assert.NoError(t, err)
+	defer db.Close()
 
+	// set up mock DB to return predefined result
+	mock.ExpectQuery("SELECT id_login,user_name,password,verification FROM users WHERE id_login=\\$1 AND user_type='user'").
+		WithArgs(1).
+		WillReturnRows(sqlmock.NewRows([]string{"id_login", "user_name", "password", "verification"}).
+			AddRow(mockUser.ID, mockUser.UserName, mockUser.Password, mockUser.Verification))
+
+	// initialize repository with mock DB
+	repo := &userRepo{db: db}
+
+	// call FindUserWithId function
+	user, err := repo.FindUserWithId(1)
+
+	// assert that the function returns the expected output
+	assert.NoError(t, err)
+	assert.Equal(t, mockUser, user)
+
+	// assert that the QueryRow function of the mock DB was called with the correct query and parameters
+	assert.NoError(t, mock.ExpectationsWereMet())
 }
-
-// func TestInsertUser(t *testing.T) {
-
-// 	_, mock, mockDB := utils.MockGormDB()
-// 	t.Run("test normal case repo register", func(t *testing.T) {
-
-// 		query := "INSERT INTO users (user_name,password,user_type) VALUES (?,?,?) RETURNING id_login;"
-// 		mock.ExpectExec(query).
-// 			WithArgs(sqlmock.AnyArg(), sqlmock.AnyArg(), User.UserName, User.Password, "user").
-// 			WillReturnResult(sqlmock.NewResult(1, 1))
-
-// 		authRepo := NewUserRepo(mockDB)
-// 		id, err := authRepo.InsertUser(User)
-
-// 		t.Run("test store data with no error", func(t *testing.T) {
-// 			assert.Equal(t, nil, err.Error())
-// 			assert.NotEqual(t, 0, id)
-
-// 		})
-// 	})
-// }
-
-// func TestFindUser(t *testing.T) {
-// 	hashedPassword := "12345"
-
-// 	t.Run("test normal case repo login", func(t *testing.T) {
-// 		gormDB, mock, _ := utils.MockGormDB()
-
-// 		rows := sqlmock.NewRows([]string{"password"}).AddRow(hashedPassword)
-// 		mock.ExpectQuery("SELECT * FROM `users` WHERE username = ? ORDER BY `users`.`id` LIMIT 1").
-// 			WillReturnRows(rows)
-
-// 		authRepo := NewUserRepo(gormDB)
-// 		User.UserName = "sethu"
-// 		user, err := authRepo.FindUser(User.UserName)
-// 		assert.NoError(t, err)
-
-// 		t.Run("test get stored password by username is hashed", func(t *testing.T) {
-// 			assert.Equal(t, hashedPassword, user.Password)
-// 		})
-// 		t.Run("test return the value", func(t *testing.T) {
-// 			assert.NotEmpty(t, user)
-// 			assert.Equal(t, "sethu", user.UserName)
-// 		})
-
-// 	})
-// }
