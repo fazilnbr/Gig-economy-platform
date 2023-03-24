@@ -34,4 +34,6 @@ func TestCreateUser(t *testing.T) {
 			assert.Equal(t, "Username already exists", err.Error())
 		}
 	})
+
+	
 }
