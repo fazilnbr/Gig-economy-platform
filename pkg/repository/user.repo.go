@@ -191,7 +191,6 @@ func (c *userRepo) ViewSendOneRequest(userId int, requestId int) (domain.Request
 func (c *userRepo) ListSendRequests(pagenation utils.Filter, id int) ([]domain.RequestUserResponse, utils.Metadata, error) {
 	var requests []domain.RequestUserResponse
 
-	// query := `SELECT COUNT(*) OVER(),* FROM requests WHERE user_id=$1 ORDER BY date LIMIT $2 OFFSET $3;`
 	query := `SELECT COUNT(*) OVER(),R.id_requset, U.user_name,C.category,R.date,R.status FROM requests AS R
 			INNER JOIN jobs AS J ON R.job_id=J.id_job 
 			INNER JOIN categories AS C ON J.category_id=C.id_category
@@ -224,13 +223,9 @@ func (c *userRepo) ListSendRequests(pagenation utils.Filter, id int) ([]domain.R
 
 		requests = append(requests, request)
 	}
-	// fmt.Printf("\n\nusers : %v\n\n", requests)
-
 	if err := rows.Err(); err != nil {
 		return requests, utils.ComputeMetaData(totalRecords, pagenation.Page, pagenation.PageSize), err
 	}
-	// log.Println(requests)
-	// log.Println(utils.ComputeMetaData(totalRecords, pagenation.Page, pagenation.PageSize))
 	return requests, utils.ComputeMetaData(totalRecords, pagenation.Page, pagenation.PageSize), nil
 }
 
@@ -241,12 +236,15 @@ func (c *userRepo) DeleteJobRequest(requestId int, userid int) error {
 	var row int
 	sql := c.db.QueryRow(query, requestId, userid)
 
+	if sql.Err()!=nil{
+		return sql.Err()	
+	}
 	sql.Scan(&row)
 	if row == 0 {
 		return errors.New("There is no request to cancel")
 	}
+	return nil
 
-	return sql.Err()
 }
 
 // CheckInRequest implements interfaces.UserRepository
