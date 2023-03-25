@@ -81,8 +81,8 @@ func TestCreateUser(t *testing.T) {
 					Password: "12345",
 				}, errors.New("find user repo error"))
 				userRepo.EXPECT().InsertUser(domain.User{
-					UserName: "jon",
-					Password: "827ccb0eea8a706c4c34a16891f84e7b",
+					UserName:     "jon",
+					Password:     "827ccb0eea8a706c4c34a16891f84e7b",
 					Verification: false,
 				}).Return(1, nil)
 			},
@@ -122,7 +122,7 @@ func TestCreateUser(t *testing.T) {
 	for _, tt := range testData {
 		t.Run(tt.name, func(t *testing.T) {
 			tt.beforeTest(c)
-			 err := userusecase.CreateUser(tt.user)
+			err := userusecase.CreateUser(tt.user)
 			assert.Equal(t, tt.expectErr, err)
 		})
 	}
