@@ -16,7 +16,7 @@ var Login = domain.User{
 	Password: fmt.Sprint(utils.RandomInt(10000, 99999)),
 }
 
-func TestCreateUser(t *testing.T) {
+func TestCreateUser1(t *testing.T) {
 
 	gormDB, _,_ := utils.MockGormDB()
 	authRepoMock := repository.NewUserRepo(gormDB)

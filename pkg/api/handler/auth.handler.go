@@ -2,6 +2,7 @@ package handler
 
 import (
 	"encoding/json"
+	"fmt"
 	"io/ioutil"
 	"net/http"
 	"net/url"
@@ -688,6 +689,7 @@ func (cr *AuthHandler) SendVerificationMailWorker(c *gin.Context) {
 func (cr *AuthHandler) WorkerVerifyAccount(c *gin.Context) {
 	email := c.Query("email")
 	code, _ := strconv.Atoi(c.Query("code"))
+	fmt.Printf("\n\nemail : %v\ncode : %v\n\n ",email,code)
 
 	err := cr.authUseCase.WorkerVerifyAccount(email, code)
 
