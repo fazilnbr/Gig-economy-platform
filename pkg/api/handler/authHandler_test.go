@@ -7,15 +7,15 @@ import (
 	"net/http/httptest"
 	"testing"
 
+	"github.com/fazilnbr/project-workey/pkg/common/response"
 	"github.com/fazilnbr/project-workey/pkg/config"
-	"github.com/fazilnbr/project-workey/pkg/domain"
 	mock "github.com/fazilnbr/project-workey/pkg/mock/usecaseMock"
 	"github.com/gin-gonic/gin"
 	"github.com/golang/mock/gomock"
 	"github.com/stretchr/testify/assert"
 )
 
-func TestUserVerifyAccount(t *testing.T) {
+func TestWorkerVerifyAccount(t *testing.T) {
 	ctrl := gomock.NewController(t)
 	defer ctrl.Finish()
 
@@ -23,32 +23,45 @@ func TestUserVerifyAccount(t *testing.T) {
 	authHandler := NewAuthHandler(nil, nil, nil, nil, c, config.Config{})
 
 	testData := []struct {
-		name       string
-		email      string
-		tocken     string
-		beforeTest func(userUsecase mock.MockAuthUseCase)
-		expectUser domain.UserResponse
-		expectErr  error
+		name           string
+		email          string
+		code           string
+		beforeTest     func(userUsecase mock.MockAuthUseCase)
+		expectCode     int
+		expectResponse response.Response
+		expectErr      error
 	}{
 		{
-			name:   "test sucsess response",
-			email:  "jon",
-			tocken: "token",
+			name:  "test sucsess response",
+			email: "jon",
+			code:  "12345",
 			beforeTest: func(userUsecase mock.MockAuthUseCase) {
-				userUsecase.EXPECT().UserVerifyAccount("jon", "token").Return(nil)
+				userUsecase.EXPECT().WorkerVerifyAccount("jon", 12345).Return(nil)
 			},
-			expectUser: domain.UserResponse{UserName: "jon"},
-			expectErr:  nil,
+			expectCode: 200,
+			expectResponse: response.Response{
+				Status:  true,
+				Message: "SUCCESS",
+				Errors:  nil,
+				Data:    "jon",
+			},
+			expectErr: nil,
 		},
 		{
-			name:   "test sucsess response",
-			email:  "jon",
-			tocken: "token",
+			name:  "test sucsess response",
+			email: "ali",
+			code:  "54321",
 			beforeTest: func(userUsecase mock.MockAuthUseCase) {
-				userUsecase.EXPECT().UserVerifyAccount("jon", "token").Return(errors.New("usecase error"))
+				userUsecase.EXPECT().WorkerVerifyAccount("ali", 54321).Return(errors.New("usecase error"))
 			},
-			expectUser: domain.UserResponse{},
-			expectErr:  errors.New("usecase error"),
+			expectCode: 422,
+			expectResponse: response.Response{
+				Status:  false,
+				Message: "Error while verifing worker mail",
+				Errors:  []interface{}{"usecase error"},
+				Data:    nil,
+			},
+			expectErr: errors.New("usecase error"),
 		},
 	}
 
@@ -59,11 +72,29 @@ func TestUserVerifyAccount(t *testing.T) {
 			gin := gin.New()
 			rec := httptest.NewRecorder()
 
-			gin.POST("user/signup", authHandler.UserVerifyAccount)
+			gin.GET("/verify/account", authHandler.WorkerVerifyAccount)
 
-			req := httptest.NewRequest("POST", "/user/signup", bytes.NewBuffer(body))
+			var body []byte
+			req := httptest.NewRequest("GET", "/verify/account", bytes.NewBuffer(body))
 			req.Header.Set("Content-Type", "application/json")
+
+			// Set a query parameter named "gury" with a value of "param"
+			q := req.URL.Query()
+			q.Add("email", tt.email)
+			q.Add("code", tt.code)
+			req.URL.RawQuery = q.Encode()
+
 			gin.ServeHTTP(rec, req)
+
+			var actual response.Response
+			err := json.Unmarshal(rec.Body.Bytes(), &actual)
+			assert.NoError(t, err)
+
+			assert.Equal(t, tt.expectCode, rec.Code)
+			assert.Equal(t, tt.expectResponse.Status,actual.Status)
+			assert.Equal(t,tt.expectResponse.Message,actual.Message)
+			assert.Equal(t,tt.expectResponse.Errors,actual.Errors)
+			assert.Equal(t,tt.expectResponse.Data,actual.Data)
 
 		})
 	}
