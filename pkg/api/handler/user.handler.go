@@ -120,7 +120,7 @@ func (cr *UserHandler) UserChangePassword(c *gin.Context) {
 
 	err := c.Bind(&changepassword)
 	if err != nil {
-		response := response.ErrorResponse("Failed to create user", err.Error(), nil)
+		response := response.ErrorResponse("Failed to fetch your data", err.Error(), nil)
 		c.Writer.Header().Set("Content-Type", "application/json")
 		c.Writer.WriteHeader(http.StatusBadRequest)
 		utils.ResponseJSON(*c, response)
