@@ -12,8 +12,8 @@ services:
       - '5433:5432'
     volumes:
       - ./db:/var/lib/postgresql/data
-    # networks:
-    #   - myapp
+    networks:
+      - myapp
 
   api:
     build: . 
@@ -21,6 +21,10 @@ services:
       - 8080:8080
     restart: on-failure
     depends_on:
-      - postgres       
+      - postgres
+    networks:
+      - myapp
 volumes:
   db:
+networks:
+  myapp:
