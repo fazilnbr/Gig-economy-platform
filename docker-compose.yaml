@@ -17,6 +17,7 @@ services:
 
   api:
     build: . 
+    image: fazilnbr/job-portal-project:1.1
     env_file:
       - .env
     ports: 
