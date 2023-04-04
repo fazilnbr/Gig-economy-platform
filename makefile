@@ -1,4 +1,4 @@
-SHELL := /bin/sh
+SHELL := /bin/bash
 
 .PHONY: all build test deps deps-cleancache
 
