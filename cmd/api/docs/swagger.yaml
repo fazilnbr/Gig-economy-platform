@@ -1038,6 +1038,29 @@ paths:
       summary: user could send job request to worker
       tags:
       - User Job Request
+  /user/send-otp:
+    post:
+      operationId: SendVerificationSMS authentication
+      parameters:
+      - description: 'Phone : '
+        in: query
+        name: phone
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/github_com_fazilnbr_project-workey_pkg_common_response.Response'
+        "422":
+          description: Unprocessable Entity
+          schema:
+            $ref: '#/definitions/github_com_fazilnbr_project-workey_pkg_common_response.Response'
+      summary: Send OTP varification SMS to users
+      tags:
+      - User Authentication
   /user/send/verification:
     post:
       operationId: SendVerificationMail authentication
@@ -1118,6 +1141,34 @@ paths:
       summary: Update Job Complition
       tags:
       - User Job Request
+  /user/verify-otp:
+    post:
+      operationId: verifySMS authentication
+      parameters:
+      - description: 'Phone : '
+        in: query
+        name: phone
+        required: true
+        type: string
+      - description: 'OTP : '
+        in: query
+        name: otp
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/github_com_fazilnbr_project-workey_pkg_common_response.Response'
+        "422":
+          description: Unprocessable Entity
+          schema:
+            $ref: '#/definitions/github_com_fazilnbr_project-workey_pkg_common_response.Response'
+      summary: Verify OTP SMS to users
+      tags:
+      - User Authentication
   /user/verify/account:
     post:
       operationId: Varify OTP authentication

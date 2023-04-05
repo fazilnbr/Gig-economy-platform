@@ -23,6 +23,7 @@ func InitializeAPI(cfg config.Config) (*http.ServerHTTP, error) {
 		repository.NewUserRepo,
 		repository.NewWorkerRepo,
 		config.NewMailConfig,
+		config.NewTwilioConfig,
 		usecase.NewAdminService,
 		usecase.NewJWTUserService,
 		usecase.NewWorkerService,
