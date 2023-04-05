@@ -1,6 +1,6 @@
 package domain
 
-import jwt "github.com/golang-jwt/jwt/v4"
+import "github.com/golang-jwt/jwt/v4"
 
 type AdminResponse struct {
 	ID           int    `json:"id_login"`

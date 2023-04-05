@@ -1,6 +1,8 @@
 package handler
 
 import (
+	"fmt"
+	"log"
 	"net/http"
 	"os"
 	"strconv"
@@ -35,9 +37,10 @@ func NewUserHandler(userService services.UserUseCase) UserHandler {
 func (cr *UserHandler) UserAddProfile(c *gin.Context) {
 	id, _ := strconv.Atoi(c.Writer.Header().Get("id"))
 
+	fmt.Printf("\n\nidea : %v\n\n", id)
 	var userprofile domain.Profile
 
-	err := c.Bind(&userprofile)
+	err:=c.Bind(&userprofile)
 
 	if err != nil {
 		response := response.ErrorResponse("Failed to create user", err.Error(), nil)
@@ -77,7 +80,7 @@ func (cr *UserHandler) UserEditProfile(c *gin.Context) {
 	id, _ := strconv.Atoi(c.Writer.Header().Get("id"))
 	var userprofile domain.Profile
 
-	err := c.Bind(&userprofile)
+	err:=c.Bind(&userprofile)
 	if err != nil {
 		response := response.ErrorResponse("Failed to create user", err.Error(), nil)
 		c.Writer.Header().Set("Content-Type", "application/json")
@@ -85,6 +88,8 @@ func (cr *UserHandler) UserEditProfile(c *gin.Context) {
 		utils.ResponseJSON(*c, response)
 		return
 	}
+
+	fmt.Printf("\n\nuser Profile : \n%v\n\n%v\n\n", userprofile, id)
 
 	err = cr.userService.UserEditProfile(userprofile, id)
 
@@ -116,11 +121,12 @@ func (cr *UserHandler) UserChangePassword(c *gin.Context) {
 
 	id, _ := strconv.Atoi(c.Writer.Header().Get("id"))
 
+	fmt.Println("id : ", id)
 	var changepassword domain.ChangePassword
 
 	err := c.Bind(&changepassword)
 	if err != nil {
-		response := response.ErrorResponse("Failed to fetch your data", err.Error(), nil)
+		response := response.ErrorResponse("Failed to create user", err.Error(), nil)
 		c.Writer.Header().Set("Content-Type", "application/json")
 		c.Writer.WriteHeader(http.StatusBadRequest)
 		utils.ResponseJSON(*c, response)
@@ -170,6 +176,8 @@ func (cr *UserHandler) ListWorkersWithJob(c *gin.Context) {
 	page, _ := strconv.Atoi(c.Query("page"))
 
 	pageSize, _ := strconv.Atoi(c.Query("pagesize"))
+	fmt.Printf("\n\nuser : %v\n\nmetea : %v\n\n", page, pageSize)
+	log.Println(page, "   ", pageSize)
 
 	pagenation := utils.Filter{
 		Page:     page,
@@ -217,6 +225,8 @@ func (cr *UserHandler) SearchWorkersWithJob(c *gin.Context) {
 
 	pageSize, _ := strconv.Atoi(c.Query("pagesize"))
 	searchkey := c.Query("search")
+	fmt.Printf("\n\nuser : %v\n\nmetea : %v\n\n", page, pageSize)
+	log.Println(page, "   ", pageSize)
 
 	pagenation := utils.Filter{
 		Page:     page,
@@ -261,7 +271,7 @@ func (cr *UserHandler) UserAddToFavorite(c *gin.Context) {
 	id, _ := strconv.Atoi(c.Writer.Header().Get("id"))
 	var favorite domain.Favorite
 
-	err := c.Bind(&favorite)
+	err:=c.Bind(&favorite)
 	if err != nil {
 		response := response.ErrorResponse("Failed to create user", err.Error(), nil)
 		c.Writer.Header().Set("Content-Type", "application/json")
@@ -270,6 +280,8 @@ func (cr *UserHandler) UserAddToFavorite(c *gin.Context) {
 		return
 	}
 	favorite.UserId = id
+
+	fmt.Printf("\n\nuser Profile : \n%v\n\n%v\n\n", favorite, id)
 
 	_, err = cr.userService.AddToFavorite(favorite)
 
@@ -303,6 +315,8 @@ func (cr *UserHandler) ListFavorite(c *gin.Context) {
 	page, _ := strconv.Atoi(c.Query("page"))
 
 	pageSize, _ := strconv.Atoi(c.Query("pagesize"))
+	fmt.Printf("\n\nuser : %v\n\nmetea : %v\n\n", page, pageSize)
+	log.Println(page, "   ", pageSize)
 
 	pagenation := utils.Filter{
 		Page:     page,
@@ -346,9 +360,10 @@ func (cr *UserHandler) ListFavorite(c *gin.Context) {
 func (cr *UserHandler) UserAddAddress(c *gin.Context) {
 	id, _ := strconv.Atoi(c.Writer.Header().Get("id"))
 
+	fmt.Printf("\n\nidea : %v\n\n", id)
 	var address domain.Address
 
-	err := c.Bind(&address)
+	err:=c.Bind(&address)
 
 	if err != nil {
 		response := response.ErrorResponse("Failed to create user", err.Error(), nil)
@@ -417,6 +432,10 @@ func (cr *UserHandler) DeleteAddress(c *gin.Context) {
 	userid, _ := strconv.Atoi(c.Writer.Header().Get("id"))
 	id, _ := strconv.Atoi(c.Query("addressid"))
 
+	// c.Bind(&userprofile)
+
+	fmt.Printf("\n\nuser Profile : \n%v\n\n\n\n", id)
+
 	err := cr.userService.DeleteAddress(id, userid)
 
 	if err != nil {
@@ -447,7 +466,7 @@ func (cr *UserHandler) UserSendJobRequest(c *gin.Context) {
 	id, _ := strconv.Atoi(c.Writer.Header().Get("id"))
 	var request domain.Request
 
-	err := c.Bind(&request)
+	err:=c.Bind(&request)
 	if err != nil {
 		response := response.ErrorResponse("Failed to create user", err.Error(), nil)
 		c.Writer.Header().Set("Content-Type", "application/json")
@@ -456,6 +475,8 @@ func (cr *UserHandler) UserSendJobRequest(c *gin.Context) {
 		return
 	}
 	request.UserId = id
+
+	fmt.Printf("\n\nuser Profile : \n%v\n\n%v\n\n", request, id)
 
 	_, err = cr.userService.SendJobRequest(request)
 
@@ -523,6 +544,8 @@ func (cr *UserHandler) ListSendRequests(c *gin.Context) {
 	page, _ := strconv.Atoi(c.Query("page"))
 
 	pageSize, _ := strconv.Atoi(c.Query("pagesize"))
+	fmt.Printf("\n\nuser : %v\n\nmetea : %v\n\n", page, pageSize)
+	log.Println(page, "   ", pageSize)
 
 	pagenation := utils.Filter{
 		Page:     page,
@@ -659,13 +682,16 @@ func (cr *UserHandler) RazorPayHome(c *gin.Context) {
 
 	// Make an order in razor pay to payment
 	body, err := client.Order.Create(data, nil)
+	fmt.Println("////////////////reciept", body)
 	if err != nil {
+		fmt.Println("Problem getting the repository information", err)
 		os.Exit(1)
 	}
 
 	value := body["id"]
 
 	orderId := value.(string)
+	fmt.Println("str////////////////", orderId)
 
 	// Save the order id
 	// In razordata
@@ -699,6 +725,7 @@ func (cr *UserHandler) RazorPayHome(c *gin.Context) {
 
 }
 
+
 func (cr *UserHandler) RazorPaySuccess(c *gin.Context) {
 	// userId, _ := strconv.Atoi(c.Writer.Header().Get("id"))
 	userId := 5
@@ -706,8 +733,10 @@ func (cr *UserHandler) RazorPaySuccess(c *gin.Context) {
 	// signature := c.Query("signature")
 	orderid := c.Query("orderid")
 
+	fmt.Printf("\n\norderid :%v\n\n", orderid)
 	// Fetch razor pay request data
 	paymentId, err := cr.userService.CheckOrderId(userId, orderid)
+	fmt.Printf("\n\npayment id : %v\n\n", paymentId)
 
 	if err != nil {
 

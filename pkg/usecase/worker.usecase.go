@@ -3,6 +3,7 @@ package usecase
 import (
 	"database/sql"
 	"errors"
+	"fmt"
 
 	"github.com/fazilnbr/project-workey/pkg/domain"
 	interfaces "github.com/fazilnbr/project-workey/pkg/repository/interface"
@@ -72,6 +73,8 @@ func (c *workerService) WorkerVerifyPassword(changepassword domain.ChangePasswor
 	if err != nil {
 		return errors.New("Invalid User")
 	}
+
+	fmt.Printf("\n\nuser Profile : \n%v\n\n%v\n\n", user, changepassword.OldPassword)
 
 	isValidPassword := VerifyPassword(changepassword.OldPassword, user.Password)
 	if !isValidPassword {

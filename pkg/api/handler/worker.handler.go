@@ -1,6 +1,8 @@
 package handler
 
 import (
+	"fmt"
+	"log"
 	"net/http"
 	"strconv"
 
@@ -33,9 +35,10 @@ func NewWorkerHandler(workerService services.WorkerUseCase) WorkerHandler {
 func (cr *WorkerHandler) WorkerAddProfile(c *gin.Context) {
 	id, _ := strconv.Atoi(c.Writer.Header().Get("id"))
 
+	fmt.Printf("\n\nidea : %v\n\n", id)
 	var userprofile domain.Profile
 
-	err := c.Bind(&userprofile)
+	err:=c.Bind(&userprofile)
 	if err != nil {
 		response := response.ErrorResponse("Failed to create user", err.Error(), nil)
 		c.Writer.Header().Set("Content-Type", "application/json")
@@ -72,9 +75,10 @@ func (cr *WorkerHandler) WorkerAddProfile(c *gin.Context) {
 // @Router /worker/edit-profile [patch]
 func (cr *WorkerHandler) WorkerEditProfile(c *gin.Context) {
 	id, _ := strconv.Atoi(c.Writer.Header().Get("id"))
+	fmt.Printf("\n\n%v\n\n", id)
 	var userprofile domain.Profile
 
-	err := c.Bind(&userprofile)
+	err:=c.Bind(&userprofile)
 	if err != nil {
 		response := response.ErrorResponse("Failed to create user", err.Error(), nil)
 		c.Writer.Header().Set("Content-Type", "application/json")
@@ -82,6 +86,8 @@ func (cr *WorkerHandler) WorkerEditProfile(c *gin.Context) {
 		utils.ResponseJSON(*c, response)
 		return
 	}
+
+	fmt.Printf("\n\nuser Profile : \n%v\n\n%v\n\n", userprofile, id)
 
 	err = cr.workerService.WorkerEditProfile(userprofile, id)
 
@@ -113,6 +119,7 @@ func (cr *WorkerHandler) WorkerChangePassword(c *gin.Context) {
 
 	id, _ := strconv.Atoi(c.Writer.Header().Get("id"))
 
+	fmt.Println("id : ", id)
 	var changepassword domain.ChangePassword
 
 	err := c.Bind(&changepassword)
@@ -168,6 +175,8 @@ func (cr *WorkerHandler) ListJobCategoryUser(c *gin.Context) {
 	page, err := strconv.Atoi(c.Query("page"))
 
 	pageSize, _ := strconv.Atoi(c.Query("pagesize"))
+	fmt.Printf("\n\nuser : %v\n\nmetea : %v\n\n", page, c.Query("page"))
+	log.Println(page, "   ", pageSize)
 
 	pagenation := utils.Filter{
 		Page:     page,
@@ -195,6 +204,7 @@ func (cr *WorkerHandler) ListJobCategoryUser(c *gin.Context) {
 	result2 := []interface{}{categories, metadata}
 
 	response := response.SuccessResponse(true, "SUCCESS", result2)
+	fmt.Println(response)
 	c.Writer.Header().Set("Content-Type", "application/json")
 	c.Writer.WriteHeader(http.StatusOK)
 	utils.ResponseJSON(*c, response)
@@ -212,9 +222,11 @@ func (cr *WorkerHandler) ListJobCategoryUser(c *gin.Context) {
 func (cr *WorkerHandler) AddJob(c *gin.Context) {
 	id, _ := strconv.Atoi(c.Writer.Header().Get("id"))
 
+	fmt.Printf("\n\nidea : %v\n\n", id)
 	var workerjob domain.Job
 
-	err := c.ShouldBind(&workerjob)
+	// err:=c.Bind(&workerjob)
+	err:=c.ShouldBind(&workerjob)
 	if err != nil {
 		response := response.ErrorResponse("Failed to create user", err.Error(), nil)
 		c.Writer.Header().Set("Content-Type", "application/json")
@@ -253,6 +265,16 @@ func (cr *WorkerHandler) AddJob(c *gin.Context) {
 func (cr *WorkerHandler) ViewJob(c *gin.Context) {
 
 	id, _ := strconv.Atoi(c.Writer.Header().Get("id"))
+	// page, err := strconv.Atoi(c.Query("page"))
+
+	// pageSize, _ := strconv.Atoi(c.Query("pagesize"))
+	// fmt.Printf("\n\nuser : %v\n\nmetea : %v\n\n", page, c.Query("page"))
+	// log.Println(page, "   ", pageSize)
+
+	// pagenation := utils.Filter{
+	// 	Page:     page,
+	// 	PageSize: pageSize,
+	// }
 
 	jobs, err := cr.workerService.ViewJob(id)
 
@@ -264,6 +286,14 @@ func (cr *WorkerHandler) ViewJob(c *gin.Context) {
 		utils.ResponseJSON(*c, response)
 		return
 	}
+
+	// result := struct {
+	// 	Users *[]domain.UserResponse
+	// 	Meta  *utils.Metadata
+	// }{
+	// 	Users: users,
+	// 	Meta:  metadata,
+	// }
 
 	response := response.SuccessResponse(true, "SUCCESS", jobs)
 
@@ -283,6 +313,10 @@ func (cr *WorkerHandler) ViewJob(c *gin.Context) {
 func (cr *WorkerHandler) DeleteJob(c *gin.Context) {
 	// id, _ := strconv.Atoi(c.Writer.Header().Get("id"))
 	id, _ := strconv.Atoi(c.Query("jobid"))
+
+	// c.Bind(&userprofile)
+
+	fmt.Printf("\n\nuser Profile : \n%v\n\n\n\n", id)
 
 	err := cr.workerService.DeleteJob(id)
 
@@ -318,6 +352,8 @@ func (cr *WorkerHandler) ListPendingJobRequsetFromUser(c *gin.Context) {
 	page, err := strconv.Atoi(c.Query("page"))
 
 	pageSize, _ := strconv.Atoi(c.Query("pagesize"))
+	fmt.Printf("\n\nuser : %v\n\nmetea : %v\n\n", page, c.Query("page"))
+	log.Println(page, "   ", pageSize)
 
 	pagenation := utils.Filter{
 		Page:     page,
@@ -368,6 +404,8 @@ func (cr *WorkerHandler) ListAcceptedJobRequsetFromUser(c *gin.Context) {
 	page, err := strconv.Atoi(c.Query("page"))
 
 	pageSize, _ := strconv.Atoi(c.Query("pagesize"))
+	fmt.Printf("\n\nuser : %v\n\nmetea : %v\n\n", page, c.Query("page"))
+	log.Println(page, "   ", pageSize)
 
 	pagenation := utils.Filter{
 		Page:     page,

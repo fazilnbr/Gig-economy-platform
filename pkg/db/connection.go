@@ -2,6 +2,7 @@ package db
 
 import (
 	"database/sql"
+	"fmt"
 	"log"
 
 	config "github.com/fazilnbr/project-workey/pkg/config"
@@ -25,6 +26,7 @@ func ConnectDB(cfg config.Config) *sql.DB {
 	// verifies connection to the database is still alive
 	err = db.Ping()
 	if err != nil {
+		fmt.Println("error in pinging")
 		log.Fatal(err)
 
 	}

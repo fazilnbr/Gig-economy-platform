@@ -2,7 +2,7 @@ package interfaces
 
 import (
 	model "github.com/fazilnbr/project-workey/pkg/domain"
-	jwt "github.com/golang-jwt/jwt/v4"
+	"github.com/golang-jwt/jwt/v4"
 )
 
 type JWTUseCase interface {

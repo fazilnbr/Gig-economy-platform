@@ -8,7 +8,7 @@ import (
 
 	model "github.com/fazilnbr/project-workey/pkg/domain"
 	services "github.com/fazilnbr/project-workey/pkg/usecase/interface"
-	jwt "github.com/golang-jwt/jwt/v4"
+	"github.com/golang-jwt/jwt/v4"
 )
 
 type JWTUseCase struct {

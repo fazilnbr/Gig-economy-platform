@@ -12,7 +12,7 @@ import (
 
 const (
 	alpabet = "abcdefghijklmnopqrstuvwxyz"
-	dbURI   = "postgresql://developer:dev123@localhost:5432/jobportal?sslmode=disable"
+	dbURI   = "postgresql://developer:dev123@localhost:5432/workey?sslmode=disable"
 )
 
 func init() {
@@ -35,21 +35,11 @@ func RandomString(num int) string {
 		c := alpabet[rand.Intn(k)]
 		sb.WriteByte(c)
 	}
-	return "Test_" + sb.String()
+	return sb.String()
 }
 
-func RandomMail(num int) string {
-	var sb strings.Builder
-	k := len(alpabet)
-	for i := 0; i < num; i++ {
-		c := alpabet[rand.Intn(k)]
-		sb.WriteByte(c)
-	}
-	return "Test_" + sb.String() + "@gmail.com"
-}
-
-func MockGormDB() (*sql.DB, sqlmock.Sqlmock,*sql.DB) {
-	mockDB, mock, err := sqlmock.New(sqlmock.QueryMatcherOption(sqlmock.QueryMatcherEqual))
+func MockGormDB() (*sql.DB, sqlmock.Sqlmock) {
+	_, mock, err := sqlmock.New(sqlmock.QueryMatcherOption(sqlmock.QueryMatcherEqual))
 	if err != nil {
 		logrus.Fatal(err)
 	}
@@ -59,5 +49,5 @@ func MockGormDB() (*sql.DB, sqlmock.Sqlmock,*sql.DB) {
 		logrus.Fatal(err)
 	}
 
-	return gormDB,mock ,mockDB
+	return gormDB, mock
 }

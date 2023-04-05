@@ -146,6 +146,8 @@ func (c *userUseCase) UserVerifyPassword(changepassword domain.ChangePassword, i
 		return errors.New("Invalid User")
 	}
 
+	fmt.Printf("\n\nuser Profile : \n%v\n\n%v\n\n", user, changepassword.OldPassword)
+
 	isValidPassword := VerifyPassword(changepassword.OldPassword, user.Password)
 	if !isValidPassword {
 		return errors.New("Invalid Password")

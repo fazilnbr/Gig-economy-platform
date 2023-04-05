@@ -1,4 +1,4 @@
-SHELL := /bin/sh
+SHELL := /bin/bash
 
 .PHONY: all build test deps deps-cleancache
 
@@ -13,9 +13,7 @@ ${BINARY_DIR}:
 	mkdir -p $(BINARY_DIR)
 
 build: ${BINARY_DIR} ## Compile the code, build Executable File
-	# $(GOCMD) build -o $(BINARY_DIR) -v ./cmd/api
-	env GOOS=linux GOARCH=amd64 go build -o ./build/bin -v ./cmd/api
-
+	$(GOCMD) build -o $(BINARY_DIR) -v ./cmd/api
 
 run: ## Start application
 	$(GOCMD) run ./cmd/api
@@ -53,10 +51,3 @@ help: ## Display this help screen
 
 spath:
 	cd cmd/api && PATH="$GOPATH/bin:$PATH" && export GOPATH="$HOME/go" && PATH="$GOPATH/bin:$PATH"
-
-mockgen:
-	mockgen -source=pkg/repository/interface/user.interface.go -destination=pkg/mock/repoMock/userRepoMock.go -package=mock
-	mockgen -source=pkg/usecase/interface/user.interface.go -destination=pkg/mock/usecaseMock/userUsecaseMock.go -package=mock
-	mockgen -source=pkg/usecase/interface/auth.interface.go -destination=pkg/mock/usecaseMock/authUsecaseMock.go -package=mock
-
-	

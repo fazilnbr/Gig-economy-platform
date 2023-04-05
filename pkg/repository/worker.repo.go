@@ -3,6 +3,8 @@ package repository
 import (
 	"database/sql"
 	"errors"
+	"fmt"
+	"log"
 
 	"github.com/fazilnbr/project-workey/pkg/domain"
 	interfaces "github.com/fazilnbr/project-workey/pkg/repository/interface"
@@ -109,6 +111,8 @@ func (c *workerRepository) ListAcceptedJobRequsetFromUser(pagenation utils.Filte
 	if err := rows.Err(); err != nil {
 		return requests, utils.ComputeMetaData(totalRecords, pagenation.Page, pagenation.PageSize), err
 	}
+	log.Println(requests)
+	log.Println(utils.ComputeMetaData(totalRecords, pagenation.Page, pagenation.PageSize))
 	return requests, utils.ComputeMetaData(totalRecords, pagenation.Page, pagenation.PageSize), nil
 }
 
@@ -163,6 +167,8 @@ func (c *workerRepository) ListPendingJobRequsetFromUser(pagenation utils.Filter
 	if err := rows.Err(); err != nil {
 		return requests, utils.ComputeMetaData(totalRecords, pagenation.Page, pagenation.PageSize), err
 	}
+	log.Println(requests)
+	log.Println(utils.ComputeMetaData(totalRecords, pagenation.Page, pagenation.PageSize))
 	return requests, utils.ComputeMetaData(totalRecords, pagenation.Page, pagenation.PageSize), nil
 }
 
@@ -193,6 +199,7 @@ func (c *workerRepository) ViewJob(id int) ([]domain.WorkerJob, error) {
 				WHERE J.id_worker=$1;`
 
 	rows, err := c.db.Query(query, id)
+	fmt.Println(err)
 
 	if err != nil {
 		return nil, err
@@ -231,6 +238,7 @@ func (c *workerRepository) AddJob(job domain.Job) (int, error) {
 		job.CategoryId,
 		job.IdWorker,
 	)
+	fmt.Println("rows : ", rows)
 	if err != nil {
 		return 0, err
 	}
@@ -249,6 +257,7 @@ func (c *workerRepository) AddJob(job domain.Job) (int, error) {
 		}
 	}
 
+	fmt.Println("id : ", Id)
 	if Id != 0 {
 		return 0, errors.New("This Job is already added by you")
 	}
@@ -309,12 +318,15 @@ func (c *workerRepository) ListJobCategoryUser(pagenation utils.Filter) ([]domai
 	if err := rows.Err(); err != nil {
 		return categories, utils.ComputeMetaData(totalRecords, pagenation.Page, pagenation.PageSize), err
 	}
+	log.Println(categories)
+	log.Println(utils.ComputeMetaData(totalRecords, pagenation.Page, pagenation.PageSize))
 	return categories, utils.ComputeMetaData(totalRecords, pagenation.Page, pagenation.PageSize), nil
 }
 
 // ChangePassword implements interfaces.UserRepository
 func (c *workerRepository) WorkerChangePassword(changepassword string, id int) (int, error) {
 	var Id int
+	fmt.Println("id", id)
 	query := ` UPDATE users
 	SET password = $1
 	WHERE id_login = $2
@@ -366,6 +378,8 @@ func (c *workerRepository) WorkerEditProfile(userProfile domain.Profile, id int)
 		&Id,
 	)
 
+	fmt.Printf("\n\nerr : %v\n%v\n\n", userProfile, err)
+
 	return Id, err
 }
 
@@ -408,6 +422,7 @@ func (c *workerRepository) FindWorker(email string) (domain.WorkerResponse, erro
 		&worker.UserName,
 		&worker.Password,
 	)
+	fmt.Print("\n", email, worker, err)
 
 	return worker, err
 }
@@ -457,6 +472,7 @@ func (c *workerRepository) VerifyAccount(email string, code int) error {
 	WHERE
 	user_name = $2 ;`
 	err = c.db.QueryRow(query, true, email).Err()
+	log.Println("Updating User verification: ", err)
 	if err != nil {
 		return err
 	}
