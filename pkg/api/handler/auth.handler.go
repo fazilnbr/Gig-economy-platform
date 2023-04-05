@@ -133,23 +133,20 @@ func (cr *AuthHandler) SendVerificationOTPtoUser(c *gin.Context) {
 	utils.ResponseJSON(*c, response)
 }
 
-
-
-
-// @Summary Send OTP varification SMS to users
-// @ID SendVerificationSMS authentication
+// @Summary Verify OTP SMS to users
+// @ID verifySMS authentication
 // @Tags User Authentication
 // @Produce json
 // @Param        phone   query      string  true  "Phone : "
 // @Param        otp   query      string  true  "OTP : "
 // @Success 200 {object} response.Response{}
 // @Failure 422 {object} response.Response{}
-// @Router /user/send-otp [post]
+// @Router /user/verify-otp [post]
 func (cr *AuthHandler) VerifyOTPtoUser(c *gin.Context) {
 	phone := c.Query("phone")
 	otp := c.Query("otp")
 
-	err := cr.authUseCase.VarifyOTP(phone,otp)
+	err := cr.authUseCase.VarifyOTP(phone, otp)
 
 	if err != nil {
 		response := response.ErrorResponse("Error while sending OTP to user", err.Error(), nil)
@@ -186,10 +183,6 @@ func (cr *AuthHandler) VerifyOTPtoUser(c *gin.Context) {
 	c.Writer.WriteHeader(http.StatusOK)
 	utils.ResponseJSON(*c, response)
 }
-
-
-
-
 
 // @Summary Authenticate With Google
 // @ID Authenticate With Google

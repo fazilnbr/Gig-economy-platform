@@ -14,7 +14,23 @@ type twilioConfig struct{}
 
 // VerifyOTP implements TwilioConfig
 func (*twilioConfig) VerifyOTP(cfg Config, phone string, otp string) error {
-	return nil
+	accountSid := cfg.TWAccountSID
+	serviceSid := cfg.TWVerifyServiseSID
+	authToken := cfg.TWAuthTocken
+	// fromPhone := cfg.TWFromPhone
+	client := twilio.NewRestClientWithParams(twilio.ClientParams{
+		Username: accountSid,
+		AccountSid: serviceSid,
+		Password: authToken,
+	})
+
+	params := &verify.CreateVerificationCheckParams{}
+	params.SetTo(phone)
+	params.SetCode(otp)
+
+	_, err := client.VerifyV2.CreateVerificationCheck(serviceSid, params)
+
+	return err
 }
 
 func (c *twilioConfig) SendOTP(cfg Config, to string) error {
@@ -23,6 +39,7 @@ func (c *twilioConfig) SendOTP(cfg Config, to string) error {
 	authToken := cfg.TWAuthTocken
 	// fromPhone := cfg.TWFromPhone
 	client := twilio.NewRestClientWithParams(twilio.ClientParams{
+		AccountSid: serviceSid,
 		Username: accountSid,
 		Password: authToken,
 	})
