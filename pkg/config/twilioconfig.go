@@ -1,7 +1,7 @@
 package config
 
 type TwilioConfig interface {
-	SendOTP(cfg Config, to string, message []byte) error
+	SendOTP(to string) error
 }
 
 type twilioConfig struct{}
@@ -10,6 +10,7 @@ func NewTwilioConfig() TwilioConfig {
 	return &twilioConfig{}
 }
 
-func (c *twilioConfig) SendOTP(cfg Config, to string, message []byte) error {
+func (c *twilioConfig) SendOTP(to string) error {
+	
 	return nil
 }

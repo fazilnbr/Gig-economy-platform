@@ -21,10 +21,19 @@ type Config struct {
 	OauthStateString string `mapstructure:"OauthStateString"`
 	ClientID         string `mapstructure:"ClientID"`
 	ClientSecret     string `mapstructure:"ClientSecret"`
+	TWAccountSID string `mapstructure:"ACCOUNT_SID"`
+	TWVerifyServiseSID string `mapstructure:"VERIFY_SERVICE_SID"`
+	TWAuthTocken string `mapstructure:"AUTH_TOKEN"`
+	TWFromPhone string `mapstructure:"FROM_PHONE"`
 }
 
+
+
+
+
+
 var envs = []string{
-	"DB_HOST", "DB_NAME", "DB_USER", "DB_PORT", "DB_PASSWORD", "DB_SOURCE", "SMTP_PORT", "SMTP_HOST", "SMTP_PASSWORD", "SMTP_USERNAME", "OauthStateString", "ClientID", "ClientSecret",
+	"DB_HOST", "DB_NAME", "DB_USER", "DB_PORT", "DB_PASSWORD", "DB_SOURCE", "SMTP_PORT", "SMTP_HOST", "SMTP_PASSWORD", "SMTP_USERNAME", "OauthStateString", "ClientID", "ClientSecret", "ACCOUNT_SID", "VERIFY_SERVICE_SID", "AUTH_TOKEN", "FROM_PHONE",
 }
 
 func LoadConfig() (Config, error) {
