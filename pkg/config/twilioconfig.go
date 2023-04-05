@@ -7,12 +7,14 @@ import (
 
 type TwilioConfig interface {
 	SendOTP(cfg Config, to string) error
+	VerifyOTP(cfg Config, phone string, otp string) error
 }
 
 type twilioConfig struct{}
 
-func NewTwilioConfig() TwilioConfig {
-	return &twilioConfig{}
+// VerifyOTP implements TwilioConfig
+func (*twilioConfig) VerifyOTP(cfg Config, phone string, otp string) error {
+	return nil
 }
 
 func (c *twilioConfig) SendOTP(cfg Config, to string) error {
@@ -32,4 +34,8 @@ func (c *twilioConfig) SendOTP(cfg Config, to string) error {
 	_, err := client.VerifyV2.CreateVerification(serviceSid, params)
 
 	return err
+}
+
+func NewTwilioConfig() TwilioConfig {
+	return &twilioConfig{}
 }

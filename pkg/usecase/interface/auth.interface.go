@@ -5,6 +5,7 @@ type AuthUseCase interface {
 	VerifyAdmin(email string, password string) error
 	VerifyWorker(email string, password string) error
 	SendOTP(phone string) error
+	VarifyOTP(phone string,otp string) error
 	SendVerificationEmail(email string) error
 	UserVerifyAccount(email string, code string) error
 	WorkerVerifyAccount(email string, code int) error

@@ -20,6 +20,11 @@ type authUseCase struct {
 	config       config.Config
 }
 
+// VarifyOTP implements interfaces.AuthUseCase
+func (c *authUseCase) VarifyOTP(phone string, otp string) error {
+	return c.twilioConfig.VerifyOTP(c.config,phone,otp)
+}
+
 // SendOTP implements interfaces.AuthUseCase
 func (c *authUseCase) SendOTP(phone string) error {
 	return c.twilioConfig.SendOTP(c.config, phone)
