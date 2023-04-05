@@ -16,11 +16,13 @@ type authUseCase struct {
 	workerRepo interfaces.WorkerRepository
 	userRepo   interfaces.UserRepository
 	mailConfig config.MailConfig
+	twilioConfig config.TwilioConfig
 	config     config.Config
 }
 
 // SendOTP implements interfaces.AuthUseCase
 func (c *authUseCase) SendOTP(phone string) error {
+	
 	return nil
 }
 
@@ -182,6 +184,7 @@ func NewAuthService(
 	workerRepo interfaces.WorkerRepository,
 	userRepo interfaces.UserRepository,
 	mailConfig config.MailConfig,
+	twilioConfig config.TwilioConfig,
 	config config.Config,
 ) services.AuthUseCase {
 	return &authUseCase{
@@ -189,6 +192,7 @@ func NewAuthService(
 		workerRepo: workerRepo,
 		userRepo:   userRepo,
 		mailConfig: mailConfig,
+		twilioConfig: twilioConfig,
 		config:     config,
 	}
 }

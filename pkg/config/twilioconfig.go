@@ -6,10 +6,10 @@ type TwilioConfig interface {
 
 type twilioConfig struct{}
 
-func NewTwilioConfig() MailConfig {
-	return &mailConfig{}
+func NewTwilioConfig() TwilioConfig {
+	return &twilioConfig{}
 }
 
-func (c *mailConfig) SendOTP(cfg Config, to string, message []byte) error {
+func (c *twilioConfig) SendOTP(cfg Config, to string, message []byte) error {
 	return nil
 }
