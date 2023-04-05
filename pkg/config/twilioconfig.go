@@ -1,8 +1,6 @@
 package config
 
 import (
-	"fmt"
-
 	"github.com/twilio/twilio-go"
 	verify "github.com/twilio/twilio-go/rest/verify/v2"
 )
@@ -31,7 +29,7 @@ func (c *twilioConfig) SendOTP(cfg Config, to string) error {
 	params := &verify.CreateVerificationParams{}
 	params.SetTo(phone)
 	params.SetChannel("sms")
-	resp, err := client.VerifyV2.CreateVerification(serviceSid, params)
-	fmt.Printf("\n\nsid : %v\n\n",resp.Sid)
+	_, err := client.VerifyV2.CreateVerification(serviceSid, params)
+
 	return err
 }
