@@ -22,8 +22,7 @@ type authUseCase struct {
 
 // SendOTP implements interfaces.AuthUseCase
 func (c *authUseCase) SendOTP(phone string) error {
-	err := c.twilioConfig.SendOTP(phone)
-	return err
+	return c.twilioConfig.SendOTP(c.config, phone)
 }
 
 // WorkerVerifyAccount implements interfaces.AuthUseCase

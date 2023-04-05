@@ -20,6 +20,7 @@ require (
 	github.com/razorpay/razorpay-go v0.0.0-20230215135222-7e85dffcb7f0
 	github.com/sirupsen/logrus v1.9.0
 	github.com/stretchr/testify v1.8.2
+	github.com/twilio/twilio-go v1.4.0
 	golang.org/x/oauth2 v0.6.0
 )
 
@@ -29,9 +30,11 @@ require (
 	github.com/bytedance/sonic v1.8.7 // indirect
 	github.com/chenzhuoyu/base64x v0.0.0-20221115062448-fe3a3abad311 // indirect
 	github.com/davecgh/go-spew v1.1.1 // indirect
+	github.com/golang/mock v1.6.0 // indirect
 	github.com/golang/protobuf v1.5.3 // indirect
 	github.com/jackc/pgx/v5 v5.3.1 // indirect
 	github.com/klauspost/cpuid/v2 v2.2.4 // indirect
+	github.com/pkg/errors v0.9.1 // indirect
 	github.com/pmezard/go-difflib v1.0.0 // indirect
 	github.com/twitchyliquid64/golang-asm v0.15.1 // indirect
 	golang.org/x/arch v0.3.0 // indirect
