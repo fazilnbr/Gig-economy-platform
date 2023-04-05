@@ -84,6 +84,55 @@ func (cr *AuthHandler) InitializeOAuthGoogle() {
 // @BasePath /
 // @query.collection.format multi
 
+// @Summary Send OTP varification SMS to users
+// @ID SendVerificationSMS authentication
+// @Tags User Authentication
+// @Produce json
+// @Param        phone   query      string  true  "Phone : "
+// @Success 200 {object} response.Response{}
+// @Failure 422 {object} response.Response{}
+// @Router /user/send-otp [post]
+func (cr *AuthHandler) SendVerificationOTPtoUser(c *gin.Context) {
+	phone := c.Query("phone")
+
+	err := cr.authUseCase.SendOTP(phone)
+
+	if err != nil {
+		response := response.ErrorResponse("Error while sending OTP to user", err.Error(), nil)
+		c.Writer.Header().Set("Content-Type", "application/json")
+		c.Writer.WriteHeader(http.StatusUnprocessableEntity)
+
+		utils.ResponseJSON(*c, response)
+		return
+	}
+
+	// token, err := cr.jwtUseCase.GenerateAccessToken(user.ID, user.UserName, "admin")
+	// if err != nil {
+	// 	response := response.ErrorResponse("Failed to generate access token", err.Error(), nil)
+	// 	c.Writer.Header().Add("Content-Type", "application/json")
+	// 	c.Writer.WriteHeader(http.StatusUnauthorized)
+	// 	utils.ResponseJSON(*c, response)
+	// 	return
+	// }
+	// user.AccessToken = token
+
+	// token, err = cr.jwtUseCase.GenerateRefreshToken(user.ID, user.UserName, "admin")
+
+	// if err != nil {
+	// 	response := response.ErrorResponse("Failed to generate refresh token", err.Error(), nil)
+	// 	c.Writer.Header().Add("Content-Type", "application/json")
+	// 	c.Writer.WriteHeader(http.StatusUnauthorized)
+	// 	utils.ResponseJSON(*c, response)
+	// 	return
+	// }
+	// user.RefreshToken = token
+
+	response := response.SuccessResponse(true, "SUCCESS", phone)
+	c.Writer.Header().Set("Content-Type", "application/json")
+	c.Writer.WriteHeader(http.StatusOK)
+	utils.ResponseJSON(*c, response)
+}
+
 // @Summary Authenticate With Google
 // @ID Authenticate With Google
 // @Tags User Authentication
@@ -589,29 +638,6 @@ func (cr *AuthHandler) SendVerificationMailUser(c *gin.Context) {
 	}
 
 	user, err = cr.userUseCase.FindUser(user.UserName)
-	// fmt.Printf("\n\n\n%v\n%v\n\n", user, err)
-
-	// token, err := cr.jwtUseCase.GenerateAccessToken(user.ID, user.UserName, "admin")
-	// if err != nil {
-	// 	response := response.ErrorResponse("Failed to generate access token", err.Error(), nil)
-	// 	c.Writer.Header().Add("Content-Type", "application/json")
-	// 	c.Writer.WriteHeader(http.StatusUnauthorized)
-	// 	utils.ResponseJSON(*c, response)
-	// 	return
-	// }
-	// user.AccessToken = token
-
-	// token, err = cr.jwtUseCase.GenerateRefreshToken(user.ID, user.UserName, "admin")
-
-	// if err != nil {
-	// 	response := response.ErrorResponse("Failed to generate refresh token", err.Error(), nil)
-	// 	c.Writer.Header().Add("Content-Type", "application/json")
-	// 	c.Writer.WriteHeader(http.StatusUnauthorized)
-	// 	utils.ResponseJSON(*c, response)
-	// 	return
-	// }
-	// user.RefreshToken = token
-
 	user.Password = ""
 	response := response.SuccessResponse(true, "SUCCESS", user)
 	c.Writer.Header().Set("Content-Type", "application/json")

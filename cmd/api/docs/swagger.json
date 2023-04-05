@@ -1435,6 +1435,41 @@
                 }
             }
         },
+        "/user/send-otp": {
+            "post": {
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "User Authentication"
+                ],
+                "summary": "Send OTP varification SMS to users",
+                "operationId": "SendVerificationSMS authentication",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "Phone : ",
+                        "name": "phone",
+                        "in": "query",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/github_com_fazilnbr_project-workey_pkg_common_response.Response"
+                        }
+                    },
+                    "422": {
+                        "description": "Unprocessable Entity",
+                        "schema": {
+                            "$ref": "#/definitions/github_com_fazilnbr_project-workey_pkg_common_response.Response"
+                        }
+                    }
+                }
+            }
+        },
         "/user/send/verification": {
             "post": {
                 "produces": [

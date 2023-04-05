@@ -19,6 +19,11 @@ type authUseCase struct {
 	config     config.Config
 }
 
+// SendOTP implements interfaces.AuthUseCase
+func (c *authUseCase) SendOTP(phone string) error {
+	return nil
+}
+
 // WorkerVerifyAccount implements interfaces.AuthUseCase
 func (c *authUseCase) WorkerVerifyAccount(email string, code int) error {
 	err := c.workerRepo.VerifyAccount(email, code)

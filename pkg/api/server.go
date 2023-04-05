@@ -73,6 +73,9 @@ func NewServerHTTP(authHandler handler.AuthHandler, adminHandler handler.AdminHa
 			user.POST("/send/verification", authHandler.SendVerificationMailUser)
 			user.GET("/verify/account", authHandler.UserVerifyAccount)
 
+			// Send OTP with twilio
+			user.POST("/send-otp", authHandler.SendVerificationOTPtoUser)
+
 			// Google authentication
 			user.GET("/login-gl", authHandler.GoogleAuth)
 			user.GET("/callback-gl", authHandler.CallBackFromGoogle)
