@@ -127,6 +127,7 @@ func TestUserChangePassword(t *testing.T) {
 			assert.NoError(t, err)
 			req := httptest.NewRequest("PATCH", "/change-password", bytes.NewBuffer(body))
 			req.Header.Set("Content-Type", "application/json")
+			
 
 			// Set a query parameter named "gury" with a value of "param"
 			q := req.URL.Query()
