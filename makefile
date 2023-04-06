@@ -54,6 +54,7 @@ spath:
 
 mockgen: ## Generate mock repocitory and usecase functions 
 	mockgen -source=pkg/repository/interface/user.interface.go -destination=pkg/mock/repoMock/userRepoMock.go -package=mock
+	mockgen -source=pkg/repository/interface/worker.interface.go -destination=pkg/mock/repoMock/workerRepoMock.go -package=mock
 	mockgen -source=pkg/usecase/interface/user.interface.go -destination=pkg/mock/usecaseMock/userUsecaseMock.go -package=mock
 	mockgen -source=pkg/usecase/interface/auth.interface.go -destination=pkg/mock/usecaseMock/authUsecaseMock.go -package=mock
 
