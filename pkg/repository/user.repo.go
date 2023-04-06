@@ -246,12 +246,14 @@ func (c *userRepo) DeleteJobRequest(requestId int, userid int) error {
 	var row int
 	sql := c.db.QueryRow(query, requestId, userid)
 
+	if sql.Err()!=nil{
+		return sql.Err()	
+	}
 	sql.Scan(&row)
 	if row == 0 {
 		return errors.New("There is no request to cancel")
 	}
-
-	return sql.Err()
+	return nil
 }
 
 // CheckInRequest implements interfaces.UserRepository
