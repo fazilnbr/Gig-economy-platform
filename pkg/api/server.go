@@ -18,7 +18,7 @@ type ServerHTTP struct {
 func NewServerHTTP(authHandler handler.AuthHandler, adminHandler handler.AdminHandler, UserHandler handler.UserHandler, WorkerHandler handler.WorkerHandler, middleware middleware.Middleware) *ServerHTTP {
 	authHandler.InitializeOAuthGoogle()
 	engine := gin.New()
-	engine.LoadHTMLGlob("views/*.html")
+	engine.LoadHTMLGlob("pkg/views/*.html")
 
 	// Use logger from Gin
 	engine.Use(gin.Logger())
