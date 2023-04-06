@@ -29,6 +29,16 @@ make deps
 # Please make sure you are export the env for GOPATH
 make wire
 
+# Generate mock repocitory and usecase functions
+make mockgen
+
+# Run tests
+
+make test
+
+# To generate api documentation with swagger
+make swag
+
 # Run the project in Development Mode
 make run
 ```
@@ -45,7 +55,9 @@ deps                           Install dependencies
 deps-cleancache                Clear cache in Go module
 wire                           Generate wire_gen.go
 swag                           Generate swagger docs
+mockgen                        Generate mock repocitory and usecase functions 
 help                           Display this help screen
+
 ```
 
 API DOCUMENTATION-SWAGGER

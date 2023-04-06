@@ -48,15 +48,15 @@ wire: ## Generate wire_gen.go
 swag: ## Generate swagger2 docs
 	swag init -g pkg/api/handler/auth.handler.go --parseDependency -o ./cmd/api/docs
 
-help: ## Display this help screen
-	@grep -h -E '^[a-zA-Z_-]+:.*?## .*$$' $(MAKEFILE_LIST) | awk 'BEGIN {FS = ":.*?## "}; {printf "\033[36m%-30s\033[0m %s\n", $$1, $$2}'
 
 spath:
 	cd cmd/api && PATH="$GOPATH/bin:$PATH" && export GOPATH="$HOME/go" && PATH="$GOPATH/bin:$PATH"
 
-mockgen:
+mockgen: ## Generate mock repocitory and usecase functions 
 	mockgen -source=pkg/repository/interface/user.interface.go -destination=pkg/mock/repoMock/userRepoMock.go -package=mock
 	mockgen -source=pkg/usecase/interface/user.interface.go -destination=pkg/mock/usecaseMock/userUsecaseMock.go -package=mock
 	mockgen -source=pkg/usecase/interface/auth.interface.go -destination=pkg/mock/usecaseMock/authUsecaseMock.go -package=mock
 
 	
+help: ## Display this help screen
+	@grep -h -E '^[a-zA-Z_-]+:.*?## .*$$' $(MAKEFILE_LIST) | awk 'BEGIN {FS = ":.*?## "}; {printf "\033[36m%-30s\033[0m %s\n", $$1, $$2}'
