@@ -8,29 +8,24 @@ import (
 )
 
 type Config struct {
-	DBHost           string `mapstructure:"DB_HOST"`
-	DBName           string `mapstructure:"DB_NAME"`
-	DBUser           string `mapstructure:"DB_USER"`
-	DBPort           string `mapstructure:"DB_PORT"`
-	DBPassword       string `mapstructure:"DB_PASSWORD"`
-	DBSOURCE         string `mapstructure:"DB_SOURCE"`
-	SMTPPORT         string `mapstructure:"SMTP_PORT"`
-	SMTPHOST         string `mapstructure:"SMTP_HOST"`
-	SMTPPASSWORD     string `mapstructure:"SMTP_PASSWORD"`
-	SMTPUSERNAME     string `mapstructure:"SMTP_USERNAME"`
-	OauthStateString string `mapstructure:"OauthStateString"`
-	ClientID         string `mapstructure:"ClientID"`
-	ClientSecret     string `mapstructure:"ClientSecret"`
-	TWAccountSID string `mapstructure:"ACCOUNT_SID"`
+	DBHost             string `mapstructure:"DB_HOST"`
+	DBName             string `mapstructure:"DB_NAME"`
+	DBUser             string `mapstructure:"DB_USER"`
+	DBPort             string `mapstructure:"DB_PORT"`
+	DBPassword         string `mapstructure:"DB_PASSWORD"`
+	DBSOURCE           string `mapstructure:"DB_SOURCE"`
+	SMTPPORT           string `mapstructure:"SMTP_PORT"`
+	SMTPHOST           string `mapstructure:"SMTP_HOST"`
+	SMTPPASSWORD       string `mapstructure:"SMTP_PASSWORD"`
+	SMTPUSERNAME       string `mapstructure:"SMTP_USERNAME"`
+	OauthStateString   string `mapstructure:"OauthStateString"`
+	ClientID           string `mapstructure:"ClientID"`
+	ClientSecret       string `mapstructure:"ClientSecret"`
+	TWAccountSID       string `mapstructure:"ACCOUNT_SID"`
 	TWVerifyServiseSID string `mapstructure:"VERIFY_SERVICE_SID"`
-	TWAuthTocken string `mapstructure:"AUTH_TOKEN"`
-	TWFromPhone string `mapstructure:"FROM_PHONE"`
+	TWAuthTocken       string `mapstructure:"AUTH_TOKEN"`
+	TWFromPhone        string `mapstructure:"FROM_PHONE"`
 }
-
-
-
-
-
 
 var envs = []string{
 	"DB_HOST", "DB_NAME", "DB_USER", "DB_PORT", "DB_PASSWORD", "DB_SOURCE", "SMTP_PORT", "SMTP_HOST", "SMTP_PASSWORD", "SMTP_USERNAME", "OauthStateString", "ClientID", "ClientSecret", "ACCOUNT_SID", "VERIFY_SERVICE_SID", "AUTH_TOKEN", "FROM_PHONE",

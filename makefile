@@ -1,4 +1,6 @@
-SHELL := /bin/bash
+# Switch SHELL when user docker
+SHELL := /bin/sh		# for docker
+# SHELL := /bin/bash  	# for local
 
 .PHONY: all build test deps deps-cleancache
 
