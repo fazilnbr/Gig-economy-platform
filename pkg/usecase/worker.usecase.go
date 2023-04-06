@@ -133,21 +133,7 @@ func (c *workerService) CreateUser(newWorker domain.User) error {
 func (c *workerService) FindWorker(email string) (*domain.WorkerResponse, error) {
 	user, err := c.workerRepo.FindWorker(email)
 
-	if err != nil {
-		return nil, err
-	}
-
-	return &user, nil
-}
-
-// SendVerificationEmail implements interfaces.WorkerUseCase
-func (*workerService) SendVerificationEmail(email string) error {
-	panic("unimplemented")
-}
-
-// VerifyAccount implements interfaces.WorkerUseCase
-func (*workerService) VerifyAccount(email string, code int) error {
-	panic("unimplemented")
+	return &user, err
 }
 
 func NewWorkerService(workerRepo interfaces.WorkerRepository) services.WorkerUseCase {

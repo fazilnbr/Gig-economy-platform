@@ -8,8 +8,6 @@ import (
 type WorkerUseCase interface {
 	CreateUser(newWorker domain.User) error
 	FindWorker(email string) (*domain.WorkerResponse, error)
-	SendVerificationEmail(email string) error
-	VerifyAccount(email string, code int) error
 	AddProfile(workerProfile domain.Profile, id int) error
 	WorkerEditProfile(userProfile domain.Profile, id int) error
 	WorkerVerifyPassword(changepassword domain.ChangePassword, id int) error
