@@ -1,4 +1,5 @@
 # Job_Portal_Project
+
 This is a REST API Job Portal project for unorganized job sector
 
 
@@ -59,6 +60,7 @@ mockgen                        Generate mock repocitory and usecase functions
 help                           Display this help screen
 
 ```
+
 
 API DOCUMENTATION-SWAGGER
 ### `https://fazilnbr.online/swagger/index.html`
