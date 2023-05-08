@@ -1,7 +1,7 @@
 # Job_Portal_Project
 
 This is a REST API Job Portal project for unorganized job sector
-
+User can search worker for there need
 
 
 # Clean Architecture using Golang with Gin framework
