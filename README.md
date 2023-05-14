@@ -1,6 +1,6 @@
-# Job_Portal_Project
+# Gig-Economy-Platform
 
-This is a REST API Job Portal project for unorganized job sector
+This is a REST API Gig economy platform for unorganized job sector
 User can search worker for there need
 
 
