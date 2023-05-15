@@ -62,8 +62,6 @@ help                           Display this help screen
 ```
 
 
-API DOCUMENTATION-SWAGGER
-### `https://fazilnbr.online/swagger/index.html`
 
 
 
